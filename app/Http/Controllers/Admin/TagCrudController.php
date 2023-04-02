@@ -31,7 +31,7 @@ class TagCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Tag::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tag');
-        CRUD::setEntityNameStrings('tag', 'tags');
+        CRUD::setEntityNameStrings(__('models.tag'), __('models.tags'));
     }
 
     /**
@@ -42,8 +42,8 @@ class TagCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('created_at');
+        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('created_at')->label(__('table.created'));
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
