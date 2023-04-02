@@ -26,8 +26,8 @@ class ComposerStaticInitb81cf8da0da010e4193dc46e8ced7de7
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -171,6 +171,7 @@ class ComposerStaticInitb81cf8da0da010e4193dc46e8ced7de7
         'B' => 
         array (
             'Brick\\Math\\' => 11,
+            'Backpack\\Generators\\' => 20,
             'Backpack\\CRUD\\' => 14,
         ),
         'A' => 
@@ -533,6 +534,10 @@ class ComposerStaticInitb81cf8da0da010e4193dc46e8ced7de7
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
+        'Backpack\\Generators\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/backpack/generators/src',
+        ),
         'Backpack\\CRUD\\' => 
         array (
             0 => __DIR__ . '/..' . '/backpack/crud/src',
@@ -560,6 +565,7 @@ class ComposerStaticInitb81cf8da0da010e4193dc46e8ced7de7
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\CheckIfAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckIfAdmin.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -683,6 +689,28 @@ class ComposerStaticInitb81cf8da0da010e4193dc46e8ced7de7
         'Backpack\\CRUD\\app\\Models\\Traits\\SpatieTranslatable\\Sluggable' => __DIR__ . '/..' . '/backpack/crud/src/app/Models/Traits/SpatieTranslatable/Sluggable.php',
         'Backpack\\CRUD\\app\\Models\\Traits\\SpatieTranslatable\\SluggableScopeHelpers' => __DIR__ . '/..' . '/backpack/crud/src/app/Models/Traits/SpatieTranslatable/SluggableScopeHelpers.php',
         'Backpack\\CRUD\\app\\Notifications\\ResetPasswordNotification' => __DIR__ . '/..' . '/backpack/crud/src/app/Notifications/ResetPasswordNotification.php',
+        'Backpack\\Generators\\Console\\Commands\\BuildBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/BuildBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\ChartBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/ChartBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\ChartControllerBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/ChartControllerBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\ConfigBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/ConfigBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\CrudBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/CrudBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\CrudControllerBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/CrudControllerBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\CrudModelBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/CrudModelBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\CrudOperationBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/CrudOperationBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\CrudRequestBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/CrudRequestBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\ModelBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/ModelBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\PageBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/PageBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\PageControllerBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/PageControllerBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\RequestBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/RequestBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\ViewBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/ViewBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\Views\\ButtonBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/Views/ButtonBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\Views\\ColumnBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/Views/ColumnBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\Views\\FieldBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/Views/FieldBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\Views\\FilterBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/Views/FilterBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\Views\\PublishOrCreateViewBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/Views/PublishOrCreateViewBackpackCommand.php',
+        'Backpack\\Generators\\Console\\Commands\\Views\\WidgetBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/Views/WidgetBackpackCommand.php',
+        'Backpack\\Generators\\GeneratorsServiceProvider' => __DIR__ . '/..' . '/backpack/generators/src/GeneratorsServiceProvider.php',
+        'Backpack\\Generators\\Services\\BackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Services/BackpackCommand.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',
@@ -3886,6 +3914,7 @@ class ComposerStaticInitb81cf8da0da010e4193dc46e8ced7de7
         'NunoMaduro\\Collision\\ArgumentFormatter' => __DIR__ . '/..' . '/nunomaduro/collision/src/ArgumentFormatter.php',
         'NunoMaduro\\Collision\\ConsoleColor' => __DIR__ . '/..' . '/nunomaduro/collision/src/ConsoleColor.php',
         'NunoMaduro\\Collision\\Contracts\\Adapters\\Phpunit\\HasPrintableTestCaseName' => __DIR__ . '/..' . '/nunomaduro/collision/src/Contracts/Adapters/Phpunit/HasPrintableTestCaseName.php',
+        'NunoMaduro\\Collision\\Contracts\\RenderableOnCollisionEditor' => __DIR__ . '/..' . '/nunomaduro/collision/src/Contracts/RenderableOnCollisionEditor.php',
         'NunoMaduro\\Collision\\Contracts\\RenderlessEditor' => __DIR__ . '/..' . '/nunomaduro/collision/src/Contracts/RenderlessEditor.php',
         'NunoMaduro\\Collision\\Contracts\\RenderlessTrace' => __DIR__ . '/..' . '/nunomaduro/collision/src/Contracts/RenderlessTrace.php',
         'NunoMaduro\\Collision\\Contracts\\SolutionsRepository' => __DIR__ . '/..' . '/nunomaduro/collision/src/Contracts/SolutionsRepository.php',

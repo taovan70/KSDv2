@@ -93,6 +93,7 @@ return array(
     'Creativeorange\\Gravatar\\' => array($vendorDir . '/creativeorange/gravatar/src'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
+    'Backpack\\Generators\\' => array($vendorDir . '/backpack/generators/src'),
     'Backpack\\CRUD\\' => array($vendorDir . '/backpack/crud/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
 );
