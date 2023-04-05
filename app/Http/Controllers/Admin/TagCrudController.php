@@ -62,7 +62,7 @@ class TagCrudController extends CrudController
     {
         CRUD::setValidation(TagStoreRequest::class);
 
-        CRUD::field('name');
+        CRUD::field('name')->label(__('table.name'));
 
         Tag::creating(function (Tag $tag) {
             $tag->slug = Str::slug($tag->name, '_');
@@ -85,7 +85,7 @@ class TagCrudController extends CrudController
     {
         CRUD::setValidation(TagUpdateRequest::class);
 
-        CRUD::field('name');
+        CRUD::field('name')->label(__('table.name'));
 
         Tag::updating(function (Tag $tag) {
             $tag->slug = Str::slug($tag->name, '_');

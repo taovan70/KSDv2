@@ -4,5 +4,7 @@ return [
     "tag" => "тег",
     "tags" => "теги",
     "category" => "категорию",
-    "categories" => "категории"
+    "categories" => "категории",
+    "subject" => "тематика",
+    "subjects" => "тематики"
 ];
