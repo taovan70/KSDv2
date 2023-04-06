@@ -26,5 +26,10 @@
                 {{ __('models.subjects') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-capitalize" href="{{ backpack_url('section') }}">
+                {{ __('models.sections') }}
+            </a>
+        </li>
     </ul>
 </li>

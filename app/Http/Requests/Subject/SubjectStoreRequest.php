@@ -25,7 +25,7 @@ class SubjectStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:tags,name|string|min:2|max:255',
+            'name' => 'required|unique:subjects,name|string|min:2|max:255',
             'category_id' => 'required|integer|exists:categories,id'
         ];
     }

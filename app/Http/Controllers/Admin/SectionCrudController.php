@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Subject\SubjectStoreRequest;
-use App\Http\Requests\Subject\SubjectUpdateRequest;
-use App\Models\Subject;
+use App\Http\Requests\Section\SectionStoreRequest;
+use App\Http\Requests\Section\SectionUpdateRequest;
+use App\Models\Section;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Str;
@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class SubjectCrudController extends CrudController
+class SectionCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -29,9 +29,9 @@ class SubjectCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Subject::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/subject');
-        CRUD::setEntityNameStrings(__('models.subject'), __('models.subjects'));
+        CRUD::setModel(\App\Models\Section::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/section');
+        CRUD::setEntityNameStrings(__('models.section'), __('models.sections'));
     }
 
     /**
@@ -45,9 +45,9 @@ class SubjectCrudController extends CrudController
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
         CRUD::addColumn([
-            'label' => __('table.category'),
+            'label' => __('table.subject'),
             'type' => 'select',
-            'name' => 'category_id',
+            'name' => 'subject_id',
             'attribute' => 'name'
         ]);
 
@@ -66,18 +66,22 @@ class SubjectCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SubjectStoreRequest::class);
+        CRUD::setValidation(SectionStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
-            'label' => __('table.category'),
-            'name' => 'category_id',
-            'type' => 'select',
-            'attribute' => 'name'
+            'label' => __('table.subject'),
+            'name' => 'subject_id',
+            'type' => 'select_grouped',
+            'attribute' => 'name',
+            'entity' => 'subject',
+            'group_by' => 'category',
+            'group_by_attribute' => 'name',
+            'group_by_relationship_back' => 'subjects'
         ]);
 
-        Subject::creating(function (Subject $subject) {
-            $subject->slug = Str::slug($subject->name);
+        Section::creating(function (Section $section) {
+            $section->slug = Str::slug($section->name);
         });
 
         /**
@@ -95,30 +99,23 @@ class SubjectCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(SubjectUpdateRequest::class);
+        CRUD::setValidation(SectionUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
-            'label' => __('table.category'),
-            'name' => 'category_id',
+            'label' => __('table.subject'),
+            'name' => 'subject_id',
             'type' => 'select',
             'attribute' => 'name'
         ]);
 
-        Subject::updating(function (Subject $subject) {
-            $subject->slug = Str::slug($subject->name);
+        Section::updating(function (Section $section) {
+            $section->slug = Str::slug($section->name);
         });
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-
-        CRUD::addColumn([
-            'label' => __('table.sections'),
-            'type' => 'select_multiple',
-            'name' => 'sections',
-            'attribute' => 'name'
-        ]);
     }
 }

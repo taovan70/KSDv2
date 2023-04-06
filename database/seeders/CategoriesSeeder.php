@@ -16,7 +16,7 @@ class CategoriesSeeder extends Seeder
     {
         Category::query()->delete();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $name = fake()->unique()->jobTitle();
 
             Category::create([

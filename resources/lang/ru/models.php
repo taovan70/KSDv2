@@ -7,5 +7,7 @@ return [
     "categories" => "категории",
     "categories_structure" => "структура категорий",
     "subject" => "тематика",
-    "subjects" => "тематики"
+    "subjects" => "тематики",
+    "section" => "раздел",
+    "sections" => "разделы"
 ];

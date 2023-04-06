@@ -2,29 +2,29 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\Section;
 use App\Models\Subject;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class SubjectsSeeder extends Seeder
+class SectionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Subject::query()->delete();
+        Section::query()->delete();
 
-        Category::all()->each(function (Category $category) {
+        Subject::all()->each(function (Subject $subject) {
             for ($i = 0; $i < 10; $i ++) {
-                $name = fake()->unique()->lastName();
+                $name = fake()->unique()->firstName();
 
-                Subject::create([
+                Section::create([
                     'name' => $name,
                     'slug' => Str::slug($name),
-                    'category_id' => $category->id
+                    'subject_id' => $subject->id
                 ]);
             }
         });

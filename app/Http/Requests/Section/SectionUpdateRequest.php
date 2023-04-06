@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Section;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CategoryStoreRequest extends FormRequest
+class SectionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +26,14 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name|string|min:2|max:255'
+             'name' => [
+                 'required',
+                 'string',
+                 'min:2',
+                 'max:255',
+                 Rule::unique('sections')->ignore($this->id)
+             ],
+            'subject_id' => 'required|integer|exists:subjects,id'
         ];
     }
 
