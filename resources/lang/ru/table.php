@@ -6,5 +6,7 @@ return [
     'category' => 'Категория',
     'subject' => 'Тематика',
     'subjects' => 'Тематики',
-    'sections' => 'Разделы'
+    'section' => 'Раздел',
+    'sections' => 'Разделы',
+    'sub_sections' => 'Подразделы'
 ];

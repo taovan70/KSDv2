@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Section\SectionStoreRequest;
-use App\Http\Requests\Section\SectionUpdateRequest;
-use App\Models\Section;
+use App\Http\Requests\SubSection\SubSectionStoreRequest;
+use App\Http\Requests\SubSection\SubSectionUpdateRequest;
+use App\Models\SubSection;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Str;
 
 /**
- * Class SubjectCrudController
+ * Class SubSectionCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class SectionCrudController extends CrudController
+class SubSectionCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -24,19 +24,19 @@ class SectionCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     *
+     * 
      * @return void
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Section::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/section');
-        CRUD::setEntityNameStrings(__('models.section'), __('models.sections'));
+        CRUD::setModel(\App\Models\SubSection::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/sub-section');
+        CRUD::setEntityNameStrings(__('models.sub_section'), __('models.sub_sections'));
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     *
+     * 
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -45,88 +45,81 @@ class SectionCrudController extends CrudController
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
         CRUD::addColumn([
-            'label' => __('table.subject'),
+            'label' => __('table.section'),
             'type' => 'select',
-            'name' => 'subject_id',
+            'name' => 'section_id',
             'attribute' => 'name'
         ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     *
+     * 
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SectionStoreRequest::class);
+        CRUD::setValidation(SubSectionStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
-            'label' => __('table.subject'),
-            'name' => 'subject_id',
+            'label' => __('table.section'),
+            'name' => 'section_id',
             'type' => 'select_grouped',
             'attribute' => 'name',
-            'entity' => 'subject',
-            'group_by' => 'category',
+            'entity' => 'section',
+            'group_by' => 'subject',
             'group_by_attribute' => 'name',
-            'group_by_relationship_back' => 'subjects'
+            'group_by_relationship_back' => 'sections'
         ]);
 
-        Section::creating(function (Section $section) {
-            $section->slug = Str::slug($section->name);
+        SubSection::creating(function (SubSection $subSection) {
+            $subSection->slug = Str::slug($subSection->name);
         });
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     *
+     * 
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(SectionUpdateRequest::class);
+        CRUD::setValidation(SubSectionUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
-            'label' => __('table.subject'),
-            'name' => 'subject_id',
+            'label' => __('table.section'),
+            'name' => 'section_id',
             'type' => 'select_grouped',
             'attribute' => 'name',
-            'entity' => 'subject',
-            'group_by' => 'category',
+            'entity' => 'section',
+            'group_by' => 'subject',
             'group_by_attribute' => 'name',
-            'group_by_relationship_back' => 'subjects'
+            'group_by_relationship_back' => 'sections'
         ]);
 
-        Section::updating(function (Section $section) {
-            $section->slug = Str::slug($section->name);
+        SubSection::creating(function (SubSection $subSection) {
+            $subSection->slug = Str::slug($subSection->name);
         });
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-
-        CRUD::addColumn([
-            'label' => __('table.sub_sections'),
-            'type' => 'select_multiple',
-            'name' => 'subSections',
-            'attribute' => 'name'
-        ]);
     }
 }

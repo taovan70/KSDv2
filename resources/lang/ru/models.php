@@ -9,5 +9,7 @@ return [
     "subject" => "тематика",
     "subjects" => "тематики",
     "section" => "раздел",
-    "sections" => "разделы"
+    "sections" => "разделы",
+    "sub_section" => "Подраздел",
+    "sub_sections" => "Подразделы"
 ];

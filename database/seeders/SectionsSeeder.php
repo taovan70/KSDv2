@@ -18,7 +18,7 @@ class SectionsSeeder extends Seeder
         Section::query()->delete();
 
         Subject::all()->each(function (Subject $subject) {
-            for ($i = 0; $i < 10; $i ++) {
+            for ($i = 0; $i < 5; $i ++) {
                 $name = fake()->unique()->firstName();
 
                 Section::create([
