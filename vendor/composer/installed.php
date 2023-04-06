@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8270fdc19399337afb4bd95a682bf1fc61a1140b',
+        'reference' => 'b94011ca4a6831f4e17168d5b50c4525b9d5156e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -27,6 +27,15 @@
             'install_path' => __DIR__ . '/../backpack/generators',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'backpack/pro' => array(
+            'pretty_version' => '1.6.4',
+            'version' => '1.6.4.0',
+            'reference' => '9b0bb238198d8661c302c02c21d774b998134961',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../backpack/pro',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'brick/math' => array(
             'pretty_version' => '0.10.2',
@@ -454,7 +463,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8270fdc19399337afb4bd95a682bf1fc61a1140b',
+            'reference' => 'b94011ca4a6831f4e17168d5b50c4525b9d5156e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
