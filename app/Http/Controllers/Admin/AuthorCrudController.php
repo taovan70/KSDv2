@@ -6,6 +6,8 @@ use App\Http\Requests\Author\AuthorRequest;
 use App\Models\Author;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class AuthorCrudController
@@ -40,10 +42,7 @@ class AuthorCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
-            'label' => __('table.users.full_name'),
-            'name' => 'name_and_middle_name_and_surname'
-        ]);
+        CRUD::column('full_name')->label(__('table.users.full_name'));
         CRUD::column('age')->label(__('table.users.age'));
         CRUD::column('gender')->label(__('table.users.gender'));
         CRUD::column('created_at')->label(__('table.created'));
@@ -124,5 +123,39 @@ class AuthorCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        CRUD::addColumn([
+            'name' => 'photo_path',
+            'label' => __('table.users.photo'),
+            'type' => 'image',
+            'prefix' => 'storage/',
+            'width' => '100px',
+            'height' => '100px'
+        ]);
+        CRUD::column('full_name')->label(__('table.users.full_name'));
+        CRUD::column('age')->label(__('table.users.age'));
+        CRUD::column('gender')->label(__('table.users.gender'));
+        CRUD::addColumn([
+            'name' => 'biography',
+            'label' => __('table.users.biography'),
+            'limit' => 1000
+        ]);
+        CRUD::column('address')->label(__('table.users.address'));
+        CRUD::column('personal_site')->label(__('table.users.personal_site'));
+        CRUD::addColumn([
+            'name' => 'social_networks_array',
+            'label' => __('table.users.social_networks'),
+            'type' => 'array'
+        ]);
+    }
+
+    protected function setupDeleteOperation()
+    {
+        Author::deleting(function (Author $author) {
+            Storage::disk('public')->delete($author->photo_path);
+        });
     }
 }

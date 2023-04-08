@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -32,12 +33,12 @@ class Author extends Model
     public const REDDIT = 'reddit';
     public const FACEBOOK = 'facebook';
     public const SOCIAL_NETWORKS = [
-        self::VK,
-        self::INSTAGRAM,
-        self::FACEBOOK,
-        self::TELEGRAM,
-        self::TWITTER,
-        self::REDDIT
+        self::VK => self::VK,
+        self::INSTAGRAM => self::INSTAGRAM,
+        self::FACEBOOK => self::FACEBOOK,
+        self::TELEGRAM => self::TELEGRAM,
+        self::TWITTER => self::TWITTER,
+        self::REDDIT => self::REDDIT
     ];
 
     protected $table = 'authors';
@@ -58,9 +59,9 @@ class Author extends Model
     ];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $casts = [
-        'social_networks' => 'array'
-    ];
+//    protected $casts = [
+//        'social_networks' => 'array'
+//    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -90,6 +91,29 @@ class Author extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: function($value, $attributes) {
+                return "{$attributes['name']} {$attributes['middle_name']} {$attributes['surname']}";
+            }
+        );
+    }
+
+    protected function socialNetworksArray(): Attribute
+    {
+        return Attribute::make(
+            get: function($value, $attributes) {
+                $socialNetworks = [];
+                foreach (json_decode($attributes['social_networks']) as $socialNetwork) {
+                    $socialNetworks[] = "{$socialNetwork->social_network}: {$socialNetwork->account}";
+                }
+
+                return $socialNetworks;
+            }
+        );
+    }
 
     /*
     |--------------------------------------------------------------------------
