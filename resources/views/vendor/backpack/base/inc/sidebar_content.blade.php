@@ -10,6 +10,7 @@
         <i class="nav-icon la la-tags"></i>{{ __('models.tags') }}
     </a>
 </li>
+
 <li class="nav-item text-capitalize">
     <a class="nav-link" href="#">
         <i class="nav-icon la la-sitemap"></i>
@@ -37,4 +38,10 @@
             </a>
         </li>
     </ul>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-capitalize" href="{{ backpack_url('author') }}">
+        <i class="nav-icon la la-users"></i> {{ __('models.authors') }}
+    </a>
 </li>

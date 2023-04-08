@@ -11,5 +11,7 @@ return [
     "section" => "раздел",
     "sections" => "разделы",
     "sub_section" => "Подраздел",
-    "sub_sections" => "Подразделы"
+    "sub_sections" => "Подразделы",
+    "author" => "автор",
+    "authors" => "авторы"
 ];
