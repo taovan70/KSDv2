@@ -9,6 +9,7 @@ return [
     'section' => 'Раздел',
     'sections' => 'Разделы',
     'sub_sections' => 'Подразделы',
+    'authors' => 'Авторы',
 
     'users' => [
         'full_name' => 'ФИО',
@@ -17,8 +18,8 @@ return [
         'name' => 'Имя',
         'surname' => 'Фамилия',
         'middle_name' => 'Отчество',
-        'male' => 'Мужчина',
-        'female' => 'Женщина',
+        \App\Models\Author::MALE => 'Мужчина',
+        \App\Models\Author::FEMALE => 'Женщина',
         'biography' => 'Биография',
         'address' => 'Местоположение',
         'personal_site' => 'Личный сайт',

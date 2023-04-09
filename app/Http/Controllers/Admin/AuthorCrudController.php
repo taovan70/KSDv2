@@ -44,7 +44,7 @@ class AuthorCrudController extends CrudController
     {
         CRUD::column('full_name')->label(__('table.users.full_name'));
         CRUD::column('age')->label(__('table.users.age'));
-        CRUD::column('gender')->label(__('table.users.gender'));
+        CRUD::column('fullGender')->label(__('table.users.gender'));
         CRUD::column('created_at')->label(__('table.created'));
 
         /**
@@ -72,8 +72,8 @@ class AuthorCrudController extends CrudController
             'label' => __('table.users.gender'),
             'type' => 'select_from_array',
             'options' => [
-                Author::MALE => __('table.users.male'),
-                Author::FEMALE => __('table.users.female'),
+                Author::MALE => __('table.users.' . Author::MALE),
+                Author::FEMALE => __('table.users.' . Author::FEMALE),
             ]
         ]);
         CRUD::field('age')->label(__('table.users.age'))->type('number');
@@ -107,6 +107,13 @@ class AuthorCrudController extends CrudController
             ]
         ]);
 
+        CRUD::addField([
+            'name' => 'subSections',
+            'label' => __('table.sub_sections'),
+            'type' => 'select2_multiple',
+            'attribute' => 'name'
+        ]);
+
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -137,7 +144,7 @@ class AuthorCrudController extends CrudController
         ]);
         CRUD::column('full_name')->label(__('table.users.full_name'));
         CRUD::column('age')->label(__('table.users.age'));
-        CRUD::column('gender')->label(__('table.users.gender'));
+        CRUD::column('fullGender')->label(__('table.users.gender'));
         CRUD::addColumn([
             'name' => 'biography',
             'label' => __('table.users.biography'),
@@ -149,6 +156,11 @@ class AuthorCrudController extends CrudController
             'name' => 'social_networks_array',
             'label' => __('table.users.social_networks'),
             'type' => 'array'
+        ]);
+        CRUD::addColumn([
+            'label' => __('table.sub_sections'),
+            'name' => 'subSections',
+            'type' => 'select_multiple'
         ]);
     }
 

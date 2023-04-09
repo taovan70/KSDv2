@@ -121,5 +121,11 @@ class SubSectionCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+
+        CRUD::addColumn([
+            'label' => __('table.authors'),
+            'name' => 'authors',
+            'type' => 'select_multiple'
+        ]);
     }
 }

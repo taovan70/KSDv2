@@ -92,6 +92,15 @@ class Author extends Model
     |--------------------------------------------------------------------------
     */
 
+    protected function fullGender(): Attribute
+    {
+        return Attribute::make(
+            get: function($value, $attributes) {
+                return __("table.users.{$attributes['gender']}");
+            }
+        );
+    }
+
     protected function fullName(): Attribute
     {
         return Attribute::make(
@@ -106,7 +115,7 @@ class Author extends Model
         return Attribute::make(
             get: function($value, $attributes) {
                 $socialNetworks = [];
-                foreach (json_decode($attributes['social_networks']) as $socialNetwork) {
+                foreach (json_decode($attributes['social_networks']) ?? [] as $socialNetwork) {
                     $socialNetworks[] = "{$socialNetwork->social_network}: {$socialNetwork->account}";
                 }
 
@@ -127,8 +136,11 @@ class Author extends Model
         $disk = "public";
         $destination_path = "authors_photos";
 
-        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        if (is_file($value)) {
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        } else {
+            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
+        }
 
-        // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
     }
 }
