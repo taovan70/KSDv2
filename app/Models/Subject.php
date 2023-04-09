@@ -5,9 +5,10 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class Subject extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -18,11 +19,11 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'categories';
+    protected $table = 'subjects';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'category_id'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -38,9 +39,14 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function subjects(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Subject::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class);
     }
 
     /*

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Subject;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryStoreRequest extends FormRequest
+class SubjectStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name|string|min:2|max:255'
+            'name' => 'required|unique:subjects,name|string|min:2|max:255',
+            'category_id' => 'required|integer|exists:categories,id'
         ];
     }
 

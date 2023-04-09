@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Category\CategoryStoreRequest;
-use App\Http\Requests\Category\CategoryUpdateRequest;
-use App\Models\Category;
+use App\Http\Requests\SubSection\SubSectionStoreRequest;
+use App\Http\Requests\SubSection\SubSectionUpdateRequest;
+use App\Models\SubSection;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Str;
 
 /**
- * Class CategoryCrudController
+ * Class SubSectionCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CategoryCrudController extends CrudController
+class SubSectionCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -29,9 +29,9 @@ class CategoryCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Category::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/category');
-        CRUD::setEntityNameStrings(__('models.category'), __('models.categories'));
+        CRUD::setModel(\App\Models\SubSection::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/sub-section');
+        CRUD::setEntityNameStrings(__('models.sub_section'), __('models.sub_sections'));
     }
 
     /**
@@ -44,6 +44,12 @@ class CategoryCrudController extends CrudController
     {
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
+        CRUD::addColumn([
+            'label' => __('table.section'),
+            'type' => 'select',
+            'name' => 'section_id',
+            'attribute' => 'name'
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -60,12 +66,22 @@ class CategoryCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CategoryStoreRequest::class);
+        CRUD::setValidation(SubSectionStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::addField([
+            'label' => __('table.section'),
+            'name' => 'section_id',
+            'type' => 'select_grouped',
+            'attribute' => 'name',
+            'entity' => 'section',
+            'group_by' => 'subject',
+            'group_by_attribute' => 'name',
+            'group_by_relationship_back' => 'sections'
+        ]);
 
-        Category::creating(function (Category $category) {
-            $category->slug = Str::slug($category->name, '_');
+        SubSection::creating(function (SubSection $subSection) {
+            $subSection->slug = Str::slug($subSection->name);
         });
 
         /**
@@ -83,24 +99,27 @@ class CategoryCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(CategoryUpdateRequest::class);
+        CRUD::setValidation(SubSectionUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::addField([
+            'label' => __('table.section'),
+            'name' => 'section_id',
+            'type' => 'select_grouped',
+            'attribute' => 'name',
+            'entity' => 'section',
+            'group_by' => 'subject',
+            'group_by_attribute' => 'name',
+            'group_by_relationship_back' => 'sections'
+        ]);
 
-        Category::updating(function (Category $category) {
-            $category->slug = Str::slug($category->name, '_');
+        SubSection::creating(function (SubSection $subSection) {
+            $subSection->slug = Str::slug($subSection->name);
         });
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-
-        CRUD::addColumn([
-            'label' => __('table.subjects'),
-            'type' => 'select_multiple',
-            'name' => 'subjects',
-            'attribute' => 'name'
-        ]);
     }
 }

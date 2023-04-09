@@ -2,5 +2,11 @@
 
 return [
     'name' => 'Название',
-    'created' => 'Создано'
+    'created' => 'Создано',
+    'category' => 'Категория',
+    'subject' => 'Тематика',
+    'subjects' => 'Тематики',
+    'section' => 'Раздел',
+    'sections' => 'Разделы',
+    'sub_sections' => 'Подразделы'
 ];
