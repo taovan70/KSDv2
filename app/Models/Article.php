@@ -6,10 +6,8 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SubSection extends Model
+class Article extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -20,13 +18,23 @@ class SubSection extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'sub_sections';
+    protected $table = 'articles';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'section_id'];
+    protected $fillable = [
+        'name',
+        'content',
+        'structure',
+        'author_id',
+        'sub_section_id'
+    ];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $casts = [
+        'content' => 'array',
+        'structure' => 'array'
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -40,19 +48,14 @@ class SubSection extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function section(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(Section::class);
+        return $this->belongsTo(Author::class);
     }
 
-    public function authors(): BelongsToMany
+    public function subSection(): BelongsTo
     {
-        return $this->belongsToMany(Author::class);
-    }
-
-    public function articles(): HasMany
-    {
-        return $this->hasMany(Article::class);
+        return $this->belongsTo(SubSection::class);
     }
 
     /*

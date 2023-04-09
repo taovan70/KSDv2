@@ -9,8 +9,11 @@ return [
     'subjects' => 'Тематики',
     'section' => 'Раздел',
     'sections' => 'Разделы',
+    'sub_section' => 'Подраздел',
     'sub_sections' => 'Подразделы',
+    'author' => 'Автор',
     'authors' => 'Авторы',
+    'article' => 'Статья',
 
     'users' => [
         'full_name' => 'ФИО',

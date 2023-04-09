@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([], function () {
+        Route::post('article_authors', [\App\Http\Controllers\Api\ArticleController::class, 'fetchAuthors']);
+    });
