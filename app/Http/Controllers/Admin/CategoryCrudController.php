@@ -44,6 +44,15 @@ class CategoryCrudController extends CrudController
     {
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
+        CRUD::addColumn([
+            'name' => 'subjectsCount',
+            'label' => __('table.subjects'),
+            'wrapper' => [
+                'href' => function($crud, $column, $category) {
+                    return backpack_url('subject?category_id=["' . $category->id . '"]');
+                }
+            ]
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -95,12 +104,5 @@ class CategoryCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-
-        CRUD::addColumn([
-            'label' => __('table.subjects'),
-            'type' => 'select_multiple',
-            'name' => 'subjects',
-            'attribute' => 'name'
-        ]);
     }
 }

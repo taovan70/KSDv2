@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,6 +61,15 @@ class Section extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+
+    protected function subSectionsCount(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                return self::subSections()->count() . ' ' . __('models.sub_sections');
+            }
+        );
+    }
 
     /*
     |--------------------------------------------------------------------------

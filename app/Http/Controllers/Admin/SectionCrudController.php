@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Section\SectionStoreRequest;
 use App\Http\Requests\Section\SectionUpdateRequest;
+use App\Models\Category;
 use App\Models\Section;
+use App\Models\Subject;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Str;
@@ -48,8 +50,30 @@ class SectionCrudController extends CrudController
             'label' => __('table.subject'),
             'type' => 'select',
             'name' => 'subject_id',
-            'attribute' => 'name'
+            'attribute' => 'name',
+            'wrapper' => [
+                'href' => fn($crud, $column, $section, $subject_id) => backpack_url("subject/{$subject_id}/show")
+            ]
         ]);
+        CRUD::addColumn([
+            'name' => 'subSectionsCount',
+            'label' => __('table.sub_sections'),
+            'wrapper' => [
+                'href' => function($crud, $column, $section) {
+                    return backpack_url('sub-section?section_id=["' . $section->id . '"]');
+                }
+            ]
+        ]);
+
+        CRUD::addFilter([
+            'type'  => 'select2_multiple',
+            'label' => __('table.subjects'),
+            'name' => 'subject_id'
+        ], function () {
+            return Subject::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause('whereIn', 'subject_id', json_decode($values));
+        });
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -121,12 +145,5 @@ class SectionCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-
-        CRUD::addColumn([
-            'label' => __('table.sub_sections'),
-            'type' => 'select_multiple',
-            'name' => 'subSections',
-            'attribute' => 'name'
-        ]);
     }
 }

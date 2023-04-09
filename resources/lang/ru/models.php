@@ -5,7 +5,7 @@ return [
     "tags" => "теги",
     "category" => "категорию",
     "categories" => "категории",
-    "categories_structure" => "структура категорий",
+    "structure" => "структура",
     "subject" => "тематика",
     "subjects" => "тематики",
     "section" => "раздел",

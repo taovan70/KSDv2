@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SubSection\SubSectionStoreRequest;
 use App\Http\Requests\SubSection\SubSectionUpdateRequest;
+use App\Models\Section;
 use App\Models\SubSection;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -48,8 +49,21 @@ class SubSectionCrudController extends CrudController
             'label' => __('table.section'),
             'type' => 'select',
             'name' => 'section_id',
-            'attribute' => 'name'
+            'attribute' => 'name',
+            'wrapper' => [
+                'href' => fn($crud, $column, $subSection, $section_id) => backpack_url("section/{$section_id}/show")
+            ]
         ]);
+
+        CRUD::addFilter([
+            'type'  => 'select2_multiple',
+            'label' => __('table.sections'),
+            'name' => 'section_id'
+        ], function () {
+            return Section::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause('whereIn', 'section_id', json_decode($values));
+        });
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
