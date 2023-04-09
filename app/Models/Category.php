@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -54,6 +55,15 @@ class Category extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+
+    protected function subjectsCount(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                return self::subjects()->count() . ' ' . __('models.subjects');
+            }
+        );
+    }
 
     /*
     |--------------------------------------------------------------------------

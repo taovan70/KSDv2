@@ -10,12 +10,12 @@
         <i class="nav-icon la la-tags"></i>{{ __('models.tags') }}
     </a>
 </li>
-<li class="nav-item text-capitalize">
-    <a class="nav-link" href="#">
+<li class="nav-item nav-dropdown text-capitalize">
+    <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon la la-sitemap"></i>
-        {{ __('models.categories_structure') }}
+        {{ __('models.structure') }}
     </a>
-    <ul class="treeview-menu">
+    <ul class="nav-dropdown-items">
         <li class="nav-item">
             <a class="nav-link text-capitalize" href="{{ backpack_url('category') }}">
                 {{ __('models.categories') }}

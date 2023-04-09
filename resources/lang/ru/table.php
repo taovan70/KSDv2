@@ -4,6 +4,7 @@ return [
     'name' => 'Название',
     'created' => 'Создано',
     'category' => 'Категория',
+    'categories' => 'Категории',
     'subject' => 'Тематика',
     'subjects' => 'Тематики',
     'section' => 'Раздел',
