@@ -40,6 +40,10 @@ class Article extends Model
         'structure' => 'array'
     ];
 
+    protected $with = [
+        'elements'
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

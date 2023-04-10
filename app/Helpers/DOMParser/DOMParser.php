@@ -6,7 +6,6 @@ use App\Services\ArticleElementService;
 use DOMDocument;
 use DOMNodeList;
 use DOMXPath;
-use Illuminate\Support\Facades\DB;
 
 class DOMParser
 {
@@ -76,7 +75,24 @@ class DOMParser
     private function saveTagsAsArticleElements(DOMNodeList $tags, int $articleId): void
     {
         foreach ($tags as $i => $tag) {
-            $this->articleElementService->store($tag, $this->dom, $articleId, $i);
+            $this->articleElementService->store($tag->tagName, $this->dom->saveHTML($tag), $articleId, $i);
         }
+    }
+
+    /**
+     * @param string $htmlString
+     * @return string
+     */
+    public function getTagFromString(string $htmlString): string
+    {
+        $this->dom->loadHTML($htmlString);
+
+        foreach ($this->dom->getElementsByTagName('*') as $tag) {
+            if (in_array($tag->tagName, DOMTags::PRESERVED_TAGS)) {
+                return $tag->tagName;
+            }
+        }
+
+        return '';
     }
 }

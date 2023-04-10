@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Event;
 
 class ArticleElement extends Model
 {
@@ -36,6 +37,24 @@ class ArticleElement extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Prevent creating by Backpack CRUD
+        Event::listen('eloquent.creating: App\Models\ArticleElement', function ($element) {
+            if (
+                !isset($element->html_tag)
+                || !isset($element->content)
+                || !isset($element->order)
+                || !isset($element->article_id)
+            ) {
+                Event::dispatch('eloquent.creating.cancelled', $element);
+                return false;
+            }
+        });
+    }
 
     public function stripTags(): void
     {

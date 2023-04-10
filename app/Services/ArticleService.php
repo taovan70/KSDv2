@@ -4,20 +4,55 @@ namespace App\Services;
 
 use App\Helpers\DOMParser\DOMParser;
 use App\Helpers\DOMParser\DOMTags;
+use App\Models\Article;
 use App\Models\ArticleElement;
 use App\Models\Author;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ArticleService
 {
     private DOMParser $parser;
+    private ArticleElementService $articleElementService;
 
     public function __construct()
     {
         $this->parser = new DOMParser();
+        $this->articleElementService = app(ArticleElementService::class);
+    }
+
+    /**
+     * @return void
+     */
+    public function setFormFields(): void
+    {
+        CRUD::field('name')->label(__('table.name'));
+        CRUD::addField([
+            'name' => 'sub_section_id',
+            'label' => __('table.sub_section'),
+            'type' => 'select2_grouped',
+            'entity' => 'subSection',
+            'attribute' => 'name',
+            'group_by'  => 'section',
+            'group_by_attribute' => 'name',
+            'group_by_relationship_back' => 'subSections'
+        ]);
+        CRUD::addField([
+            'name' => 'author_id',
+            'label' => __('table.author'),
+            'type' => 'select2_from_ajax',
+            'entity' => 'author',
+            'attribute' => 'fullName',
+            'data_source' => url('api/article_authors'),
+            'minimum_input_length' => 0,
+            'dependencies' => ['sub_section_id'],
+            'method' => 'POST',
+            'include_all_form_fields' => true
+        ]);
     }
 
     /**
@@ -126,5 +161,24 @@ class ArticleService
         }
 
         return $this->parser->createArticleStructure($structure);
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function updateArticleElements(array $data): void
+    {
+        $article = Article::find($data['id']);
+
+        $elementIds = [];
+        foreach ($data['elements'] as $i => $element) {
+            $tagName = $this->parser->getTagFromString($element['content']);
+            $articleElement = $this->articleElementService->store($tagName, $element['content'], $article->id, $i, $element['id']);
+
+            $elementIds[] = $articleElement->id;
+        }
+
+        $article->elements()->whereNotIn('id', $elementIds)->delete();
     }
 }

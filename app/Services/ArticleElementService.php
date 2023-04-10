@@ -10,21 +10,27 @@ use DOMElement;
 class ArticleElementService
 {
     /**
-     * @param DOMElement $tag
-     * @param DOMDocument $dom
+     * @param string $tagName
+     * @param string $content
      * @param int $articleId
      * @param int $order
-     * @return void
+     * @param int|null $elementId
+     * @return void|ArticleElement
      */
-    public function store(DOMElement $tag, DOMDocument $dom, int $articleId, int $order): void
+    public function store(string $tagName, string $content, int $articleId, int $order, int $elementId = null)
     {
-        if (in_array($tag->tagName, DOMTags::PRESERVED_TAGS)) {
-            ArticleElement::create([
-                'article_id' => $articleId,
-                'html_tag' => $tag->tagName,
-                'content' => $dom->saveHTML($tag),
-                'order' => $order
-            ]);
+        if (in_array($tagName, DOMTags::PRESERVED_TAGS)) {
+            return ArticleElement::updateOrCreate(
+                [
+                    'id' => $elementId
+                ],
+                [
+                    'article_id' => $articleId,
+                    'html_tag' => $tagName,
+                    'content' => $content,
+                    'order' => $order
+                ]
+            );
         }
     }
 }

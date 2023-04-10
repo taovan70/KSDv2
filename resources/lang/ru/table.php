@@ -45,6 +45,8 @@ return [
 
     'articles' => [
         'content' => 'Контент',
-        'structure' => 'Содержание'
+        'structure' => 'Содержание',
+        'elements' => 'Элементы статьи',
+        'html_tag' => 'HTML тег'
     ]
 ];

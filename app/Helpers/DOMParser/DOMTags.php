@@ -15,12 +15,12 @@ class DOMTags
     const LIST_LI = 'li';
 
     const PRESERVED_TAGS = [
-        self::HEADER_H1,
-        self::HEADER_H2,
-        self::HEADER_H3,
-        self::TEXT_P,
-        self::LIST_UL,
-        self::LIST_OL
+        self::HEADER_H1 => self::HEADER_H1,
+        self::HEADER_H2 => self::HEADER_H2,
+        self::HEADER_H3 => self::HEADER_H3,
+        self::TEXT_P => self::TEXT_P,
+        self::LIST_UL => self::LIST_UL,
+        self::LIST_OL => self::LIST_OL
     ];
 
     const HEADERS = [
