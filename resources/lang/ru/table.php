@@ -42,4 +42,9 @@ return [
             'password_confirmation' => 'Подтверждение пароля',
             'role' => 'Роль',
     ],
+
+    'articles' => [
+        'content' => 'Контент',
+        'structure' => 'Содержание'
+    ]
 ];

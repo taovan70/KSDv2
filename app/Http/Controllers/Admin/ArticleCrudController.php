@@ -16,7 +16,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ArticleCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -42,8 +42,26 @@ class ArticleCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'));
-        CRUD::column('author_id')->label(__('table.author'));
-        CRUD::column('sub_section_id')->label(__('table.sub_section'));
+        CRUD::addColumn([
+            'label' => __('table.author'),
+            'type' => 'select',
+            'name' => 'author_id',
+            'attribute' => 'name',
+            'entity' => 'author',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $author_id) => backpack_url("author/{$author_id}/show")
+            ]
+        ]);
+        CRUD::addColumn([
+            'label' => __('table.sub_section'),
+            'type' => 'select',
+            'name' => 'sub_section_id',
+            'attribute' => 'name',
+            'entity' => 'subSection',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $sub_section_id) => backpack_url("sub-section/{$sub_section_id}/show")
+            ]
+        ]);
         CRUD::column('created_at')->label(__('table.created'));
 
         /**
@@ -96,12 +114,12 @@ class ArticleCrudController extends CrudController
             ]
         ]);
 
-        Article::creating(function (Article $article) {
+        Article::created(function (Article $article) {
             /** @var ArticleService $articleService */
             $articleService = app(ArticleService::class);
             $request        = $this->crud->validateRequest();
 
-            $articleService->parseArticle($request->article_text);
+            $articleService->parseArticle($request->article_text, $article->id);
         });
 
         /**
@@ -120,5 +138,22 @@ class ArticleCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+
+        CRUD::addColumn([
+            'name' => 'structure',
+            'label' => __('table.articles.structure'),
+            'type' => 'markdown'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'content',
+            'label' => __('table.articles.content'),
+            'type' => 'markdown'
+        ]);
     }
 }
