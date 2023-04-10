@@ -32,4 +32,9 @@ return [
         'account' => 'Аккаунт',
         'photo' => 'Фотография'
     ],
+
+    'articles' => [
+        'content' => 'Контент',
+        'structure' => 'Содержание'
+    ]
 ];
