@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Article;
 
+use App\Rules\NotContainsString;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleUpdateRequest extends FormRequest
@@ -31,7 +32,11 @@ class ArticleUpdateRequest extends FormRequest
             'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
             'elements' => 'required|array',
             'elements.*.id' => 'nullable|integer|exists:article_elements,id',
-            'elements.*.content' => 'required|string'
+            'elements.*.content' => [
+                'required',
+                'string',
+                new NotContainsString('base64')
+            ]
         ];
     }
 

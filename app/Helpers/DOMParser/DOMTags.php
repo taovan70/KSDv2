@@ -13,6 +13,9 @@ class DOMTags
     const LIST_UL = 'ul';
     const LIST_OL = 'ol';
     const LIST_LI = 'li';
+    const TABLE = 'table';
+    const LINK = 'a';
+    const IMG = 'img';
 
     const PRESERVED_TAGS = [
         self::HEADER_H1 => self::HEADER_H1,
@@ -20,7 +23,10 @@ class DOMTags
         self::HEADER_H3 => self::HEADER_H3,
         self::TEXT_P => self::TEXT_P,
         self::LIST_UL => self::LIST_UL,
-        self::LIST_OL => self::LIST_OL
+        self::LIST_OL => self::LIST_OL,
+        self::TABLE => self::TABLE,
+        self::LINK => self::LINK,
+        self::IMG => self::IMG
     ];
 
     const HEADERS = [

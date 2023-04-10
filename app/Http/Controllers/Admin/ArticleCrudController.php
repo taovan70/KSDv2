@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Models\Author;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * Class ArticleCrudController
@@ -99,7 +101,7 @@ class ArticleCrudController extends CrudController
 
         Article::created(function (Article $article) use ($articleService) {
             $request = $this->crud->validateRequest();
-            $articleService->parseArticle($request->article_text, $article->id);
+            $articleService->parseArticle($request, $article->id);
         });
 
         /**

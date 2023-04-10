@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class ArticleService
 {
@@ -66,7 +65,7 @@ class ArticleService
             return $value['name'] === 'sub_section_id';
         });
 
-        return Author::query()
+        $authors =  Author::query()
             ->when(isset($subSectionField['value']), function (Builder $query) use ($subSectionField) {
                 $query->whereHas('subSections', function (Builder $query) use ($subSectionField) {
                     $query->where('sub_section_id', $subSectionField['value']);
@@ -77,21 +76,24 @@ class ArticleService
                     ->orWhere('surname', 'LIKE', "%{$search}%")
                     ->orWhere('middle_name', 'LIKE', "%{$search}%");
             })
-            ->get()
-            ->map(fn($author) => [
-                'id' => $author->id,
-                'fullName' => $author->fullName
-            ]);
+            ->get();
+
+        if ($authors->isEmpty()) $authors = Author::all();
+
+        return $authors->map(fn($author) => [
+            'id' => $author->id,
+            'fullName' => $author->fullName
+        ]);
     }
 
     /**
-     * @param string $articleText
+     * @param Request $request
      * @param int $articleId
      * @return void
      */
-    public function parseArticle(string $articleText, int $articleId): void
+    public function parseArticle(Request $request, int $articleId): void
     {
-        $this->parser->parseDOMContent($articleText, $articleId);
+        $this->parser->parseDOMContent($request->article_text, $articleId);
     }
 
     /**

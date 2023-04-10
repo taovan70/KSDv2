@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Helpers\DOMParser\DOMTags;
 use App\Models\ArticleElement;
-use DOMDocument;
-use DOMElement;
 
 class ArticleElementService
 {
