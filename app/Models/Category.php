@@ -27,6 +27,13 @@ class Category extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    // trigger events
+    protected $dispatchesEvents = [
+        'created' => \App\Events\LogUserActionOnModel::class,
+        'updated' => \App\Events\LogUserActionOnModel::class,
+        'deleted' => \App\Events\LogUserActionOnModel::class,
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

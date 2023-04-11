@@ -64,6 +64,13 @@ class Author extends Model
 //        'social_networks' => 'array'
 //    ];
 
+    // trigger events
+    protected $dispatchesEvents = [
+        'created' => \App\Events\LogUserActionOnModel::class,
+        'updated' => \App\Events\LogUserActionOnModel::class,
+        'deleted' => \App\Events\LogUserActionOnModel::class,
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
