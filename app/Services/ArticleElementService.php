@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Helpers\DOMParser\DOMTags;
 use App\Models\ArticleElement;
 
 class ArticleElementService
@@ -17,18 +16,16 @@ class ArticleElementService
      */
     public function store(string $tagName, string $content, int $articleId, int $order, int $elementId = null)
     {
-        if (in_array($tagName, DOMTags::PRESERVED_TAGS)) {
-            return ArticleElement::updateOrCreate(
-                [
-                    'id' => $elementId
-                ],
-                [
-                    'article_id' => $articleId,
-                    'html_tag' => $tagName,
-                    'content' => $content,
-                    'order' => $order
-                ]
-            );
-        }
+        return ArticleElement::updateOrCreate(
+            [
+                'id' => $elementId
+            ],
+            [
+                'article_id' => $articleId,
+                'html_tag' => $tagName,
+                'content' => $content,
+                'order' => $order
+            ]
+        );
     }
 }

@@ -104,7 +104,12 @@ class ArticleService
      */
     public function parseArticle(Request $request, int $articleId): void
     {
-        $this->parser->parseDOMContent($request->article_text, $articleId);
+        $tags = $this->parser->parseContentOnTags($request->article_text);
+        $tags = $this->parser->filterTagsForArticle($tags);
+
+        foreach ($tags as $i => $tag) {
+            $this->articleElementService->store($tag['tagName'], $tag['content'], $articleId, $i);
+        }
     }
 
     /**

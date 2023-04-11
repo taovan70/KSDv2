@@ -4,12 +4,12 @@ namespace App\Helpers\DOMParser;
 
 use App\Services\ArticleElementService;
 use DOMDocument;
+use DOMElement;
 use DOMNodeList;
 use DOMXPath;
 
 class DOMParser
 {
-    private ArticleElementService $articleElementService;
     private DOMDocument $dom;
 
     public function __construct()
@@ -54,29 +54,51 @@ class DOMParser
     }
 
     /**
-     * @param string $articleText
-     * @param int $articleId
-     * @return void
+     * @param DOMElement $tag
+     * @return bool|string
      */
-    public function parseDOMContent(string $articleText, int $articleId): void
+    public function getHtmlString(DOMElement $tag): bool|string
+    {
+        return $this->dom->saveHTML($tag);
+    }
+
+    /**
+     * @param string $articleText
+     * @return DOMNodeList|false|mixed
+     */
+    public function parseContentOnTags(string $articleText): mixed
     {
         $this->dom->loadHTML($articleText);
         $xpath = new DOMXPath($this->dom);
-        $tags  = $xpath->query('//*');
 
-        $this->saveTagsAsArticleElements($tags, $articleId);
+        return  $xpath->query('//*');
     }
 
     /**
      * @param DOMNodeList $tags
-     * @param int $articleId
-     * @return void
+     * @return array
      */
-    private function saveTagsAsArticleElements(DOMNodeList $tags, int $articleId): void
+    public function filterTagsForArticle(DOMNodeList $tags): array
     {
-        foreach ($tags as $i => $tag) {
-            $this->articleElementService->store($tag->tagName, $this->dom->saveHTML($tag), $articleId, $i);
+        $filteredTags = [];
+
+        /** @var DOMElement $tag */
+        foreach ($tags as $tag) {
+            if (!in_array($tag->tagName, DOMTags::PRESERVED_TAGS)) {
+                continue;
+            }
+
+            if ($tag->hasChildNodes() && in_array($tag->firstElementChild?->tagName, DOMTags::SEPARATED_TAGS)) {
+                continue;
+            }
+
+            $filteredTags[] = [
+                'tagName' => $tag->tagName,
+                'content' => $this->getHtmlString($tag)
+            ];
         }
+
+        return $filteredTags;
     }
 
     /**

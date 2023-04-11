@@ -21,12 +21,23 @@ class DOMTags
         self::HEADER_H1 => self::HEADER_H1,
         self::HEADER_H2 => self::HEADER_H2,
         self::HEADER_H3 => self::HEADER_H3,
-        self::TEXT_P => self::TEXT_P,
-        self::LIST_UL => self::LIST_UL,
-        self::LIST_OL => self::LIST_OL,
-        self::TABLE => self::TABLE,
-        self::LINK => self::LINK,
-        self::IMG => self::IMG
+        self::TEXT_P    => self::TEXT_P,
+        self::LIST_UL   => self::LIST_UL,
+        self::LIST_OL   => self::LIST_OL,
+        self::TABLE     => self::TABLE,
+        self::LINK      => self::LINK,
+        self::IMG       => self::IMG
+    ];
+
+    const COMPLEX_TAGS = [
+        self::LIST_UL,
+        self::LIST_OL,
+        self::TABLE,
+    ];
+
+    const SEPARATED_TAGS = [
+        self::LINK,
+        self::IMG
     ];
 
     const HEADERS = [
