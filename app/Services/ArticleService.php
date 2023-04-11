@@ -52,6 +52,17 @@ class ArticleService
             'method' => 'POST',
             'include_all_form_fields' => true
         ]);
+        CRUD::addField([
+            'name' => 'tags',
+            'label' => __('table.tags'),
+            'type' => 'relationship',
+            'ajax' => true,
+            'attribute' => 'name',
+            'data_source' => url('api/tags'),
+            'method' => 'POST',
+            'include_all_form_fields' => false,
+            'inline_create' => [ 'entity' => 'tag' ]
+        ]);
     }
 
     /**

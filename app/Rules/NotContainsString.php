@@ -21,7 +21,7 @@ class NotContainsString implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (str_contains($value, $this->needle)) {
-            $fail(__('validation.articles.image'));
+            $fail(__('validation.article_fields.image'));
         }
     }
 }

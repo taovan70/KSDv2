@@ -6,9 +6,11 @@ use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\Author;
+use App\Models\Tag;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -66,6 +68,20 @@ class ArticleCrudController extends CrudController
             ]
         ]);
         CRUD::column('created_at')->label(__('table.created'));
+
+        CRUD::addFilter([
+            'type'  => 'select2_multiple',
+            'label' => __('table.tags'),
+            'name' => 'tag_id'
+        ], function () {
+            return Tag::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause(function (Builder $query) use ($values) {
+                return $query->whereHas('tags', function (Builder $query) use ($values) {
+                    return $query->whereIn('tag_id', json_decode($values));
+                });
+            });
+        });
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -128,12 +144,12 @@ class ArticleCrudController extends CrudController
 
         CRUD::addField([
             'name' => 'elements',
-            'label' => __('table.articles.elements'),
+            'label' => __('table.article_fields.elements'),
             'type' => 'repeatable',
             'subfields' => [
                 [
                     'name' => 'content',
-                    'label' => __('table.articles.content'),
+                    'label' => __('table.article_fields.content'),
                     'type' => 'ckeditor',
                 ]
             ]
@@ -178,14 +194,26 @@ class ArticleCrudController extends CrudController
         $this->setupListOperation();
 
         CRUD::addColumn([
+            'name' => 'tags',
+            'label' => __('table.tags'),
+            'type' => 'relationship',
+            'attribute' => 'name',
+            'wrapper' => [
+                'href' => function ($crud, $column, $article, $tag_id) {
+                    return backpack_url("tag/{$tag_id}/show");
+                }
+            ]
+        ]);
+
+        CRUD::addColumn([
             'name' => 'structure',
-            'label' => __('table.articles.structure'),
+            'label' => __('table.article_fields.structure'),
             'type' => 'markdown'
         ]);
 
         CRUD::addColumn([
             'name' => 'content',
-            'label' => __('table.articles.content'),
+            'label' => __('table.article_fields.content'),
             'type' => 'markdown'
         ]);
     }
