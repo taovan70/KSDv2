@@ -25,4 +25,5 @@ Route::group([
     Route::crud('sub-section', 'SubSectionCrudController');
     Route::crud('author', 'AuthorCrudController');
     Route::crud('article', 'ArticleCrudController');
+    Route::crud('log-user-event', 'LogUserEventCrudController');
 }); // this should be the absolute last line of this file

@@ -49,3 +49,5 @@
         <i class="nav-icon la la-copy"></i> {{ __('models.articles') }}
     </a>
 </li>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('log-user-event') }}"><i class="nav-icon la la-digital-tachograph"></i> {{ __('models.user_logging') }}</a></li>
