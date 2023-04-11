@@ -9,10 +9,15 @@ return [
     'subjects' => 'Тематики',
     'section' => 'Раздел',
     'sections' => 'Разделы',
+    'sub_section' => 'Подраздел',
     'sub_sections' => 'Подразделы',
+    'author' => 'Автор',
     'authors' => 'Авторы',
+    'article' => 'Статья',
+    'user' => 'Пользователь',
+    'users' => 'Пользователи',
 
-    'users' => [
+    'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',
         'gender' => 'Пол',
@@ -28,5 +33,13 @@ return [
         'social_network' => 'Социальная сеть',
         'account' => 'Аккаунт',
         'photo' => 'Фотография'
+    ],
+
+    'user_fields' =>[
+            'name' => 'Имя',
+            'email' => 'Email',
+            'password' => 'Пароль',
+            'password_confirmation' => 'Подтверждение пароля',
+            'role' => 'Роль',
     ],
 ];

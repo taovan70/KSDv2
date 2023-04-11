@@ -44,3 +44,13 @@
         <i class="nav-icon la la-users"></i> {{ __('models.authors') }}
     </a>
 </li>
+<li class="nav-item">
+    <a class="nav-link text-capitalize" href="{{ backpack_url('article') }}">
+        <i class="nav-icon la la-copy"></i> {{ __('models.articles') }}
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link text-capitalize" href="{{ backpack_url('user') }}">
+        <i class="nav-icon la la-user"></i> {{ __('models.users') }}
+    </a>
+</li>
