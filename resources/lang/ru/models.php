@@ -15,5 +15,6 @@ return [
     "author" => "автор",
     "authors" => "авторы",
     "article" => "статья",
-    "articles" => "статьи"
+    "articles" => "статьи",
+    "user_logging" => "Логирование",
 ];
