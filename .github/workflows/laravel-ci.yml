@@ -20,6 +20,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.PRIVATE_KEY }}
         port: ${{ secrets.SERVER_PORT }}
+        debug: true
         script: |
           cd ${{ secrets.PROJECT_FOLDER }};
           echo '--- LIST OF FILES ---';
