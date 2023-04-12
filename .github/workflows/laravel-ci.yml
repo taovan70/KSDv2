@@ -1,0 +1,30 @@
+name: "Admin panel CI"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Up docker compose on server
+      uses: D3rHase/ssh-command-action@{version}
+      with:
+        host: ${{secrets.HOST}} 
+        user: ${{secrets.USER}} 
+        private_key: ${{secrets.PRIVATE_KEY}} 
+        command: |
+          cd ${{ secrets.PROJECT_FOLDER }};
+          git checkout main;
+          git pull;
+          docker-compose --file docker-compose.yml down;
+          docker-compose --file docker-compose.yml up -d;
+          docker system prune --all --force;
+
