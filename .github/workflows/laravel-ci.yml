@@ -16,7 +16,7 @@ jobs:
     - name: SSH Execute Commands
       uses: JimCronqvist/action-ssh@1.0.0
       with:
-        hosts: ${{secrets.SSH_USER}}'@'${{secrets.SSH_HOST}}
+        hosts: ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
         privateKey: ${{ secrets.PRIVATE_KEY }}
         command: |
           cd ${{ secrets.PROJECT_FOLDER }};
