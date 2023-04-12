@@ -19,6 +19,7 @@ jobs:
         host: ${{secrets.HOST}} 
         user: ${{secrets.USER}} 
         private_key: ${{secrets.PRIVATE_KEY}} 
+        port: ${{ secrets.SERVER_PORT }}
         command: |
           cd ${{ secrets.PROJECT_FOLDER }};
           echo '--- LIST OF FILES ---';
