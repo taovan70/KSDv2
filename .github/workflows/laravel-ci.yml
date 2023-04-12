@@ -1,0 +1,33 @@
+name: "Admin panel CI"
+
+on:
+  push:
+    branches: [ "stage" ]
+  pull_request:
+    branches: [ "stage" ]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: SSH Command
+      uses: D3rHase/ssh-command-action@v0.2.2
+      with:
+        host: ${{secrets.HOST}} 
+        user: ${{secrets.USER}} 
+        private_key: ${{secrets.PRIVATE_KEY}} 
+        port: ${{ secrets.SERVER_PORT }}
+        command: |
+          cd ${{ secrets.PROJECT_FOLDER }};
+          echo '--- LIST OF FILES ---';
+          ls -al;
+          echo '--- GIT CHECKOUT ---';
+          git checkout stage;
+          git pull origin stage;
+          docker-compose --file docker-compose.yml down;
+          docker-compose --file docker-compose.yml up -d;
+          docker system prune --all --force;
+
