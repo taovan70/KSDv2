@@ -14,10 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: SSH Execute Commands
-      uses: JimCronqvist/action-ssh@1.0.0
+      uses: appleboy/ssh-action@master
       with:
-        hosts: ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}
-        privateKey: ${{ secrets.PRIVATE_KEY }}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.SERVER_PORT }}
         command: |
           cd ${{ secrets.PROJECT_FOLDER }};
           echo '--- LIST OF FILES ---';
