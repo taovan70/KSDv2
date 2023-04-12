@@ -35,11 +35,7 @@ class ArticleUpdateRequest extends FormRequest
 
             'elements' => 'required|array',
             'elements.*.id' => 'nullable|integer|exists:article_elements,id',
-            'elements.*.content' => [
-                'required',
-                'string',
-                new NotContainsString('base64')
-            ],
+            'elements.*.content' => 'required|string',
         ];
     }
 

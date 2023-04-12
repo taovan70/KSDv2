@@ -14,7 +14,6 @@ class DOMParser
 
     public function __construct()
     {
-        $this->articleElementService = app(ArticleElementService::class);
         $this->dom = new DOMDocument();
     }
 
@@ -88,17 +87,32 @@ class DOMParser
                 continue;
             }
 
-            if ($tag->hasChildNodes() && in_array($tag->firstElementChild?->tagName, DOMTags::SEPARATED_TAGS)) {
+            if (in_array($tag->firstElementChild?->tagName, DOMTags::SEPARATED_TAGS)) {
                 continue;
             }
 
             $filteredTags[] = [
                 'tagName' => $tag->tagName,
-                'content' => $this->getHtmlString($tag)
+                'content' => $this->decodeString($this->getHtmlString($tag))
             ];
         }
 
         return $filteredTags;
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    private function decodeString(string $string): string
+    {
+        $string = utf8_decode($string);
+
+        if (!mb_check_encoding($string, "UTF-8")) {
+            $string = mb_convert_encoding($string, 'UTF-8', 'auto');
+        }
+
+        return $string;
     }
 
     /**

@@ -32,7 +32,9 @@ class Article extends Model
         'content',
         'structure',
         'author_id',
-        'sub_section_id'
+        'sub_section_id',
+        'published',
+        'publish_date'
     ];
     // protected $hidden = [];
     // protected $dates = [];

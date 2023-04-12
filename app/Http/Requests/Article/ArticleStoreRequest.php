@@ -31,11 +31,7 @@ class ArticleStoreRequest extends FormRequest
             'author_id' => 'nullable|integer|exists:authors,id',
             'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
             'publish_date' => 'required|date|after:yesterday',
-            'article_text' => [
-                'required',
-                'string',
-                new NotContainsString('base64')
-            ],
+            'article_text' => 'required|string'
         ];
     }
 
