@@ -27,8 +27,8 @@ jobs:
           git checkout stage;
           git pull origin stage;
           echo '--- DOCKER COMPOSE STOP AND REBUILD ---';
-          docker-compose stop;
-          docker-compose rm;
+          docker-compose stop app webserver db;
+          docker-compose rm -f;
           docker system prune -a;
           docker-compose up --build -d;
           echo '--- REMOVE OLD IMAGES ---';
