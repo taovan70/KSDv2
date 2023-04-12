@@ -17,4 +17,5 @@ return [
     "article" => "статья",
     "articles" => "статьи",
     "user_logging" => "Логирование",
+    "settings" => "Настройки",
 ];

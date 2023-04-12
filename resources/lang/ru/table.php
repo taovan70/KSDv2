@@ -15,6 +15,7 @@ return [
     'authors' => 'Авторы',
     'article' => 'Статья',
     "user_logging" => "Логирование",
+    "settings" => "Настройки",
     'users' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',
