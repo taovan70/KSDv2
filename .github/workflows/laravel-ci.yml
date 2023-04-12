@@ -27,7 +27,9 @@ jobs:
           echo '--- GIT CHECKOUT ---';
           git checkout stage;
           git pull origin stage;
+          echo '--- DOCKER COMPOSE DOWN ---';
           docker-compose --file docker-compose.yml down;
+          echo '--- DOCKER COMPOSE UP ---';
           docker-compose --file docker-compose.yml up -d;
           docker system prune --all --force;
 
