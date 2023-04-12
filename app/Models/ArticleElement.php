@@ -2,19 +2,16 @@
 
 namespace App\Models;
 
-use App\Traits\Models\ArticlesCountAttribute;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Event;
 
-class SubSection extends Model
+class ArticleElement extends Model
 {
     use CrudTrait;
     use HasFactory;
-    use ArticlesCountAttribute;
 
     /*
     |--------------------------------------------------------------------------
@@ -22,11 +19,16 @@ class SubSection extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'sub_sections';
+    protected $table = 'article_elements';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'section_id'];
+    protected $fillable = [
+        'article_id',
+        'html_tag',
+        'content',
+        'order'
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -36,25 +38,38 @@ class SubSection extends Model
     |--------------------------------------------------------------------------
     */
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Prevent creating by Backpack CRUD
+        Event::listen('eloquent.creating: App\Models\ArticleElement', function ($element) {
+            if (
+                !isset($element->html_tag)
+                || !isset($element->content)
+                || !isset($element->order)
+                || !isset($element->article_id)
+            ) {
+                Event::dispatch('eloquent.creating.cancelled', $element);
+                return false;
+            }
+        });
+    }
+
+    public function stripTags(): void
+    {
+        $this->content = strip_tags($this->content);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
 
-    public function section(): BelongsTo
+    public function article(): BelongsTo
     {
-        return $this->belongsTo(Section::class);
-    }
-
-    public function authors(): BelongsToMany
-    {
-        return $this->belongsToMany(Author::class);
-    }
-
-    public function articles(): HasMany
-    {
-        return $this->hasMany(Article::class);
+        return $this->belongsTo(Article::class);
     }
 
     /*

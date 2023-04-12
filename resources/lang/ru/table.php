@@ -16,6 +16,8 @@ return [
     'article' => 'Статья',
     'user' => 'Пользователь',
     'users' => 'Пользователи',
+    'articles' => 'Статьи',
+    'tags' => 'Теги',
 
     'author_fields' => [
         'full_name' => 'ФИО',
@@ -36,10 +38,19 @@ return [
     ],
 
     'user_fields' =>[
-            'name' => 'Имя',
-            'email' => 'Email',
-            'password' => 'Пароль',
-            'password_confirmation' => 'Подтверждение пароля',
-            'role' => 'Роль',
+        'name' => 'Имя',
+        'email' => 'Email',
+        'password' => 'Пароль',
+        'password_confirmation' => 'Подтверждение пароля',
+        'role' => 'Роль',
     ],
+
+    'article_fields' => [
+        'content' => 'Контент',
+        'structure' => 'Содержание',
+        'elements' => 'Элементы статьи',
+        'html_tag' => 'HTML тег',
+        'publish_date' => 'Дата публикации',
+        'published' => 'Опубликована'
+    ]
 ];

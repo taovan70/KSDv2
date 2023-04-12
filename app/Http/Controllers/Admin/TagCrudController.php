@@ -21,6 +21,7 @@ class TagCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -44,6 +45,15 @@ class TagCrudController extends CrudController
     {
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
+        CRUD::addColumn([
+            'name' => 'articlesCount',
+            'label' => __('table.articles'),
+            'wrapper' => [
+                'href' => function($crud, $column, $tag) {
+                    return backpack_url('article?tag_id=["' . $tag->id . '"]');
+                }
+            ]
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
