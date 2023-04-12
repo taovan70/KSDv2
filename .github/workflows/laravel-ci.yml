@@ -26,8 +26,7 @@ jobs:
           echo '--- GIT CHECKOUT ---';
           git checkout stage;
           git pull origin stage;
-          echo '--- DOCKER COMPOSE DOWN ---';
-          docker-compose rm -f;
-          echo '--- DOCKER COMPOSE UP ---';
-          docker-compose up --build -d;
-          docker system prune --all --force;
+          echo '--- DOCKER COMPOSE REBUILD ---';
+          docker-compose up --force-recreate --build -d
+          echo '--- REMOVE OLD IMAGES ---';
+          docker image prune -f
