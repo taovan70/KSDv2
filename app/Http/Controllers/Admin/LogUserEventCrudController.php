@@ -13,9 +13,6 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class LogUserEventCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
@@ -27,7 +24,7 @@ class LogUserEventCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\LogUserEvent::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/log-user-event');
-        CRUD::setEntityNameStrings('log user event', 'log user events');
+        CRUD::setEntityNameStrings(__('models.user_logging'), __('models.user_logging'));
     }
 
     /**
