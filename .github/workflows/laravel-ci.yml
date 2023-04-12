@@ -22,7 +22,10 @@ jobs:
         private_key: ${{secrets.PRIVATE_KEY}} 
         command: |
           cd ${{ secrets.PROJECT_FOLDER }};
-          git checkout main;
+          echo '--- LIST OF FILES ---';
+          ls -al;
+          echo '--- GIT CHECKOUT ---';
+          git checkout stage;
           git pull;
           docker-compose --file docker-compose.yml down;
           docker-compose --file docker-compose.yml up -d;
