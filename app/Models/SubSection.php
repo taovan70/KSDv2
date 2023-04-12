@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\ArticlesCountAttribute;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class SubSection extends Model
 {
     use CrudTrait;
     use HasFactory;
+    use ArticlesCountAttribute;
 
     /*
     |--------------------------------------------------------------------------

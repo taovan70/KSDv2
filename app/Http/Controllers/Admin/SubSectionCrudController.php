@@ -54,6 +54,15 @@ class SubSectionCrudController extends CrudController
                 'href' => fn($crud, $column, $subSection, $section_id) => backpack_url("section/{$section_id}/show")
             ]
         ]);
+        CRUD::addColumn([
+            'name' => 'articlesCount',
+            'label' => __('table.articles'),
+            'wrapper' => [
+                'href' => function($crud, $column, $subSection) {
+                    return backpack_url('article?sub_section_id=["' . $subSection->id . '"]');
+                }
+            ]
+        ]);
 
         CRUD::addFilter([
             'type'  => 'select2_multiple',

@@ -6,6 +6,7 @@ use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\Author;
+use App\Models\SubSection;
 use App\Models\Tag;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -79,6 +80,20 @@ class ArticleCrudController extends CrudController
             $this->crud->addClause(function (Builder $query) use ($values) {
                 return $query->whereHas('tags', function (Builder $query) use ($values) {
                     return $query->whereIn('tag_id', json_decode($values));
+                });
+            });
+        });
+
+        CRUD::addFilter([
+            'type'  => 'select2_multiple',
+            'label' => __('table.sub_sections'),
+            'name' => 'sub_section_id'
+        ], function () {
+            return SubSection::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause(function (Builder $query) use ($values) {
+                return $query->whereHas('subSection', function (Builder $query) use ($values) {
+                    return $query->whereIn('sub_section_id', json_decode($values));
                 });
             });
         });

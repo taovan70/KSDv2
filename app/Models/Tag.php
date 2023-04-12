@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Models\ArticlesCountAttribute;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,6 +12,7 @@ class Tag extends Model
 {
     use CrudTrait;
     use HasFactory;
+    use ArticlesCountAttribute;
 
     /*
     |--------------------------------------------------------------------------
@@ -55,15 +56,6 @@ class Tag extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-
-    protected function articlesCount(): Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                return self::articles()->count() . ' ' . __('models.articles');
-            }
-        );
-    }
 
     /*
     |--------------------------------------------------------------------------
