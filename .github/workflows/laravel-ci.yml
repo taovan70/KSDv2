@@ -1,5 +1,3 @@
-name: "Admin panel CI"
-
 on:
   push:
     branches: [ "stage" ]
@@ -29,7 +27,7 @@ jobs:
           git checkout stage;
           git pull origin stage;
           echo '--- DOCKER COMPOSE DOWN ---';
-          docker-compose --file docker-compose.yml down;
+          docker-compose rm -f;
           echo '--- DOCKER COMPOSE UP ---';
-          docker-compose --file docker-compose.yml up -d;
+          docker-compose up --build -d;
           docker system prune --all --force;
