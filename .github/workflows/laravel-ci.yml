@@ -13,13 +13,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - name: SSH Command
-      uses: D3rHase/ssh-command-action@v0.2.2
+    - name: SSH Execute Commands
+      uses: JimCronqvist/action-ssh@1.0.0
       with:
-        host: ${{secrets.HOST}} 
-        user: ${{secrets.USER}} 
-        private_key: ${{secrets.PRIVATE_KEY}} 
-        port: ${{ secrets.SERVER_PORT }}
+        hosts: ${{secrets.SSH_USER}}'@'${{secrets.SSH_HOST}}
+        privateKey: ${{ secrets.PRIVATE_KEY }}
         command: |
           cd ${{ secrets.PROJECT_FOLDER }};
           echo '--- LIST OF FILES ---';
@@ -32,4 +30,3 @@ jobs:
           echo '--- DOCKER COMPOSE UP ---';
           docker-compose --file docker-compose.yml up -d;
           docker system prune --all --force;
-
