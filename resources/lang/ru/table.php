@@ -49,6 +49,8 @@ return [
         'content' => 'Контент',
         'structure' => 'Содержание',
         'elements' => 'Элементы статьи',
-        'html_tag' => 'HTML тег'
+        'html_tag' => 'HTML тег',
+        'publish_date' => 'Дата публикации',
+        'published' => 'Опубликована'
     ]
 ];

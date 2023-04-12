@@ -25,47 +25,6 @@ class ArticleService
     }
 
     /**
-     * @return void
-     */
-    public function setFormFields(): void
-    {
-        CRUD::field('name')->label(__('table.name'));
-        CRUD::addField([
-            'name' => 'sub_section_id',
-            'label' => __('table.sub_section'),
-            'type' => 'select2_grouped',
-            'entity' => 'subSection',
-            'attribute' => 'name',
-            'group_by'  => 'section',
-            'group_by_attribute' => 'name',
-            'group_by_relationship_back' => 'subSections'
-        ]);
-        CRUD::addField([
-            'name' => 'author_id',
-            'label' => __('table.author'),
-            'type' => 'select2_from_ajax',
-            'entity' => 'author',
-            'attribute' => 'fullName',
-            'data_source' => url('api/article_authors'),
-            'minimum_input_length' => 0,
-            'dependencies' => ['sub_section_id'],
-            'method' => 'POST',
-            'include_all_form_fields' => true
-        ]);
-        CRUD::addField([
-            'name' => 'tags',
-            'label' => __('table.tags'),
-            'type' => 'relationship',
-            'ajax' => true,
-            'attribute' => 'name',
-            'data_source' => url('api/tags'),
-            'method' => 'POST',
-            'include_all_form_fields' => false,
-            'inline_create' => [ 'entity' => 'tag' ]
-        ]);
-    }
-
-    /**
      * @param Request $request
      * @return Collection
      */

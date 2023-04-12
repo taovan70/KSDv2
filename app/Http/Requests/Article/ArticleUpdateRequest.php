@@ -4,6 +4,7 @@ namespace App\Http\Requests\Article;
 
 use App\Rules\NotContainsString;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ArticleUpdateRequest extends FormRequest
 {
@@ -30,13 +31,15 @@ class ArticleUpdateRequest extends FormRequest
             'name' => 'required|string|min:2|max:255',
             'author_id' => 'nullable|integer|exists:authors,id',
             'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
+            'publish_date' => 'required|date|after:yesterday',
+
             'elements' => 'required|array',
             'elements.*.id' => 'nullable|integer|exists:article_elements,id',
             'elements.*.content' => [
                 'required',
                 'string',
                 new NotContainsString('base64')
-            ]
+            ],
         ];
     }
 

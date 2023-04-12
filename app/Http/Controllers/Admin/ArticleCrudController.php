@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CRUD\ArticleCRUD;
 use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
-use App\Models\Author;
-use App\Models\SubSection;
-use App\Models\Tag;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\RedirectResponse;
 
 /**
  * Class ArticleCrudController
@@ -32,7 +28,7 @@ class ArticleCrudController extends CrudController
      * 
      * @return void
      */
-    public function setup()
+    public function setup(): void
     {
         CRUD::setModel(\App\Models\Article::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/article');
@@ -41,134 +37,54 @@ class ArticleCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
+     *
      * @return void
      */
-    protected function setupListOperation()
+    protected function setupListOperation(): void
     {
-        CRUD::column('name')->label(__('table.name'));
-        CRUD::addColumn([
-            'label' => __('table.author'),
-            'type' => 'select',
-            'name' => 'author_id',
-            'attribute' => 'name',
-            'entity' => 'author',
-            'wrapper' => [
-                'href' => fn($crud, $column, $article, $author_id) => backpack_url("author/{$author_id}/show")
-            ]
-        ]);
-        CRUD::addColumn([
-            'label' => __('table.sub_section'),
-            'type' => 'select',
-            'name' => 'sub_section_id',
-            'attribute' => 'name',
-            'entity' => 'subSection',
-            'wrapper' => [
-                'href' => fn($crud, $column, $article, $sub_section_id) => backpack_url("sub-section/{$sub_section_id}/show")
-            ]
-        ]);
-        CRUD::column('created_at')->label(__('table.created'));
-
-        CRUD::addFilter([
-            'type'  => 'select2_multiple',
-            'label' => __('table.tags'),
-            'name' => 'tag_id'
-        ], function () {
-            return Tag::all()->pluck('name', 'id')->toArray();
-        }, function ($values) {
-            $this->crud->addClause(function (Builder $query) use ($values) {
-                return $query->whereHas('tags', function (Builder $query) use ($values) {
-                    return $query->whereIn('tag_id', json_decode($values));
-                });
-            });
-        });
-
-        CRUD::addFilter([
-            'type'  => 'select2_multiple',
-            'label' => __('table.sub_sections'),
-            'name' => 'sub_section_id'
-        ], function () {
-            return SubSection::all()->pluck('name', 'id')->toArray();
-        }, function ($values) {
-            $this->crud->addClause(function (Builder $query) use ($values) {
-                return $query->whereHas('subSection', function (Builder $query) use ($values) {
-                    return $query->whereIn('sub_section_id', json_decode($values));
-                });
-            });
-        });
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        //Columns
+        ArticleCRUD::listColumns();
+        // Filters
+        ArticleCRUD::tagFilter($this->crud);
+        ArticleCRUD::subSectionFilter($this->crud);
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
+     *
      * @return void
      */
-    protected function setupCreateOperation()
+    protected function setupCreateOperation(): void
     {
-        /** @var ArticleService $articleService */
-        $articleService = app(ArticleService::class);
-
         CRUD::setValidation(ArticleStoreRequest::class);
 
-        $articleService->setFormFields();
+        ArticleCRUD::formFields();
 
-        CRUD::addField([
-            'name' => 'article_text',
-            'label' => __('table.article'),
-            'type' => 'ckeditor',
-            'options'       => [
-                'autoGrow_minHeight'   => 200,
-                'autoGrow_bottomSpace' => 50
-            ]
-        ]);
+        Article::created(function (Article $article) {
+            /** @var ArticleService $articleService */
+            $articleService = app(ArticleService::class);
 
-        Article::created(function (Article $article) use ($articleService) {
             $request = $this->crud->validateRequest();
             $articleService->parseArticle($request, $article->id);
         });
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     *
      * @return void
      */
-    protected function setupUpdateOperation()
+    protected function setupUpdateOperation(): void
     {
-        /** @var ArticleService $articleService */
-        $articleService = app(ArticleService::class);
-
         CRUD::setValidation(ArticleUpdateRequest::class);
 
-        $articleService->setFormFields();
+        ArticleCRUD::formFields(false);
+    }
 
-        CRUD::addField([
-            'name' => 'elements',
-            'label' => __('table.article_fields.elements'),
-            'type' => 'repeatable',
-            'subfields' => [
-                [
-                    'name' => 'content',
-                    'label' => __('table.article_fields.content'),
-                    'type' => 'ckeditor',
-                ]
-            ]
-        ]);
+    protected function setupShowOperation(): void
+    {
+        $this->setupListOperation();
+        ArticleCRUD::showColumns();
     }
 
     public function update()
@@ -202,34 +118,5 @@ class ArticleCrudController extends CrudController
         $this->crud->setSaveAction();
 
         return $this->crud->performSaveAction($item->getKey());
-    }
-
-    protected function setupShowOperation()
-    {
-        $this->setupListOperation();
-
-        CRUD::addColumn([
-            'name' => 'tags',
-            'label' => __('table.tags'),
-            'type' => 'relationship',
-            'attribute' => 'name',
-            'wrapper' => [
-                'href' => function ($crud, $column, $article, $tag_id) {
-                    return backpack_url("tag/{$tag_id}/show");
-                }
-            ]
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'structure',
-            'label' => __('table.article_fields.structure'),
-            'type' => 'markdown'
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'content',
-            'label' => __('table.article_fields.content'),
-            'type' => 'markdown'
-        ]);
     }
 }

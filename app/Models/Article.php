@@ -38,7 +38,9 @@ class Article extends Model
     // protected $dates = [];
     protected $casts = [
         'content' => 'array',
-        'structure' => 'array'
+        'structure' => 'array',
+        'published' => 'boolean',
+        'publish_date' => 'datetime'
     ];
 
     protected $with = [

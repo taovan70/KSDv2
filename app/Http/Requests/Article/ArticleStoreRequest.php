@@ -4,6 +4,7 @@ namespace App\Http\Requests\Article;
 
 use App\Rules\NotContainsString;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ArticleStoreRequest extends FormRequest
 {
@@ -29,11 +30,12 @@ class ArticleStoreRequest extends FormRequest
             'name' => 'required|string|min:2|max:255',
             'author_id' => 'nullable|integer|exists:authors,id',
             'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
+            'publish_date' => 'required|date|after:yesterday',
             'article_text' => [
                 'required',
                 'string',
                 new NotContainsString('base64')
-            ]
+            ],
         ];
     }
 
