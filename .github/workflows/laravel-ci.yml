@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Up docker compose on server
-      uses: D3rHase/ssh-command-action@{version}
+      uses: D3rHase/ssh-command-action@0.2.2
       with:
         host: ${{secrets.HOST}} 
         user: ${{secrets.USER}} 
