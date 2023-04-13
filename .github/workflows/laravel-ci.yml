@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: [ "stage" ]
+  pull_request:
+    branches: [ "stage" ]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+    - uses: actions/checkout@v3
+    - name: SSH Execute Commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.SERVER_PORT }}
+        debug: true
+        script: |
+          cd ${{ secrets.PROJECT_FOLDER }};
+          echo '--- LIST OF FILES ---';
+          ls -al;
+          echo '--- GIT CHECKOUT ---';
+          git checkout stage;
+          git pull origin stage;
+          echo '--- DOCKER CONTAINERS STOP AND REBUILD ---';
+          docker stop $(docker ps -a -q);
+          docker rm $(docker ps -a -q);
+          echo '--- RUN DOCKER COMPOSE ---';
+          docker compose up --build -d;

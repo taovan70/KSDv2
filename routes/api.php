@@ -19,5 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group([], function () {
-        Route::post('article_authors', [\App\Http\Controllers\Api\ArticleController::class, 'fetchAuthors']);
+    Route::post('article_authors', [\App\Http\Controllers\Api\ArticleController::class, 'fetchAuthors']);
+
+    Route::group(['prefix' => 'tags'], function () {
+        Route::post('/', [\App\Http\Controllers\Api\TagController::class, 'fetchTags']);
     });
+});

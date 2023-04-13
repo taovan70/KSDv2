@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Helpers\DOMParser\DOMParser;
 use App\Helpers\DOMParser\DOMTags;
+use App\Models\Article;
 use App\Models\ArticleElement;
 use App\Models\Author;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -14,10 +16,12 @@ use Illuminate\Support\Collection;
 class ArticleService
 {
     private DOMParser $parser;
+    private ArticleElementService $articleElementService;
 
     public function __construct()
     {
         $this->parser = new DOMParser();
+        $this->articleElementService = app(ArticleElementService::class);
     }
 
     /**
@@ -31,7 +35,7 @@ class ArticleService
             return $value['name'] === 'sub_section_id';
         });
 
-        return Author::query()
+        $authors =  Author::query()
             ->when(isset($subSectionField['value']), function (Builder $query) use ($subSectionField) {
                 $query->whereHas('subSections', function (Builder $query) use ($subSectionField) {
                     $query->where('sub_section_id', $subSectionField['value']);
@@ -42,21 +46,29 @@ class ArticleService
                     ->orWhere('surname', 'LIKE', "%{$search}%")
                     ->orWhere('middle_name', 'LIKE', "%{$search}%");
             })
-            ->get()
-            ->map(fn($author) => [
-                'id' => $author->id,
-                'fullName' => $author->fullName
-            ]);
+            ->get();
+
+        if ($authors->isEmpty()) $authors = Author::all();
+
+        return $authors->map(fn($author) => [
+            'id' => $author->id,
+            'fullName' => $author->fullName
+        ]);
     }
 
     /**
-     * @param string $articleText
+     * @param Request $request
      * @param int $articleId
      * @return void
      */
-    public function parseArticle(string $articleText, int $articleId): void
+    public function parseArticle(Request $request, int $articleId): void
     {
-        $this->parser->parseDOMContent($articleText, $articleId);
+        $tags = $this->parser->parseContentOnTags($request->article_text);
+        $tags = $this->parser->filterTagsForArticle($tags);
+
+        foreach ($tags as $i => $tag) {
+            $this->articleElementService->store($tag['tagName'], $tag['content'], $articleId, $i);
+        }
     }
 
     /**
@@ -126,5 +138,24 @@ class ArticleService
         }
 
         return $this->parser->createArticleStructure($structure);
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function updateArticleElements(array $data): void
+    {
+        $article = Article::find($data['id']);
+
+        $elementIds = [];
+        foreach ($data['elements'] as $i => $element) {
+            $tagName = $this->parser->getTagFromString($element['content']);
+            $articleElement = $this->articleElementService->store($tagName, $element['content'], $article->id, $i, $element['id']);
+
+            $elementIds[] = $articleElement->id;
+        }
+
+        $article->elements()->whereNotIn('id', $elementIds)->delete();
     }
 }

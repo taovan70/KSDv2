@@ -103,7 +103,7 @@ class Author extends Model
     {
         return Attribute::make(
             get: function($value, $attributes) {
-                return __("table.users.{$attributes['gender']}");
+                return __("table.author_fields.{$attributes['gender']}");
             }
         );
     }

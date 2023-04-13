@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\User;
 
-use App\Rules\NotContainsString;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ArticleStoreRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +25,12 @@ class ArticleStoreRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' => 'required|string|min:2|max:255',
-            'author_id' => 'nullable|integer|exists:authors,id',
-            'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
-            'publish_date' => 'required|date|after:yesterday',
-            'article_text' => 'required|string'
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'nullable|string|min:6|max:64|confirmed',
+            'password_confirmation' => 'required_with:password|string|min:6|max:64',
         ];
     }
 
@@ -58,4 +57,5 @@ class ArticleStoreRequest extends FormRequest
             //
         ];
     }
+
 }

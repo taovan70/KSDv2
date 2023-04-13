@@ -16,6 +16,9 @@ return [
     "authors" => "авторы",
     "article" => "статья",
     "articles" => "статьи",
+    "user" => "пользователь",
+    "users" => "пользователи",
+    "user_possessive_case" => "пользователя",
     "user_logging" => "Логирование",
     "settings" => "Настройки",
 ];

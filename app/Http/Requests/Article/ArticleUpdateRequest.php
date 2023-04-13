@@ -6,7 +6,7 @@ use App\Rules\NotContainsString;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ArticleStoreRequest extends FormRequest
+class ArticleUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,15 @@ class ArticleStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required|integer|exists:articles,id',
             'name' => 'required|string|min:2|max:255',
             'author_id' => 'nullable|integer|exists:authors,id',
             'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
             'publish_date' => 'required|date|after:yesterday',
-            'article_text' => 'required|string'
+
+            'elements' => 'required|array',
+            'elements.*.id' => 'nullable|integer|exists:article_elements,id',
+            'elements.*.content' => 'required|string',
         ];
     }
 

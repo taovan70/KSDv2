@@ -43,9 +43,9 @@ class AuthorCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('full_name')->label(__('table.users.full_name'));
-        CRUD::column('age')->label(__('table.users.age'));
-        CRUD::column('fullGender')->label(__('table.users.gender'));
+        CRUD::column('full_name')->label(__('table.author_fields.full_name'));
+        CRUD::column('age')->label(__('table.author_fields.age'));
+        CRUD::column('fullGender')->label(__('table.author_fields.gender'));
         CRUD::column('created_at')->label(__('table.created'));
 
         /**
@@ -65,44 +65,44 @@ class AuthorCrudController extends CrudController
     {
         CRUD::setValidation(AuthorRequest::class);
 
-        CRUD::field('name')->label(__('table.users.name'));
-        CRUD::field('surname')->label(__('table.users.surname'));
-        CRUD::field('middle_name')->label(__('table.users.middle_name'));
+        CRUD::field('name')->label(__('table.author_fields.name'));
+        CRUD::field('surname')->label(__('table.author_fields.surname'));
+        CRUD::field('middle_name')->label(__('table.author_fields.middle_name'));
         CRUD::addField([
             'name' => 'gender',
-            'label' => __('table.users.gender'),
+            'label' => __('table.author_fields.gender'),
             'type' => 'select_from_array',
             'options' => [
-                Author::MALE => __('table.users.' . Author::MALE),
-                Author::FEMALE => __('table.users.' . Author::FEMALE),
+                Author::MALE => __('table.author_fields.' . Author::MALE),
+                Author::FEMALE => __('table.author_fields.' . Author::FEMALE),
             ]
         ]);
-        CRUD::field('age')->label(__('table.users.age'))->type('number');
-        CRUD::field('biography')->label(__('table.users.biography'))->type('textarea');
-        CRUD::field('address')->label(__('table.users.address'));
+        CRUD::field('age')->label(__('table.author_fields.age'))->type('number');
+        CRUD::field('biography')->label(__('table.author_fields.biography'))->type('textarea');
+        CRUD::field('address')->label(__('table.author_fields.address'));
         CRUD::addField([
             'name' => 'photo_path',
-            'label' => __('table.users.photo'),
+            'label' => __('table.author_fields.photo'),
             'type' => 'upload',
             'upload' => true,
             'disk' => 'public'
         ]);
 
-        CRUD::field('personal_site')->label(__('table.users.personal_site'));
+        CRUD::field('personal_site')->label(__('table.author_fields.personal_site'));
         CRUD::addField([
             'name'  => 'social_networks',
-            'label' => __('table.users.social_networks'),
+            'label' => __('table.author_fields.social_networks'),
             'type'  => 'repeatable',
             'subfields' => [
                 [
                     'name' => 'social_network',
-                    'label' => __('table.users.social_network'),
+                    'label' => __('table.author_fields.social_network'),
                     'type' => 'select_from_array',
                     'options' => Author::SOCIAL_NETWORKS
                 ],
                 [
                     'name' => 'account',
-                    'label' => __('table.users.account'),
+                    'label' => __('table.author_fields.account'),
                     'type' => 'text'
                 ]
             ]
@@ -137,25 +137,25 @@ class AuthorCrudController extends CrudController
     {
         CRUD::addColumn([
             'name' => 'photo_path',
-            'label' => __('table.users.photo'),
+            'label' => __('table.author_fields.photo'),
             'type' => 'image',
             'prefix' => 'storage/',
             'width' => '100px',
             'height' => '100px'
         ]);
-        CRUD::column('full_name')->label(__('table.users.full_name'));
-        CRUD::column('age')->label(__('table.users.age'));
-        CRUD::column('fullGender')->label(__('table.users.gender'));
+        CRUD::column('full_name')->label(__('table.author_fields.full_name'));
+        CRUD::column('age')->label(__('table.author_fields.age'));
+        CRUD::column('fullGender')->label(__('table.author_fields.gender'));
         CRUD::addColumn([
             'name' => 'biography',
-            'label' => __('table.users.biography'),
+            'label' => __('table.author_fields.biography'),
             'limit' => 1000
         ]);
-        CRUD::column('address')->label(__('table.users.address'));
-        CRUD::column('personal_site')->label(__('table.users.personal_site'));
+        CRUD::column('address')->label(__('table.author_fields.address'));
+        CRUD::column('personal_site')->label(__('table.author_fields.personal_site'));
         CRUD::addColumn([
             'name' => 'social_networks_array',
-            'label' => __('table.users.social_networks'),
+            'label' => __('table.author_fields.social_networks'),
             'type' => 'array'
         ]);
         CRUD::addColumn([

@@ -14,9 +14,12 @@ return [
     'author' => 'Автор',
     'authors' => 'Авторы',
     'article' => 'Статья',
+    'user' => 'Пользователь',
+    'users' => 'Пользователи',
+    'articles' => 'Статьи',
+    'tags' => 'Теги',
     "user_logging" => "Логирование",
-    "settings" => "Настройки",
-    'users' => [
+    'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',
         'gender' => 'Пол',
@@ -34,8 +37,20 @@ return [
         'photo' => 'Фотография'
     ],
 
-    'articles' => [
+    'user_fields' =>[
+        'name' => 'Имя',
+        'email' => 'Email',
+        'password' => 'Пароль',
+        'password_confirmation' => 'Подтверждение пароля',
+        'role' => 'Роль',
+    ],
+
+    'article_fields' => [
         'content' => 'Контент',
-        'structure' => 'Содержание'
+        'structure' => 'Содержание',
+        'elements' => 'Элементы статьи',
+        'html_tag' => 'HTML тег',
+        'publish_date' => 'Дата публикации',
+        'published' => 'Опубликована'
     ]
 ];
