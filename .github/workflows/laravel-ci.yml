@@ -26,8 +26,12 @@ jobs:
           echo '--- GIT CHECKOUT ---';
           git checkout stage;
           git pull origin stage;
+          echo '--- SETTING UP PROJECT ENVIRONMENT ---';
+          cp ../.env .env
           echo '--- DOCKER CONTAINERS STOP AND REBUILD ---';
           docker stop $(docker ps -a -q);
-          docker rm $(docker ps -a -q);
+          docker rm $(d ocker ps -a -q);
           echo '--- RUN DOCKER COMPOSE ---';
           docker compose up --build -d;
+          echo '--- SETUP COMPOSER AND ARTISAN ---';
+          docker exec -it app bash -c "composer install ; artisan migrate ; artisan storage:link ; artisan key:generate;"
