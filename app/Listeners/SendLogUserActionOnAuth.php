@@ -43,9 +43,15 @@ class SendLogUserActionOnAuth
      */
     public function handle(Login $event): void
     {
-        // write info to database
-        //info(json_encode($event->observedModel->toArray()));
 
+        // check if all logs is on
+        if (DB::table('settings')->where('key', 'user_logging_all')->first()->value == '0') {
+            return;
+        }
+        // check if auth logs is on
+        if (DB::table('settings')->where('key', 'user_logging_auth')->first()->value == '0') {
+            return;
+        }
         DB::table('log_user_events')->insert([
             'user_id' => $this->getUserInfo()['user_id'],
             'url' => $this->getUserInfo()['url'],

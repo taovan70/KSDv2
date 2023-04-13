@@ -42,6 +42,14 @@ class SendLogUserActionOnModel
      */
     public function handle(LogUserActionOnModel $event): void
     {
+        // check if all logs is on
+        if (DB::table('settings')->where('key', 'user_logging_all')->first()->value == '0') {
+            return;
+        }
+        // check if model logs is on
+        if (DB::table('settings')->where('key', 'user_logging_on_model')->first()->value == '0') {
+            return;
+        }
 
         DB::table('log_user_events')->insert([
             'user_id' => $this->getUserInfo()['user_id'],
