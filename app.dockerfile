@@ -45,6 +45,21 @@ RUN set -eux; \
     docker-php-ext-install gd; \
     php -r 'var_dump(gd_info());'
 
+    # Install zip library and pcntl for backub functionality
+RUN set -eux; \
+    apt-get update \
+    && apt-get install -y libzip-dev \
+    && docker-php-ext-install zip pcntl
+
+RUN php -m | grep -q 'zip' && \
+    php -m | grep -q 'pcntl'
+
+RUN set -eux; \
+    apt-get update && \
+    apt-get install -y mariadb-client
+
+RUN echo "request_terminate_timeout = 300s" >> /usr/local/etc/php-fpm.d/www.conf
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

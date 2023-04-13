@@ -54,3 +54,4 @@
         <i class="nav-icon la la-user"></i> {{ __('models.users') }}
     </a>
 </li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i>{{ __('backpack::backup.backup') }}</a></li>
