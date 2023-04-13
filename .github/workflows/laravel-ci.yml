@@ -27,7 +27,7 @@ jobs:
           git checkout stage;
           git pull origin stage;
           echo '--- SETTING UP PROJECT ENVIRONMENT ---';
-          cp .env.example .env
+          cp ../.env .env
           composer install
           echo '--- DOCKER CONTAINERS STOP AND REBUILD ---';
           docker stop $(docker ps -a -q);
