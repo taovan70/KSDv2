@@ -7,5 +7,7 @@ Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
     'middleware' => ['web', backpack_middleware()],
 ], function () {
-    Route::crud(config('backpack.settings.route'), 'CustomSettingCrudController');
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::crud(config('backpack.settings.route'), 'CustomSettingCrudController');
+    });
 });

@@ -54,6 +54,9 @@
         <i class="nav-icon la la-user"></i> {{ __('models.users') }}
     </a>
 </li>
+
+@if(Auth::guard('backpack')->user()->role->name == 'admin')
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('log-user-event') }}"><i class="nav-icon la la-digital-tachograph"></i> {{ __('models.user_logging') }}</a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>{{ __('models.settings') }}</span></a></li>
+@endif

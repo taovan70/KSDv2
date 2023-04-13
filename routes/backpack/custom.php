@@ -22,11 +22,12 @@ Route::group([
     Route::crud('section', 'SectionCrudController');
     Route::crud('sub-section', 'SubSectionCrudController');
     Route::crud('author', 'AuthorCrudController');
-    Route::crud('log-user-event', 'LogUserEventCrudController');
+
     Route::crud('user', 'UserCrudController');
     // Roles available: admin, manager, guest
     Route::group(['middleware' => ['role:admin']], function () {
         Route::crud('article', 'ArticleCrudController');
+        Route::crud('log-user-event', 'LogUserEventCrudController');
     });
 
 }); // this should be the absolute last line of this file
