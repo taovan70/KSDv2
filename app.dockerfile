@@ -16,6 +16,7 @@ RUN set -eux; \
     apt-get update; \
     apt-get upgrade -y; \
     apt-get install -y --no-install-recommends \
+            git \
             curl \
             libmemcached-dev \
             libz-dev \
@@ -45,6 +46,18 @@ RUN set -eux; \
     docker-php-ext-install gd; \
     php -r 'var_dump(gd_info());'
 
+RUN set -eux; \
+    apt-get update \
+    && apt-get install -y libzip-dev \
+    && docker-php-ext-install zip pcntl
+
+RUN php -m | grep -q 'zip' && \
+    php -m | grep -q 'pcntl'
+
+RUN set -eux; \
+    apt-get update && \
+    apt-get install -y mariadb-client
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -60,6 +73,12 @@ COPY --chown=www:www . /var/www
 
 # Change current user to www
 USER www
+
+RUN composer install
+
+RUN php artisan migrate
+RUN php artisan storage:link
+RUN php artisan key:generate
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
