@@ -13,13 +13,15 @@ class LogUserActionOnModel
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public Model $observedModel;
+    public string $action;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(Model $observedModel)
+    public function __construct(Model $observedModel, string $action)
     {
         $this->observedModel = $observedModel;
+        $this->action = $action;
     }
 
     /**

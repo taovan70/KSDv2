@@ -5,6 +5,26 @@ namespace App\Providers;
 use App\Events\LogUserActionOnModel;
 use App\Listeners\SendLogUserActionOnAuth;
 use App\Listeners\SendLogUserActionOnModel;
+use App\Models\Article;
+use App\Models\ArticleElement;
+use App\Models\Author;
+use App\Models\Category;
+use App\Models\CustomSetting;
+use App\Models\Section;
+use App\Models\Subject;
+use App\Models\SubSection;
+use App\Models\Tag;
+use App\Models\User;
+use App\Observers\ArticleElementObserver;
+use App\Observers\ArticleObserver;
+use App\Observers\AuthorObserver;
+use App\Observers\CategoryObserver;
+use App\Observers\CustomSettingObserver;
+use App\Observers\SectionObserver;
+use App\Observers\SubjectObserver;
+use App\Observers\SubSectionObserver;
+use App\Observers\TagObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -36,6 +56,17 @@ class EventServiceProvider extends ServiceProvider
             LogUserActionOnModel::class,
             [SendLogUserActionOnModel::class, 'handle']
         );
+
+        Category::observe(CategoryObserver::class);
+        Article::observe(ArticleObserver::class);
+        ArticleElement::observe(ArticleElementObserver::class);
+        Author::observe(AuthorObserver::class);
+        CustomSetting::observe(CustomSettingObserver::class);
+        Section::observe(SectionObserver::class);
+        Subject::observe(SubjectObserver::class);
+        SubSection::observe(SubSectionObserver::class);
+        Tag::observe(TagObserver::class);
+        User::observe(UserObserver::class);
     }
 
     /**

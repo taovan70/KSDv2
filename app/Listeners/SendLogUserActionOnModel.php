@@ -43,11 +43,6 @@ class SendLogUserActionOnModel
     public function handle(LogUserActionOnModel $event): void
     {
 
-        // write info to database
-        //info(json_encode($event->observedModel->toArray()));
-
-        //dd($event->observedModel->getChanges());
-
         DB::table('log_user_events')->insert([
             'user_id' => $this->getUserInfo()['user_id'],
             'url' => $this->getUserInfo()['url'],
@@ -55,7 +50,7 @@ class SendLogUserActionOnModel
             'agent' => $this->getUserInfo()['agent'],
             'data' => json_encode($event->observedModel->toArray()),
             'tags' => $event->observedModel->getTable(),
-            'event' => 'user login',
+            'event' => $event->action,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
