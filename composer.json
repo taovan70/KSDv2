@@ -8,6 +8,7 @@
         "php": "^8.1",
         "ext-dom": "*",
         "ext-iconv": "*",
+        "alexusmai/laravel-file-manager": "3.0.5",
         "backpack/backupmanager": "^4.0",
         "backpack/crud": "^5.5",
         "backpack/pro": "^1.6",
