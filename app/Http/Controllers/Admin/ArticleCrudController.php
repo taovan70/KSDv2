@@ -6,6 +6,7 @@ use App\CRUD\ArticleCRUD;
 use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Services\ArticleElementService;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -65,7 +66,7 @@ class ArticleCrudController extends CrudController
             $articleService = app(ArticleService::class);
 
             $request = $this->crud->validateRequest();
-            $articleService->parseArticle($request, $article->id);
+            $articleService->parseArticle($request, $article);
         });
     }
 
@@ -102,7 +103,6 @@ class ArticleCrudController extends CrudController
 
         // update all article elements
         $articleService->updateArticleElements($request->all());
-        unset($request->elements);
 
         // update the row in the db
         $item = $this->crud->update(

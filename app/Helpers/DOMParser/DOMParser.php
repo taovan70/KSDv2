@@ -2,7 +2,6 @@
 
 namespace App\Helpers\DOMParser;
 
-use App\Services\ArticleElementService;
 use DOMDocument;
 use DOMElement;
 use DOMNodeList;
@@ -117,18 +116,28 @@ class DOMParser
 
     /**
      * @param string $htmlString
-     * @return string
+     * @return string|null
      */
-    public function getTagFromString(string $htmlString): string
+    public function getTagFromString(string $htmlString): ?string
+    {
+        $tags = $this->parseContentOnTags($htmlString);
+        $tags = $this->filterTagsForArticle($tags);
+
+        if (count($tags) === 1) {
+            return $tags[0]['tagName'];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $htmlString
+     * @return \DOMNode
+     */
+    public function getImgDom(string $htmlString): \DOMNode
     {
         $this->dom->loadHTML($htmlString);
 
-        foreach ($this->dom->getElementsByTagName('*') as $tag) {
-            if (in_array($tag->tagName, DOMTags::PRESERVED_TAGS)) {
-                return $tag->tagName;
-            }
-        }
-
-        return '';
+        return $this->dom->getElementsByTagName('img')->item(0);
     }
 }
