@@ -2735,6 +2735,17 @@ a.plyr__control:after, a.plyr__control:before {
     padding-bottom: 0
 }
 
+.fm-modal .btn-close::after {
+    content: "×";
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.fm-modal .btn-close {
+    border: none;
+    background-color: white;
+}
+
 
 /*media queries*/
 
