@@ -21,7 +21,7 @@ class ArticleCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
@@ -118,5 +118,18 @@ class ArticleCrudController extends CrudController
         $this->crud->setSaveAction();
 
         return $this->crud->performSaveAction($item->getKey());
+    }
+
+    public function destroy($id)
+    {
+        /** @var ArticleElementService $articleElementService */
+        $articleElementService = app(ArticleElementService::class);
+
+        $this->crud->hasAccessOrFail('delete');
+
+        $article = Article::find($id);
+        $articleElementService->deleteImages($article);
+
+        return $this->crud->delete($id);
     }
 }

@@ -51,10 +51,25 @@ class ArticleElementService
             $imgDom    = $this->parser->getImgDom($image->content);
             $imagePath = ImageOperator::save($imgDom->getAttribute('src'), $article->imagesStoragePath, $i);
 
-            $imgDom->setAttribute('src', $imagePath);
+            if (isset($imagePath)) {
+                $imgDom->setAttribute('src', $imagePath);
 
-            $image->content = $imgDom->ownerDocument->saveHTML($imgDom);
-            $image->save();
+                $image->content = $imgDom->ownerDocument->saveHTML($imgDom);
+                $image->save();
+            }
+        }
+    }
+
+    /**
+     * @param Article $article
+     * @return void
+     */
+    public function deleteImages(Article $article): void
+    {
+        $images = $article->images;
+
+        if ($images->isNotEmpty()) {
+            ImageOperator::deleteFolder($article->imagesStoragePath);
         }
     }
 }

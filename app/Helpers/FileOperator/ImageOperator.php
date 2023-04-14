@@ -5,10 +5,8 @@ namespace App\Helpers\FileOperator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class ImageOperator
+class ImageOperator extends FileOperator
 {
-    const SRC_BASE64= 'base64';
-
     /**
      * @param string $src
      * @param string $path
@@ -20,6 +18,8 @@ class ImageOperator
         $filename = ($index ?? Str::random(40)) . '.png';
 
         switch (true) {
+            case str_starts_with($src, '/storage/articles'):
+                return null;
             case filter_var($src, FILTER_VALIDATE_URL):
                 $imageData = file_get_contents($src);
                 break;
