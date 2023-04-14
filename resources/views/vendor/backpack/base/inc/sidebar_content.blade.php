@@ -61,3 +61,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>{{ __('models.settings') }}</span></a></li>
 @endif
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i>{{ __('backpack::backup.backup') }}</a></li>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('file_manager') }}"><i class="nav-icon la la-copy"></i> {{ __('models.file_manager') }}</a></li>

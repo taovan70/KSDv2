@@ -30,4 +30,5 @@ Route::group([
         Route::crud('log-user-event', 'LogUserEventCrudController');
     });
 
+    Route::get('file_manager', 'FileManagerController@index')->name('page.file_manager.index');
 }); // this should be the absolute last line of this file

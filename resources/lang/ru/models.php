@@ -21,4 +21,5 @@ return [
     "user_possessive_case" => "пользователя",
     "user_logging" => "Логирование",
     "settings" => "Настройки",
+    "file_manager" => "Файловый менеджер",
 ];
