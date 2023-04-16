@@ -22,8 +22,8 @@ Route::group([
     Route::crud('section', 'SectionCrudController');
     Route::crud('sub-section', 'SubSectionCrudController');
     Route::crud('author', 'AuthorCrudController');
-
     Route::crud('user', 'UserCrudController');
+
     // Roles available: admin, manager, guest
     Route::group(['middleware' => ['role:admin']], function () {
         Route::crud('article', 'ArticleCrudController');

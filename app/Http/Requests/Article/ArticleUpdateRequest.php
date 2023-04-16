@@ -31,7 +31,7 @@ class ArticleUpdateRequest extends FormRequest
             'name' => 'required|string|min:2|max:255',
             'author_id' => 'nullable|integer|exists:authors,id',
             'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
-            'publish_date' => 'required|date|after:yesterday',
+            'publish_date' => 'required|date',
 
             'elements' => 'required|array',
             'elements.*.id' => 'nullable|integer|exists:article_elements,id',

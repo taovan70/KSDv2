@@ -6,9 +6,11 @@ use App\CRUD\ArticleCRUD;
 use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Services\ArticleElementService;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ArticleCrudController
@@ -20,7 +22,7 @@ class ArticleCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
@@ -65,7 +67,7 @@ class ArticleCrudController extends CrudController
             $articleService = app(ArticleService::class);
 
             $request = $this->crud->validateRequest();
-            $articleService->parseArticle($request, $article->id);
+            $articleService->parseArticle($request, $article);
         });
     }
 
@@ -102,7 +104,6 @@ class ArticleCrudController extends CrudController
 
         // update all article elements
         $articleService->updateArticleElements($request->all());
-        unset($request->elements);
 
         // update the row in the db
         $item = $this->crud->update(
@@ -118,5 +119,18 @@ class ArticleCrudController extends CrudController
         $this->crud->setSaveAction();
 
         return $this->crud->performSaveAction($item->getKey());
+    }
+
+    public function destroy($id)
+    {
+        /** @var ArticleElementService $articleElementService */
+        $articleElementService = app(ArticleElementService::class);
+
+        $this->crud->hasAccessOrFail('delete');
+
+        $article = Article::find($id);
+        $articleElementService->deleteImages($article);
+
+        return $this->crud->delete($id);
     }
 }

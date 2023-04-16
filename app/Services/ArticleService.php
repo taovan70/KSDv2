@@ -4,10 +4,10 @@ namespace App\Services;
 
 use App\Helpers\DOMParser\DOMParser;
 use App\Helpers\DOMParser\DOMTags;
+use App\Jobs\Article\SaveArticleImages;
 use App\Models\Article;
 use App\Models\ArticleElement;
 use App\Models\Author;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -58,17 +58,41 @@ class ArticleService
 
     /**
      * @param Request $request
-     * @param int $articleId
+     * @param Article $article
      * @return void
      */
-    public function parseArticle(Request $request, int $articleId): void
+    public function parseArticle(Request $request, Article $article): void
     {
         $tags = $this->parser->parseContentOnTags($request->article_text);
         $tags = $this->parser->filterTagsForArticle($tags);
 
         foreach ($tags as $i => $tag) {
-            $this->articleElementService->store($tag['tagName'], $tag['content'], $articleId, $i);
+            $this->articleElementService->store($tag['tagName'], $tag['content'], $article->id, $i);
         }
+
+        SaveArticleImages::dispatch($article);
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function updateArticleElements(array $data): void
+    {
+        $article = Article::find($data['id']);
+
+        $elementIds = [];
+        foreach ($data['elements'] as $i => $element) {
+            $tagName = $this->parser->getTagFromString($element['content']);
+
+            if (isset($tagName)) {
+                $articleElement = $this->articleElementService->store($tagName, $element['content'], $article->id, $i, $element['id']);
+                $elementIds[] = $articleElement->id;
+            }
+        }
+
+        $article->elements()->whereNotIn('id', $elementIds)->delete();
+        SaveArticleImages::dispatch($article);
     }
 
     /**
@@ -138,24 +162,5 @@ class ArticleService
         }
 
         return $this->parser->createArticleStructure($structure);
-    }
-
-    /**
-     * @param array $data
-     * @return void
-     */
-    public function updateArticleElements(array $data): void
-    {
-        $article = Article::find($data['id']);
-
-        $elementIds = [];
-        foreach ($data['elements'] as $i => $element) {
-            $tagName = $this->parser->getTagFromString($element['content']);
-            $articleElement = $this->articleElementService->store($tagName, $element['content'], $article->id, $i, $element['id']);
-
-            $elementIds[] = $articleElement->id;
-        }
-
-        $article->elements()->whereNotIn('id', $elementIds)->delete();
     }
 }
