@@ -10,6 +10,7 @@ use App\Services\ArticleElementService;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ArticleCrudController

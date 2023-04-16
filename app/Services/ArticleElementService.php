@@ -69,7 +69,7 @@ class ArticleElementService
         $images = $article->images;
 
         if ($images->isNotEmpty()) {
-            ImageOperator::deleteFolder($article->imagesStoragePath);
+            ImageOperator::deleteFolder("articles/{$article->id}");
         }
     }
 }

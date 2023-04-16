@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\DOMParser\DOMParser;
 use App\Helpers\DOMParser\DOMTags;
+use App\Jobs\Article\SaveArticleImages;
 use App\Models\Article;
 use App\Models\ArticleElement;
 use App\Models\Author;
@@ -69,7 +70,7 @@ class ArticleService
             $this->articleElementService->store($tag['tagName'], $tag['content'], $article->id, $i);
         }
 
-        $this->articleElementService->saveImages($article);
+        SaveArticleImages::dispatch($article);
     }
 
     /**
@@ -91,7 +92,7 @@ class ArticleService
         }
 
         $article->elements()->whereNotIn('id', $elementIds)->delete();
-        $this->articleElementService->saveImages($article);
+        SaveArticleImages::dispatch($article);
     }
 
     /**

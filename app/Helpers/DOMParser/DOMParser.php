@@ -105,7 +105,7 @@ class DOMParser
      */
     private function decodeString(string $string): string
     {
-        $string = utf8_decode($string);
+        //$string = utf8_decode($string);
 
         if (!mb_check_encoding($string, "UTF-8")) {
             $string = mb_convert_encoding($string, 'UTF-8', 'auto');

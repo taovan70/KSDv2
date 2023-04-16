@@ -40,11 +40,7 @@ class ArticleCRUD extends CrudPanelFacade
             'label' => __('table.article_fields.published'),
             'type' => 'boolean'
         ]);
-        CRUD::addColumn([
-            'name' => 'publish_date',
-            'label' => __('table.article_fields.publish_date'),
-            'type' => 'date'
-        ]);
+        CRUD::column('publish_date')->label(__('table.article_fields.publish_date'));
     }
 
     public static function showColumns(): void
@@ -147,10 +143,10 @@ class ArticleCRUD extends CrudPanelFacade
         CRUD::addField([
             'name' => 'publish_date',
             'label' => __('table.article_fields.publish_date'),
-            'type' => 'date_picker',
+            'type' => 'datetime_picker',
             'date_picker_options' => [
                 'todayBtn' => 'linked',
-                'format'   => 'dd-mm-yyyy',
+                'format'   => 'dd-mm-yyyy HH:mm',
                 'language' => 'ru'
             ],
         ]);
