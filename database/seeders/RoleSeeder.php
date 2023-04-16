@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
         $roles = array_keys(config('roles_seeding.values'));
 
         foreach ($roles as $role) {
-            Role::create(['name' => $role, 'default_role' => $role == config('roles_seeding.default_role')]);
+            Role::updateOrCreate(['name' => $role, 'default_role' => $role == config('roles_seeding.default_role')]);
         }
     }
 }
