@@ -81,6 +81,11 @@ class Article extends Model
         return $this->elements()->whereIn('html_tag', DOMTags::HEADERS);
     }
 
+    public function images(): HasMany
+    {
+        return $this->elements()->where('html_tag', DOMTags::IMG);
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
@@ -119,6 +124,13 @@ class Article extends Model
 
                 return $articleService->createArticleStructure($this->headers);
             }
+        );
+    }
+
+    protected function imagesStoragePath(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => "articles/{$this->id}/images/"
         );
     }
 
