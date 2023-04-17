@@ -34,6 +34,6 @@ jobs:
           echo '--- RUN DOCKER COMPOSE ---';
           docker compose up --build -d;
           echo '--- RUN SYSTEM PRUNE ---';
-          docker system prune -f;
+          docker image prune -f;
           echo '--- SETUP COMPOSER AND ARTISAN ---';
           docker exec app bash -c "composer install ; php artisan key:generate ; php artisan optimize ; php artisan storage:link ; php artisan migrate --seed ; php artisan queue:work ;"
