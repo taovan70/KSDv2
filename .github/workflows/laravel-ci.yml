@@ -25,7 +25,7 @@ jobs:
           ls -al;
           echo '--- GIT CHECKOUT ---';
           git checkout stage;
-          #git pull origin stage;
+          git pull origin stage;
           echo '--- SETTING UP PROJECT ENVIRONMENT ---';
           cp ../.env .env
           echo '--- DOCKER CONTAINERS STOP AND REBUILD ---';
