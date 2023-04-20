@@ -29,8 +29,9 @@ jobs:
           echo '--- SETTING UP PROJECT ENVIRONMENT ---';
           cp ../.env .env
           echo '--- DOCKER CONTAINERS STOP AND REBUILD ---';
-          docker stop $(docker ps -a -q);
-          docker rm $(docker ps -a -q);
+          docker compose down;
+          docker system prune -f;
+          docker image prune -f;
           echo '--- RUN DOCKER COMPOSE ---';
           docker compose up --build -d;
           echo '--- RUN SYSTEM PRUNE ---';
