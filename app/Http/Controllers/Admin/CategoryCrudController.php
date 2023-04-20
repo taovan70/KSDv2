@@ -21,10 +21,11 @@ class CategoryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -34,9 +35,18 @@ class CategoryCrudController extends CrudController
         CRUD::setEntityNameStrings(__('models.category'), __('models.categories'));
     }
 
+    protected function setupReorderOperation()
+    {
+        // define which model attribute will be shown on draggable elements
+        $this->crud->set('reorder.label', 'name');
+        // define how deep the admin is allowed to nest the items
+        // for infinite levels, set it to 0
+        $this->crud->set('reorder.max_level', 100);
+    }
+
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -45,11 +55,11 @@ class CategoryCrudController extends CrudController
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
         CRUD::addColumn([
-            'name' => 'subjectsCount',
-            'label' => __('table.subjects'),
+            'name' => 'parent',
+            'label' => __('table.parent_category'),
             'wrapper' => [
                 'href' => function($crud, $column, $category) {
-                    return backpack_url('subject?category_id=["' . $category->id . '"]');
+                    return backpack_url('category/' . $category->parent_id . '/show');
                 }
             ]
         ]);
@@ -57,13 +67,13 @@ class CategoryCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -80,13 +90,13 @@ class CategoryCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
@@ -104,5 +114,10 @@ class CategoryCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+    }
+
+    public function destroy($id)
+    {
+        return $this->crud->delete($id);
     }
 }

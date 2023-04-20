@@ -2,7 +2,7 @@
 
 namespace App\CRUD;
 
-use App\Models\SubSection;
+use App\Models\Category;
 use App\Models\Tag;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade;
@@ -25,13 +25,13 @@ class ArticleCRUD extends CrudPanelFacade
             ]
         ]);
         CRUD::addColumn([
-            'label' => __('table.sub_section'),
+            'label' => __('table.category'),
             'type' => 'select',
-            'name' => 'sub_section_id',
+            'name' => 'category_id',
             'attribute' => 'name',
-            'entity' => 'subSection',
+            'entity' => 'category',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $sub_section_id) => backpack_url("sub-section/{$sub_section_id}/show")
+                'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
         ]);
         CRUD::column('created_at')->label(__('table.created'));
@@ -87,18 +87,18 @@ class ArticleCRUD extends CrudPanelFacade
         });
     }
 
-    public static function subSectionFilter(CrudPanel $crud): void
+    public static function categoryFilter(CrudPanel $crud): void
     {
         CRUD::addFilter([
             'type'  => 'select2_multiple',
-            'label' => __('table.sub_sections'),
-            'name' => 'sub_section_id'
+            'label' => __('table.category'),
+            'name' => 'category_id'
         ], function () {
-            return SubSection::all()->pluck('name', 'id')->toArray();
+            return Category::all()->pluck('name', 'id')->toArray();
         }, function ($values) use ($crud) {
             $crud->addClause(function (Builder $query) use ($values) {
-                return $query->whereHas('subSection', function (Builder $query) use ($values) {
-                    return $query->whereIn('sub_section_id', json_decode($values));
+                return $query->whereHas('category', function (Builder $query) use ($values) {
+                    return $query->whereIn('category_id', json_decode($values));
                 });
             });
         });
@@ -108,14 +108,15 @@ class ArticleCRUD extends CrudPanelFacade
     {
         CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
-            'name' => 'sub_section_id',
-            'label' => __('table.sub_section'),
-            'type' => 'select2_grouped',
-            'entity' => 'subSection',
+            'name' => 'category_id',
+            'label' => __('table.category'),
+            'type' => 'select2_from_ajax',
+            'entity' => 'category',
             'attribute' => 'name',
-            'group_by'  => 'section',
-            'group_by_attribute' => 'name',
-            'group_by_relationship_back' => 'subSections'
+            'data_source' => url('api/categories'),
+            'minimum_input_length' => 0,
+            'method' => 'POST',
+            'include_all_form_fields' => true
         ]);
         CRUD::addField([
             'name' => 'author_id',
@@ -125,7 +126,7 @@ class ArticleCRUD extends CrudPanelFacade
             'attribute' => 'fullName',
             'data_source' => url('api/article_authors'),
             'minimum_input_length' => 0,
-            'dependencies' => ['sub_section_id'],
+            'dependencies' => ['category_id'],
             'method' => 'POST',
             'include_all_form_fields' => true
         ]);

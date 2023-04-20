@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
@@ -23,7 +24,7 @@ class Category extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -40,10 +41,14 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function subjects(): HasMany
+
+
+    public function articles(): HasMany
     {
-        return $this->hasMany(Subject::class);
+        return $this->hasMany(Article::class);
     }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -57,13 +62,10 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected function subjectsCount(): Attribute
+
+    public function parent(): BelongsTo
     {
-        return Attribute::make(
-            get: function() {
-                return self::subjects()->count() . ' ' . __('models.subjects');
-            }
-        );
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     /*

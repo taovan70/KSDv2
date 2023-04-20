@@ -28,17 +28,17 @@ class ArticleService
      * @param Request $request
      * @return Collection
      */
-    public function getAuthorsBySubSection(Request $request): Collection
+    public function getAuthorsByCategory(Request $request): Collection
     {
         $search          = $request->input('q');
-        $subSectionField = Arr::first($request->form, function ($value) {
-            return $value['name'] === 'sub_section_id';
+        $categoryField = Arr::first($request->form, function ($value) {
+            return $value['name'] === 'category_id';
         });
 
         $authors =  Author::query()
-            ->when(isset($subSectionField['value']), function (Builder $query) use ($subSectionField) {
-                $query->whereHas('subSections', function (Builder $query) use ($subSectionField) {
-                    $query->where('sub_section_id', $subSectionField['value']);
+            ->when(isset($categoryField['value']), function (Builder $query) use ($categoryField) {
+                $query->whereHas('categories', function (Builder $query) use ($categoryField) {
+                    $query->where('category_id', $categoryField['value']);
                 });
             })
             ->when(isset($search), function (Builder $query) use ($search) {

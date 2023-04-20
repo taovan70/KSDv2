@@ -29,7 +29,7 @@ class ArticleStoreRequest extends FormRequest
         return [
             'name' => 'required|string|min:2|max:255',
             'author_id' => 'nullable|integer|exists:authors,id',
-            'sub_section_id' => 'nullable|integer|exists:sub_sections,id',
+            'category_id' => 'nullable|integer|exists:categories,id',
             'publish_date' => 'required|date|after:yesterday',
             'article_text' => 'required|string'
         ];

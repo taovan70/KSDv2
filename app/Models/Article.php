@@ -32,7 +32,7 @@ class Article extends Model
         'content',
         'structure',
         'author_id',
-        'sub_section_id',
+        'category_id',
         'published',
         'publish_date'
     ];
@@ -66,9 +66,9 @@ class Article extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function subSection(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(SubSection::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function elements(): HasMany

@@ -24,4 +24,8 @@ Route::group([], function () {
     Route::group(['prefix' => 'tags'], function () {
         Route::post('/', [\App\Http\Controllers\Api\TagController::class, 'fetchTags']);
     });
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::post('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategories']);
+    });
 });

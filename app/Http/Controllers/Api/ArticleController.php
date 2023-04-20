@@ -16,6 +16,6 @@ class ArticleController extends Controller
      */
     public function fetchAuthors(Request $request, ArticleService $service): Collection
     {
-        return $service->getAuthorsBySubSection($request);
+        return $service->getAuthorsByCategory($request);
     }
 }

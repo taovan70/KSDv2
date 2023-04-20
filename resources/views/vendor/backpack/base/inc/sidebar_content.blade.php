@@ -21,21 +21,6 @@
                 {{ __('models.categories') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('subject') }}">
-                {{ __('models.subjects') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('section') }}">
-                {{ __('models.sections') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('sub-section') }}">
-                {{ __('models.sub_sections') }}
-            </a>
-        </li>
     </ul>
 </li>
 

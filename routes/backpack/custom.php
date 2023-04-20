@@ -18,9 +18,6 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('tag', 'TagCrudController');
     Route::crud('category', 'CategoryCrudController');
-    Route::crud('subject', 'SubjectCrudController');
-    Route::crud('section', 'SectionCrudController');
-    Route::crud('sub-section', 'SubSectionCrudController');
     Route::crud('author', 'AuthorCrudController');
     Route::crud('user', 'UserCrudController');
 

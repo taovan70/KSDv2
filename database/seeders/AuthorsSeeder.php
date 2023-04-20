@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Author;
-use App\Models\SubSection;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
@@ -18,12 +17,12 @@ class AuthorsSeeder extends Seeder
     {
         Author::query()->delete();
         Storage::disk('public')->deleteDirectory('authors_photos');
-        $subSections = SubSection::all();
+        $categories = Category::all();
 
         for ($i = 0; $i < 20; $i++) {
             $author = $this->createAuthor();
 
-            $author->subSections()->sync($subSections->random(rand(1, 5)));
+            $author->categories()->sync($categories->random(rand(1, 5)));
         }
     }
 

@@ -77,9 +77,9 @@ class Author extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function subSections(): BelongsToMany
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(SubSection::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function articles(): HasMany

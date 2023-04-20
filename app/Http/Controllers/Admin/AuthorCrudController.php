@@ -6,8 +6,6 @@ use App\Http\Requests\Author\AuthorRequest;
 use App\Models\Author;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -25,7 +23,7 @@ class AuthorCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -37,7 +35,7 @@ class AuthorCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -51,13 +49,13 @@ class AuthorCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -109,8 +107,8 @@ class AuthorCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'subSections',
-            'label' => __('table.sub_sections'),
+            'name' => 'categories',
+            'label' => __('table.category'),
             'type' => 'select2_multiple',
             'attribute' => 'name'
         ]);
@@ -118,13 +116,13 @@ class AuthorCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
@@ -159,9 +157,14 @@ class AuthorCrudController extends CrudController
             'type' => 'array'
         ]);
         CRUD::addColumn([
-            'label' => __('table.sub_sections'),
-            'name' => 'subSections',
-            'type' => 'select_multiple'
+            'label' => __('table.category'),
+            'name' => 'categories',
+            'type' => 'select_multiple',
+            'wrapper' => [
+                'href' => function($crud, $column, $author, $related_key) {
+                        return backpack_url('category/' . $related_key. '/show');
+                }
+            ]
         ]);
     }
 
