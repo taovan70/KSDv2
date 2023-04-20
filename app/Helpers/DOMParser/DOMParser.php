@@ -66,7 +66,7 @@ class DOMParser
      */
     public function parseContentOnTags(string $articleText): mixed
     {
-        $this->dom->loadHTML($articleText);
+        $this->dom->loadHTML("\xEF\xBB\xBF" . $articleText);
         $xpath = new DOMXPath($this->dom);
 
         return  $xpath->query('//*');
