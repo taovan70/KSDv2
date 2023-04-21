@@ -28,12 +28,5 @@ jobs:
           git pull origin stage;
           echo '--- SETTING UP PROJECT ENVIRONMENT ---';
           cp ../.env .env
-          echo '--- DOCKER CONTAINERS STOP AND REBUILD ---';
-          docker stop $(docker ps -a -q);
-          docker rm $(docker ps -a -q);
-          echo '--- RUN DOCKER COMPOSE ---';
-          docker compose up --build -d;
-          echo '--- RUN SYSTEM PRUNE ---';
-          docker image prune -f;
           echo '--- SETUP COMPOSER AND ARTISAN ---';
-          docker exec app bash -c "composer install ; php artisan key:generate ; php artisan optimize ; php artisan storage:link ; php artisan migrate --seed ; php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force ; php artisan queue:work ; "
+          docker exec app bash -c "composer update ; php artisan key:generate ; php artisan optimize ; php artisan storage:link ; php artisan migrate --seed ; php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force ; "
