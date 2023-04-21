@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Category\CategoryStoreRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
+use App\Models\Article;
 use App\Models\Category;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Str;
+use Prologue\Alerts\Facades\Alert;
 
 /**
  * Class CategoryCrudController
@@ -58,12 +60,11 @@ class CategoryCrudController extends CrudController
             'name' => 'parent',
             'label' => __('table.parent_category'),
             'wrapper' => [
-                'href' => function($crud, $column, $category) {
+                'href' => function ($crud, $column, $category) {
                     return backpack_url('category/' . $category->parent_id . '/show');
                 }
             ]
         ]);
-
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -86,7 +87,6 @@ class CategoryCrudController extends CrudController
         Category::creating(function (Category $category) {
             $category->slug = Str::slug($category->name, '_');
         });
-
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -116,8 +116,40 @@ class CategoryCrudController extends CrudController
         $this->setupListOperation();
     }
 
+    public function getCategoriesIds($category): ?array
+    {
+        if (!empty($category)) {
+            $array = array($category->id);
+            if (count($category->subcategories) == 0) {
+                return $array;
+            } else {
+                return array_merge($array, $this->getChildrenIds($category->subcategories));
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function getChildrenIds($subcategories): array
+    {
+        $array = array();
+        foreach ($subcategories as $subcategory) {
+            array_push($array, $subcategory->id);
+            if (count($subcategory->subcategories)) {
+                $array = array_merge($array, $this->getChildrenIds($subcategory->subcategories));
+            }
+        }
+        return $array;
+    }
+
     public function destroy($id)
     {
-        return $this->crud->delete($id);
+        $categories = $this->getCategoriesIds(Category::with('subcategories')->where('id', $id)->first());
+        $articles = Article::whereIn('category_id', $categories)->get()->count();
+        if ($articles > 0) {
+            return Alert::add('error', __('validation.category.not_empty'));
+        } else {
+            return $this->crud->delete($id);
+        }
     }
 }

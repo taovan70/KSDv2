@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,13 +40,30 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
 
+    public function children(): HasMany
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function subcategories(): HasMany
+    {
+        return $this->children()->with('subcategories');
+    }
+
+    public function parents(): BelongsTo
+    {
+        return $this->parent()->with('parents');
+    }
 
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
     }
-
 
 
     /*
@@ -62,11 +78,6 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
 
     /*
     |--------------------------------------------------------------------------
