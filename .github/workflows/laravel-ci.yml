@@ -29,4 +29,4 @@ jobs:
           echo '--- SETTING UP PROJECT ENVIRONMENT ---';
           cp ../.env .env
           echo '--- SETUP COMPOSER AND ARTISAN ---';
-          docker exec app bash -c "composer update ; php artisan key:generate ; php artisan optimize ; php artisan storage:link ; php artisan migrate --seed ; php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force ; php artisan queue:work ; "
+          docker exec app bash -c "composer update ; php artisan key:generate ; php artisan optimize ; php artisan storage:link ; php artisan migrate --seed ; php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force ; "
