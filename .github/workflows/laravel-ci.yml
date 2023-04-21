@@ -24,7 +24,7 @@ jobs:
           echo '--- LIST OF FILES ---';
           ls -al;
           echo '--- GIT CHECKOUT ---';
-          git checkout stage;
+          git stash;
           git pull origin stage;
           echo '--- SETTING UP PROJECT ENVIRONMENT ---';
           cp ../.env .env
