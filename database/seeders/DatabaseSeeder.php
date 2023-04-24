@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(SubSectionsSeeder::class);
 //        $this->call(AuthorsSeeder::class);
         $this->call([RoleSeeder::class]);
-        $this->call(AdminSeeder::class);
+        $this->call(AdvPageSeeder::class);
         $this->call(SettingsSeeder::class);
     }
 }
