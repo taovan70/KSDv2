@@ -3,7 +3,7 @@
 return [
     "tag" => "тег",
     "tags" => "теги",
-    "category" => "категорию",
+    "category" => "категория",
     "categories" => "категории",
     "structure" => "структура",
     "subject" => "тематика",
@@ -22,4 +22,8 @@ return [
     "user_logging" => "Логирование",
     "settings" => "Настройки",
     "file_manager" => "Файловый менеджер",
+    "main" => "Главная",
+    "search" => "Поиск",
+    "adv-blocks" => "Рекламные блоки",
+    "adv-block" => "Рекламный блок",
 ];

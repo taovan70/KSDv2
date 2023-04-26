@@ -3,6 +3,8 @@
 return [
     'name' => 'Название',
     'created' => 'Создано',
+    'yes' => 'Да',
+    'no' => 'Нет',
     'category' => 'Категория',
     'parent_category' => 'Родительская категория',
     'categories' => 'Категории',
@@ -53,5 +55,14 @@ return [
         'html_tag' => 'HTML тег',
         'publish_date' => 'Дата публикации',
         'published' => 'Опубликована'
+    ],
+
+    'adv_block_fields' => [
+        'content' => 'Содержание',
+        'active' => 'Активен',
+        'device_type' => 'Устройство',
+        'color_type' => 'Цветовая схема',
+        'description' => 'Описание',
+        'page' => 'Страница',
     ]
 ];

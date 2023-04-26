@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('adv_blocks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->text('content')->nullable();
             $table->tinyInteger('active');
             $table->string('device_type');
             $table->string('color_type');
-            $table->integer('number_of_elements_from_beginning');
+            $table->integer('number_of_elements_from_beginning')->nullable();
             $table->foreignId('adv_page_id')->constrained('adv_pages')->onDelete("cascade");
             $table->timestamps();
         });
