@@ -30,9 +30,12 @@ class AdvBlockCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\AdvBlock::class);
+        $pageName = request()->query('page');
+        $advPage = AdvPage::where('slug', $pageName)->first();
+        $pageName = !empty($advPage) ?  ' - '.$advPage->name : '';
+        CRUD::setModel(AdvBlock::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/adv-block');
-        CRUD::setEntityNameStrings(__('models.adv-block'), __('models.adv-blocks'));
+        CRUD::setEntityNameStrings(__('models.adv-block'), __('models.adv-blocks').$pageName);
     }
 
     /**
