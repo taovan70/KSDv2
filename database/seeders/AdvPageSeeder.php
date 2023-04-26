@@ -85,7 +85,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок справа от статьи (над кнопкой наверх)',
-            'slug' => 'block_article_right',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -97,7 +96,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок справа от статьи (над кнопкой наверх)',
-            'slug' => 'block_article_right',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -109,7 +107,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок справа от статьи (над кнопкой наверх)',
-            'slug' => 'block_article_right',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -121,7 +118,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок справа от статьи (над кнопкой наверх)',
-            'slug' => 'block_article_right',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -134,7 +130,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок над H1',
-            'slug' => 'block_above_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -146,7 +141,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок над H1',
-            'slug' => 'block_above_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -158,7 +152,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок над H1',
-            'slug' => 'block_above_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -170,7 +163,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок над H1',
-            'slug' => 'block_above_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -182,7 +174,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под H1',
-            'slug' => 'block_under_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -194,7 +185,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под H1',
-            'slug' => 'block_under_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -206,7 +196,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под H1',
-            'slug' => 'block_under_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -218,7 +207,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под H1',
-            'slug' => 'block_under_h1',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -230,7 +218,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под содержанием статьи',
-            'slug' => 'block_under_article_content',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -242,7 +229,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под содержанием статьи',
-            'slug' => 'block_under_article_content',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',
@@ -254,7 +240,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под содержанием статьи',
-            'slug' => 'block_under_article_content',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -266,7 +251,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под содержанием статьи',
-            'slug' => 'block_under_article_content',
             'description' => '',
             'active' => true,
             'device_type'=> 'mobile',
@@ -279,7 +263,6 @@ class AdvPageSeeder extends Seeder
 
         AdvBlock::firstOrCreate([
             'name' => 'блок под содержанием статьи',
-            'slug' => 'block_under_article_content',
             'description' => '',
             'active' => true,
             'device_type'=> 'pc',

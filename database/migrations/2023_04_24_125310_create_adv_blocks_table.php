@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('adv_blocks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->tinyInteger('active');
