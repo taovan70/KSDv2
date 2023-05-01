@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 // --------------------------
 // Custom Backpack Routes
@@ -28,5 +29,14 @@ Route::group([
     });
 
     Route::get('file_manager', 'FileManagerController@index')->name('page.file_manager.index');
+    Route::get('make-article', function () {
+        return Inertia::render('Welcome', [
+            'name' => 'John Doe',
+        ]);
+    });
+
+    Route::post('make-article/data', function (\Illuminate\Http\Request $request) {
+       dd($request);
+    });
     Route::crud('adv-block', 'AdvBlockCrudController');
 }); // this should be the absolute last line of this file
