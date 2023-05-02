@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CRUD\AdvBlockCRUD;
 use App\Http\Requests\AdvBlock\AdvBlockStoreRequest;
 use App\Models\AdvBlock;
 use App\Models\AdvPage;
@@ -35,7 +36,24 @@ class AdvBlockCrudController extends CrudController
         $pageName = !empty($advPage) ?  ' - '.$advPage->name : '';
         CRUD::setModel(AdvBlock::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/adv-block');
-        CRUD::setEntityNameStrings(__('models.adv-block'), __('models.adv-blocks').$pageName);
+        CRUD::setEntityNameStrings(__('models.adv-block'), __('models.adv-blocks'));
+    }
+
+    /**
+     * Display all rows in the database for this entity.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        $this->crud->hasAccessOrFail('list');
+
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
+        $pages = AdvPage::all();
+
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view('vendor.backpack.crud.adv-block-list', array_merge($this->data, compact('pages')));
     }
 
     /**
@@ -63,6 +81,8 @@ class AdvBlockCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        AdvBlockCRUD::advFilter($this->crud);
+
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('active')
             ->value(function ($entry) {

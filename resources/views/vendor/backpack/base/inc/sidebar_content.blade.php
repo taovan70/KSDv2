@@ -24,43 +24,10 @@
     </ul>
 </li>
 
-<li class="nav-item nav-dropdown text-capitalize">
-    <a class="nav-link nav-dropdown-toggle" href="#">
-        <i class="nav-icon la la-anchor"></i>
-        {{ __('models.adv-blocks') }}
+<li class="nav-item">
+    <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block')}}">
+        <i class="nav-icon la la-anchor"></i> {{ __('models.adv-blocks') }}
     </a>
-    <ul class="nav-dropdown-items">
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block').'?page=main' }}">
-                {{ __('models.main') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block').'?page=article' }}">
-                {{ __('models.article') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block').'?page=category' }}">
-                {{ __('models.category') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block').'?page=authors' }}">
-                {{ __('models.authors') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block').'?page=search' }}">
-                {{ __('models.search') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block').'?page=404' }}">
-                404
-            </a>
-        </li>
-    </ul>
 </li>
 
 <li class="nav-item">

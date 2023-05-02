@@ -62,24 +62,6 @@ class AdvBlock extends Model
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
-    {
-        static::addGlobalScope('ancient', function (Builder $builder) {
-            $pageName = request()->query('page');
-            if(!empty($pageName)) {
-                $advPage = AdvPage::where('slug', $pageName)->first();
-                if(!empty($advPage)) {
-                    $builder->where('adv_page_id', $advPage['id']);
-                } else {
-                    $builder->where('adv_page_id', null); // goal is to return no data
-                }
-            }
-
-        });
-    }
 
     /*
     |--------------------------------------------------------------------------
