@@ -13,7 +13,7 @@ class AdvBlockCRUD extends CrudPanelFacade
     public static function advFilter(CrudPanel $crud): void
     {
         CRUD::addFilter([
-            'type' => 'adv_custom_select',
+            'type' => 'adv_custom_select_filter',
             'label' => __('table.tags'),
             'name' => 'adv_block_filter'
         ], function () {

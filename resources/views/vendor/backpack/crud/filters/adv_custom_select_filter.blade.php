@@ -1,4 +1,4 @@
-<li filter-name="{{$filter->name}}" class="adv-custom-filter-block">
+<li filter-name="{{$filter->name}}" class="adv-custom-filter-block @if(count($filter->values) > 6) large-amount-pages @endif">
     @foreach ($filter->values as $page)
     <div  page-block="{{$page->slug}}"
          class="pages-link pages-link-{{$page->slug}} @if(request()->query('page') === $page->slug) active-page-link @endif">
@@ -54,9 +54,9 @@
     </div>
     @endforeach
 
-    <div class="create-page-block">
+    <div class="create-page-block create-page-block-desktop">
         <a class="btn btn-secondary mb-12-px btn-hide">Добавить страницу</a>
-        <a class="btn btn-secondary mb-12-px">Добавить страницу</a>
+        <a href="{{ backpack_url('adv-page/create')}}" class="btn btn-secondary mb-12-px">Добавить страницу</a>
         <a href="{{ backpack_url('adv-block/create')}}" class="btn btn-secondary">Добавить блок</a>
     </div>
 </li>
@@ -66,9 +66,7 @@
   jQuery(document).ready(function ($) {
     let ajax_table = $("#crudTable").DataTable();
 
-    console.log(ajax_table)
     $("li[filter-name={{$filter->name}}] .pages-link a").click(function (e) {
-      console.log("click")
       e.preventDefault();
       let parameter = $(this).attr('parameter');
       let type = $(this).attr('type');
@@ -97,7 +95,6 @@
       // add filter to URL
       crud.updateUrl(new_url);
 
-      console.log("URI.parseQuery(new_url)", URI.parseQuery(new_url))
       const queryParams = URI.parseQuery(new_url)
       $("li[filter-name={{$filter->name}}] a").removeClass("active-types-button")
       for (const paramName in queryParams) {
@@ -205,6 +202,20 @@
         cursor: pointer;
     }
 
+    li.adv-custom-filter-block.large-amount-pages {
+        flex-wrap: wrap;
+    }
+
+    .large-amount-pages .pages-link {
+        flex-basis: 20%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .large-amount-pages .btn-hide {
+        display: none;
+    }
+
     @media (max-width: 1600px) {
         li.adv-custom-filter-block {
             flex-wrap: wrap;
@@ -221,10 +232,17 @@
         }
     }
 
+    @media (max-width: 992px) {
+        .create-page-block-desktop {
+            display: none;
+        }
+    }
+
     @media (max-width: 680px) {
         .pages-link {
             flex-basis: 100%;
         }
+
     }
 
 </style>

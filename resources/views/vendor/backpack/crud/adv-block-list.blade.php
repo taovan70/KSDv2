@@ -39,6 +39,13 @@
         @if ($crud->filtersEnabled())
           @include('crud::inc.filters_navbar')
         @endif
+
+        <div class="create-page-block create-page-block-mobile">
+            <a class="btn btn-secondary mb-12-px btn-hide">Добавить страницу</a>
+            <a href="{{ backpack_url('adv-page/create')}}" class="btn btn-secondary mb-12-px">Добавить страницу</a>
+            <a href="{{ backpack_url('adv-block/create')}}" class="btn btn-secondary">Добавить блок</a>
+        </div>
+
         <table
           id="crudTable"
           class="bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2"
@@ -147,6 +154,17 @@
     <style>
         .adv-custom-filter-block {
             display: none;
+        }
+
+        .create-page-block.create-page-block-mobile {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .create-page-block.create-page-block-mobile {
+                display: flex;
+                margin-bottom: 15px;
+            }
         }
     </style>
   {{-- DATA TABLES --}}

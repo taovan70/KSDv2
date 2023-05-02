@@ -23,9 +23,10 @@
         </li>
     </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('adv-page') }}"><i class="nav-icon la la-pager"></i> {{ __('models.adv-pages') }}</a></li>
 
 <li class="nav-item">
-    <a class="nav-link text-capitalize" href="{{ backpack_url('adv-block')}}">
+    <a class="nav-link" href="{{ backpack_url('adv-block')}}">
         <i class="nav-icon la la-anchor"></i> {{ __('models.adv-blocks') }}
     </a>
 </li>
