@@ -95,6 +95,32 @@ class CategoryCrudController extends CrudController
          */
     }
 
+
+    /**
+     *  Reorder the items in the database using the Nested Set pattern.
+     *
+     *  Database columns needed: id, parent_id, lft, rgt, depth, name/title
+     *
+     */
+    public function reorder()
+    {
+        $this->crud->hasAccessOrFail('reorder');
+
+        if (! $this->crud->isReorderEnabled()) {
+            abort(403, 'Reorder is disabled.');
+        }
+
+        // get all results for that entity
+        $this->data['entries'] = $this->crud->getEntries();
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.reorder').' '.$this->crud->entity_name;
+        $this->data['categories'] = Category::with('articles', 'children')->get();
+
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        //dd($this->data);
+        return view('vendor/backpack/crud/category-reorder', $this->data);
+    }
+
     /**
      * Define what happens when the Update operation is loaded.
      *
