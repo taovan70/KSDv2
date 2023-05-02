@@ -114,10 +114,7 @@ class CategoryCrudController extends CrudController
         $this->data['entries'] = $this->crud->getEntries();
         $this->data['crud'] = $this->crud;
         $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.reorder').' '.$this->crud->entity_name;
-        $this->data['categories'] = Category::with('articles', 'children')->get();
-
-        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        //dd($this->data);
+        $this->data['categories'] = Category::withCount('articles', 'children')->get();
         return view('vendor/backpack/crud/category-reorder', $this->data);
     }
 

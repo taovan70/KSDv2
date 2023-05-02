@@ -37,15 +37,8 @@
 
             $categorySlug = object_get($entry, $crud->get('reorder.label'));
             $category = $categories->where('name', $categorySlug)->first()->toArray();
-            $articlesCount = 0;
-            $subCategoriesCount = 0;
-            if (!empty($category['articles'])) {
-                $articlesCount = count($category['articles']);
-            }
-
-            if (!empty($category['children'])) {
-                $subCategoriesCount = count($category['children']);
-            }
+            $articlesCount = $category['articles_count'];
+            $subCategoriesCount = $category['children_count'];
 
             $articlesCountWithText = $articlesCount . ' ' . Lang::choice(__('models.cases_choice_article'),  $articlesCount, [], 'ru');
             $subCategoriesCountWithText = $subCategoriesCount . ' ' . Lang::choice(__('models.cases_choice_sub_categories'),  $subCategoriesCount, [], 'ru');
