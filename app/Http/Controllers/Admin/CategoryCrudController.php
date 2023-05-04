@@ -102,19 +102,16 @@ class CategoryCrudController extends CrudController
      *  Database columns needed: id, parent_id, lft, rgt, depth, name/title
      *
      */
-    public function reorder()
+    public function reorder(CategoryService $service)
     {
         $this->crud->hasAccessOrFail('reorder');
 
-        if (! $this->crud->isReorderEnabled()) {
+        if (!$this->crud->isReorderEnabled()) {
             abort(403, 'Reorder is disabled.');
         }
 
-        // get all results for that entity
-        $this->data['entries'] = $this->crud->getEntries();
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.reorder').' '.$this->crud->entity_name;
-        $this->data['categories'] = Category::withCount('articles', 'children')->get();
+        $this->data = $service->getSubCategoryInfo($this->data, $this->crud);
+
         return view('vendor/backpack/crud/category-reorder', $this->data);
     }
 

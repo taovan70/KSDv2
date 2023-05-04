@@ -29,23 +29,48 @@
 @section('content')
     <?php
 
-    function tree_element($entry, $key, $all_entries, $crud, $categories) {
+    function tree_element($entry, $key, $all_entries, $crud, $relations) {
+        //dd($relations);
         if (!isset($entry->tree_element_shown)) {
             // mark the element as shown
             $all_entries[$key]->tree_element_shown = true;
             $entry->tree_element_shown = true;
 
             $categorySlug = object_get($entry, $crud->get('reorder.label'));
-            $category = $categories->where('name', $categorySlug)->first()->toArray();
-            $articlesCount = $category['articles_count'];
-            $subCategoriesCount = $category['children_count'];
+            $article = $relations['articles']->where('name', $categorySlug)->first()->toArray();
+            $articlesCount = $article['articles_count'];
+            $articlesString = Lang::choice(__('models.cases_choice_article'),  $articlesCount, [], 'ru');
+            $subCategories1LevelCount = $relations['categories'][$categorySlug]['categories-1-level'];
+            $subCategories2LevelCount = $relations['categories'][$categorySlug]['categories-2-level'];
+            $subCategories3LevelCount = $relations['categories'][$categorySlug]['categories-3-level'];
+            $subCategoriesLangString = __('models.sub_categories');
+            $level1LangString = __('models.1-level_possessive');
+            $level2LangString = __('models.2-level_possessive');
+            $level3LangString = __('models.3-level_possessive');
+            $subCategoriesString = '';
+            $subCategoriesStringResult = '';
+            if(!empty($subCategories1LevelCount)) {
+                $subCategoriesString .= "{$level1LangString}: {$subCategories1LevelCount}; ";
+            }
 
-            $articlesCountWithText = $articlesCount . ' ' . Lang::choice(__('models.cases_choice_article'),  $articlesCount, [], 'ru');
-            $subCategoriesCountWithText = $subCategoriesCount . ' ' . Lang::choice(__('models.cases_choice_sub_categories'),  $subCategoriesCount, [], 'ru');
+            if(!empty($subCategories2LevelCount)) {
+                $subCategoriesString .= "{$level2LangString}: {$subCategories2LevelCount}; ";
+            }
+
+            if(!empty($subCategories3LevelCount)) {
+                $subCategoriesString .= "{$level3LangString}: {$subCategories3LevelCount}; ";
+            }
+
+            if(!empty($subCategoriesString)) {
+                $subCategoriesStringResult .= "<b>{$subCategoriesLangString}</b>: {$subCategoriesString}";
+            }
+
+            $articlesCountWithText = "{$articlesCount} <b> {$articlesString} </b>";
+            //$subCategoriesCountWithText = $subCategoriesCount . ' ' . Lang::choice(__('models.cases_choice_sub_categories'),  $subCategoriesCount, [], 'ru');
 
             // show the tree element
             echo '<li id="list_' . $entry->getKey() . '">';
-            echo "<div><span><span class='disclose'><span></span></span>{$categorySlug}</span><span><span class='sub_categories_number'>{$subCategoriesCountWithText}</span><span class='articles_number'>{$articlesCountWithText}</span></span></div>";
+            echo "<div><span><span class='disclose'><span></span></span>{$categorySlug}</span><span><span class='sub_categories_number'>{$subCategoriesStringResult}</span><span class='articles_number'>{$articlesCountWithText}</span></span></div>";
 
             // see if this element has any children
             $children = [];
@@ -61,7 +86,7 @@
             if (count($children)) {
                 echo '<ol>';
                 foreach ($children as $key => $child) {
-                    $children[$key] = tree_element($child, $child->getKey(), $all_entries, $crud, $categories);
+                    $children[$key] = tree_element($child, $child->getKey(), $all_entries, $crud, $relations);
                 }
                 echo '</ol>';
             }
@@ -85,7 +110,7 @@
                         return $item->parent_id == 0;
                     });
                     foreach ($root_entries as $key => $entry) {
-                        $root_entries[$key] = tree_element($entry, $key, $all_entries, $crud, $categories);
+                        $root_entries[$key] = tree_element($entry, $key, $all_entries, $crud, $relations);
                     }
                     ?>
                 </ol>

@@ -46,4 +46,35 @@ class CategoryService
         }
         return $array;
     }
+
+    public function getSubCategoryInfo($data, $crud) {
+        $data['entries'] = $crud->getEntries();
+        $data['crud'] = $crud;
+        $data['title'] = $crud->getTitle() ?? trans(
+            'backpack::crud.reorder'
+        ) . ' ' . $crud->entity_name;
+        $data['relations']['articles'] = Category::withCount('articles')->get();
+        $data['relations']['categories'] = [];
+        $allCategories = Category::all();
+        foreach ($allCategories as $category) {
+            $data['relations']['categories'][$category->name]['categories-1-level'] = $category->children()->count();
+
+            $data['relations']['categories'][$category->name]['categories-2-level'] = $category->children()
+                ->withCount('children')
+                ->get()
+                ->pluck('children_count')
+                ->sum();
+
+            $data['relations']['categories'][$category->name]['categories-3-level'] =  $category->children()
+                ->with(['children' => function ($query) {
+                    $query->withCount('children');
+                }])
+                ->get()
+                ->pluck('children.*.children_count')
+                ->flatten()
+                ->sum();
+        }
+
+        return $data;
+    }
 }
