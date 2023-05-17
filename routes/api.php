@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group([], function () {
     Route::post('article_authors', [\App\Http\Controllers\Api\ArticleController::class, 'fetchAuthors']);
 
@@ -28,4 +23,13 @@ Route::group([], function () {
     Route::group(['prefix' => 'categories'], function () {
         Route::post('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategories']);
     });
+
+    Route::group(['prefix' => 'articles'], function () {
+        Route::get('/{article}',  [\App\Http\Controllers\Api\ArticleController::class, 'show'])->name('article.show');
+   });
+
+    Route::group(['prefix' => 'authors'], function () {
+        Route::post('/', [\App\Http\Controllers\Api\AuthorController::class, 'fetchAuthors']);
+    });
+
 });

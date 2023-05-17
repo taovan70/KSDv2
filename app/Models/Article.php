@@ -34,19 +34,14 @@ class Article extends Model
         'author_id',
         'category_id',
         'published',
-        'publish_date'
+        'publish_date',
+        'content'
     ];
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        'content' => 'array',
-        'structure' => 'array',
         'published' => 'boolean',
         'publish_date' => 'datetime'
-    ];
-
-    protected $with = [
-        'elements'
     ];
 
     /*

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,13 +32,12 @@ Route::group([
 
     Route::get('file_manager', 'FileManagerController@index')->name('page.file_manager.index');
     Route::get('make-article', function () {
-        return Inertia::render('Welcome', [
-            'name' => 'John Doe',
-        ]);
+        return Inertia::render('MakeArticle');
     });
-
     Route::post('make-article/data', function (\Illuminate\Http\Request $request) {
        dd($request);
     });
+    Route::post('file/store', [FileController::class, 'store']);
+    Route::post('article/store', [ArticleController::class, 'store']);
     Route::crud('adv-block', 'AdvBlockCrudController');
 }); // this should be the absolute last line of this file

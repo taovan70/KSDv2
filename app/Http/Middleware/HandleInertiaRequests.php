@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
     public function rootView(Request $request): string
     {
         if (request()->is('admin/make-article')) {
-            return 'test';
+            return 'make-article'; // resources/views/make-article.blade.php
         }
 
         return parent::rootView($request);
