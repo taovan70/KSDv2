@@ -10,6 +10,7 @@ use App\Services\ArticleElementService;
 use App\Services\ArticleService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\View\View;
 
 /**
  * Class ArticleCrudController
@@ -48,6 +49,22 @@ class ArticleCrudController extends CrudController
         // Filters
         ArticleCRUD::tagFilter($this->crud);
         ArticleCRUD::categoryFilter($this->crud);
+    }
+
+    /**
+     * Display all rows in the database for this entity.
+     *
+     * @return View
+     */
+    public function index()
+    {
+        $this->crud->hasAccessOrFail('list');
+
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
+
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view('vendor.backpack.crud.articles-list', $this->data);
     }
 
     /**

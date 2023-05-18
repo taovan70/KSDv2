@@ -3,6 +3,7 @@
 return [
     'name' => 'Название',
     'created' => 'Создано',
+    'add' => 'Добавить',
     'yes' => 'Да',
     'no' => 'Нет',
     'category' => 'Категория',
@@ -20,6 +21,7 @@ return [
     'user' => 'Пользователь',
     'users' => 'Пользователи',
     'articles' => 'Статьи',
+    'articles_accusative' => 'Статью',
     'tags' => 'Теги',
     "user_logging" => "Логирование",
     'author_fields' => [
