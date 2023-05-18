@@ -1,13 +1,14 @@
 <script setup>
 import CKeditor from '../components/CKeditor.vue';
-import {reactive, ref} from 'vue'
-import {router, useForm} from '@inertiajs/vue3'
+import {ref} from 'vue'
+import {useForm} from '@inertiajs/vue3'
 import {useQuery} from '@tanstack/vue-query'
 import ModalAlert from '../components/UI/ModalAlert.vue'
 import ru from 'element-plus/dist/locale/ru.mjs'
 
-const locale = ref(ru)
+const props = defineProps({ article: Object })
 
+const locale = ref(ru)
 
 const {data: categories,} = useQuery({
   queryKey: ['categories'],
@@ -36,19 +37,24 @@ const {data: authors} = useQuery({
 const showSuccessModal = ref(false)
 
 const endpointForm = useForm({
-  name: null,
-  category: null,
-  tag: null,
-  content: null,
-  author: null,
-  publish_date: null,
+  name: props.article?.name,
+  category_id: props.article?.category_id,
+  tags: props.article?.tags_ids,
+  content: props.article?.content,
+  author_id: props.article?.author_id,
+  publish_date: props.article?.publish_date,
+  published: props.article?.published ?? true,
 })
 
 function sendForm() {
-  endpointForm.post('/admin/article/store', {
+  let saveUrl = '/admin/article/store'
+  if(props.article) {
+    saveUrl = `/admin/article/${props.article?.id}/update`
+  }
+
+  endpointForm.post(saveUrl, {
     preserveScroll: true,
     onSuccess: () => {
-      console.log(345)
       showSuccessModal.value = true
     }
   })
@@ -79,7 +85,7 @@ function modalClose() {
     <div class="article_category">
       <span>Категория</span>
       <div>
-        <el-select v-model="endpointForm.category" filterable placeholder="Select">
+        <el-select v-model="endpointForm.category_id" filterable placeholder="Select">
           <el-option
               v-for="category in categories"
               :key="category.id"
@@ -88,12 +94,12 @@ function modalClose() {
           />
         </el-select>
       </div>
-      <div v-if="endpointForm.errors.category" class="form_error_text">{{ endpointForm.errors.category }}</div>
+      <div v-if="endpointForm.errors.category_id" class="form_error_text">{{ endpointForm.errors.category_id }}</div>
     </div>
     <div class="article_tags">
       <span>Тэги</span>
       <div>
-        <el-select v-model="endpointForm.tag" filterable multiple placeholder="Select">
+        <el-select v-model="endpointForm.tags" filterable multiple placeholder="Select">
           <el-option
               v-for="tag in tags"
               :key="tag.id"
@@ -102,12 +108,12 @@ function modalClose() {
           />
         </el-select>
       </div>
-      <div v-if="endpointForm.errors.tag" class="form_error_text">{{ endpointForm.errors.tag }}</div>
+      <div v-if="endpointForm.errors.tags" class="form_error_text">{{ endpointForm.errors.tags }}</div>
     </div>
     <div class="article_author">
       <span>Автор</span>
       <div>
-        <el-select v-model="endpointForm.author" filterable placeholder="Select">
+        <el-select v-model="endpointForm.author_id" filterable placeholder="Select">
           <el-option
               v-for="author in authors"
               :key="author.id"
@@ -116,7 +122,7 @@ function modalClose() {
           />
         </el-select>
       </div>
-      <div v-if="endpointForm.errors.author" class="form_error_text">{{ endpointForm.errors.author }}</div>
+      <div v-if="endpointForm.errors.author_id" class="form_error_text">{{ endpointForm.errors.author_id }}</div>
     </div>
     <div class="article_publish_date">
       <span>Дата публикации</span>
@@ -131,8 +137,11 @@ function modalClose() {
       </div>
       <div v-if="endpointForm.errors.publish_date" class="form_error_text">{{ endpointForm.errors.publish_date }}</div>
     </div>
+    <div class="article_published">
+      <el-checkbox v-model="endpointForm.published">Опубликована</el-checkbox>
+    </div>
     <div class="article_content">
-      <CKeditor @content="getContent" content="12345"/>
+      <CKeditor @content="getContent" :content="endpointForm.content"/>
       <div v-if="endpointForm.errors.content" class="form_error_text">{{ endpointForm.errors.content }}</div>
     </div>
     <el-button @click="sendForm" color="#626aef">Отправить</el-button>

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
-use App\Models\Author;
-use App\Models\Category;
 use App\Services\ArticleService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Redirect;
@@ -24,37 +24,43 @@ class ArticleController extends Controller
         return $service->getAuthorsByCategory($request);
     }
 
+    /**
+     * @param Article $article
+     * @return ArticleResource
+     */
     public function show(Article $article): ArticleResource
     {
-        $article->load('category', 'author', 'tags');
+        $article->load( 'tags');
         return new ArticleResource($article);
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ArticleStoreRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ArticleStoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:500',
-            'category' => 'required|numeric|exists:categories,id',
-            'author' => 'required|numeric|exists:authors,id',
-            'tag' => 'array|min:1',
-            'tag.*' => 'numeric|exists:tags,id',
-            'publish_date' => 'required|date',
-            'content' => 'required|string|max:100000',
-        ]);
-
         $article = Article::create($request->post());
-        $category = Category::where(['id'=> $request->category])->firstOrFail();
-        $author = Author::where(['id'=> $request->author])->firstOrFail();
-        $category->articles()->save($article);
-        $author->articles()->save($article);
-        $article->tags()->sync($request->tag);
+        $article->tags()->sync($request->tags);
 
         return Redirect::back()->with([
-            'data' => 'Something you want to pass to front-end',
+            'data' => 'Some data',
+        ]);
+    }
+
+    /**
+     * @param ArticleStoreRequest $request
+     * @param Article $article
+     * @return RedirectResponse
+     */
+    public function update(ArticleStoreRequest $request, Article $article): RedirectResponse
+    {
+        $article->fill($request->validated());
+        $article->tags()->sync($request->tags);
+        $article->save();
+
+        return Redirect::back()->with([
+            'data' => 'Some data',
         ]);
     }
 }

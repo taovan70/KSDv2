@@ -29,7 +29,6 @@ class Article extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
-        'content',
         'structure',
         'author_id',
         'category_id',
@@ -43,6 +42,7 @@ class Article extends Model
         'published' => 'boolean',
         'publish_date' => 'datetime'
     ];
+    protected $appends = ['tags_ids'];
 
     /*
     |--------------------------------------------------------------------------
@@ -98,35 +98,16 @@ class Article extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected function content(): Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                /** @var ArticleService $articleService */
-                $articleService = app(ArticleService::class);
-
-                return $articleService->createArticleContent($this->elements);
-            }
-        );
-    }
-
-    protected function structure(): Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                /** @var ArticleService $articleService */
-                $articleService = app(ArticleService::class);
-
-                return $articleService->createArticleStructure($this->headers);
-            }
-        );
-    }
-
     protected function imagesStoragePath(): Attribute
     {
         return Attribute::make(
             get: fn() => "articles/{$this->id}/images/"
         );
+    }
+
+    public function getTagsIdsAttribute()
+    {
+        return $this->tags->pluck('id')->toArray();
     }
 
     /*

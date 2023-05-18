@@ -93,7 +93,7 @@ export default {
 
     watch(editorData, (newValue) => {
       emit('content', newValue)
-    })
+    }, {immediate: true})
 
     return {
       editor,
