@@ -10,3 +10,11 @@
     <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 </div>
 @endsection
+
+@section('after_styles')
+    <style>
+        .visually-hidden {
+            display: none;
+        }
+    </style>
+@endsection

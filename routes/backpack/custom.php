@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,7 @@ Route::group([
         Route::crud('log-user-event', 'LogUserEventCrudController');
     });
 
-    Route::get('file_manager', 'FileManagerController@index')->name('page.file_manager.index');
+    Route::get('file_manager', [FileManagerController::class, 'index'])->name('page.file_manager.index');
     Route::post('image/store', [ImageController::class, 'tempStore']);
     Route::crud('adv-block', 'AdvBlockCrudController');
 }); // this should be the absolute last line of this file
