@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ArticleController;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -36,6 +36,6 @@ Route::group([
     });
 
     Route::get('file_manager', 'FileManagerController@index')->name('page.file_manager.index');
-    Route::post('file/store', [FileController::class, 'store']);
+    Route::post('image/store', [ImageController::class, 'tempStore']);
     Route::crud('adv-block', 'AdvBlockCrudController');
 }); // this should be the absolute last line of this file

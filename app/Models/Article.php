@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\DOMParser\DOMTags;
-use App\Services\ArticleService;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,11 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Article extends Model
+class Article extends Model implements HasMedia
 {
     use CrudTrait;
     use HasFactory;
+    use InteractsWithMedia;
 
     /*
     |--------------------------------------------------------------------------
@@ -110,9 +112,16 @@ class Article extends Model
         return $this->tags->pluck('id')->toArray();
     }
 
+    public static function last()
+    {
+        return static::all()->last();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+
 }

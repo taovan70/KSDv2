@@ -95,7 +95,7 @@ export default {
         contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
       },
       simpleUpload: {
-        uploadUrl: 'file/store',
+        uploadUrl: '/admin/image/store',
         withCredentials: true,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

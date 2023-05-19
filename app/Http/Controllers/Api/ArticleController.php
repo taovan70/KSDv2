@@ -11,6 +11,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Redirect;
+use League\CommonMark\Exception\CommonMarkException;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+
 
 class ArticleController extends Controller
 {
@@ -30,17 +34,27 @@ class ArticleController extends Controller
      */
     public function show(Article $article): ArticleResource
     {
-        $article->load( 'tags');
+        $article->load('tags');
         return new ArticleResource($article);
     }
 
     /**
      * @param ArticleStoreRequest $request
+     * @param ArticleService $service
      * @return RedirectResponse
+     * @throws CommonMarkException
      */
-    public function store(ArticleStoreRequest $request): RedirectResponse
+    public function store(ArticleStoreRequest $request, ArticleService $service): RedirectResponse
     {
-        $article = Article::create($request->post());
+        $article = Article::create($request->validated());
+        try {
+            $content = $service->convertImageUrls($request, $article);
+        } catch (FileDoesNotExist|FileIsTooBig $e) {
+            return Redirect::back()->withErrors($e->getMessage());
+        }
+        $article->content = $content;
+        $article->save();
+
         $article->tags()->sync($request->tags);
 
         return Redirect::back()->with([
@@ -51,11 +65,20 @@ class ArticleController extends Controller
     /**
      * @param ArticleStoreRequest $request
      * @param Article $article
+     * @param ArticleService $service
      * @return RedirectResponse
      */
-    public function update(ArticleStoreRequest $request, Article $article): RedirectResponse
+    public function update(ArticleStoreRequest $request, Article $article, ArticleService $service): RedirectResponse
     {
-        $article->fill($request->validated());
+        $newData = $request->validated();
+        try {
+            $content = $service->convertImageUrls($request, $article);
+            $newData['content'] = $content;
+        } catch (FileDoesNotExist|FileIsTooBig $e) {
+            return Redirect::back()->withErrors($e->getMessage());
+        }
+
+        $article->fill($newData);
         $article->tags()->sync($request->tags);
         $article->save();
 
