@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite';
+import { createRequire } from 'node:module';
+const require = createRequire( import.meta.url );
 import laravel from 'laravel-vite-plugin';
 import vue from "@vitejs/plugin-vue";
 import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
@@ -25,4 +27,9 @@ export default defineConfig({
     //     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
     //     return pages[`./Pages/${name}.vue`]
     // },
+    optimizeDeps: {
+        esbuildOptions: {
+            legalComments: 'none'
+        }
+    },
 });

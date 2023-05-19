@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 import {ref, watch} from "vue";
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
@@ -22,6 +22,9 @@ import List from '@ckeditor/ckeditor5-list/src/list';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+import {MediaEmbed} from '@ckeditor/ckeditor5-media-embed';
+//import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
+import {Table, TableToolbar} from '@ckeditor/ckeditor5-table';
 
 export default {
   components: {
@@ -39,8 +42,9 @@ export default {
     const editorData = ref(props.content)
     const editorConfig = ref({
       plugins: [
-        Paragraph, Markdown, Bold, Italic, Essentials, Link,
         //UploadAdapter,
+        //GeneralHtmlSupport,
+        Paragraph, Markdown, Bold, Italic, Essentials, Link,
         Autoformat,
         Bold,
         Italic,
@@ -54,7 +58,10 @@ export default {
         List,
         Alignment,
         SourceEditing,
-        SimpleUploadAdapter
+        SimpleUploadAdapter,
+        MediaEmbed,
+        Table,
+        TableToolbar,
       ],
       toolbar: {
         items: [
@@ -70,6 +77,8 @@ export default {
           'undo',
           'redo',
           'sourceEditing',
+          'mediaEmbed',
+          'insertTable',
         ]
       },
       image: {
@@ -82,13 +91,24 @@ export default {
           'imageTextAlternative'
         ]
       },
+      table: {
+        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+      },
       simpleUpload: {
         uploadUrl: 'file/store',
         withCredentials: true,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-      }
+      },
+      // htmlSupport: {
+      //   allow: [
+      //     {
+      //       name: 'div'
+      //     },
+      //   ],
+      //   disallow: [ /* HTML features to disallow */ ]
+      // }
     })
 
     watch(editorData, (newValue) => {
