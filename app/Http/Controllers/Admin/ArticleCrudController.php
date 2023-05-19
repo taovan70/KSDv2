@@ -80,7 +80,7 @@ class ArticleCrudController extends CrudController
         $this->crud->hasAccessOrFail('delete');
 
         $article = Article::find($id);
-        $articleService->deleteAllAttachedMedia($article);
+        $articleService->deleteAttachedMedia($article, []);
 
         return $this->crud->delete($id);
     }

@@ -79,13 +79,13 @@ function modalClose() {
   <form>
     <div class="article_name">
       <span>Название</span>
-      <el-input v-model="endpointForm.name" placeholder="Название статьи"/>
+      <el-input v-model="endpointForm.name" size="large" placeholder="Название статьи"/>
       <div v-if="endpointForm.errors.name" class="form_error_text">{{ endpointForm.errors.name }}</div>
     </div>
     <div class="article_category">
       <span>Категория</span>
       <div>
-        <el-select v-model="endpointForm.category_id" filterable placeholder="Select">
+        <el-select v-model="endpointForm.category_id" filterable placeholder="Select" size="large">
           <el-option
               v-for="category in categories"
               :key="category.id"
@@ -99,7 +99,7 @@ function modalClose() {
     <div class="article_tags">
       <span>Тэги</span>
       <div>
-        <el-select v-model="endpointForm.tags" filterable multiple placeholder="Select">
+        <el-select v-model="endpointForm.tags" filterable multiple placeholder="Select" size="large">
           <el-option
               v-for="tag in tags"
               :key="tag.id"
@@ -113,7 +113,7 @@ function modalClose() {
     <div class="article_author">
       <span>Автор</span>
       <div>
-        <el-select v-model="endpointForm.author_id" filterable placeholder="Select">
+        <el-select v-model="endpointForm.author_id" filterable placeholder="Select" size="large">
           <el-option
               v-for="author in authors"
               :key="author.id"
@@ -128,6 +128,7 @@ function modalClose() {
       <span>Дата публикации</span>
       <div>
         <el-date-picker
+            size="large"
             v-model="endpointForm.publish_date"
             type="datetime"
             placeholder="Выберите дату"
@@ -138,7 +139,7 @@ function modalClose() {
       <div v-if="endpointForm.errors.publish_date" class="form_error_text">{{ endpointForm.errors.publish_date }}</div>
     </div>
     <div class="article_published">
-      <el-checkbox v-model="endpointForm.published">Опубликована</el-checkbox>
+      <el-checkbox v-model="endpointForm.published" size="large">Опубликована</el-checkbox>
     </div>
     <div class="article_content">
       <CKeditor @content="getContent" :content="endpointForm.content"/>

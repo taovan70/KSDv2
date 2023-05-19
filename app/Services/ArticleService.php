@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Models\Article;
 use App\Models\Author;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -66,19 +67,41 @@ class ArticleService
     {
         $mediaData = DB::table('media')->where('file_name', $fileName)->first();
         //http://localhost/media/1/1684476639.jpg" format
-        return "{$host}/{$mediaData->disk}/{$mediaData->id}/{$mediaData->file_name}";
+        $folderMd5 = md5($mediaData->id);
+        $folderDate = Carbon::parse($mediaData->created_at)->format('Y-m-d');
+        return "{$host}/{$mediaData->disk}/{$folderDate}/{$folderMd5}/{$mediaData->file_name}";
     }
 
     /**
      * @param Article $article
+     * @param array $receivedUrls
      * @return void
      * @throws MediaCannotBeDeleted
      */
-    public function deleteAllAttachedMedia(Article $article): void
+    public function deleteAttachedMedia(Article $article, array $receivedUrls): void
     {
         $mediaIds = DB::table('media')->where('model_id', $article->id)->get();
-        foreach ($mediaIds as $mediaId) {
-            $article->deleteMedia($mediaId->id);
+
+        // if delete all
+        if(!$receivedUrls) {
+            foreach ($mediaIds as $mediaId) {
+                $article->deleteMedia($mediaId->id);
+            }
+            return;
+        }
+
+        // if delete only those who was not received
+        $mediaIdsNames = $mediaIds->pluck('file_name')->toArray();
+        $receivedUrlsNames = [];
+        foreach ($receivedUrls as $url) {
+            $receivedUrlsNames[] = basename($url);
+        }
+
+        $differenceArray = array_diff($mediaIdsNames, $receivedUrlsNames);
+
+        foreach ($differenceArray as $fileName) {
+            $mediaToDelete = DB::table('media')->where('file_name', $fileName)->first();
+            $article->deleteMedia($mediaToDelete->id);
         }
 
     }
@@ -88,7 +111,7 @@ class ArticleService
      * @param Article $article
      * @return string
      * @throws FileDoesNotExist
-     * @throws FileIsTooBig
+     * @throws FileIsTooBig|MediaCannotBeDeleted
      */
     public function convertImageUrls(ArticleStoreRequest $request, Article $article): string
     {
@@ -105,7 +128,7 @@ class ArticleService
         // Extract the URLs from the matches
         $urls = $matches[1];
 
-        $this->deleteAllAttachedMedia($article);
+        $this->deleteAttachedMedia($article, $urls);
 
         foreach ($urls as $url) {
             // if it is temporary file, and not new media file
