@@ -68,19 +68,9 @@ class Article extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
-    public function elements(): HasMany
-    {
-        return $this->hasMany(ArticleElement::class)->orderBy('order');
-    }
-
     public function headers(): HasMany
     {
         return $this->elements()->whereIn('html_tag', DOMTags::HEADERS);
-    }
-
-    public function images(): HasMany
-    {
-        return $this->elements()->where('html_tag', DOMTags::IMG);
     }
 
     public function tags(): BelongsToMany
