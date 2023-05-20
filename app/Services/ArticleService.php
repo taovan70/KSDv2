@@ -69,7 +69,7 @@ class ArticleService
         //http://localhost/media/1/1684476639.jpg" format
         $folderMd5 = md5($mediaData->id);
         $folderDate = Carbon::parse($mediaData->created_at)->format('Y-m-d');
-        return "{$host}/{$mediaData->disk}/{$folderDate}/{$folderMd5}/{$mediaData->file_name}";
+        return "{$host}/storage/{$mediaData->disk}/{$folderDate}/{$folderMd5}/{$mediaData->file_name}";
     }
 
     /**
