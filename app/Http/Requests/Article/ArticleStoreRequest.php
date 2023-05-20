@@ -34,7 +34,7 @@ class ArticleStoreRequest extends FormRequest
             'tags.*' => 'numeric|exists:tags,id',
             'publish_date' => 'required|date',
             'published' => 'required|boolean',
-            'content' => 'required|string|max:1000000',
+            'content_markdown' => 'required|string|max:1000000',
         ];
     }
 
@@ -64,8 +64,8 @@ class ArticleStoreRequest extends FormRequest
             'author_id.required' => __('validation.common.required'),
             'tags.min' => __('validation.common.required'),
             'publish_date.required' => __('validation.common.required'),
-            'content.required' => __('validation.common.required'),
-            'content.max' => __('validation.common.max') .' ' . ':max',
+            'content_markdown.required' => __('validation.common.required'),
+            'content_markdown.max' => __('validation.common.max') .' ' . ':max',
         ];
     }
 }

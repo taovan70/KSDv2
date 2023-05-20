@@ -115,7 +115,7 @@ class ArticleService
      */
     public function convertImageUrls(ArticleStoreRequest $request, Article $article): string
     {
-        $articleText = $request['content'];
+        $articleText = $request['content_markdown'];
         $host = request()->getSchemeAndHttpHost();
         $initialFilesPath = 'storage/temp_images/';
         $newMediaPath = '/media/';

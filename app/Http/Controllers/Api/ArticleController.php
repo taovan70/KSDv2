@@ -52,7 +52,7 @@ class ArticleController extends Controller
         } catch (FileDoesNotExist|FileIsTooBig $e) {
             return Redirect::back()->withErrors($e->getMessage());
         }
-        $article->content = $content;
+        $article->content_markdown = $content;
         $article->save();
 
         $article->tags()->sync($request->tags);
@@ -73,7 +73,7 @@ class ArticleController extends Controller
         $newData = $request->validated();
         try {
             $content = $service->convertImageUrls($request, $article);
-            $newData['content'] = $content;
+            $newData['content_markdown'] = $content;
         } catch (FileDoesNotExist|FileIsTooBig $e) {
             return Redirect::back()->withErrors($e->getMessage());
         }

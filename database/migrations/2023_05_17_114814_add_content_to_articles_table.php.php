@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->text('content');
+            $table->text('content_markdown')->nullable();
+            $table->text('content_html')->nullable();
         });
     }
 
@@ -23,7 +24,8 @@ return new class extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn([
-                'content',
+                'content_markdown',
+                'content_html',
             ]);
         });
     }

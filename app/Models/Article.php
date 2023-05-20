@@ -36,7 +36,7 @@ class Article extends Model implements HasMedia
         'category_id',
         'published',
         'publish_date',
-        'content'
+        'content_markdown',
     ];
     // protected $hidden = [];
     // protected $dates = [];

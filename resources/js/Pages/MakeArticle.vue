@@ -40,7 +40,7 @@ const endpointForm = useForm({
   name: props.article?.name,
   category_id: props.article?.category_id,
   tags: props.article?.tags_ids,
-  content: props.article?.content,
+  content_markdown: props.article?.content_markdown,
   author_id: props.article?.author_id,
   publish_date: props.article?.publish_date,
   published: props.article?.published ?? true,
@@ -61,7 +61,7 @@ function sendForm() {
 }
 
 function getContent(content) {
-  endpointForm.content = content
+  endpointForm.content_markdown = content
 }
 
 function modalClose() {
@@ -142,8 +142,8 @@ function modalClose() {
       <el-checkbox v-model="endpointForm.published" size="large">Опубликована</el-checkbox>
     </div>
     <div class="article_content">
-      <CKeditor @content="getContent" :content="endpointForm.content"/>
-      <div v-if="endpointForm.errors.content" class="form_error_text">{{ endpointForm.errors.content }}</div>
+      <CKeditor @content="getContent" :content="endpointForm.content_markdown"/>
+      <div v-if="endpointForm.errors.content_markdown" class="form_error_text">{{ endpointForm.errors.content_markdown }}</div>
     </div>
     <el-button @click="sendForm" color="#626aef">Отправить</el-button>
   </form>
