@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // --------------------------
 // Custom Backpack Routes
@@ -29,6 +29,7 @@ Route::group([
     Route::get('article/{article}/edit', [App\Http\Controllers\Admin\Inertia\ArticleController::class, 'edit']);
     Route::post('article/store', [ArticleController::class, 'store']);
     Route::post('article/{article}/update', [ArticleController::class, 'update']);
+    Route::get('settings-info', [SettingController::class, 'index']);
 
     // Roles available: admin, manager, guest
     Route::group(['middleware' => ['role:admin']], function () {

@@ -28,6 +28,10 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:500',
+            'slug' => 'required|string|max:500',
+            'title' => 'required|string|max:500',
+            'description' => 'required|string|max:1000',
+            'keywords' => 'required|string|max:1000',
             'category_id' => 'required|numeric|exists:categories,id',
             'author_id' => 'required|numeric|exists:authors,id',
             'tags' => 'array|min:1',
@@ -59,6 +63,10 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'slug.required' => __('validation.common.required'),
+            'title.required' => __('validation.common.required'),
+            'description.required' => __('validation.common.required'),
+            'keywords.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') .' ' . ':max',
             'category_id.required' => __('validation.common.required'),
             'author_id.required' => __('validation.common.required'),

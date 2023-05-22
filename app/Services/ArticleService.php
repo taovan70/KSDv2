@@ -134,7 +134,7 @@ class ArticleService
             // if it is temporary file, and not new media file
             if (!str_contains($url, $newMediaPath)) {
                 $fileName = basename($url);
-                $article->addMedia(public_path($initialFilesPath . $fileName))->toMediaCollection();
+                $article->addMedia(public_path($initialFilesPath . $fileName))->withResponsiveImages()->toMediaCollection();
                 $modifiedUrl = $this->modifyUrl($host, $fileName);
                 $articleText = str_replace("($url)", "($modifiedUrl)", $articleText);
             }
