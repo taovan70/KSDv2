@@ -84,18 +84,17 @@ class AdvBlockCrudController extends CrudController
         AdvBlockCRUD::advFilter($this->crud);
 
         CRUD::column('name')->label(__('table.name'));
+        CRUD::column('created')
+            ->value(function ($entry) {
+                return date('d.m.Y', strtotime($entry->created_at));
+            })
+            ->label(__('table.adv_block_fields.created'));
         CRUD::column('active')
             ->value(function ($entry) {
                 return $entry->active ? __('table.yes') : __('table.no');
             })
             ->label(__('table.adv_block_fields.active'));
-        CRUD::column('device_type')->label(__('table.adv_block_fields.device_type'));
-        CRUD::column('color_type')->label(__('table.adv_block_fields.color_type'));
-        CRUD::column('adv_page_id')
-            ->value(function ($entry) {
-                return $entry->advPage->name;
-            })
-            ->label(__('table.adv_block_fields.page'));
+        CRUD::column('description')->label(__('table.adv_block_fields.comment'));
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -124,7 +123,8 @@ class AdvBlockCrudController extends CrudController
         }
 
         CRUD::field('name')->label(__('table.name'));
-        CRUD::field('description')->label(__('table.adv_block_fields.description'));
+        CRUD::field('description')->label(__('table.adv_block_fields.comment'));
+        CRUD::field('comment')->label(__('table.adv_block_fields.comment'));
         CRUD::field('content')->type('textarea')->label(__('table.adv_block_fields.content'));
         CRUD::field('active')->label(__('table.adv_block_fields.active'));
         CRUD::addField([
@@ -170,7 +170,7 @@ class AdvBlockCrudController extends CrudController
         $this->setupListOperation();
         CRUD::column('name')->type("textarea")->label(__('table.name'));
         CRUD::column('content')->type("textarea")->label(__('table.adv_block_fields.content'));
-        CRUD::column('description')->type("textarea")->label(__('table.adv_block_fields.description'));
+        CRUD::column('description')->type("textarea")->label(__('table.adv_block_fields.comment'));
     }
 
     /**

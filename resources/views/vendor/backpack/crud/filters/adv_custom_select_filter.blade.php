@@ -216,6 +216,18 @@
         display: none;
     }
 
+    .la.la-eye::before {
+        font-size: 30px;
+    }
+
+    .la.la-edit::before {
+        font-size: 30px;
+    }
+
+    #crudTable .btn.btn-sm.btn-link {
+        font-size: 0;
+    }
+
     @media (max-width: 1600px) {
         li.adv-custom-filter-block {
             flex-wrap: wrap;
