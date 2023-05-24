@@ -13,6 +13,7 @@
         "backpack/crud": "^5.5",
         "backpack/pro": "^1.6",
         "backpack/settings": "^3.0",
+        "embed/embed": "^4.4",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.9",
         "laravel/framework": "^10.0",

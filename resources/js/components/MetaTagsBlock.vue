@@ -1,7 +1,7 @@
 <script setup>
 import {watch, ref, computed} from "vue";
 import translit from "../utils/translit";
-import { useI18n } from 'vue-i18n'
+import {useI18n} from 'vue-i18n'
 
 const props = defineProps({
   title: String,
@@ -18,7 +18,7 @@ const {t} = useI18n({})
 
 
 function truncate(source, size) {
-  if(!source || !size) return ''
+  if (!source || !size) return ''
   return source.length > size ? source.slice(0, size - 1) + "…" : source;
 }
 
@@ -139,7 +139,8 @@ const setMetaViewSearchEngine = (searchEngine) => {
 
         <div class="search_item_google" v-if="metaViewDevice === 'phone' && metaViewSearchEngine === 'google'">
           <div class="search_item__url">
-            <i class="la la-globe"></i><span class="search_item__url_link">{{ settings?.site_url }} > {{ slugTranslit }}</span>
+            <i class="la la-globe"></i>
+            <span class="search_item__url_link">{{ settings?.site_url }} > {{ slugTranslit }}</span>
           </div>
           <div class="search_item__title">{{ truncateTitle }}</div>
           <div class="search_item__description"> {{ truncateDescription }}</div>
@@ -147,7 +148,13 @@ const setMetaViewSearchEngine = (searchEngine) => {
 
         <div class="search_item_google" v-if="metaViewDevice === 'desktop' && metaViewSearchEngine === 'google'">
           <div class="search_item__url">
-            <i class="la la-globe"></i> <span class="search_item__url_link">{{ settings?.site_url }} > {{ slugTranslit }}</span>
+            <div>
+              <i class="la la-globe"></i>
+            </div>
+            <div class="search_item__url_link">
+              <div class="search_item__url_host">{{ settings?.site_url }}</div>
+              <span class="search_item__url_full_path">{{ settings?.site_url }} > {{ slugTranslit }}</span>
+            </div>
           </div>
           <div class="search_item__title">{{ truncateTitle }}</div>
           <div class="search_item__description"> {{ truncateDescription }}</div>
@@ -313,6 +320,22 @@ label {
   line-height: 1.58;
   text-align: left;
   font-size: 14px;
+}
+
+.search_item_google .search_item__url_host {
+  font-size: 14px;
+}
+
+.search_item_google .search_item__url_full_path {
+  font-size: 12px;
+}
+
+.search_item_google .search_item__url_link {
+  line-height: 15px;
+}
+
+.search_item_google .search_item__url {
+  margin-bottom: 5px;
 }
 
 

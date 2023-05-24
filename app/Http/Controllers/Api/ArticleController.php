@@ -7,6 +7,7 @@ use App\Http\Requests\Article\ArticleStoreRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Services\ArticleService;
+use App\Services\EmbedService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -14,10 +15,18 @@ use Illuminate\Support\Facades\Redirect;
 use League\CommonMark\Exception\CommonMarkException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\MediaCannotBeDeleted;
 
 
 class ArticleController extends Controller
 {
+
+    public function __construct(
+        private readonly EmbedService $embedService,
+        private readonly ArticleService $articleService
+    ) {
+    }
+
     /**
      * @param Request $request
      * @param ArticleService $service
@@ -40,19 +49,21 @@ class ArticleController extends Controller
 
     /**
      * @param ArticleStoreRequest $request
-     * @param ArticleService $service
      * @return RedirectResponse
      * @throws CommonMarkException
+     * @throws MediaCannotBeDeleted
      */
-    public function store(ArticleStoreRequest $request, ArticleService $service): RedirectResponse
+    public function store(ArticleStoreRequest $request): RedirectResponse
     {
         $article = Article::create($request->validated());
         try {
-            $content = $service->convertImageUrls($request, $article);
+            $content = $this->articleService->convertImageUrls($request, $article);
         } catch (FileDoesNotExist|FileIsTooBig $e) {
             return Redirect::back()->withErrors($e->getMessage());
         }
+
         $article->content_markdown = $content;
+        $article->content_html = $this->embedService->convertToHtml($content);
         $article->save();
 
         $article->tags()->sync($request->tags);
@@ -65,19 +76,23 @@ class ArticleController extends Controller
     /**
      * @param ArticleStoreRequest $request
      * @param Article $article
-     * @param ArticleService $service
      * @return RedirectResponse
+     * @throws CommonMarkException
+     * @throws MediaCannotBeDeleted
      */
-    public function update(ArticleStoreRequest $request, Article $article, ArticleService $service): RedirectResponse
-    {
+    public function update(
+        ArticleStoreRequest $request,
+        Article $article,
+    ): RedirectResponse {
         $newData = $request->validated();
         try {
-            $content = $service->convertImageUrls($request, $article);
-            $newData['content_markdown'] = $content;
+            $content = $this->articleService->convertImageUrls($request, $article);
+            $newData['content_markdown'] = $this->articleService->stripTags($content);
         } catch (FileDoesNotExist|FileIsTooBig $e) {
             return Redirect::back()->withErrors($e->getMessage());
         }
 
+        $article->content_html = $this->embedService->convertToHtml($content);;
         $article->fill($newData);
         $article->tags()->sync($request->tags);
         $article->save();

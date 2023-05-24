@@ -126,7 +126,9 @@ class ArticleService
         preg_match_all($pattern, $articleText, $matches);
 
         // Extract the URLs from the matches
-        $urls = $matches[1];
+        $urls = array_filter($matches[1], function($v) {
+            return str_contains($v, 'temp_images');
+        });
 
         $this->deleteAttachedMedia($article, $urls);
 
@@ -152,6 +154,22 @@ class ArticleService
     {
         $converter = new CommonMarkConverter();
         return $converter->convert($text);
+    }
+
+    public function stripTags(string $text): string
+    {
+        $res =  strip_tags($text, '<table><tr><td><th>');
+        $res = htmlspecialchars($res);
+        // remain some tags
+        $res = str_replace("&lt;table&gt;", "<table>", $res);
+        $res = str_replace("&lt;/table&gt;", "</table>", $res);
+        $res = str_replace("&lt;td&gt;", "<td>", $res);
+        $res = str_replace("&lt;/td&gt;", "</td>", $res);
+        $res = str_replace("&lt;th&gt;", "<th>", $res);
+        $res = str_replace("&lt;/th&gt;", "</th>", $res);
+        $res = str_replace("&lt;tr&gt;", "<tr>", $res);
+        $res = str_replace("&lt;/tr&gt;", "</tr>", $res);
+        return $res;
     }
 
 }

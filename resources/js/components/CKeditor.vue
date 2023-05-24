@@ -22,7 +22,7 @@ import List from '@ckeditor/ckeditor5-list/src/list';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
-import {MediaEmbed} from '@ckeditor/ckeditor5-media-embed';
+///import {MediaEmbed} from '@ckeditor/ckeditor5-media-embed';
 //import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
 import {Table, TableToolbar} from '@ckeditor/ckeditor5-table';
 
@@ -59,7 +59,7 @@ export default {
         Alignment,
         SourceEditing,
         SimpleUploadAdapter,
-        MediaEmbed,
+        //MediaEmbed,
         Table,
         TableToolbar,
       ],
@@ -77,7 +77,7 @@ export default {
           'undo',
           'redo',
           'sourceEditing',
-          'mediaEmbed',
+          //'mediaEmbed',
           'insertTable',
         ]
       },
