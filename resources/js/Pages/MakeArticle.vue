@@ -263,7 +263,7 @@ label {
 
 .form_small_fields_block {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 3%;
 }
 
@@ -273,6 +273,13 @@ label {
 
 :deep .el-date-editor--datetime, :deep .el-input__wrapper {
   width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .form_small_fields_block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media screen and (max-width: 768px) {
