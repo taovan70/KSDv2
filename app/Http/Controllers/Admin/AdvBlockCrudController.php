@@ -83,7 +83,7 @@ class AdvBlockCrudController extends CrudController
     {
         AdvBlockCRUD::advFilter($this->crud);
 
-        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('name')->limit(255)->label(__('table.name'));
         CRUD::column('created')
             ->value(function ($entry) {
                 return date('d.m.Y', strtotime($entry->created_at));
@@ -94,7 +94,7 @@ class AdvBlockCrudController extends CrudController
                 return $entry->active ? __('table.yes') : __('table.no');
             })
             ->label(__('table.adv_block_fields.active'));
-        CRUD::column('description')->label(__('table.adv_block_fields.comment'));
+        CRUD::column('description')->limit(255)->label(__('table.adv_block_fields.comment'));
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
