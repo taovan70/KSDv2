@@ -41,9 +41,9 @@
         @endif
 
         <div class="create-page-block create-page-block-mobile">
-            <a class="btn btn-secondary mb-12-px btn-hide">Добавить страницу</a>
-            <a href="{{ backpack_url('adv-page/create')}}" class="btn btn-secondary mb-12-px">Добавить страницу</a>
-            <a href="{{ backpack_url('adv-block/create')}}" class="btn btn-secondary">Добавить блок</a>
+            <a class="btn btn-secondary mb-12-px btn-hide">{{ __('table.adv_block_fields.add_page') }}</a>
+            <a href="{{ backpack_url('adv-page/create')}}" class="btn btn-secondary mb-12-px">{{ __('table.adv_block_fields.add_page') }}</a>
+            <a href="{{ backpack_url('adv-block/create')}}" class="btn btn-secondary">{{ __('table.adv_block_fields.add_block') }}</a>
         </div>
 
         <table

@@ -48,6 +48,9 @@ return [
         'password' => 'Пароль',
         'password_confirmation' => 'Подтверждение пароля',
         'role' => 'Роль',
+        'change_lang' => 'Изменить язык',
+        'lang' => 'Язык',
+        'information_changed' => 'Информация изменена',
     ],
 
     'article_fields' => [
@@ -68,5 +71,7 @@ return [
         'page' => 'Страница',
         'created' => 'Создан',
         'comment' => 'Комментарии',
+        'add_page' => 'Добавить страницу',
+        'add_block' => 'Добавить блок',
     ]
 ];

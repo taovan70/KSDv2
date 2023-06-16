@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LangController;
 use Illuminate\Support\Facades\Route;
 
 // --------------------------
@@ -41,4 +42,7 @@ Route::group([
     Route::post('image/store', [ImageController::class, 'tempStore']);
     Route::crud('adv-block', 'AdvBlockCrudController');
     Route::crud('adv-page', 'AdvPageCrudController');
+
+    Route::post('language',  [LangController::class, 'setLanguage'])->name('user.set_language');;
+
 }); // this should be the absolute last line of this file
