@@ -130,7 +130,10 @@ class ArticleService
             return str_contains($v, 'temp_images');
         });
 
-        $this->deleteAttachedMedia($article, $urls);
+        if(!empty($urls)) {
+            $this->deleteAttachedMedia($article, $urls);
+        }
+
 
         foreach ($urls as $url) {
             // if it is temporary file, and not new media file
