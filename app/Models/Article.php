@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\DOMParser\DOMTags;
-use App\Services\ArticleService;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,11 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Article extends Model
+class Article extends Model implements HasMedia
 {
     use CrudTrait;
     use HasFactory;
+    use InteractsWithMedia;
 
     /*
     |--------------------------------------------------------------------------
@@ -29,25 +31,24 @@ class Article extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
-        'content',
         'structure',
         'author_id',
         'category_id',
         'published',
-        'publish_date'
+        'publish_date',
+        'content_markdown',
+        'keywords',
+        'description',
+        'title',
+        'slug'
     ];
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        'content' => 'array',
-        'structure' => 'array',
         'published' => 'boolean',
         'publish_date' => 'datetime'
     ];
-
-    protected $with = [
-        'elements'
-    ];
+    protected $appends = ['tags_ids'];
 
     /*
     |--------------------------------------------------------------------------
@@ -71,19 +72,9 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function elements(): HasMany
-    {
-        return $this->hasMany(ArticleElement::class)->orderBy('order');
-    }
-
     public function headers(): HasMany
     {
         return $this->elements()->whereIn('html_tag', DOMTags::HEADERS);
-    }
-
-    public function images(): HasMany
-    {
-        return $this->elements()->where('html_tag', DOMTags::IMG);
     }
 
     public function tags(): BelongsToMany
@@ -103,30 +94,6 @@ class Article extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected function content(): Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                /** @var ArticleService $articleService */
-                $articleService = app(ArticleService::class);
-
-                return $articleService->createArticleContent($this->elements);
-            }
-        );
-    }
-
-    protected function structure(): Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                /** @var ArticleService $articleService */
-                $articleService = app(ArticleService::class);
-
-                return $articleService->createArticleStructure($this->headers);
-            }
-        );
-    }
-
     protected function imagesStoragePath(): Attribute
     {
         return Attribute::make(
@@ -134,9 +101,21 @@ class Article extends Model
         );
     }
 
+    public function getTagsIdsAttribute()
+    {
+        return $this->tags->pluck('id')->toArray();
+    }
+
+    public static function last()
+    {
+        return static::all()->last();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+
 }

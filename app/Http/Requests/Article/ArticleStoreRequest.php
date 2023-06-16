@@ -13,7 +13,7 @@ class ArticleStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
@@ -24,14 +24,21 @@ class ArticleStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'required|string|min:2|max:255',
-            'author_id' => 'nullable|integer|exists:authors,id',
-            'category_id' => 'nullable|integer|exists:categories,id',
-            'publish_date' => 'required|date|after:yesterday',
-            'article_text' => 'required|string'
+            'name' => 'required|string|max:500',
+            'slug' => 'required|string|max:500',
+            'title' => 'required|string|max:500',
+            'description' => 'required|string|max:1000',
+            'keywords' => 'required|string|max:1000',
+            'category_id' => 'required|numeric|exists:categories,id',
+            'author_id' => 'required|numeric|exists:authors,id',
+            'tags' => 'array|min:1',
+            'tags.*' => 'numeric|exists:tags,id',
+            'publish_date' => 'required|date',
+            'published' => 'required|boolean',
+            'content_markdown' => 'required|string|max:1000000',
         ];
     }
 
@@ -40,7 +47,7 @@ class ArticleStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
@@ -52,10 +59,21 @@ class ArticleStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'slug.required' => __('validation.common.required'),
+            'title.required' => __('validation.common.required'),
+            'description.required' => __('validation.common.required'),
+            'keywords.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'category_id.required' => __('validation.common.required'),
+            'author_id.required' => __('validation.common.required'),
+            'tags.min' => __('validation.common.required'),
+            'publish_date.required' => __('validation.common.required'),
+            'content_markdown.required' => __('validation.common.required'),
+            'content_markdown.max' => __('validation.common.max') .' ' . ':max',
         ];
     }
 }

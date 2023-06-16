@@ -1,0 +1,19 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/make-article.css": {
+    "file": "assets/make-article-4b62e3bc.css",
+    "src": "resources/js/make-article.css"
+  },
+  "resources/js/make-article.js": {
+    "css": [
+      "assets/make-article-4b62e3bc.css"
+    ],
+    "file": "assets/make-article-d19d4bb0.js",
+    "isEntry": true,
+    "src": "resources/js/make-article.js"
+  }
+}

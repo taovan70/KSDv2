@@ -65,5 +65,25 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'site_url')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "site_url",
+                    'name' => json_encode(
+                        ["en" => "site url", "ru" => "url сайта"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => 'mysite.com',
+                    'field' => json_encode(["name" => "value", "label" => "Value", "type" => "text"]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
+
     }
 }

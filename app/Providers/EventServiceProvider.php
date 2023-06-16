@@ -6,13 +6,11 @@ use App\Events\LogUserActionOnModel;
 use App\Listeners\SendLogUserActionOnAuth;
 use App\Listeners\SendLogUserActionOnModel;
 use App\Models\Article;
-use App\Models\ArticleElement;
 use App\Models\Author;
 use App\Models\Category;
 use App\Models\CustomSetting;
 use App\Models\Tag;
 use App\Models\User;
-use App\Observers\ArticleElementObserver;
 use App\Observers\ArticleObserver;
 use App\Observers\AuthorObserver;
 use App\Observers\CategoryObserver;
@@ -53,7 +51,6 @@ class EventServiceProvider extends ServiceProvider
 
         Category::observe(CategoryObserver::class);
         Article::observe(ArticleObserver::class);
-        ArticleElement::observe(ArticleElementObserver::class);
         Author::observe(AuthorObserver::class);
         CustomSetting::observe(CustomSettingObserver::class);
         Tag::observe(TagObserver::class);
