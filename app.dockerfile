@@ -36,6 +36,8 @@ RUN set -eux; \
     docker-php-ext-install pdo_mysql; \
     # Install the PHP pdo_pgsql extention
     docker-php-ext-install pdo_pgsql; \
+    # Install the PHP exif extention
+    docker-php-ext-install exif; \
     # Install the PHP gd library
     docker-php-ext-configure gd \
             --prefix=/usr \
