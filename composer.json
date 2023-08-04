@@ -9,10 +9,12 @@
         "ext-dom": "*",
         "ext-iconv": "*",
         "alexusmai/laravel-file-manager": "3.0.5",
-        "backpack/backupmanager": "^4.0",
-        "backpack/crud": "^5.5",
-        "backpack/pro": "^1.6",
-        "backpack/settings": "^3.0",
+        "backpack/backupmanager": "^5.0",
+        "backpack/crud": "^6.0",
+        "backpack/pro": "^2.0",
+        "backpack/settings": "^3.1",
+        "backpack/theme-coreuiv2": "^1.1",
+        "backpack/theme-tabler": "^1.0",
         "embed/embed": "^4.4",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.9",
@@ -24,7 +26,7 @@
         "spatie/laravel-medialibrary": "^10.9"
     },
     "require-dev": {
-        "backpack/generators": "^3.3",
+        "backpack/generators": "^4.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
@@ -58,7 +60,8 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "post-install-cmd": ["php artisan storage:link --quiet"]
     },
     "extra": {
         "laravel": {
