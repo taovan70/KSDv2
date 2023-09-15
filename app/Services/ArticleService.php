@@ -159,20 +159,4 @@ class ArticleService
         return $converter->convert($text);
     }
 
-    public function stripTags(string $text): string
-    {
-        $res =  strip_tags($text, '<table><tr><td><th>');
-        $res = htmlspecialchars($res);
-        // remain some tags
-        $res = str_replace("&lt;table&gt;", "<table>", $res);
-        $res = str_replace("&lt;/table&gt;", "</table>", $res);
-        $res = str_replace("&lt;td&gt;", "<td>", $res);
-        $res = str_replace("&lt;/td&gt;", "</td>", $res);
-        $res = str_replace("&lt;th&gt;", "<th>", $res);
-        $res = str_replace("&lt;/th&gt;", "</th>", $res);
-        $res = str_replace("&lt;tr&gt;", "<tr>", $res);
-        $res = str_replace("&lt;/tr&gt;", "</tr>", $res);
-        return $res;
-    }
-
 }

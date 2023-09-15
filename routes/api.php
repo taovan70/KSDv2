@@ -25,6 +25,7 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'articles'], function () {
+        Route::get('/',  [\App\Http\Controllers\Api\ArticleController::class, 'index'])->name('article.index');
         Route::get('/{article}',  [\App\Http\Controllers\Api\ArticleController::class, 'show'])->name('article.show');
    });
 
