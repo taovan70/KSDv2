@@ -38,8 +38,9 @@ class ArticleController extends Controller
     }
 
 
-    public function show(Article $article): ArticleResource
+    public function show(string $slug): ArticleResource
     {
+        $article = Article::where('slug', $slug)->first();
         $article->load('tags');
         return new ArticleResource($article);
     }
@@ -78,7 +79,8 @@ class ArticleController extends Controller
             return Redirect::back()->withErrors($e->getMessage());
         }
 
-        $article->content_html = $this->embedService->handleMarkdown($content);;
+        $article->content_html = $this->embedService->handleMarkdown($content);
+        $article->addMediaFromRequest('avatar' )->toMediaCollection('mainPic');
         $article->fill($newData);
         $article->tags()->sync($request->tags);
         $article->save();
