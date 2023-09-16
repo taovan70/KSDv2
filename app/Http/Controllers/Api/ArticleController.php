@@ -80,7 +80,13 @@ class ArticleController extends Controller
         }
 
         $article->content_html = $this->embedService->handleMarkdown($content);
-        $article->addMediaFromRequest('avatar' )->toMediaCollection('mainPic');
+        if (isset($newData['mainPic'])) {
+            $mainPics = $article->getMedia('mainPic');
+            if (count($mainPics) > 0) {
+                $mainPics[0]->delete();
+            }
+            $article->addMediaFromRequest('mainPic')->toMediaCollection('mainPic');
+        }
         $article->fill($newData);
         $article->tags()->sync($request->tags);
         $article->save();
