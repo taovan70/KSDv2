@@ -20,6 +20,8 @@ class ArticleController extends Controller
     {
         $article->append('tags_ids');
         $article->load('category');
+        $mainPic = $article->getMedia('mainPic');
+        $article['mainPic'] = $mainPic;
         $article['category_parents_tree'] = Category::find($article->category_id)->parents;
         return Inertia::render('MakeArticle', ['article' => $article]);
     }
