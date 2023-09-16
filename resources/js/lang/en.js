@@ -7,6 +7,7 @@ const enMessages = {
       "category": "Category",
       "author": "Author",
       "publish_date": "Publish date",
+      "main_picture": "Main picture",
       "tags": "Tags",
       "published": "Published",
       "save": "Save",

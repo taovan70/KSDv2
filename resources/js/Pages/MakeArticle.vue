@@ -237,20 +237,18 @@ const createUrl = (blob) => {
         </div>
       </div>
       <div class="mb-3">
-        <div>
-          <input type="file" @input="endpointForm.mainPic = $event.target.files[0]" />
-          <progress v-if="endpointForm.progress" :value="endpointForm.progress.percentage" max="100">
-            {{ endpointForm.progress.percentage }}%
-          </progress>
-          <div v-if="endpointForm.errors.mainPic" class="form_error_text">{{ endpointForm.errors.mainPic }}</div>
-        </div>
-        <div>
+        <label for="article_publish_date">{{ $t("makeArticle.fields.main_picture") }}</label>
+        <div class="mb-3">
           <img
               v-if="props.article?.mainPic[0]?.original_url"
               :src="endpointForm.mainPic ? createUrl(endpointForm.mainPic) : props.article?.mainPic[0]?.original_url"
               alt="Главное изображение статьи"
               class="post_mainPic_thumb"
           >
+        </div>
+        <div>
+          <input type="file" @input="endpointForm.mainPic = $event.target.files[0]" />
+          <div v-if="endpointForm.errors.mainPic" class="form_error_text">{{ endpointForm.errors.mainPic }}</div>
         </div>
       </div>
       <el-button @click="sendForm" color="#626aef">{{ $t("makeArticle.fields.save") }}</el-button>

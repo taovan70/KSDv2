@@ -7,6 +7,7 @@ const ruMessages = {
       "category": "Категория",
       "author": "Автор",
       "publish_date": "Дата публикации",
+      "main_picture": "Основная картинка",
       "tags": "Тэги",
       "published": "Опубликована",
       "save": "Сохранить",
