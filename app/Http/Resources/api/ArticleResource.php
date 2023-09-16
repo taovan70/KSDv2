@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\api;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +23,10 @@ class ArticleResource extends JsonResource
             'category' => $this->category,
             'contentMarkdown' => $this->content_html,
             'author' => $this->author,
-            'tags' => $this->tags
+            'tags' => $this->tags,
+            'media' => [
+                'mainPic' => Article::where('slug', '=',  $this->slug)->first()->getMedia('mainPic')
+            ]
         ];
     }
 }

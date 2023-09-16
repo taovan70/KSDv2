@@ -82,7 +82,8 @@ const endpointForm = useForm({
   title: props.article?.title,
   description: props.article?.description,
   keywords: props.article?.keywords,
-  slug: translit(props.article?.name)
+  slug: translit(props.article?.name),
+  mainPic: null,
 })
 
 watch(() => endpointForm.name, () => {
@@ -116,6 +117,12 @@ function modalClose() {
 watch(settings, () => {
   locale.value = settings.value.lang
 })
+
+const createUrl = (blob) => {
+  const res =  window.URL.createObjectURL(blob)
+  console.log("res", res)
+  return res
+}
 
 </script>
 
@@ -229,6 +236,23 @@ watch(settings, () => {
           }}
         </div>
       </div>
+      <div class="mb-3">
+        <div>
+          <input type="file" @input="endpointForm.mainPic = $event.target.files[0]" />
+          <progress v-if="endpointForm.progress" :value="endpointForm.progress.percentage" max="100">
+            {{ endpointForm.progress.percentage }}%
+          </progress>
+          <div v-if="endpointForm.errors.mainPic" class="form_error_text">{{ endpointForm.errors.mainPic }}</div>
+        </div>
+        <div>
+          <img
+              v-if="props.article?.mainPic[0]?.original_url"
+              :src="endpointForm.mainPic ? createUrl(endpointForm.mainPic) : props.article?.mainPic[0]?.original_url"
+              alt="Главное изображение статьи"
+              class="post_mainPic_thumb"
+          >
+        </div>
+      </div>
       <el-button @click="sendForm" color="#626aef">{{ $t("makeArticle.fields.save") }}</el-button>
     </form>
   </el-config-provider>
@@ -273,6 +297,10 @@ label {
 
 :deep .el-date-editor--datetime, :deep .el-input__wrapper {
   width: 100%;
+}
+
+.post_mainPic_thumb {
+  width: 200px;
 }
 
 @media screen and (max-width: 1200px) {

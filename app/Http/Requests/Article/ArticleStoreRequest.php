@@ -39,6 +39,7 @@ class ArticleStoreRequest extends FormRequest
             'publish_date' => 'required|date',
             'published' => 'required|boolean',
             'content_markdown' => 'required|string|max:1000000',
+            'mainPic' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ];
     }
 
