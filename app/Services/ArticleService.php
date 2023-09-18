@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Exception\CommonMarkException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
@@ -80,7 +81,12 @@ class ArticleService
      */
     public function deleteAttachedMedia(Article $article, array $receivedUrls): void
     {
-        $mediaIds = DB::table('media')->where('model_id', $article->id)->get();
+        $mediaIds = DB::table('media')
+            ->where([
+                ['model_id', '=', $article->id],
+                ['collection_name', '=', 'default']
+            ])
+            ->get();
 
         // if delete all
         if(!$receivedUrls) {
@@ -125,18 +131,26 @@ class ArticleService
         // Find all URLs in the article text
         preg_match_all($pattern, $articleText, $matches);
 
-        // Extract the URLs from the matches
-        $urls = array_filter($matches[1], function($v) {
+        // Extract all the URLs from the matches
+        $allUrls = array_filter($matches[1], function($v) {
+            return $v !== '';
+        });
+
+
+
+        // Extract temp the URLs from the matches
+        $tempUrls = array_filter($matches[1], function($v) {
             return str_contains($v, 'temp_images');
         });
 
-        if(!empty($urls)) {
-            $this->deleteAttachedMedia($article, $urls);
+        $actualUrls = array_diff($allUrls, $tempUrls);
+
+        if(!empty($actualUrls)) {
+            $this->deleteAttachedMedia($article, $actualUrls);
         }
 
-
-        foreach ($urls as $url) {
-            // if it is temporary file, and not new media file
+        foreach ($tempUrls as $url) {
+            // if it is temporary file, alter them in actual posts files
             if (!str_contains($url, $newMediaPath)) {
                 $fileName = basename($url);
                 $article->addMedia(public_path($initialFilesPath . $fileName))->withResponsiveImages()->toMediaCollection();
