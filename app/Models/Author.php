@@ -60,9 +60,10 @@ class Author extends Model
     ];
     // protected $hidden = [];
     // protected $dates = [];
-//    protected $casts = [
-//        'social_networks' => 'array'
-//    ];
+    //    protected $casts = [
+    //        'social_networks' => 'array'
+    //    ];
+    protected $appends = ['articles_count'];
 
 
     /*
@@ -130,6 +131,17 @@ class Author extends Model
             }
         );
     }
+
+    protected function articlesCount(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                return self::articles()->count();
+            }
+        );
+    }
+
+
 
     /*
     |--------------------------------------------------------------------------
