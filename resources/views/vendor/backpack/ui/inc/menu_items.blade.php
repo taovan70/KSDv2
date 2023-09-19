@@ -55,3 +55,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i>{{ __('backpack::backup.backup') }}</a></li>
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('file_manager') }}"><i class="nav-icon la la-copy"></i> {{ __('models.file_manager') }}</a></li>
+
+<x-backpack::menu-item title="{{ __('models.did_you_know_in_articles') }}" icon="la la-question" :link="backpack_url('did-you-know-in-articles')" />

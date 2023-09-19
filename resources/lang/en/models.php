@@ -44,4 +44,5 @@ return [
     "pc" => "PC",
     "mobile" => "Mobile",
     "mob" => "Mobile",
+    "did_you_know_in_articles" => "Did you know in articles?",
 ];
