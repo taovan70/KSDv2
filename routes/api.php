@@ -33,4 +33,8 @@ Route::group([], function () {
         Route::post('/', [\App\Http\Controllers\Api\AuthorController::class, 'fetchAuthors']);
     });
 
+    Route::group(['prefix' => 'did_you_know_in_articles'], function () {
+        Route::get('/',  [\App\Http\Controllers\Api\DidYouKnowInArticlesController::class, 'index'])->name('article.index');
+    });
+
 });

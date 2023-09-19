@@ -21,7 +21,7 @@ class DidYouKnowInArticlesCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -33,7 +33,7 @@ class DidYouKnowInArticlesCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -49,15 +49,25 @@ class DidYouKnowInArticlesCrudController extends CrudController
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(DidYouKnowInArticlesRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
-
+        CRUD::field('text')->type('textarea')->label(__('table.article_fields.content'));
+        CRUD::addField([
+            'name' => 'category_id',
+            'label' => __('table.category'),
+            'type' => 'select2_from_ajax',
+            'entity' => 'category',
+            'attribute' => 'name',
+            'data_source' => url('api/categories'),
+            'minimum_input_length' => 0,
+            'method' => 'POST',
+            'include_all_form_fields' => true
+        ]);
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
@@ -66,7 +76,7 @@ class DidYouKnowInArticlesCrudController extends CrudController
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

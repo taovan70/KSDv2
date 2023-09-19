@@ -25,7 +25,8 @@ class DidYouKnowInArticlesRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'category_id' => 'required|numeric|exists:categories,id',
+            'text' => 'required|string|max:50000',
         ];
     }
 
