@@ -4,6 +4,11 @@ import { VueQueryPlugin } from "@tanstack/vue-query";
 import { createI18n } from 'vue-i18n'
 import ruMessages from "./lang/ru";
 import enMessages from "./lang/en";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCopy); // https://blog.logrocket.com/best-icon-libraries-vue-js/
 
 const messages = {
   ru: {
@@ -32,6 +37,7 @@ createInertiaApp({
       .use(plugin)
       .use(VueQueryPlugin)
       .use(i18n)
+      .component('font-awesome-icon', FontAwesomeIcon)
       .mount(el)
   },
 })

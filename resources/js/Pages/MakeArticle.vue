@@ -124,6 +124,10 @@ const createUrl = (blob) => {
   return res
 }
 
+const copyToClipboard = (val) => {
+  window.navigator.clipboard.writeText(val)
+}
+
 </script>
 
 <template>
@@ -253,6 +257,182 @@ const createUrl = (blob) => {
       </div>
       <el-button @click="sendForm" color="#626aef">{{ $t("makeArticle.fields.save") }}</el-button>
     </form>
+
+    <section class="format_instruction mt-5">
+      <h5>Инструкция</h5>
+
+      <div class="instruction_table_row">
+        <div>
+          Содержание
+        </div>
+        <div>
+          <code>
+            +table_of_contents+
+            +table_of_contents+
+            ##Содержание
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+tableOfContents+
++tableOfContents+
+## Содержание`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Информационный блок (Зелёный)</div>
+        <div>
+          <code>
+            +InfoGreen+
+            Заменить здесь
+            +InfoGreen+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoGreen+
+
+          Заменить здесь
+
++InfoGreen+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Информационный блок (Красный)</div>
+        <div>
+          <code>
+            +InfoRed+
+            Заменить здесь
+            +InfoRed+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoRed+
+
+          Заменить здесь
+
++InfoRed+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Информационный блок (Синий)</div>
+        <div>
+          <code>
+            +InfoBlue+
+            Заменить здесь
+            +InfoBlue+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoBlue+
+
+          Заменить здесь
+
++InfoBlue+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Информационный блок (Красный)</div>
+        <div>
+          <code>
+            +infoR+
+            Заменить здесь
+            +infoR+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+infoR+
+
+          Заменить здесь
+
++infoR+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+      <div>Преимущества-недостатки (Голубая галочка)</div>
+      <div>
+        <code>
+          +ProsConsBlueMark+
+          Заменить здесь
+          +ProsConsBlueMark+
+        </code>
+      </div>
+      <div>
+        <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsBlueMark+
+
+          Заменить здесь
+
++ProsConsBlueMark+`)"/>
+      </div>
+    </div>
+      <div class="instruction_table_row">
+        <div>Преимущества-недостатки (Зелёный плюс на белом фоне)</div>
+        <div>
+          <code>
+            +ProsConsEmptyPlus+
+            Заменить здесь
+            +ProsConsEmptyPlus+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsEmptyPlus+
+
+          Заменить здесь
+
++ProsConsEmptyPlus+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Преимущества-недостатки (Белый плюс на зелёном фоне)</div>
+        <div>
+          <code>
+            +ProsConsGreenPlus+
+            Заменить здесь
+            +ProsConsGreenPlus+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenPlus+
+
+          Заменить здесь
+
++ProsConsGreenPlus+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Преимущества-недостатки (Зелёная галочка)</div>
+        <div>
+          <code>
+            +ProsConsGreenMark+
+            Заменить здесь
+            +ProsConsGreenMark+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenMark+
+
+          Заменить здесь
+
++ProsConsGreenMark+`)"/>
+        </div>
+      </div>
+      <div class="instruction_table_row">
+        <div>Совет эксперта</div>
+        <div>
+          <code>
+            +Advice+
+            Заменить здесь
+            +Advice+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+Advice+
+
+          Заменить здесь
+
++Advice+`)"/>
+        </div>
+      </div>
+    </section>
+
   </el-config-provider>
 </template>
 
@@ -299,6 +479,16 @@ label {
 
 .post_mainPic_thumb {
   width: 200px;
+}
+
+.copy_to_clipboard_icon {
+  cursor: pointer;
+}
+
+.instruction_table_row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1200px) {
