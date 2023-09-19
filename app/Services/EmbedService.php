@@ -71,9 +71,6 @@ class EmbedService
 
         // add customs symbols
         $text = $this->replaceCustomSymbols($text, '++', '<strong>', '</strong>');
-        $text = $this->replaceCustomSymbols($text, '+info+', '<div class="block-info">', '</div>');
-        $text = $this->replaceCustomSymbols($text, '+caption+', '<div class="image-caption">', '</div>');
-        $text = $this->replaceCustomSymbols($text, '+m1+', '<m1 class="image-caption">', '</m1>');
 
         return $converter->convert($text);
     }
@@ -85,20 +82,36 @@ class EmbedService
 
         // add customs symbols
         $text = $this->replaceCustomSymbols($text, '++', '<strong>', '</strong>');
-        $text = $this->replaceCustomSymbols($text, '+info+', '<div class="block-info">', '</div>');
-        $text = $this->replaceCustomSymbols($text, '+caption+', '<div class="image-caption">', '</div>');
-        $text = $this->replaceCustomSymbols($text, '+m1+', '<m1 class="image-caption">', '</m1>');
+        $text = $this->replaceCustomSymbols($text, '+InfoGreen+', '<InfoGreen>', '</InfoGreen>');
+        $text = $this->replaceCustomSymbols($text, '+InfoRed+', '<InfoRed>', '</InfoRed>');
+        $text = $this->replaceCustomSymbols($text, '+InfoBlue+', '<InfoBlue>', '</InfoBlue>');
         $text = $this->replaceCustomSymbols($text, '+H1Component+', '<H1Component>', '</H1Component>');
-
+        $text = $this->replaceCustomSymbols($text, '+ProsConsBlueMark+', '<ProsConsBlueMark data="elcontent">', '</ProsConsBlueMark>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsEmptyPlus+', '<ProsConsEmptyPlus>', '</ProsConsEmptyPlus>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenPlus+', '<ProsConsGreenPlus>', '</ProsConsGreenPlus>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMark+', '<ProsConsGreenMark>', '</ProsConsGreenMark>');
+        $text = $this->replaceCustomSymbols($text, '+Advice+', '<Advice>', '</Advice>');
+        $text = $this->replaceCustomSymbols($text, '+tableOfContents+', '<div className="tbcont">', '</div>');
         return $text;
     }
 
     public function replaceCustomSymbols($inputString, $symbol, $openingTag, $closingTag): array|string|null
     {
-        $pattern = '/' . preg_quote($symbol, '/') . '(\r\n|\n|\r)*(.*?)(\r\n|\n|\r)*' . preg_quote($symbol, '/') . '/'; // /\+H1Component\+(.*?)\+H1Component\+/
+        $pattern = '/' . preg_quote($symbol, '/') . '(\r\n|\n|\r)*((.|\n)*?)(\r\n|\n|\r)*' . preg_quote($symbol, '/') . '/'; // /\+H1Component\+(.*?)\+H1Component\+/
 
+        $matches = [];
+        $content = '';
+        $contentChildren = '';
+        $contentProps = '';
+        preg_match($pattern, $inputString, $matches);
+
+        if(!empty($matches[2])) {
+            $content = strip_tags($matches[2]);
+            $contentChildren = str_replace(["\r\n", "\r", "\n"], "<br />", $content);
+            $contentProps = str_replace(["\r\n", "\r", "\n"], "", $content);
+        }
         // Replace the symbols with HTML tags
         // Return the modified string
-        return preg_replace($pattern, $openingTag . '$2' . $closingTag, str_replace(array(" "), '', $inputString));
+        return preg_replace($pattern, str_replace("elcontent", "$contentProps", $openingTag) ."$contentChildren". $closingTag, str_replace([" ", "", ""], [" ", "", ""], $inputString));
     }
 }
