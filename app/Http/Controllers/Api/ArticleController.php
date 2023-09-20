@@ -45,6 +45,12 @@ class ArticleController extends Controller
         return new ArticleResource($article);
     }
 
+    public function random(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $articles = Article::inRandomOrder()->take($count)->get();
+        return ArticleResource::collection($articles);
+    }
+
 
     public function store(ArticleStoreRequest $request): RedirectResponse
     {

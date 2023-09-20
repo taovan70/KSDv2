@@ -19,4 +19,10 @@ class DidYouKnowInArticlesController extends Controller
         return DidYouKnowInArticlesResource::collection(DidYouKnowInArticles::all());
     }
 
+    public function random(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $items = DidYouKnowInArticles::inRandomOrder()->take($count)->get();
+        return DidYouKnowInArticlesResource::collection($items);
+    }
+
 }

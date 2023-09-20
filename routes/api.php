@@ -26,6 +26,7 @@ Route::group([], function () {
 
     Route::group(['prefix' => 'articles'], function () {
         Route::get('/',  [\App\Http\Controllers\Api\ArticleController::class, 'index'])->name('article.index');
+        Route::get('/random/{count}',  [\App\Http\Controllers\Api\ArticleController::class, 'random'])->name('article.random');
         Route::get('/{slug}',  [\App\Http\Controllers\Api\ArticleController::class, 'show'])->name('article.show');
    });
 
@@ -34,7 +35,8 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'did_you_know_in_articles'], function () {
-        Route::get('/',  [\App\Http\Controllers\Api\DidYouKnowInArticlesController::class, 'index'])->name('article.index');
+        Route::get('/',  [\App\Http\Controllers\Api\DidYouKnowInArticlesController::class, 'index'])->name('didTouKnowInArticle.index');
+        Route::get('/random/{count}',  [\App\Http\Controllers\Api\DidYouKnowInArticlesController::class, 'random'])->name('didTouKnowInArticle.random');
     });
 
 });
