@@ -54,7 +54,8 @@ class ArticleController extends Controller
 
     public function store(ArticleStoreRequest $request): RedirectResponse
     {
-        $article = Article::create($request->validated());
+        $newData = $request->validated();
+        $article = Article::create($newData);
         try {
             $content = $this->articleService->convertImageUrls($request, $article);
         } catch (FileDoesNotExist|FileIsTooBig $e) {
@@ -63,6 +64,9 @@ class ArticleController extends Controller
 
         $article->content_markdown = $content;
         $article->content_html = $this->embedService->handleMarkdown($content);
+        if (isset($newData['mainPic'])) {
+            $article->addMediaFromRequest('mainPic')->toMediaCollection('mainPic');
+        }
         $article->save();
 
         $article->tags()->sync($request->tags);
