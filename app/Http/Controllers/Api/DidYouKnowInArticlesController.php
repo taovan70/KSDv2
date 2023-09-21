@@ -19,9 +19,13 @@ class DidYouKnowInArticlesController extends Controller
         return DidYouKnowInArticlesResource::collection(DidYouKnowInArticles::all());
     }
 
-    public function random(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function random(string $count, ? string $category_id = null): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $items = DidYouKnowInArticles::inRandomOrder()->take($count)->get();
+        if($category_id) {
+            $items = DidYouKnowInArticles::where('category_id', $category_id)->inRandomOrder()->take($count)->get();
+        } else {
+            $items = DidYouKnowInArticles::inRandomOrder()->take($count)->get();
+        }
         return DidYouKnowInArticlesResource::collection($items);
     }
 
