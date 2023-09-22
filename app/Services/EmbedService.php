@@ -82,6 +82,8 @@ class EmbedService
 
         // add customs symbols
         $text = $this->replaceCustomSymbols($text, '++', '<strong>', '</strong>');
+        $text = $this->replaceCustomSymbols($text, '+Advice+', '<Advice>', '</Advice>');
+        $text = $this->replaceCustomSymbols($text, '+DidYouKnowInArticle+', '<DidYouKnowInArticle>', '</DidYouKnowInArticle>');
         $text = $this->replaceCustomSymbols($text, '+InfoGreen+', '<InfoGreen>', '</InfoGreen>');
         $text = $this->replaceCustomSymbols($text, '+InfoRed+', '<InfoRed>', '</InfoRed>');
         $text = $this->replaceCustomSymbols($text, '+InfoBlue+', '<InfoBlue>', '</InfoBlue>');
@@ -90,7 +92,12 @@ class EmbedService
         $text = $this->replaceCustomSymbols($text, '+ProsConsEmptyPlus+', '<ProsConsEmptyPlus data="elcontent">', '</ProsConsEmptyPlus>');
         $text = $this->replaceCustomSymbols($text, '+ProsConsGreenPlus+', '<ProsConsGreenPlus data="elcontent">', '</ProsConsGreenPlus>');
         $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMark+', '<ProsConsGreenMark data="elcontent">', '</ProsConsGreenMark>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMarkDashed+', '<ProsConsGreenMarkDashed data="elcontent">', '</ProsConsGreenMarkDashed>');
         $text = $this->replaceCustomSymbols($text, '+TextBlockFirst+', '<TextBlockFirst data="elcontent">', '</TextBlockFirst>');
+        $text = $this->replaceCustomSymbols($text, '+QuoteDashed+', '<QuoteDashed data="elcontent">', '</QuoteDashed>');
+        $text = $this->replaceCustomSymbols($text, '+QuoteSolid+', '<QuoteSolid data="elcontent">', '</QuoteSolid>');
+        $text = $this->replaceCustomSymbols($text, '+LinksAlsoDashed+', '<LinksAlsoDashed data="elcontent">', '</LinksAlsoDashed>');
+        $text = $this->replaceCustomSymbols($text, '+LinksAlsoSolid+', '<LinksAlsoSolid data="elcontent">', '</LinksAlsoSolid>');
         $text = $this->replaceCustomSymbols($text, '+Advice+', '<Advice>', '</Advice>');
         $text = $this->replaceCustomSymbols($text, '+tableOfContents+', '<div className="tbcont">', '</div>');
         $text = $this->replaceCustomSymbols($text, '+caption+', '<ArticleImageCaption>', '</ArticleImageCaption>');
