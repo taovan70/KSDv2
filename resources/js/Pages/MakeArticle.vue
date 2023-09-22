@@ -431,6 +431,25 @@ const copyToClipboard = (val) => {
 +Advice+`)"/>
         </div>
       </div>
+      <div class="instruction_table_row">
+        <div>Текстовый блок с рекламным предложением</div>
+        <div>
+          <code>
+            +TextBlockFirst+
+              --Заголовок заменить--
+              Сам текст здесь можно заменить
+            +TextBlockFirst+
+          </code>
+        </div>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+TextBlockFirst+
+
+          --Заголовок заменить--
+          Сам текст здесь можно заменить
+
++TextBlockFirst+`)"/>
+        </div>
+      </div>
     </section>
 
   </el-config-provider>

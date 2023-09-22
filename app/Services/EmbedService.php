@@ -87,11 +87,14 @@ class EmbedService
         $text = $this->replaceCustomSymbols($text, '+InfoBlue+', '<InfoBlue>', '</InfoBlue>');
         $text = $this->replaceCustomSymbols($text, '+H1Component+', '<H1Component>', '</H1Component>');
         $text = $this->replaceCustomSymbols($text, '+ProsConsBlueMark+', '<ProsConsBlueMark data="elcontent">', '</ProsConsBlueMark>');
-        $text = $this->replaceCustomSymbols($text, '+ProsConsEmptyPlus+', '<ProsConsEmptyPlus>', '</ProsConsEmptyPlus>');
-        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenPlus+', '<ProsConsGreenPlus>', '</ProsConsGreenPlus>');
-        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMark+', '<ProsConsGreenMark>', '</ProsConsGreenMark>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsEmptyPlus+', '<ProsConsEmptyPlus data="elcontent">', '</ProsConsEmptyPlus>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenPlus+', '<ProsConsGreenPlus data="elcontent">', '</ProsConsGreenPlus>');
+        $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMark+', '<ProsConsGreenMark data="elcontent">', '</ProsConsGreenMark>');
+        $text = $this->replaceCustomSymbols($text, '+TextBlockFirst+', '<TextBlockFirst data="elcontent">', '</TextBlockFirst>');
         $text = $this->replaceCustomSymbols($text, '+Advice+', '<Advice>', '</Advice>');
         $text = $this->replaceCustomSymbols($text, '+tableOfContents+', '<div className="tbcont">', '</div>');
+        $text = $this->replaceCustomSymbols($text, '+caption+', '<ArticleImageCaption>', '</ArticleImageCaption>');
+        $text = $this->replaceCustomSymbols($text, '+TOC+', '<TOC>', '</TOC>');
         return $text;
     }
 
@@ -105,13 +108,13 @@ class EmbedService
         $contentProps = '';
         preg_match($pattern, $inputString, $matches);
 
-        if(!empty($matches[2])) {
+        if (!empty($matches[2])) {
             $content = strip_tags($matches[2]);
             $contentChildren = str_replace(["\r\n", "\r", "\n"], "<br />", $content);
             $contentProps = str_replace(["\r\n", "\r", "\n"], "", $content);
         }
         // Replace the symbols with HTML tags
         // Return the modified string
-        return preg_replace($pattern, str_replace("elcontent", "$contentProps", $openingTag) ."$contentChildren". $closingTag, str_replace([" ", "", ""], [" ", "", ""], $inputString));
+        return preg_replace($pattern, str_replace("elcontent", "$contentProps", $openingTag) . "$contentChildren" . $closingTag, str_replace([" ", "", ""], [" ", "", ""], $inputString));
     }
 }
