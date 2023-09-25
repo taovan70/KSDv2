@@ -232,19 +232,18 @@ const copyToClipboard = (val) => {
       <table>
       <tr class="instruction_table_row">
         <td>
-          Содержание
+          Содержание (h2, h3)
         </td>
         <td>
           <code>
-              +table_of_contents+
-              +table_of_contents+
-              ##Содержание
+            +TOC+
+            +TOC+
             </code>
         </td>
         <td>
-          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+tableOfContents+
-+tableOfContents+
-## Содержание`)" />
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+TOC+
++TOC+
+`)" />
         </td>
       </tr>
       <tr class="instruction_table_row">

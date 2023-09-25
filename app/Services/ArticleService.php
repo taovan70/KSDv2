@@ -137,7 +137,6 @@ class ArticleService
         });
 
 
-
         // Extract temp the URLs from the matches
         $tempUrls = array_filter($matches[1], function($v) {
             return str_contains($v, 'temp_images');
