@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\api;
+namespace App\Http\Resources\api\DidYouKnowInArticles;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticlesResource extends JsonResource
+class DidYouKnowInArticlesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,8 @@ class ArticlesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'published' => $this->published,
-            'publish_date' => $this->publish_date,
+            'text' => $this->text,
             'category' => $this->category,
-            'author' => $this->author,
-            'tags' => $this->tags
         ];
     }
 }

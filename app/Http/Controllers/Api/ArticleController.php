@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\ArticleStoreRequest;
-use App\Http\Resources\api\ArticleResource;
+use App\Http\Resources\api\Article\ArticleResource;
 use App\Models\Article;
 use App\Services\ArticleService;
 use App\Services\EmbedService;
