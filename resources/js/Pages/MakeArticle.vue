@@ -213,7 +213,7 @@ const copyToClipboard = (val) => {
         </div>
       </div>
       <div class="mb-3">
-        <label for="article_publish_date">{{ $t("makeArticle.fields.main_picture") }}</label>
+        <label for="article_publish_date">{{ $t("makeArticle.fields.preview") }}</label>
         <div class="mb-3">
           <img v-if="props.article?.mainPic[0]?.original_url"
             :src="endpointForm.mainPic ? createUrl(endpointForm.mainPic) : props.article?.mainPic[0]?.original_url"

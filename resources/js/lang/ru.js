@@ -8,6 +8,7 @@ const ruMessages = {
       "author": "Автор",
       "publish_date": "Дата публикации",
       "main_picture": "Основная картинка",
+      "preview": "Картинка для превью",
       "tags": "Тэги",
       "published": "Опубликована",
       "save": "Сохранить",
