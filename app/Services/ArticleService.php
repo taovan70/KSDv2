@@ -17,6 +17,7 @@ use League\CommonMark\Exception\CommonMarkException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\MediaCannotBeDeleted;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ArticleService
 {
@@ -53,7 +54,7 @@ class ArticleService
             $authors = Author::all();
         }
 
-        return $authors->map(fn($author) => [
+        return $authors->map(fn ($author) => [
             'id' => $author->id,
             'fullName' => $author->fullName
         ]);
@@ -89,7 +90,7 @@ class ArticleService
             ->get();
 
         // if delete all
-        if(!$receivedUrls) {
+        if (!$receivedUrls) {
             foreach ($mediaIds as $mediaId) {
                 $article->deleteMedia($mediaId->id);
             }
@@ -109,7 +110,6 @@ class ArticleService
             $mediaToDelete = DB::table('media')->where('file_name', $fileName)->first();
             $article->deleteMedia($mediaToDelete->id);
         }
-
     }
 
     /**
@@ -132,19 +132,19 @@ class ArticleService
         preg_match_all($pattern, $articleText, $matches);
 
         // Extract all the URLs from the matches
-        $allUrls = array_filter($matches[1], function($v) {
+        $allUrls = array_filter($matches[1], function ($v) {
             return $v !== '';
         });
 
 
         // Extract temp the URLs from the matches
-        $tempUrls = array_filter($matches[1], function($v) {
+        $tempUrls = array_filter($matches[1], function ($v) {
             return str_contains($v, 'temp_images');
         });
 
         $actualUrls = array_diff($allUrls, $tempUrls);
 
-        if(!empty($actualUrls)) {
+        if (!empty($actualUrls)) {
             $this->deleteAttachedMedia($article, $actualUrls);
         }
 
@@ -156,6 +156,22 @@ class ArticleService
                 $modifiedUrl = $this->modifyUrl($host, $fileName);
                 $articleText = str_replace("($url)", "($modifiedUrl)", $articleText);
             }
+        }
+
+        $re = '/!\[(?<altText>.*)\]\s*\((?<imageURL>.+)\)/m';
+        preg_match_all($re, $articleText, $matches, PREG_SET_ORDER, 0);
+
+        foreach ($matches as $eachMatch) {
+
+            $fileName = basename($eachMatch['imageURL']);
+            // save description in database
+            $row = DB::table('media')->where('model_id', $article->id)->where('file_name', $fileName)->first();
+            $mediaItem = Media::find($row->id);
+
+            $mediaItem->setCustomProperty('description', $eachMatch['altText']); // adds a new custom property or updates an existing one
+            $mediaItem->forgetCustomProperty('name'); // removes a custom property
+
+            $mediaItem->save();
         }
 
         return $articleText;
@@ -171,5 +187,4 @@ class ArticleService
         $converter = new CommonMarkConverter();
         return $converter->convert($text);
     }
-
 }
