@@ -39,7 +39,8 @@ return [
         'social_networks' => 'Social networks',
         'social_network' => 'Social network',
         'account' => 'Account',
-        'photo' => 'Photo'
+        'photo' => 'Photo',
+        'description' => 'Description',
     ],
 
     'user_fields' =>[

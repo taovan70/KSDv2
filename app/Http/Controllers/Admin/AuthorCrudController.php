@@ -77,6 +77,7 @@ class AuthorCrudController extends CrudController
         ]);
         CRUD::field('age')->label(__('table.author_fields.age'))->type('number');
         CRUD::field('biography')->label(__('table.author_fields.biography'))->type('textarea');
+        CRUD::field('description')->label(__('table.author_fields.description'))->type('textarea');
         CRUD::field('address')->label(__('table.author_fields.address'));
         CRUD::addField([
             'name' => 'photo_path',

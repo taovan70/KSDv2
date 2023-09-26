@@ -39,7 +39,8 @@ return [
         'social_networks' => 'Социальные сети',
         'social_network' => 'Социальная сеть',
         'account' => 'Аккаунт',
-        'photo' => 'Фотография'
+        'photo' => 'Фотография',
+        'description' => 'Описание',
     ],
 
     'user_fields' =>[

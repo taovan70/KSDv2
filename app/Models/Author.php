@@ -56,7 +56,8 @@ class Author extends Model
         'address',
         'photo_path',
         'personal_site',
-        'social_networks'
+        'social_networks',
+        'description'
     ];
     // protected $hidden = [];
     // protected $dates = [];
