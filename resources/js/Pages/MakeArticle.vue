@@ -621,6 +621,21 @@ td
 +LinksAlsoDashed+`)" />
         </td>
       </tr>
+      <tr class="instruction_table_row">
+        <td>Видео YouTube</td>
+        <td>
+          <code>
+            +YouTubeComponent+
+              Здесь ссылка из embed заменить
+            +YouTubeComponent+
+            </code>
+        </td>
+        <td>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+YouTubeComponent+
+              Здесь ссылка из embed заменить
++YouTubeComponent+`)" />
+        </td>
+      </tr>
     </table>
     </section>
 
