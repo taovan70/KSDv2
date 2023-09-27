@@ -60,7 +60,8 @@ return [
         'elements' => 'Элементы статьи',
         'html_tag' => 'HTML тег',
         'publish_date' => 'Дата публикации',
-        'published' => 'Опубликована'
+        'published' => 'Опубликована',
+        'slug'=> 'Слаг',
     ],
 
     'adv_block_fields' => [
@@ -74,5 +75,8 @@ return [
         'comment' => 'Комментарии',
         'add_page' => 'Добавить страницу',
         'add_block' => 'Добавить блок',
+    ],
+    'category_fields' => [
+        'slug'=> 'Слаг',
     ]
 ];

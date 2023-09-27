@@ -60,7 +60,8 @@ return [
         'elements' => 'Elements',
         'html_tag' => 'Html tag',
         'publish_date' => 'Publish date',
-        'published' => 'Published'
+        'published' => 'Published',
+        'slug'=> 'Slug',
     ],
 
     'adv_block_fields' => [
@@ -74,5 +75,9 @@ return [
         'comment' => 'Comment',
         'add_page' => 'Add page',
         'add_block' => 'Add block',
+    ],
+
+    'category_fields' => [
+        'slug'=> 'Slug',
     ]
 ];

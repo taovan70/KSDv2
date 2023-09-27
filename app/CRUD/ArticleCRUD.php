@@ -40,6 +40,7 @@ class ArticleCRUD extends CrudPanelFacade
             'label' => __('table.article_fields.published'),
             'type' => 'boolean'
         ]);
+        CRUD::column('slug')->label(__('table.article_fields.slug'));
         CRUD::column('publish_date')->label(__('table.article_fields.publish_date'));
     }
 

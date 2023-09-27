@@ -57,6 +57,7 @@ class CategoryCrudController extends CrudController
     {
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('created_at')->label(__('table.created'));
+        CRUD::column('slug')->label(__('table.category_fields.slug'));
         CRUD::addColumn([
             'name' => 'parent',
             'label' => __('table.parent_category'),
