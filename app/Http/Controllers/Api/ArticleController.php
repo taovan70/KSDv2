@@ -38,9 +38,9 @@ class ArticleController extends Controller
     }
 
 
-    public function show(string $slug): ArticleResource
+    public function show(string $slug)
     {
-        $article = Article::where('slug', $slug)->first();
+        $article = Article::where('slug', $slug)->firstOrFail();
         $article->load('tags');
         return new ArticleResource($article);
     }

@@ -17,13 +17,18 @@ class ArticleResource extends JsonResource
     {
         return [
             'slug' => $this->slug,
-            'title' => $this->title,
+            'title' => $this->name,
             'published' => $this->published,
             'publish_date' => $this->publish_date,
             'category' => $this->category,
             'contentMarkdown' => $this->content_html,
             'author' => $this->author,
             'tags' => $this->tags,
+            'meta'=> [
+                'title' => $this->title,
+                'description' => $this->description,
+                'keywords' => $this->keywords
+            ],
             'media' => [
                 'mainPic' => Article::where('slug', '=',  $this->slug)->first()->getMedia('mainPic'),
                 'allPics' => Article::where('slug', '=',  $this->slug)->first()->getMedia('default'),
