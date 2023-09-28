@@ -20,6 +20,11 @@ Route::group([], function () {
         Route::post('/', [\App\Http\Controllers\Api\TagController::class, 'fetchTags']);
     });
 
+    Route::group(['prefix' => 'adv-pages'], function () {
+        Route::get('/', [\App\Http\Controllers\Api\AdvPageController::class, 'fetchTags'])->name('advPage.index');
+        Route::get('/{slug}',  [\App\Http\Controllers\Api\AdvPageController::class, 'show'])->name('advPage.show');
+    });
+
     Route::group(['prefix' => 'categories'], function () {
         Route::post('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategories'])->name('categories.index');
         Route::get('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategories'])->name('categories.index');

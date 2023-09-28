@@ -2,6 +2,7 @@
 
 return [
     'name' => 'Name',
+    'slug' => 'Slug',
     'created' => 'Created',
     'add' => 'Add',
     'yes' => 'Yes',

@@ -123,6 +123,7 @@ class AdvBlockCrudController extends CrudController
         }
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('slug')->label(__('table.slug'));
         CRUD::field('description')->label(__('table.adv_block_fields.comment'));
         CRUD::field('comment')->label(__('table.adv_block_fields.comment'));
         CRUD::field('content')->type('textarea')->label(__('table.adv_block_fields.content'));
@@ -168,6 +169,7 @@ class AdvBlockCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+        CRUD::column('slug')->limit(255)->label(__('table.slug'));
         CRUD::column('name')->type("textarea")->label(__('table.name'));
         CRUD::column('content')->type("textarea")->label(__('table.adv_block_fields.content'));
         CRUD::column('description')->type("textarea")->label(__('table.adv_block_fields.comment'));
