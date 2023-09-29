@@ -76,6 +76,8 @@ return [
         'comment' => 'Комментарии',
         'add_page' => 'Добавить страницу',
         'add_block' => 'Добавить блок',
+        'number_of_elements_from_beginning' => 'Количество элементов с начала',
+        'after_element' => 'После элемента',
     ],
     'category_fields' => [
         'slug'=> 'Слаг',

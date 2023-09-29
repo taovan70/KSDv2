@@ -9,6 +9,7 @@ use App\Models\AdvPage;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 
 /**
@@ -33,7 +34,7 @@ class AdvBlockCrudController extends CrudController
     {
         $pageName = request()->query('page');
         $advPage = AdvPage::where('slug', $pageName)->first();
-        $pageName = !empty($advPage) ?  ' - '.$advPage->name : '';
+        $pageName = !empty($advPage) ?  ' - ' . $advPage->name : '';
         CRUD::setModel(AdvBlock::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/adv-block');
         CRUD::setEntityNameStrings(__('models.adv-block_possessive_case'), __('models.adv-blocks'));
@@ -124,10 +125,23 @@ class AdvBlockCrudController extends CrudController
 
         CRUD::field('name')->label(__('table.name'));
         CRUD::field('slug')->label(__('table.slug'));
-        CRUD::field('description')->label(__('table.adv_block_fields.comment'));
+        CRUD::field('description')->label(__('table.adv_block_fields.description'));
         CRUD::field('comment')->label(__('table.adv_block_fields.comment'));
         CRUD::field('content')->type('textarea')->label(__('table.adv_block_fields.content'));
         CRUD::field('active')->label(__('table.adv_block_fields.active'));
+        CRUD::field('number_of_elements_from_beginning')->label(__('table.adv_block_fields.number_of_elements_from_beginning'));
+        CRUD::field('after_element')->label(__('table.adv_block_fields.after_element'));
+        CRUD::addField([
+            'name' => 'after_element',
+            'label' => __('table.adv_block_fields.after_element'),
+            'type' => 'select_from_array',
+            'allows_null' => false,
+            'options' => [
+                "h1" => "h1",
+                "ul" => "ul",
+            ],
+            'default' => "h1"
+        ]);
         CRUD::addField([
             'name' => 'device_type',
             'label' => __('table.adv_block_fields.device_type'),
@@ -164,6 +178,13 @@ class AdvBlockCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.createAdvBlock',
+            'wrapper' => ['class' => 'col-sm-12'],
+            'content' => 'This text will be in a div with the class "<i>well</i>".',
+        ]);
     }
 
     protected function setupShowOperation()
@@ -171,6 +192,8 @@ class AdvBlockCrudController extends CrudController
         $this->setupListOperation();
         CRUD::column('slug')->limit(255)->label(__('table.slug'));
         CRUD::column('name')->type("textarea")->label(__('table.name'));
+        CRUD::column('number_of_elements_from_beginning')->label(__('table.adv_block_fields.number_of_elements_from_beginning'));
+        CRUD::column('after_element')->label(__('table.adv_block_fields.after_element'));
         CRUD::column('content')->type("textarea")->label(__('table.adv_block_fields.content'));
         CRUD::column('description')->type("textarea")->label(__('table.adv_block_fields.comment'));
     }

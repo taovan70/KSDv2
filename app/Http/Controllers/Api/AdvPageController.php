@@ -19,8 +19,9 @@ class AdvPageController extends Controller
 
     public function show(string $slug)
     {
-        $advPage = AdvPage::where('slug', $slug)->with('advBlocks')->firstOrFail();
-        // dd($advPage);
+        $advPage = AdvPage::where('slug', $slug)->with(['advBlocks' => function ($query) {
+            $query->where('active', true);
+        }])->firstOrFail();
         return new AdvPageResource($advPage);
     }
 

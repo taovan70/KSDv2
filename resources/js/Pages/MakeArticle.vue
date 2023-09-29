@@ -343,7 +343,7 @@ const copyToClipboard = (val) => {
 ||
 
 (-) недостаток 1
-td
+
 (-) недостаток 2
 
 +ProsConsBlueMark+`)" />

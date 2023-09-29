@@ -16,6 +16,7 @@ class AdvBlockResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'slug' => $this->slug,
             'description' => $this->description,
             'content' => $this->content,
             'active' => $this->active,

@@ -76,6 +76,8 @@ return [
         'comment' => 'Comment',
         'add_page' => 'Add page',
         'add_block' => 'Add block',
+        'number_of_elements_from_beginning' => 'Number of elements from beginning',
+        'after_element' => 'After element',
     ],
 
     'category_fields' => [

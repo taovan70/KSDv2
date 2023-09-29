@@ -34,7 +34,8 @@ class AdvBlock extends Model
         'device_type',
         'color_type',
         'adv_page_id',
-        'number_of_elements_from_beginning'
+        'number_of_elements_from_beginning',
+        'after_element'
     ];
     // protected $hidden = [];
     // protected $dates = [];
