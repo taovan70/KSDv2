@@ -26,6 +26,7 @@ class AdvBlockStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:255',
+            'slug' => 'required|string|min:2|max:255',
             'description' => 'nullable|string',
             'content' => 'nullable|string',
             'active' => 'required|boolean',

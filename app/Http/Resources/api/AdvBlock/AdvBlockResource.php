@@ -22,6 +22,7 @@ class AdvBlockResource extends JsonResource
             'active' => $this->active,
             'device_type' => $this->device_type,
             'number_of_elements_from_beginning' => $this->number_of_elements_from_beginning,
+            'after_element' => $this->after_element,
             'color_type' => $this->color_type,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
