@@ -4,10 +4,8 @@ $(document).ready(function () {
 
   // Initial value
   var currentValue = selectElement.val();
-  console.log("Initial value: " + currentValue);
 
-  // Watch for changes
-  selectElement.on("change", function () {
+  const doFiltering = () => {
     // Get the current value when the select changes
     var newValue = selectElement.val();
 
@@ -18,5 +16,12 @@ $(document).ready(function () {
         $('input[name="number_of_elements_from_beginning"]').parent().hide();
         $('select[name="after_element"]').parent().hide();
     }
+  }
+
+  doFiltering();
+
+  // Watch for changes
+  selectElement.on("change", function () {
+    doFiltering();
   });
 });
