@@ -128,7 +128,7 @@ class AdvBlockCrudController extends CrudController
         CRUD::field('description')->label(__('table.adv_block_fields.description'));
         CRUD::field('comment')->label(__('table.adv_block_fields.comment'));
         CRUD::field('content')->type('textarea')->label(__('table.adv_block_fields.content'));
-        CRUD::field('active')->label(__('table.adv_block_fields.active'));
+        CRUD::field('active')->default(true)->label(__('table.adv_block_fields.active'));
         CRUD::field('number_of_elements_from_beginning')->label(__('table.adv_block_fields.number_of_elements_from_beginning'));
         CRUD::field('after_element')->label(__('table.adv_block_fields.after_element'));
         CRUD::addField([
@@ -137,10 +137,10 @@ class AdvBlockCrudController extends CrudController
             'type' => 'select_from_array',
             'allows_null' => false,
             'options' => [
-                "h1" => "h1",
-                "ul" => "ul",
+                "h2" => "h2",
+                "p" => "p",
             ],
-            'default' => "h1"
+            'default' => "h2"
         ]);
         CRUD::addField([
             'name' => 'device_type',
