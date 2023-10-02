@@ -173,6 +173,7 @@ class AdvBlockCrudController extends CrudController
             'attribute' => 'name',
             'default' => !empty($advPage) ? $advPage->id : null,
         ]);
+
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
