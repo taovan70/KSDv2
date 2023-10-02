@@ -247,7 +247,7 @@ const copyToClipboard = (val) => {
         </td>
       </tr>
       <tr class="instruction_table_row">
-        <td>Информационный блок (Зелёный)</td>
+        <td>Информационный блок "Полезно" (Зелёный)</td>
         <td>
           <code>
               +InfoGreen+
@@ -264,7 +264,7 @@ const copyToClipboard = (val) => {
         </td>
       </tr>
       <tr class="instruction_table_row">
-        <td>Информационный блок (Красный)</td>
+        <td>Информационный блок "Важно" (Красный)</td>
         <td>
           <code>
               +InfoRed+
@@ -281,7 +281,7 @@ const copyToClipboard = (val) => {
         </td>
       </tr>
       <tr class="instruction_table_row">
-        <td>Информационный блок (Синий)</td>
+        <td>Информационный блок "Интересно" (Синий)</td>
         <td>
           <code>
               +InfoBlue+
@@ -295,23 +295,6 @@ const copyToClipboard = (val) => {
           Заменить здесь
 
 +InfoBlue+`)" />
-        </td>
-      </tr>
-      <tr class="instruction_table_row">
-        <td>Информационный блок (Красный)</td>
-        <td>
-          <code>
-              +infoR+
-              Заменить здесь
-              +infoR+
-            </code>
-        </td>
-        <td>
-          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+infoR+
-
-          Заменить здесь
-
-+infoR+`)" />
         </td>
       </tr>
       <tr class="instruction_table_row">
