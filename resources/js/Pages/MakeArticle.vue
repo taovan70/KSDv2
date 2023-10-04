@@ -619,6 +619,21 @@ const copyToClipboard = (val) => {
 +YouTubeComponent+`)" />
         </td>
       </tr>
+      <tr class="instruction_table_row">
+        <td>Галерея картинок</td>
+        <td>
+          <code>
+            +ArticleGalleryWrapper+
+              Здесь сами картинки заменить
+            +ArticleGalleryWrapper+
+            </code>
+        </td>
+        <td>
+          <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ArticleGalleryWrapper+
+              Здесь ссылка из embed заменить
++ArticleGalleryWrapper+`)" />
+        </td>
+      </tr>
     </table>
     </section>
 

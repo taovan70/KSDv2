@@ -64,7 +64,7 @@ class SendLogUserActionOnModel
                 'url' => $userInfo['url'],
                 'ip' => $userInfo['ip'],
                 'agent' => $userInfo['agent'],
-                'data' => json_encode($event->observedModel->toArray()),
+                'data' => '', //json_encode($event->observedModel->toArray()), TODO пока выключим
                 'tags' => $event->observedModel->getTable(),
                 'event' => $event->action,
                 'created_at' => now(),
