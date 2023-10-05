@@ -12,6 +12,7 @@ const ruMessages = {
       "tags": "Тэги",
       "published": "Опубликована",
       "save": "Сохранить",
+      "preview": "Предпросмотр",
       "main_page": "Главная",
     }
   }

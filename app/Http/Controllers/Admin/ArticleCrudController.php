@@ -20,7 +20,9 @@ class ArticleCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation {
+        destroy as traitDestroy;
+    }
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
@@ -47,6 +49,22 @@ class ArticleCrudController extends CrudController
         // Filters
         ArticleCRUD::tagFilter($this->crud);
         ArticleCRUD::categoryFilter($this->crud);
+
+        // not show in list of articles preview items
+        $this->crud->addFilter(
+            [ // add a "simple" filter called Disabled
+                'type'  => 'simple',
+                'name'  => 'disabled',
+                'label' => 'Disabled',
+            ],
+            false, // the simple filter has no values above
+            function () { // if the filter is active
+                // do nothing; no filtering is actually needed
+            },
+            function () { // if the filter is NOT active
+                $this->crud->addClause('where','preview_for', null);
+            }
+        );
     }
 
     /**

@@ -40,7 +40,8 @@ class Article extends Model implements HasMedia
         'keywords',
         'description',
         'title',
-        'slug'
+        'slug',
+        'preview_for'
     ];
     // protected $hidden = [];
     // protected $dates = [];

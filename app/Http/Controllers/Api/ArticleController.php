@@ -27,7 +27,7 @@ class ArticleController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::all();
+        $articles = Article::where('published', true)->get();
         return ArticleResource::collection($articles);
     }
 
@@ -38,16 +38,26 @@ class ArticleController extends Controller
     }
 
 
-    public function show(string $slug)
+    public function show(string $slug): ArticleResource
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
+        $article = Article::where('slug', $slug)->where('published', true)->firstOrFail();
+        $article->load('tags');
+        return new ArticleResource($article);
+    }
+
+    public function showPreview(string $id, string $key): ArticleResource
+    {
+        if (empty($key) || $key !== env('PREVIEW_ARTICLE_TOKEN')) {
+            abort(404, "Sorry! Article not found");
+        }
+        $article = Article::where('id', $id)->firstOrFail();
         $article->load('tags');
         return new ArticleResource($article);
     }
 
     public function random(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::inRandomOrder()->take($count)->get();
+        $articles = Article::inRandomOrder()->take($count)->where('published', true)->get();
         return ArticleResource::collection($articles);
     }
 
@@ -58,7 +68,7 @@ class ArticleController extends Controller
         $article = Article::create($newData);
         try {
             $content = $this->articleService->convertImageUrls($request, $article);
-        } catch (FileDoesNotExist|FileIsTooBig $e) {
+        } catch (FileDoesNotExist | FileIsTooBig $e) {
             return Redirect::back()->withErrors($e->getMessage());
         }
 
@@ -76,6 +86,59 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function preview(ArticleStoreRequest $request): RedirectResponse
+    {
+        $newData = $request->validated();
+        $newData['slug'] = '';
+        $newData['published'] = false;
+        $article = Article::create($newData);
+        try {
+            $content = $this->articleService->convertImageUrls($request, $article);
+        } catch (FileDoesNotExist | FileIsTooBig $e) {
+            return Redirect::back()->withErrors($e->getMessage());
+        }
+
+        $article->content_markdown = $content;
+        $article->content_html = $this->embedService->handleMarkdown($content);
+        if (isset($newData['mainPic'])) {
+            $article->addMediaFromRequest('mainPic')->toMediaCollection('mainPic');
+        }
+        $article->save();
+
+        $article->tags()->sync($request->tags);
+
+        return redirect()->route('article.make-article')->with('message', ['previewUrl' => env('FRONT_URL') . "/article/article-preview-" . $article->id]);
+    }
+
+    public function updatePreview(ArticleStoreRequest $request, Article $article,): RedirectResponse
+    {
+        $prevPreview = Article::where('preview_for', $article->id)->first();
+        if ($prevPreview) {
+            $prevPreview->delete();
+        }
+        $newData = $request->validated();
+        $newData['slug'] = '';
+        $newData['published'] = false;
+        $newData['preview_for'] = $article->id;
+        $article = Article::create($newData);
+        try {
+            $content = $this->articleService->convertImageUrls($request, $article);
+        } catch (FileDoesNotExist | FileIsTooBig $e) {
+            return Redirect::back()->withErrors($e->getMessage());
+        }
+
+        $article->content_markdown = $content;
+        $article->content_html = $this->embedService->handleMarkdown($content);
+        if (isset($newData['mainPic'])) {
+            $article->addMediaFromRequest('mainPic')->toMediaCollection('mainPic');
+        }
+        $article->save();
+
+        $article->tags()->sync($request->tags);
+
+        return redirect()->route('article.make-article')->with('message', ['previewUrl' => env('FRONT_URL') . "/article/article-preview-" . $article->id]);
+    }
+
 
     public function update(
         ArticleStoreRequest $request,
@@ -85,7 +148,7 @@ class ArticleController extends Controller
         try {
             $content = $this->articleService->convertImageUrls($request, $article);
             $newData['content_markdown'] = $this->embedService->stripTags($content);
-        } catch (FileDoesNotExist|FileIsTooBig $e) {
+        } catch (FileDoesNotExist | FileIsTooBig $e) {
             return Redirect::back()->withErrors($e->getMessage());
         }
 

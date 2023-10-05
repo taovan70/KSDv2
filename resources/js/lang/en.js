@@ -12,6 +12,7 @@ const enMessages = {
       "tags": "Tags",
       "published": "Published",
       "save": "Save",
+      "preview": "Preview",
       "main_page": "Main",
     }
   }

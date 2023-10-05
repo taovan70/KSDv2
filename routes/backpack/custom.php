@@ -26,10 +26,12 @@ Route::group([
     Route::crud('author', 'AuthorCrudController');
     Route::crud('user', 'UserCrudController');
 
-    Route::get('make-article', [App\Http\Controllers\Admin\Inertia\ArticleController::class, 'create']);
+    Route::get('make-article', [App\Http\Controllers\Admin\Inertia\ArticleController::class, 'create'])->name('article.make-article');
     Route::get('article/{article}/edit', [App\Http\Controllers\Admin\Inertia\ArticleController::class, 'edit']);
     Route::post('article/store', [ArticleController::class, 'store']);
+    Route::post('article/preview', [ArticleController::class, 'preview']);
     Route::post('article/{article}/update', [ArticleController::class, 'update']);
+    Route::post('article/{article}/update-preview', [ArticleController::class, 'updatePreview']);
     Route::get('settings-info', [SettingController::class, 'index']);
 
     // Roles available: admin, manager, guest
