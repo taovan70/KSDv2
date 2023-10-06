@@ -23,7 +23,7 @@ class Category extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt'];
+    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -84,4 +84,18 @@ class Category extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function setPhotoPathAttribute($value)
+    {
+        $attribute_name = "photo_path";
+        $disk = "public";
+        $destination_path = "categories_photos";
+
+        if (is_file($value)) {
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        } else {
+            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
+        }
+
+    }
 }

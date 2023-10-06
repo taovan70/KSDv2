@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Services\CategoryService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Prologue\Alerts\Facades\Alert;
 
@@ -86,6 +87,14 @@ class CategoryCrudController extends CrudController
 
         CRUD::field('name')->label(__('table.name'));
 
+        CRUD::addField([
+            'name' => 'photo_path',
+            'label' => __('table.author_fields.photo'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
+
         Category::creating(function (Category $category) {
             $category->slug = Str::slug($category->name, '_');
         });
@@ -127,6 +136,13 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::addField([
+            'name' => 'photo_path',
+            'label' => __('table.author_fields.photo'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
 
         Category::updating(function (Category $category) {
             $category->slug = Str::slug($category->name, '_');
@@ -135,7 +151,16 @@ class CategoryCrudController extends CrudController
 
     protected function setupShowOperation()
     {
+        CRUD::addColumn([
+            'name' => 'photo_path',
+            'label' => __('table.author_fields.photo'),
+            'type' => 'image',
+            'prefix' => 'storage/',
+            'width' => '100px',
+            'height' => '100px'
+        ]);
         $this->setupListOperation();
+        
     }
 
     public function destroy($id, CategoryService $categoryService)
@@ -147,5 +172,13 @@ class CategoryCrudController extends CrudController
         } else {
             return $this->crud->delete($id);
         }
+    }
+
+    
+    protected function setupDeleteOperation()
+    {
+        Category::deleting(function (Category $author) {
+            Storage::disk('public')->delete($author->photo_path);
+        });
     }
 }
