@@ -20,6 +20,7 @@ class CategoryResource extends JsonResource
             "depth" => $this->depth,
             "rgt" => $this->rgt,
             "lft" => $this->lft,
+            "children" => CategoryResource::collection($this->children),
             "parent_id" => $this->parent_id,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at

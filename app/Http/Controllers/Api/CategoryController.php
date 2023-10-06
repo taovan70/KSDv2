@@ -22,7 +22,7 @@ class CategoryController extends Controller
         return $service->getCategories($request->q);
     }
 
-    public function fetchCategoriesAsTree(Request $request, CategoryService $service)
+    public function fetchCategoriesAsTree(Request $request, CategoryService $service): array
     {
         $data =  $service->getCategories($request->q);
         return $this->utilsService->dataToTree($data);
@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
     public function show(string $slug)
     {
-        $article = Category::where('slug', $slug)->firstOrFail();
+        $article = Category::where('slug', $slug)->with('children')->firstOrFail();
         return new CategoryResource($article);
     }
 }
