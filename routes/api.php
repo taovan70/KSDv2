@@ -27,7 +27,7 @@ Route::group([], function () {
 
     Route::group(['prefix' => 'categories'], function () {
         Route::post('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategories'])->name('categories.index');
-        Route::get('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategories'])->name('categoriesGet.index');
+        Route::get('/', [\App\Http\Controllers\Api\CategoryController::class, 'fetchCategoriesAsTree'])->name('categoriesGet.index');
         Route::get('/{slug}',  [\App\Http\Controllers\Api\CategoryController::class, 'show'])->name('categories.show');
     });
 
