@@ -61,6 +61,12 @@ class ArticleController extends Controller
         return ArticleResource::collection($articles);
     }
 
+    public function recent(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $articles = Article::latest()->take($count)->where('published', true)->get();
+        return ArticleResource::collection($articles);
+    }
+
 
     public function store(ArticleStoreRequest $request): RedirectResponse
     {

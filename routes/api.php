@@ -34,6 +34,7 @@ Route::group([], function () {
     Route::group(['prefix' => 'articles'], function () {
         Route::get('/',  [\App\Http\Controllers\Api\ArticleController::class, 'index'])->name('article.index');
         Route::get('/random/{count}',  [\App\Http\Controllers\Api\ArticleController::class, 'random'])->name('article.random');
+        Route::get('/recent/{count}',  [\App\Http\Controllers\Api\ArticleController::class, 'recent'])->name('article.show-recent');
         Route::get('/{slug}',  [\App\Http\Controllers\Api\ArticleController::class, 'show'])->name('article.show-slug');
         Route::get('/id/{id}/{key}',  [\App\Http\Controllers\Api\ArticleController::class, 'showPreview'])->name('article.show-id');
    });
