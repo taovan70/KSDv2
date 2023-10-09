@@ -47,5 +47,6 @@ return [
     "did_you_know_in_articles" => "Знали ли вы?",
     "outer_part" => "Внешняя часть",
     "main_page" => "Главная страница",
-    "popular_categories" => "Популярные рубрики"
+    "popular_categories" => "Популярные рубрики",
+    "most_talked_articles" => "Самые обсуждаемые статьи",
 ];

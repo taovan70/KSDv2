@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Blocks\MainPage;
+
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -26,7 +27,7 @@ class PopularCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|max:255',
+            'name' => 'required|max:255',
             'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
@@ -52,7 +53,7 @@ class PopularCategoriesRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
-            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }
 }

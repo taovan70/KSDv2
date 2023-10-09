@@ -47,5 +47,6 @@ return [
     "did_you_know_in_articles" => "Did you know?",
     "outer_part" => "Outer part",
     "main_page" => "Main page",
-    "popular_categories" => "Popular categories"
+    "popular_categories" => "Popular categories",
+    "most_talked_articles" => "Most talked articles",
 ];
