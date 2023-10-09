@@ -74,6 +74,12 @@
                         {{ __('models.popular_categories') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('most-talked-article') }}">
+                    <i class="nav-icon la la-chart-pie"></i>
+                        {{ __('models.most_talked_articles') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item nav-dropdown text-capitalize">

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Blocks\MainPage\PopularCategoriesRequest;
+use App\Http\Requests\Blocks\MainPage\MostTalkedArticlesRequest;
+use App\Models\Blocks\MainPage\MostTalkedArticle;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class PopularCategoriesCrudController
+ * Class MostTalkedArticleCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class PopularCategoriesCrudController extends CrudController
+class MostTalkedArticleCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -27,9 +28,9 @@ class PopularCategoriesCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Blocks\MainPage\PopularCategories::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/popular-categories');
-        CRUD::setEntityNameStrings(__('models.popular_categories'), __('models.popular_categories'));
+        CRUD::setModel(MostTalkedArticle::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/most-talked-article');
+        CRUD::setEntityNameStrings(__('models.most_talked_articles'), __('models.most_talked_articles'));
     }
 
     protected function setupReorderOperation()
@@ -65,19 +66,14 @@ class PopularCategoriesCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(PopularCategoriesRequest::class);
-
-        // CRUD::addField([
-        //     'name' => 'categories',
-        //     'label' => __('table.category'),
-        //     'type' => 'select2',
-        //     'attribute' => 'name'
-        // ]);
-
+        CRUD::setValidation(MostTalkedArticlesRequest::class);
         CRUD::field('name')->label(__('table.name'));
-        CRUD::field('category_id')
-            ->label(__('table.category'))
-            ->type('select2');
+        CRUD::field('article_id')
+            ->label(__('table.article'))
+            ->type('select2')
+            ->options((function ($query) {
+                return $query->where('published', 1)->get();
+            }));
 
         /**
          * Fields can be defined using the fluent syntax:

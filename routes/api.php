@@ -57,6 +57,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'popular-categories'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\PopularCategoriesController::class, 'index'])->name('popularCategories.index');
             });
+            Route::group(['prefix' => 'most-talked-articles'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\MostTalkedArticlesController::class, 'index'])->name('mostTalkedArticles.index');
+            });
         });
     });
 });
