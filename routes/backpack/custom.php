@@ -48,4 +48,5 @@ Route::group([
     Route::post('language',  [LangController::class, 'setLanguage'])->name('user.set_language');;
 
     Route::crud('did-you-know-in-articles', 'DidYouKnowInArticlesCrudController');
+    Route::crud('popular-categories', 'PopularCategoriesCrudController');
 }); // this should be the absolute last line of this file

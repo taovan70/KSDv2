@@ -56,4 +56,40 @@
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('file_manager') }}"><i class="nav-icon la la-copy"></i> {{ __('models.file_manager') }}</a></li>
 
-<x-backpack::menu-item title="{{ __('models.did_you_know_in_articles') }}" icon="la la-question" :link="backpack_url('did-you-know-in-articles')" />
+<li class="nav-item nav-dropdown text-capitalize">
+    <a class="nav-link nav-dropdown-toggle" href="#">
+        <i class="nav-icon la la-tv"></i>
+        {{ __('models.outer_part') }}
+    </a>
+    <ul class="nav-dropdown-items">
+        <li class="nav-item nav-dropdown text-capitalize">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon la la-share-alt"></i>
+                {{ __('models.main_page') }}
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('popular-categories') }}">
+                    <i class="nav-icon la la-chart-pie"></i>
+                        {{ __('models.popular_categories') }}
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item nav-dropdown text-capitalize">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon la la-file"></i>
+                {{ __('models.articles') }}
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('did-you-know-in-articles') }}">
+                        <i class="nav-icon la la-question"></i>
+                        {{ __('models.did_you_know_in_articles') }}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</li>

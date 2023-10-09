@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Blocks\MainPage;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class PopularCategories extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -19,14 +18,15 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'categories';
+    protected $table = 'popular_categories';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path'];
+    protected $fillable = [
+        'name',
+        'category_id',
+    ];
     // protected $hidden = [];
-    // protected $dates = [];
-
 
     /*
     |--------------------------------------------------------------------------
@@ -40,36 +40,10 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function parent(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(\App\Models\Category::class);
     }
-
-    public function children(): HasMany
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    public function subcategories(): HasMany
-    {
-        return $this->children()->with('subcategories');
-    }
-
-    public function parents(): BelongsTo
-    {
-        return $this->parent()->with('parents');
-    }
-
-    public function articles(): HasMany
-    {
-        return $this->hasMany(Article::class);
-    }
-
-    public function popularCategories(): HasMany
-    {
-        return $this->hasMany(PopularCategories::class);
-    }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -83,24 +57,9 @@ class Category extends Model
     |--------------------------------------------------------------------------
     */
 
-
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-
-    public function setPhotoPathAttribute($value)
-    {
-        $attribute_name = "photo_path";
-        $disk = "public";
-        $destination_path = "categories_photos";
-
-        if (is_file($value)) {
-            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
-        } else {
-            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
-        }
-
-    }
 }

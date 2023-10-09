@@ -1,0 +1,8 @@
+.app-body div.sidebar.sidebar-pills {
+    flex-basis: 300px;
+}
+
+.app-body div.sidebar.sidebar-pills > nav,
+.app-body div.sidebar.sidebar-pills > nav > ul {
+    width: 100%;
+}
