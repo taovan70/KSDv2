@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Blocks\Article;
+
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\api\DidYouKnowInArticles\DidYouKnowInArticlesResource;
-use App\Models\DidYouKnowInArticles;
+use App\Http\Resources\api\Blocks\Article\DidYouKnowInArticles\DidYouKnowInArticlesResource;
+use App\Models\Blocks\Article\DidYouKnowInArticles;
 
 
 class DidYouKnowInArticlesController extends Controller
@@ -19,14 +20,13 @@ class DidYouKnowInArticlesController extends Controller
         return DidYouKnowInArticlesResource::collection(DidYouKnowInArticles::all());
     }
 
-    public function random(string $count, ? string $category_id = null): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function random(string $count, ?string $category_id = null): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        if($category_id) {
+        if ($category_id) {
             $items = DidYouKnowInArticles::where('category_id', $category_id)->inRandomOrder()->take($count)->get();
         } else {
             $items = DidYouKnowInArticles::inRandomOrder()->take($count)->get();
         }
         return DidYouKnowInArticlesResource::collection($items);
     }
-
 }
