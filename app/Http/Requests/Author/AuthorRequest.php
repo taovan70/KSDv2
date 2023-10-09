@@ -61,7 +61,27 @@ class AuthorRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.min' => __('validation.common.min') .' ' . ':min',
+
+            'surname.required' => __('validation.common.required'),
+            'surname.max' => __('validation.common.max') .' ' . ':max',
+            'surname.min' => __('validation.common.min') .' ' . ':min',
+
+            'middle_name.required' => __('validation.common.required'),
+            'middle_name.max' => __('validation.common.max') .' ' . ':max',
+            'middle_name.min' => __('validation.common.min') .' ' . ':min',
+
+            'age.required' => __('validation.common.required'),
+            'age.max' => __('validation.common.max') .' ' . ':max',
+            'age.min' => __('validation.common.min') .' ' . ':min',
+
+            'gender.required' => __('validation.common.required'),
+            'biography.required' => __('validation.common.required'),
+            'address.required' => __('validation.common.required'),
+            'photo_path.required' => __('validation.common.required'),
+
         ];
     }
 }

@@ -56,7 +56,9 @@ class CategoryUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.min' => __('validation.common.min') .' ' . ':min',
         ];
     }
 }

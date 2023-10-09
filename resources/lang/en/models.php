@@ -44,5 +44,8 @@ return [
     "pc" => "PC",
     "mobile" => "Mobile",
     "mob" => "Mobile",
-    "did_you_know_in_articles" => "Did you know in articles?",
+    "did_you_know_in_articles" => "Did you know?",
+    "outer_part" => "Outer part",
+    "main_page" => "Main page",
+    "popular_categories" => "Popular categories"
 ];

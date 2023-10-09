@@ -44,5 +44,8 @@ return [
     "pc" => "ПК",
     "mobile" => "Мобильный",
     "mob" => "Моб",
-    "did_you_know_in_articles" => "Знали ли вы? в статьях",
+    "did_you_know_in_articles" => "Знали ли вы?",
+    "outer_part" => "Внешняя часть",
+    "main_page" => "Главная страница",
+    "popular_categories" => "Популярные рубрики"
 ];

@@ -28,7 +28,7 @@ class DidYouKnowInArticlesCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\DidYouKnowInArticles::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/did-you-know-in-articles');
-        CRUD::setEntityNameStrings('did you know in articles', 'did you know in articles');
+        CRUD::setEntityNameStrings(__('models.did_you_know_in_articles'), __('models.did_you_know_in_articles'));
     }
 
     /**

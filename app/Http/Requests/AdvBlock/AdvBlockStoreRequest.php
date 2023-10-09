@@ -56,7 +56,13 @@ class AdvBlockStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'slug.required' => __('validation.common.required'),
+            'slug.max' => __('validation.common.max') .' ' . ':max',
+            'device_type.required' => __('validation.common.required'),
+            'color_type.required' => __('validation.common.required'),
+            'adv_page_id.required' => __('validation.common.required'),
         ];
     }
 }

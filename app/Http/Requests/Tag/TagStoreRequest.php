@@ -49,7 +49,10 @@ class TagStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.min' => __('validation.common.min') .' ' . ':min',
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.unique' => __('validation.common.unique'),
         ];
     }
 }

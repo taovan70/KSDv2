@@ -37,7 +37,10 @@ class CategoryStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.min' => __('validation.common.min') .' ' . ':min',
+            'name.unique' => __('validation.common.unique')
         ];
     }
 

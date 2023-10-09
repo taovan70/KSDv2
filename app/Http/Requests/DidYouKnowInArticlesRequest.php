@@ -26,7 +26,7 @@ class DidYouKnowInArticlesRequest extends FormRequest
     {
         return [
             'category_id' => 'required|numeric|exists:categories,id',
-            'text' => 'required|string|max:50000',
+            'text' => 'required|string',
         ];
     }
 
@@ -50,7 +50,8 @@ class DidYouKnowInArticlesRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'text.required' => __('validation.common.required'),
+            'category_id.required' => __('validation.common.required'),
         ];
     }
 }

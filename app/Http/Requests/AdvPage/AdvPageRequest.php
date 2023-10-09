@@ -50,7 +50,13 @@ class AdvPageRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.min' => __('validation.common.min') .' ' . ':min',
+            'slug.required' => __('validation.common.required'),
+            'slug.max' => __('validation.common.max') .' ' . ':max',
+            'slug.min' => __('validation.common.min') .' ' . ':min',
+            'slug.unique' => __('validation.common.unique'),
         ];
     }
 }

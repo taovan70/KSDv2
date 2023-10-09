@@ -64,11 +64,20 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
-            'slug.required' => __('validation.common.required'),
-            'title.required' => __('validation.common.required'),
-            'description.required' => __('validation.common.required'),
-            'keywords.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') .' ' . ':max',
+
+            'slug.required' => __('validation.common.required'),
+            'slug.max' => __('validation.common.max') .' ' . ':max',
+
+            'title.required' => __('validation.common.required'),
+            'title.max' => __('validation.common.max') .' ' . ':max',
+
+            'description.required' => __('validation.common.required'),
+            'description.max' => __('validation.common.max') .' ' . ':max',
+            
+            'keywords.required' => __('validation.common.required'),
+            'keywords.max' => __('validation.common.max') .' ' . ':max',
+           
             'category_id.required' => __('validation.common.required'),
             'author_id.required' => __('validation.common.required'),
             'tags.min' => __('validation.common.required'),

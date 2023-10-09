@@ -54,7 +54,16 @@ class UserStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'name.min' => __('validation.common.min') .' ' . ':min',
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'email.required' => __('validation.common.required'),
+            'email.email' => __('validation.common.email'),
+            'email.unique' => __('validation.common.unique'),
+            'password.min' => __('validation.common.min') .' ' . ':min',
+            'password.max' => __('validation.common.max') .' ' . ':max',
+            'password_confirmation.min' => __('validation.common.min') .' ' . ':min',
+            'password_confirmation.max' => __('validation.common.max') .' ' . ':max',
         ];
     }
 
