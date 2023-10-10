@@ -28,7 +28,7 @@ class AuthorCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Author::class);
+        CRUD::setModel(Author::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/author');
         CRUD::setEntityNameStrings(__('models.author'), __('models.authors'));
     }
