@@ -49,4 +49,5 @@ return [
     "main_page" => "Главная страница",
     "popular_categories" => "Популярные рубрики",
     "most_talked_articles" => "Самые обсуждаемые статьи",
+    "readers_recomend_articles" => "Читатели рекомендуют",
 ];

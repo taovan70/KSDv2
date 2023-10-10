@@ -70,14 +70,20 @@
             <ul class="nav-dropdown-items">
                 <li class="nav-item">
                     <a class="nav-link text-capitalize" href="{{ backpack_url('popular-categories') }}">
-                    <i class="nav-icon la la-chart-pie"></i>
+                        <i class="nav-icon la la-chart-pie"></i>
                         {{ __('models.popular_categories') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-capitalize" href="{{ backpack_url('most-talked-article') }}">
-                    <i class="nav-icon la la-chart-pie"></i>
+                        <i class="nav-icon la la-comment-dots"></i>
                         {{ __('models.most_talked_articles') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('readers-recomend-article') }}">
+                        <i class="nav-icon la la-user-tie"></i>
+                        {{ __('models.readers_recomend_articles') }}
                     </a>
                 </li>
             </ul>
