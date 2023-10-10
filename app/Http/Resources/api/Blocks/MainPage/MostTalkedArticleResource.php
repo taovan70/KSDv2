@@ -6,7 +6,7 @@ use App\Http\Resources\api\Category\CategoryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MostTalkedArticlesResource extends JsonResource
+class MostTalkedArticleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

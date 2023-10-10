@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Blocks\MainPage;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\api\Blocks\MainPage\MostTalkedArticlesResource;
+use App\Http\Resources\api\Blocks\MainPage\MostTalkedArticleResource;
 use App\Http\Resources\api\Blocks\MainPage\PopularCategoriesResource;
 use App\Models\Blocks\MainPage\MostTalkedArticle;
 use App\Models\Blocks\MainPage\PopularCategories;
@@ -22,6 +22,6 @@ class MostTalkedArticlesController extends Controller
             ->orderBy('lft', 'ASC')
             ->get();
 
-        return MostTalkedArticlesResource::collection($result);
+        return MostTalkedArticleResource::collection($result);
     }
 }
