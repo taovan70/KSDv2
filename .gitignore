@@ -542,3 +542,5 @@ public/css/app.css
 /.idea
 /.idea/*
 /docker/mysql/temp/
+.lh
+.vscode

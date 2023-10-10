@@ -50,7 +50,17 @@ class MostTalkedArticleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column('name')->label(__('table.name'));
+        CRUD::addColumn([
+            'label' => __('table.article'),
+            'type' => 'select',
+            'name' => 'article_id',
+            'attribute' => 'name',
+            'entity' => 'article',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
+            ]
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -90,5 +100,20 @@ class MostTalkedArticleCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        CRUD::column('name')->label(__('table.name'));
+        CRUD::addColumn([
+            'label' => __('table.article'),
+            'type' => 'select',
+            'name' => 'article_id',
+            'attribute' => 'name',
+            'entity' => 'article',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
+            ]
+        ]);
     }
 }
