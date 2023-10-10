@@ -60,6 +60,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'most-talked-articles'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\MostTalkedArticlesController::class, 'index'])->name('mostTalkedArticles.index');
             });
+            Route::group(['prefix' => 'readers-recomend-articles'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\ReadersRecomendArticlesController::class, 'index'])->name('readersRecomendArticles.index');
+            });
         });
     });
 });
