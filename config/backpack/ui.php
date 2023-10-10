@@ -95,10 +95,10 @@ return [
     // CSS files that are loaded in all pages, using Laravel's asset() helper
     'styles' => [
         'packages/backpack/base/css/bundle.css', // has primary color electric purple (backpack default)
-
         // Load the fonts separately (so that you can replace them at will):
         'packages/source-sans-pro/source-sans-pro.css',
         'packages/line-awesome/css/line-awesome.min.css',
+        'css/global.css',
 
         // 'styles/example.css',
         // 'https://some-cdn.com/example.css',

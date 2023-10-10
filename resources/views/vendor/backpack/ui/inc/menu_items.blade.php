@@ -102,6 +102,12 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item text-capitalize">
+            <a class="nav-link" href="{{ backpack_url('info-block') }}">
+                <i class="nav-icon la la-share-alt"></i>
+                {{ __('models.info_blocks') }}
+            </a>
+        </li>
     </ul>
 
 </li>

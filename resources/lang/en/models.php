@@ -50,4 +50,8 @@ return [
     "popular_categories" => "Popular categories",
     "most_talked_articles" => "Most talked articles",
     "readers_recomend_articles" => "Readers recommend articles",
+    "main_text" => "Main text",
+    "add_text" => "Additional text",
+    "info_blocks" => "Info blocks",
+    "info_block" => "Info block",
 ];

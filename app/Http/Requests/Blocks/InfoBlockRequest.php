@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Blocks\MainPage;
+namespace App\Http\Requests\Blocks;
 
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PopularCategoriesRequest extends FormRequest
+class InfoBlockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,9 @@ class PopularCategoriesRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'category_id' => 'required|numeric|exists:categories,id',
+            'main_text' => 'nullable|string',
+            'add_text' => 'nullable|string',
+            'photo_path' => 'image|max:2000',
         ];
     }
 
@@ -53,6 +55,7 @@ class PopularCategoriesRequest extends FormRequest
         return [
             'name.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
+            'photo_path.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }
 }

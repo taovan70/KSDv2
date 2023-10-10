@@ -50,4 +50,8 @@ return [
     "popular_categories" => "Популярные рубрики",
     "most_talked_articles" => "Самые обсуждаемые статьи",
     "readers_recomend_articles" => "Читатели рекомендуют",
+    "main_text" => "Основной текст",
+    "add_text" => "Дополнительный текст",
+    "info_blocks" => "Информационные блоки",
+    "info_block" => "Информационный блок",
 ];
