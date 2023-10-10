@@ -64,5 +64,9 @@ Route::group([], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\ReadersRecomendArticlesController::class, 'index'])->name('readersRecomendArticles.index');
             });
         });
+
+        Route::group(['prefix' => 'info-block'], function () {
+            Route::get('/{id}', [\App\Http\Controllers\Api\Blocks\InfoBlockController::class, 'show'])->name('infoBlock.show');
+        });
     });
 });
