@@ -19,7 +19,18 @@ class MostTalkedArticlesResource extends JsonResource
             'name' => $this->name,
             'article' => [
                 'name' => $this->article->name,
-                'slug' => $this->article->slug
+                'slug' => $this->article->slug,
+                'photo_path' => $this->article->photo_path,
+                'created_at' => $this->article->created_at,
+                'author' => [
+                    'id' => $this->article->author->id,
+                    'name' => $this->article->author->name,
+                    'slug' => $this->article->author->slug,
+                ],
+                'category' => [
+                    'name' => $this->article->category->name,
+                    'slug' => $this->article->category->slug,
+                ]
             ],
         ];
     }
