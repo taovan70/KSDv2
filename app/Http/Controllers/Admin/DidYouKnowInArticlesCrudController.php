@@ -39,7 +39,8 @@ class DidYouKnowInArticlesCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column('category_id')->label(__('table.category')); // set columns from db columns.
+        CRUD::column('text')->label(__('models.text')); // set columns from db columns.
 
         /**
          * Columns can be defined using the fluent syntax:

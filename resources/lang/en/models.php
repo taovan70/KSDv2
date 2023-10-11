@@ -54,4 +54,5 @@ return [
     "add_text" => "Additional text",
     "info_blocks" => "Info blocks",
     "info_block" => "Info block",
+    'text' => 'Text',
 ];
