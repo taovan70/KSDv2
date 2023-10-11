@@ -254,10 +254,11 @@ const copyToClipboard = (val) => {
         </div>
       </div>
       <div class="mb-3">
-        <label v-if="props.article?.mainPic[0]?.original_url" for="article_publish_date">{{
-          $t("makeArticle.fields.preview") }}</label>
+        <label v-if="props.article?.mainPic[0]?.original_url" for="article_publish_date">
+          {{ $t("makeArticle.fields.preview") }}
+        </label>
         <div class="mb-3">
-          <img v-if="props.article?.mainPic[0]?.original_url"
+          <img v-if="endpointForm.mainPic || props.article?.mainPic[0]?.original_url"
             :src="endpointForm.mainPic ? createUrl(endpointForm.mainPic) : props.article?.mainPic[0]?.original_url"
             alt="Главное изображение статьи" class="post_mainPic_thumb">
         </div>
@@ -279,9 +280,9 @@ const copyToClipboard = (val) => {
           </td>
           <td>
             <code>
-                            +TOC+
-                            +TOC+
-                            </code>
+                                +TOC+
+                                +TOC+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+TOC+
@@ -293,10 +294,10 @@ const copyToClipboard = (val) => {
           <td>Информационный блок "Полезно" (Зелёный)</td>
           <td>
             <code>
-                              +InfoGreen+
-                              Заменить здесь
-                              +InfoGreen+
-                            </code>
+                                  +InfoGreen+
+                                  Заменить здесь
+                                  +InfoGreen+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoGreen+
@@ -310,10 +311,10 @@ const copyToClipboard = (val) => {
           <td>Информационный блок "Важно" (Красный)</td>
           <td>
             <code>
-                              +InfoRed+
-                              Заменить здесь
-                              +InfoRed+
-                            </code>
+                                  +InfoRed+
+                                  Заменить здесь
+                                  +InfoRed+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoRed+
@@ -327,10 +328,10 @@ const copyToClipboard = (val) => {
           <td>Информационный блок "Интересно" (Синий)</td>
           <td>
             <code>
-                              +InfoBlue+
-                              Заменить здесьtd
-                              +InfoBlue+
-                            </code>
+                                  +InfoBlue+
+                                  Заменить здесьtd
+                                  +InfoBlue+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoBlue+
@@ -344,20 +345,20 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Голубая галочка)</td>
           <td>
             <code>
-                            +ProsConsBlueMark+
+                                +ProsConsBlueMark+
 
-                              (+) преимущество 1
+                                  (+) преимущество 1
 
-                              (+) преимущество 2
+                                  (+) преимущество 2
 
-                              ||
+                                  ||
 
-                              (-) недостаток 1
+                                  (-) недостаток 1
 
-                              (-) недостаток 2
+                                  (-) недостаток 2
 
-                            +ProsConsBlueMark+
-                          </code>
+                                +ProsConsBlueMark+
+                              </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsBlueMark+
@@ -379,18 +380,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Зелёный плюс на белом фоне)</td>
           <td>
             <code>
-                              +ProsConsEmptyPlus+
-                                (+) преимущество 1
+                                  +ProsConsEmptyPlus+
+                                    (+) преимущество 1
 
-                                (+) преимущество 2
+                                    (+) преимущество 2
 
-                                ||
+                                    ||
 
-                                (-) недостаток 1
+                                    (-) недостаток 1
 
-                                (-) недостаток 2
-                              +ProsConsEmptyPlus+
-                            </code>
+                                    (-) недостаток 2
+                                  +ProsConsEmptyPlus+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsEmptyPlus+
@@ -412,18 +413,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Белый плюс на зелёном фоне)</td>
           <td>
             <code>
-                              +ProsConsGreenPlus+
-                              (+) преимущество 1
+                                  +ProsConsGreenPlus+
+                                  (+) преимущество 1
 
-                              (+) преимущество 2
+                                  (+) преимущество 2
 
-                              ||
+                                  ||
 
-                              (-) недостаток 1
+                                  (-) недостаток 1
 
-                              (-) недостаток 2
-                              +ProsConsGreenPlus+
-                            </code>
+                                  (-) недостаток 2
+                                  +ProsConsGreenPlus+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenPlus+
@@ -445,18 +446,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Зелёная галочка)</td>
           <td>
             <code>
-                              +ProsConsGreenMark+
-                              (+) преимущество 1
+                                  +ProsConsGreenMark+
+                                  (+) преимущество 1
 
-                              (+) преимущество 2
+                                  (+) преимущество 2
 
-                              ||
+                                  ||
 
-                              (-) недостаток 1
+                                  (-) недостаток 1
 
-                              (-) недостаток 2
-                              +ProsConsGreenMark+
-                            </code>
+                                  (-) недостаток 2
+                                  +ProsConsGreenMark+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenMark+
@@ -478,18 +479,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Зелёная галочка-прерывистый)</td>
           <td>
             <code>
-                              +ProsConsGreenMarkDashed+
-                              (+) преимущество 1
+                                  +ProsConsGreenMarkDashed+
+                                  (+) преимущество 1
 
-                              (+) преимущество 2
+                                  (+) преимущество 2
 
-                              ||
+                                  ||
 
-                              (-) недостаток 1
+                                  (-) недостаток 1
 
-                              (-) недостаток 2
-                              +ProsConsGreenMarkDashed+
-                            </code>
+                                  (-) недостаток 2
+                                  +ProsConsGreenMarkDashed+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenMarkDashed+
@@ -511,10 +512,10 @@ const copyToClipboard = (val) => {
           <td>Совет эксперта</td>
           <td>
             <code>
-                              +Advice+
-                              Заменить здесь
-                              +Advice+
-                            </code>
+                                  +Advice+
+                                  Заменить здесь
+                                  +Advice+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+Advice+
@@ -528,11 +529,11 @@ const copyToClipboard = (val) => {
           <td>Текстовый блок с рекламным предложением</td>
           <td>
             <code>
-                              +TextBlockFirst+
-                                --Заголовок заменить--
-                                 Tекст здесь  заменить
-                              +TextBlockFirst+
-                            </code>
+                                  +TextBlockFirst+
+                                    --Заголовок заменить--
+                                     Tекст здесь  заменить
+                                  +TextBlockFirst+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+TextBlockFirst+
@@ -547,10 +548,10 @@ const copyToClipboard = (val) => {
           <td>А вы знали?</td>
           <td>
             <code>
-                              +DidYouKnowInArticle+
+                                  +DidYouKnowInArticle+
             
-                              +DidYouKnowInArticle+
-                            </code>
+                                  +DidYouKnowInArticle+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+DidYouKnowInArticle+
@@ -563,11 +564,11 @@ const copyToClipboard = (val) => {
           <td>Цитата 1 (сплошная)</td>
           <td>
             <code>
-                              +QuoteSolid+
-                                  Текст заменить
-                                  -- Автор заменить--
-                              +QuoteSolid+
-                            </code>
+                                  +QuoteSolid+
+                                      Текст заменить
+                                      -- Автор заменить--
+                                  +QuoteSolid+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+QuoteSolid+
@@ -582,11 +583,11 @@ const copyToClipboard = (val) => {
           <td>Цитата 1 (прерывистая)</td>
           <td>
             <code>
-                              +QuoteDashed+
-                                  Текст заменить
-                                  -- Автор заменить--
-                              +QuoteDashed+
-                            </code>
+                                  +QuoteDashed+
+                                      Текст заменить
+                                      -- Автор заменить--
+                                  +QuoteDashed+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+QuoteDashed+
@@ -601,15 +602,15 @@ const copyToClipboard = (val) => {
           <td>Доп ссылки блок (сплошной)</td>
           <td>
             <code>
-                            +LinksAlsoSolid+
-                              Здесь текст заменить
+                                +LinksAlsoSolid+
+                                  Здесь текст заменить
 
-                              ||
+                                  ||
 
-                              Здесь ссылки как всегда через редактор
+                                  Здесь ссылки как всегда через редактор
 
-                            +LinksAlsoSolid+
-                            </code>
+                                +LinksAlsoSolid+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+LinksAlsoSolid+
@@ -626,15 +627,15 @@ const copyToClipboard = (val) => {
           <td>Доп ссылки блок (прерывистая рамка)</td>
           <td>
             <code>
-                            +LinksAlsoDashed+
-                              Здесь текст заменить
+                                +LinksAlsoDashed+
+                                  Здесь текст заменить
 
-                              ||
+                                  ||
 
-                              Здесь ссылки как всегда через редактор
+                                  Здесь ссылки как всегда через редактор
 
-                            +LinksAlsoDashed+
-                            </code>
+                                +LinksAlsoDashed+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+LinksAlsoDashed+
@@ -651,10 +652,10 @@ const copyToClipboard = (val) => {
           <td>Видео YouTube</td>
           <td>
             <code>
-                            +YouTubeComponent+
-                              Здесь ссылка из embed заменить
-                            +YouTubeComponent+
-                            </code>
+                                +YouTubeComponent+
+                                  Здесь ссылка из embed заменить
+                                +YouTubeComponent+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+YouTubeComponent+
@@ -666,10 +667,10 @@ const copyToClipboard = (val) => {
           <td>Галерея картинок</td>
           <td>
             <code>
-                            +ArticleGalleryWrapper+
-                              Здесь сами картинки заменить
-                            +ArticleGalleryWrapper+
-                            </code>
+                                +ArticleGalleryWrapper+
+                                  Здесь сами картинки заменить
+                                +ArticleGalleryWrapper+
+                                </code>
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ArticleGalleryWrapper+
