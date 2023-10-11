@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\api\Blocks\Article\DidYouKnowInArticles;
+namespace App\Http\Resources\api\Blocks\Article;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

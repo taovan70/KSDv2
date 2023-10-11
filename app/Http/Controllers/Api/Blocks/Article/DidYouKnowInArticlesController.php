@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Blocks\Article;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\api\Blocks\Article\DidYouKnowInArticles\DidYouKnowInArticlesResource;
+use App\Http\Resources\api\Blocks\Article\DidYouKnowInArticlesResource;
 use App\Models\Blocks\Article\DidYouKnowInArticles;
 
 
