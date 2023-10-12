@@ -97,6 +97,7 @@ watch(() => endpointForm.name, () => {
 function sendForm(preview = false) {
   let saveUrl = '/admin/article/store'
   if (preview) {
+    console.log('preview', usePage().props)
     saveUrl = '/admin/article/preview'
     // set cookie
     document.cookie = `${usePage().props?.article?.tokenForArticlePreview?.cookieName}=${usePage().props?.article?.tokenForArticlePreview?.cookieValue}; expires=Fri, 31 Dec 9999 23:59:59 GMT"; path=/`;
