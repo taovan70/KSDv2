@@ -676,7 +676,7 @@ const copyToClipboard = (val) => {
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ArticleGalleryWrapper+
-              Здесь ссылка из embed заменить
+              Здесь сами картинки заменить
 +ArticleGalleryWrapper+`)" />
           </td>
         </tr>
