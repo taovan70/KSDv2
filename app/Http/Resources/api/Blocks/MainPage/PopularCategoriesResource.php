@@ -19,6 +19,7 @@ class PopularCategoriesResource extends JsonResource
             'category' => [
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,
+                'photo_path' => $this->category->photo_path,
                 'articles_count' => $this->category->articles_count,
             ],
         ];
