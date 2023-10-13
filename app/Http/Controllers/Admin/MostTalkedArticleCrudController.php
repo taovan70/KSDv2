@@ -78,12 +78,13 @@ class MostTalkedArticleCrudController extends CrudController
     {
         CRUD::setValidation(MostTalkedArticlesRequest::class);
         CRUD::field('name')->label(__('table.name'));
-        CRUD::field('article_id')
-            ->label(__('table.article'))
-            ->type('select2')
-            ->options((function ($query) {
-                return $query->where('published', 1)->get();
-            }));
+        CRUD::addField([
+            'name' => 'article_id',
+            'label' => __('table.article'),
+            'type' => 'select2_from_ajax',
+            'method' => 'POST',
+            'data_source' => url('api/articles'),
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax:

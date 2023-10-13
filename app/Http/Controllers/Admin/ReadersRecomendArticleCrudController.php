@@ -59,7 +59,7 @@ class ReadersRecomendArticleCrudController extends CrudController
             'attribute' => 'name',
             'entity' => 'article',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
+                'href' => fn ($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
             ]
         ]);
 
@@ -79,12 +79,13 @@ class ReadersRecomendArticleCrudController extends CrudController
     {
         CRUD::setValidation(ReadersRecomendArticleRequest::class);
         CRUD::field('name')->label(__('table.name'));
-        CRUD::field('article_id')
-            ->label(__('table.article'))
-            ->type('select2')
-            ->options((function ($query) {
-                return $query->where('published', 1)->get();
-            }));
+        CRUD::addField([
+            'name' => 'article_id',
+            'label' => __('table.article'),
+            'type' => 'select2_from_ajax',
+            'method' => 'POST',
+            'data_source' => url('api/articles'),
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax:
@@ -113,7 +114,7 @@ class ReadersRecomendArticleCrudController extends CrudController
             'attribute' => 'name',
             'entity' => 'article',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
+                'href' => fn ($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
             ]
         ]);
     }
