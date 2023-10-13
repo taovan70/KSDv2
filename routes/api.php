@@ -61,6 +61,10 @@ Route::group([], function () {
             Route::group(['prefix' => 'most-talked-articles'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\MostTalkedArticlesController::class, 'index'])->name('mostTalkedArticles.index');
             });
+            Route::group(['prefix' => 'big-card-articles'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\BigCardArticlesController::class, 'index'])->name('bigCardArticles.index');
+                Route::get('/{id}', [\App\Http\Controllers\Api\Blocks\MainPage\BigCardArticlesController::class, 'show'])->name('bigCardArticles.show');
+            });
             Route::group(['prefix' => 'readers-recommend-articles'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\MainPage\ReadersRecomendArticlesController::class, 'index'])->name('readersRecommendArticles.index');
             });
