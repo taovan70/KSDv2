@@ -20,10 +20,11 @@ class ReadersRecomendArticleResource extends JsonResource
                 'name' => $this->article->name,
                 'slug' => $this->article->slug,
                 'photo_path' => $this->article->photo_path,
-                'created_at' => $this->article->created_at,
+                'publish_date' => $this->article->publish_date,
                 'author' => [
                     'id' => $this->article->author->id,
                     'name' => $this->article->author->name,
+                    'surname' => $this->article->author->surname,
                     'slug' => $this->article->author->slug,
                 ],
                 'category' => [
