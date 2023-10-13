@@ -86,6 +86,12 @@
                         {{ __('models.readers_recomend_articles') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('big-card-article') }}">
+                        <i class="nav-icon la la-user-tie"></i>
+                        {{ __('models.big_card_article') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item nav-dropdown text-capitalize">
