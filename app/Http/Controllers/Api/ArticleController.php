@@ -31,6 +31,11 @@ class ArticleController extends Controller
         return ArticleResource::collection($articles);
     }
 
+    public function fetchArticles(Request $request, ArticleService $service): Collection
+    {
+        return $service->getArticles($request->q);
+    }
+
 
     public function fetchAuthors(Request $request, ArticleService $service): Collection
     {

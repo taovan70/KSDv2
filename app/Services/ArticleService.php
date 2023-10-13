@@ -26,6 +26,14 @@ class ArticleService
     {
     }
 
+    public function getArticles(?string $search): Collection
+    {
+        return Article::query()
+            ->when(isset($search), fn(Builder $query) => $query->where('name', 'LIKE', "%{$search}%"))
+            ->orderBy('name')
+            ->get();
+    }
+
     /**
      * @param Request $request
      * @return Collection
