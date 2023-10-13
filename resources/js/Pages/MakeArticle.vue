@@ -97,6 +97,7 @@ watch(() => endpointForm.name, () => {
 function sendForm(preview = false) {
   let saveUrl = '/admin/article/store'
   if (preview) {
+    console.log("usePage().props", usePage().props)
     const cookieName = usePage().props?.article ? usePage().props?.article?.tokenForArticlePreview?.cookieName :  usePage().props?.tokenForArticlePreview?.cookieName
     const cookieValue = usePage().props?.article ? usePage().props?.article?.tokenForArticlePreview?.cookieValue :  usePage().props?.tokenForArticlePreview?.cookieValue
     saveUrl = '/admin/article/preview'
