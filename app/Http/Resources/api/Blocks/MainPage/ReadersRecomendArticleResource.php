@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\api\Blocks\MainPage;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +20,6 @@ class ReadersRecomendArticleResource extends JsonResource
             'article' => [
                 'name' => $this->article->name,
                 'slug' => $this->article->slug,
-                'photo_path' => $this->article->photo_path,
                 'publish_date' => $this->article->publish_date,
                 'author' => [
                     'id' => $this->article->author->id,
@@ -30,6 +30,9 @@ class ReadersRecomendArticleResource extends JsonResource
                 'category' => [
                     'name' => $this->article->category->name,
                     'slug' => $this->article->category->slug,
+                ],
+                'media' => [
+                    'mainPic' => Article::where('slug', '=',  $this->article->slug)->first()->getMedia('mainPic'),
                 ]
             ],
         ];
