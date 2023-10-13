@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Article;
 
-use App\Rules\NotContainsString;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ArticleStoreRequest extends FormRequest
 {
