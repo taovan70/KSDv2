@@ -18,6 +18,7 @@ class MostTalkedArticlesController extends Controller
     {
         $result = MostTalkedArticle::with('article')
             ->orderBy('lft', 'ASC')
+            ->take(3)
             ->get();
 
         return MostTalkedArticleResource::collection($result);
