@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Exception\CommonMarkException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
@@ -29,7 +28,7 @@ class ArticleService
     public function getArticles(?string $search): Collection
     {
         return Article::query()
-            ->when(isset($search), fn(Builder $query) => $query->where('name', 'LIKE', "%{$search}%"))
+            ->when(isset($search), fn (Builder $query) => $query->where('name', 'LIKE', "%{$search}%"))
             ->orderBy('name')
             ->get();
     }
@@ -174,12 +173,15 @@ class ArticleService
             $fileName = basename($eachMatch['imageURL']);
             // save description in database
             $row = DB::table('media')->where('model_id', $article->id)->where('file_name', $fileName)->first();
-            $mediaItem = Media::find($row->id);
+            
+            if (!empty($row)) {
+                $mediaItem = Media::find($row->id);
 
-            $mediaItem->setCustomProperty('description', $eachMatch['altText']); // adds a new custom property or updates an existing one
-            $mediaItem->forgetCustomProperty('name'); // removes a custom property
+                $mediaItem->setCustomProperty('description', $eachMatch['altText']); // adds a new custom property or updates an existing one
+                $mediaItem->forgetCustomProperty('name'); // removes a custom property
 
-            $mediaItem->save();
+                $mediaItem->save();
+            }
         }
 
         return $articleText;
