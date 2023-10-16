@@ -72,6 +72,12 @@ class ArticleController extends Controller
         return ArticleResource::collection($articles);
     }
 
+    public function recentPagination(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $articles = Article::latest()->where('published', true)->paginate(1);
+        return ArticleResource::collection($articles);
+    }
+
 
     public function store(ArticleStoreRequest $request): RedirectResponse
     {
