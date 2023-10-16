@@ -25,6 +25,7 @@ return [
     'articles_accusative' => 'Статью',
     'tags' => 'Теги',
     "user_logging" => "Логирование",
+    "icon" => "Иконка",
     'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',

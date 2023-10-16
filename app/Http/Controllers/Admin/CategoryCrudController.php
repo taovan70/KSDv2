@@ -94,6 +94,13 @@ class CategoryCrudController extends CrudController
             'upload' => true,
             'disk' => 'public'
         ]);
+        CRUD::addField([
+            'name' => 'icon_path',
+            'label' => __('table.icon'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
 
         Category::creating(function (Category $category) {
             $category->slug = Str::slug($category->name, '_');
@@ -143,6 +150,13 @@ class CategoryCrudController extends CrudController
             'upload' => true,
             'disk' => 'public'
         ]);
+        CRUD::addField([
+            'name' => 'icon_path',
+            'label' => __('table.icon'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
 
         Category::updating(function (Category $category) {
             $category->slug = Str::slug($category->name, '_');
@@ -159,8 +173,15 @@ class CategoryCrudController extends CrudController
             'width' => '100px',
             'height' => '100px'
         ]);
+        CRUD::addColumn([
+            'name' => 'icon_path',
+            'label' => __('table.icon'),
+            'type' => 'image',
+            'prefix' => 'storage/',
+            'width' => '100px',
+            'height' => '100px'
+        ]);
         $this->setupListOperation();
-        
     }
 
     public function destroy($id, CategoryService $categoryService)
@@ -174,11 +195,12 @@ class CategoryCrudController extends CrudController
         }
     }
 
-    
+
     protected function setupDeleteOperation()
     {
         Category::deleting(function (Category $category) {
             Storage::disk('public')->delete($category->photo_path);
+            Storage::disk('public')->delete($category->icon_path);
         });
     }
 }

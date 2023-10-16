@@ -23,7 +23,7 @@ class Category extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path'];
+    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path', 'icon_path'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -101,6 +101,18 @@ class Category extends Model
         } else {
             $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
         }
+    }
 
+    public function setIconPathAttribute($value)
+    {
+        $attribute_name = "icon_path";
+        $disk = "public";
+        $destination_path = "categories_icons";
+
+        if (is_file($value)) {
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        } else {
+            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
+        }
     }
 }

@@ -25,6 +25,7 @@ return [
     'articles_accusative' => 'Articles',
     'tags' => 'Tags',
     "user_logging" => "Logging",
+    "icon" => "Icon",
     'author_fields' => [
         'full_name' => 'Full name',
         'age' => 'Age',
