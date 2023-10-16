@@ -18,7 +18,8 @@ class BigCardArticleResource extends JsonResource
         return [
             'name' => $this->name,
             'photo_path' => $this->photo_path,
-            'content' => $this->content,
+            'content_html' => $this->content,
+            'content_plain' => strip_tags($this->content),
             'article' => [
                 'name' => $this->article->name,
                 'slug' => $this->article->slug,
