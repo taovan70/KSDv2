@@ -30,7 +30,7 @@ class BigCardArticleCrudController extends CrudController
     {
         CRUD::setModel(BigCardArticle::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/big-card-article');
-        CRUD::setEntityNameStrings('big card article', 'big card articles');
+        CRUD::setEntityNameStrings(__('models.big_card_article'), __('models.big_card_article'));
     }
 
     /**
@@ -64,6 +64,15 @@ class BigCardArticleCrudController extends CrudController
     {
         CRUD::setValidation(BigCardArticleRequest::class);
         CRUD::field('name')->label(__('table.name'));
+        CRUD::addField([
+            'name' => 'content',
+            'label' => __('table.article'),
+            'type' => 'ckeditor',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::addField([
             'name' => 'article_id',
             'label' => __('table.article'),

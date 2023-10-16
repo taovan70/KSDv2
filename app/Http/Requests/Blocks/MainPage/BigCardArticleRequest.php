@@ -29,6 +29,7 @@ class BigCardArticleRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'article_id' => 'required|numeric|exists:articles,id',
+            'text' => 'string',
         ];
     }
 
