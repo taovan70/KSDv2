@@ -33,6 +33,7 @@ class BigCardArticleResource extends JsonResource
                 'category' => [
                     'name' => $this->article->category->name,
                     'slug' => $this->article->category->slug,
+                    'icon_path' => $this->article->category->icon_path
                 ],
                 'media' => [
                     'mainPic' => Article::where('slug', '=',  $this->article->slug)->first()->getMedia('mainPic'),
