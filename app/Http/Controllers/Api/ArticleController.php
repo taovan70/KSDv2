@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\ArticleStoreRequest;
+use App\Http\Resources\api\Article\ArticleForBlocksResource;
 use App\Http\Resources\api\Article\ArticleResource;
 use App\Models\Article;
 use App\Services\ArticleService;
@@ -68,14 +69,14 @@ class ArticleController extends Controller
 
     public function recent(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::latest()->take($count)->where('published', true)->get();
-        return ArticleResource::collection($articles);
+        $articles = Article::latest()->with('category')->with('author')->take($count)->where('published', true)->get();
+        return ArticleForBlocksResource::collection($articles);
     }
 
     public function recentPagination(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::latest()->where('published', true)->paginate(1);
-        return ArticleResource::collection($articles);
+        $articles = Article::latest()->with('category')->with('author')->where('published', true)->paginate(6);
+        return ArticleForBlocksResource::collection($articles);
     }
 
 
