@@ -29,7 +29,7 @@ class ArticleStoreRequest extends FormRequest
             'slug' => 'required|string|max:500',
             'title' => 'required|string|max:500',
             'description' => 'required|string|max:1000',
-            'preview_text' => 'string',
+            'preview_text' => 'nullable|string',
             'keywords' => 'required|string|max:1000',
             'category_id' => 'required|numeric|exists:categories,id',
             'author_id' => 'required|numeric|exists:authors,id',
@@ -63,26 +63,26 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
-            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.max' => __('validation.common.max') . ' ' . ':max',
 
             'slug.required' => __('validation.common.required'),
-            'slug.max' => __('validation.common.max') .' ' . ':max',
+            'slug.max' => __('validation.common.max') . ' ' . ':max',
 
             'title.required' => __('validation.common.required'),
-            'title.max' => __('validation.common.max') .' ' . ':max',
+            'title.max' => __('validation.common.max') . ' ' . ':max',
 
             'description.required' => __('validation.common.required'),
-            'description.max' => __('validation.common.max') .' ' . ':max',
-            
+            'description.max' => __('validation.common.max') . ' ' . ':max',
+
             'keywords.required' => __('validation.common.required'),
-            'keywords.max' => __('validation.common.max') .' ' . ':max',
-           
+            'keywords.max' => __('validation.common.max') . ' ' . ':max',
+
             'category_id.required' => __('validation.common.required'),
             'author_id.required' => __('validation.common.required'),
             'tags.min' => __('validation.common.required'),
             'publish_date.required' => __('validation.common.required'),
             'content_markdown.required' => __('validation.common.required'),
-            'content_markdown.max' => __('validation.common.max') .' ' . ':max',
+            'content_markdown.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }
 }
