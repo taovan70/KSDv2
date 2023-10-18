@@ -83,6 +83,7 @@ const endpointForm = useForm({
   published: props.article?.published ?? true,
   title: props.article?.title,
   description: props.article?.description,
+  preview_text: props.article?.preview_text,
   keywords: props.article?.keywords,
   slug: translit(props.article?.name),
   mainPic: null,
@@ -249,7 +250,14 @@ const copyToClipboard = (val) => {
       <div class="article_published">
         <el-checkbox v-model="endpointForm.published" size="large">{{ $t("makeArticle.fields.published") }}</el-checkbox>
       </div>
+      <div class="article_preview_text">
+        <label for="article_preview_text">{{ $t("makeArticle.fields.preview_text") }}</label>
+        <el-input v-model="endpointForm.preview_text" type="textarea" size="large" placeholder="Короткое вступление"
+          id="article_preview_text" />
+        <div v-if="endpointForm.errors.preview_text" class="form_error_text">{{ endpointForm.errors.preview_text }}</div>
+      </div>
       <div class="article_content">
+        <div class="content_heading">{{ $t("makeArticle.fields.content") }}</div>
         <CKeditor @content="getContent" :content="endpointForm.content_markdown" />
         <div v-if="endpointForm.errors.content_markdown" class="form_error_text">{{
           endpointForm.errors.content_markdown
@@ -283,9 +291,9 @@ const copyToClipboard = (val) => {
           </td>
           <td>
             <code>
-                                          +TOC+
-                                          +TOC+
-                                          </code>
+                                                  +TOC+
+                                                  +TOC+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/compTOC.png" class="instruction_compoment_image">
@@ -300,10 +308,10 @@ const copyToClipboard = (val) => {
           <td>Информационный блок "Полезно" (Зелёный)</td>
           <td>
             <code>
-                                            +InfoGreen+
-                                            Заменить здесь
-                                            +InfoGreen+
-                                          </code>
+                                                    +InfoGreen+
+                                                    Заменить здесь
+                                                    +InfoGreen+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp2.png" class="instruction_compoment_image">
@@ -320,10 +328,10 @@ const copyToClipboard = (val) => {
           <td>Информационный блок "Важно" (Красный)</td>
           <td>
             <code>
-                                            +InfoRed+
-                                            Заменить здесь
-                                            +InfoRed+
-                                          </code>
+                                                    +InfoRed+
+                                                    Заменить здесь
+                                                    +InfoRed+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp1.png" class="instruction_compoment_image">
@@ -340,10 +348,10 @@ const copyToClipboard = (val) => {
           <td>Информационный блок "Интересно" (Синий)</td>
           <td>
             <code>
-                                            +InfoBlue+
-                                            Заменить здесьtd
-                                            +InfoBlue+
-                                          </code>
+                                                    +InfoBlue+
+                                                    Заменить здесьtd
+                                                    +InfoBlue+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp4.png" class="instruction_compoment_image">
@@ -360,20 +368,20 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Голубая галочка)</td>
           <td>
             <code>
-                                          +ProsConsBlueMark+
+                                                  +ProsConsBlueMark+
 
-                                            (+) преимущество 1
+                                                    (+) преимущество 1
 
-                                            (+) преимущество 2
+                                                    (+) преимущество 2
 
-                                            ||
+                                                    ||
 
-                                            (-) недостаток 1
+                                                    (-) недостаток 1
 
-                                            (-) недостаток 2
+                                                    (-) недостаток 2
 
-                                          +ProsConsBlueMark+
-                                        </code>
+                                                  +ProsConsBlueMark+
+                                                </code>
           </td>
           <td>
             <img src="/images/article/components/comp9.png" class="instruction_compoment_image">
@@ -398,18 +406,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Зелёный плюс на белом фоне)</td>
           <td>
             <code>
-                                            +ProsConsEmptyPlus+
-                                              (+) преимущество 1
+                                                    +ProsConsEmptyPlus+
+                                                      (+) преимущество 1
 
-                                              (+) преимущество 2
+                                                      (+) преимущество 2
 
-                                              ||
+                                                      ||
 
-                                              (-) недостаток 1
+                                                      (-) недостаток 1
 
-                                              (-) недостаток 2
-                                            +ProsConsEmptyPlus+
-                                          </code>
+                                                      (-) недостаток 2
+                                                    +ProsConsEmptyPlus+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp10.png" class="instruction_compoment_image">
@@ -434,18 +442,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Белый плюс на зелёном фоне)</td>
           <td>
             <code>
-                                            +ProsConsGreenPlus+
-                                            (+) преимущество 1
+                                                    +ProsConsGreenPlus+
+                                                    (+) преимущество 1
 
-                                            (+) преимущество 2
+                                                    (+) преимущество 2
 
-                                            ||
+                                                    ||
 
-                                            (-) недостаток 1
+                                                    (-) недостаток 1
 
-                                            (-) недостаток 2
-                                            +ProsConsGreenPlus+
-                                          </code>
+                                                    (-) недостаток 2
+                                                    +ProsConsGreenPlus+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp11.png" class="instruction_compoment_image">
@@ -470,18 +478,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Зелёная галочка)</td>
           <td>
             <code>
-                                            +ProsConsGreenMark+
-                                            (+) преимущество 1
+                                                    +ProsConsGreenMark+
+                                                    (+) преимущество 1
 
-                                            (+) преимущество 2
+                                                    (+) преимущество 2
 
-                                            ||
+                                                    ||
 
-                                            (-) недостаток 1
+                                                    (-) недостаток 1
 
-                                            (-) недостаток 2
-                                            +ProsConsGreenMark+
-                                          </code>
+                                                    (-) недостаток 2
+                                                    +ProsConsGreenMark+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp12.png" class="instruction_compoment_image">
@@ -506,18 +514,18 @@ const copyToClipboard = (val) => {
           <td>Преимущества-недостатки (Зелёная галочка-прерывистый)</td>
           <td>
             <code>
-                                            +ProsConsGreenMarkDashed+
-                                            (+) преимущество 1
+                                                    +ProsConsGreenMarkDashed+
+                                                    (+) преимущество 1
 
-                                            (+) преимущество 2
+                                                    (+) преимущество 2
 
-                                            ||
+                                                    ||
 
-                                            (-) недостаток 1
+                                                    (-) недостаток 1
 
-                                            (-) недостаток 2
-                                            +ProsConsGreenMarkDashed+
-                                          </code>
+                                                    (-) недостаток 2
+                                                    +ProsConsGreenMarkDashed+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp13.png" class="instruction_compoment_image">
@@ -542,10 +550,10 @@ const copyToClipboard = (val) => {
           <td>Совет эксперта</td>
           <td>
             <code>
-                                            +Advice+
-                                            Заменить здесь
-                                            +Advice+
-                                          </code>
+                                                    +Advice+
+                                                    Заменить здесь
+                                                    +Advice+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp6.png" class="instruction_compoment_image">
@@ -562,11 +570,11 @@ const copyToClipboard = (val) => {
           <td>Текстовый блок с рекламным предложением</td>
           <td>
             <code>
-                                            +TextBlockFirst+
-                                              --Заголовок заменить--
-                                               Tекст здесь  заменить
-                                            +TextBlockFirst+
-                                          </code>
+                                                    +TextBlockFirst+
+                                                      --Заголовок заменить--
+                                                       Tекст здесь  заменить
+                                                    +TextBlockFirst+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp16.png" class="instruction_compoment_image">
@@ -584,10 +592,10 @@ const copyToClipboard = (val) => {
           <td>А вы знали?</td>
           <td>
             <code>
-                                            +DidYouKnowInArticle+
+                                                    +DidYouKnowInArticle+
             
-                                            +DidYouKnowInArticle+
-                                          </code>
+                                                    +DidYouKnowInArticle+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp3.png" class="instruction_compoment_image">
@@ -603,11 +611,11 @@ const copyToClipboard = (val) => {
           <td>Цитата 1 (сплошная)</td>
           <td>
             <code>
-                                            +QuoteSolid+
-                                                Текст заменить
-                                                -- Автор заменить--
-                                            +QuoteSolid+
-                                          </code>
+                                                    +QuoteSolid+
+                                                        Текст заменить
+                                                        -- Автор заменить--
+                                                    +QuoteSolid+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp7.png" class="instruction_compoment_image">
@@ -625,11 +633,11 @@ const copyToClipboard = (val) => {
           <td>Цитата 1 (прерывистая)</td>
           <td>
             <code>
-                                            +QuoteDashed+
-                                                Текст заменить
-                                                -- Автор заменить--
-                                            +QuoteDashed+
-                                          </code>
+                                                    +QuoteDashed+
+                                                        Текст заменить
+                                                        -- Автор заменить--
+                                                    +QuoteDashed+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp8.png" class="instruction_compoment_image">
@@ -647,15 +655,15 @@ const copyToClipboard = (val) => {
           <td>Доп ссылки блок (сплошной)</td>
           <td>
             <code>
-                                          +LinksAlsoSolid+
-                                            Здесь текст заменить
+                                                  +LinksAlsoSolid+
+                                                    Здесь текст заменить
 
-                                            ||
+                                                    ||
 
-                                            Здесь ссылки как всегда через редактор
+                                                    Здесь ссылки как всегда через редактор
 
-                                          +LinksAlsoSolid+
-                                          </code>
+                                                  +LinksAlsoSolid+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp14.png" class="instruction_compoment_image">
@@ -675,15 +683,15 @@ const copyToClipboard = (val) => {
           <td>Доп ссылки блок (прерывистая рамка)</td>
           <td>
             <code>
-                                          +LinksAlsoDashed+
-                                            Здесь текст заменить
+                                                  +LinksAlsoDashed+
+                                                    Здесь текст заменить
 
-                                            ||
+                                                    ||
 
-                                            Здесь ссылки как всегда через редактор
+                                                    Здесь ссылки как всегда через редактор
 
-                                          +LinksAlsoDashed+
-                                          </code>
+                                                  +LinksAlsoDashed+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp15.png" class="instruction_compoment_image">
@@ -703,10 +711,10 @@ const copyToClipboard = (val) => {
           <td>Видео YouTube</td>
           <td>
             <code>
-                                          +YouTubeComponent+
-                                            Здесь ссылка из embed заменить
-                                          +YouTubeComponent+
-                                          </code>
+                                                  +YouTubeComponent+
+                                                    Здесь ссылка из embed заменить
+                                                  +YouTubeComponent+
+                                                  </code>
           </td>
           <td></td>
           <td>
@@ -719,10 +727,10 @@ const copyToClipboard = (val) => {
           <td>Галерея картинок</td>
           <td>
             <code>
-                                          +ArticleGalleryWrapper+
-                                            Здесь сами картинки заменить
-                                          +ArticleGalleryWrapper+
-                                          </code>
+                                                  +ArticleGalleryWrapper+
+                                                    Здесь сами картинки заменить
+                                                  +ArticleGalleryWrapper+
+                                                  </code>
           </td>
           <td>
             <img src="/images/article/components/comp5.png" class="instruction_compoment_image">
@@ -799,6 +807,14 @@ label {
 
 .instruction_table_row {
   margin-bottom: 10px;
+}
+
+.article_preview_text {
+  margin-bottom: 20px;
+}
+
+.content_heading {
+  margin-bottom: 5px;
 }
 
 .instruction_table_row div:last-child {

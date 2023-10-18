@@ -20,11 +20,12 @@ class ArticleResource extends JsonResource
             'title' => $this->name,
             'published' => $this->published,
             'publish_date' => $this->publish_date,
+            'preview_text' => $this->preview_text,
             'category' => $this->category,
             'contentMarkdown' => $this->content_html,
             'author' => $this->author,
             'tags' => $this->tags,
-            'meta'=> [
+            'meta' => [
                 'title' => $this->title,
                 'description' => $this->description,
                 'keywords' => $this->keywords

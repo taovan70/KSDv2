@@ -29,6 +29,7 @@ class ArticleStoreRequest extends FormRequest
             'slug' => 'required|string|max:500',
             'title' => 'required|string|max:500',
             'description' => 'required|string|max:1000',
+            'preview_text' => 'string',
             'keywords' => 'required|string|max:1000',
             'category_id' => 'required|numeric|exists:categories,id',
             'author_id' => 'required|numeric|exists:authors,id',
