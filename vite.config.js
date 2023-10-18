@@ -11,7 +11,13 @@ import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        transformAssetUrls: {
+          includeAbsolute: false,
+        },
+      },
+    }),
     VueI18nPlugin({
       /* options */
     }),
@@ -27,13 +33,6 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-  build: {
-    rollupOptions: {
-      external: [
-        /^\/images\/article.*/,
-      ],
-    },
-  },
   // resolve: name => {
   //     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
   //     return pages[`./Pages/${name}.vue`]

@@ -296,7 +296,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/compTOC.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/compTOC.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+TOC+
@@ -314,7 +314,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp2.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp2.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoGreen+
@@ -334,7 +334,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp1.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp1.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoRed+
@@ -354,7 +354,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp4.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp4.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+InfoBlue+
@@ -384,7 +384,7 @@ const copyToClipboard = (val) => {
                                                 </code>
           </td>
           <td>
-            <img src="/images/article/components/comp9.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp9.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsBlueMark+
@@ -420,7 +420,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp10.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp10.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsEmptyPlus+
@@ -456,7 +456,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp11.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp11.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenPlus+
@@ -492,7 +492,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp12.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp12.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenMark+
@@ -528,7 +528,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp13.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp13.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsConsGreenMarkDashed+
@@ -556,7 +556,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp6.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp6.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+Advice+
@@ -577,7 +577,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp16.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp16.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+TextBlockFirst+
@@ -598,7 +598,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp3.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp3.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+DidYouKnowInArticle+
@@ -618,7 +618,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp7.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp7.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+QuoteSolid+
@@ -640,7 +640,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp8.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp8.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+QuoteDashed+
@@ -666,7 +666,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp14.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp14.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+LinksAlsoSolid+
@@ -694,7 +694,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp15.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp15.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+LinksAlsoDashed+
@@ -733,7 +733,7 @@ const copyToClipboard = (val) => {
                                                   </code>
           </td>
           <td>
-            <img src="/images/article/components/comp5.png" class="instruction_compoment_image">
+            <img loading='lazy' src="/images/article/components/comp5.png" class="instruction_compoment_image">
           </td>
           <td>
             <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ArticleGalleryWrapper+
