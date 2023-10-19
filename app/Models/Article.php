@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\DOMParser\DOMTags;
+use App\Traits\Models\FullTextSearch;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,7 @@ class Article extends Model implements HasMedia
     use CrudTrait;
     use HasFactory;
     use InteractsWithMedia;
+    use FullTextSearch;
 
     /*
     |--------------------------------------------------------------------------
@@ -43,6 +45,9 @@ class Article extends Model implements HasMedia
         'slug',
         'preview_for',
         'preview_text'
+    ];
+    protected $searchable = [
+        'content_html'
     ];
     // protected $hidden = [];
     // protected $dates = [];
