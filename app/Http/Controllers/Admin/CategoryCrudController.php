@@ -86,7 +86,15 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
-
+        CRUD::addField([
+            'name' => 'description',
+            'label' => __('table.description'),
+            'type' => 'textarea',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::addField([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),
@@ -143,6 +151,15 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::addField([
+            'name' => 'description',
+            'label' => __('table.description'),
+            'type' => 'textarea',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::addField([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),

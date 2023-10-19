@@ -23,7 +23,7 @@ class Category extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path', 'icon_path'];
+    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path', 'icon_path', 'description'];
     // protected $hidden = [];
     // protected $dates = [];
 

@@ -26,6 +26,7 @@ return [
     'tags' => 'Tags',
     "user_logging" => "Logging",
     "icon" => "Icon",
+    "description" => "Description",
     'author_fields' => [
         'full_name' => 'Full name',
         'age' => 'Age',

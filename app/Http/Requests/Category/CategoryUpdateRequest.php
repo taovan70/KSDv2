@@ -32,7 +32,8 @@ class CategoryUpdateRequest extends FormRequest
                 'min:2',
                 'max:255',
                 Rule::unique('categories')->ignore($this->id)
-            ]
+            ],
+            'description' => 'required|string',
         ];
     }
 
@@ -57,6 +58,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'description.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') .' ' . ':max',
             'name.min' => __('validation.common.min') .' ' . ':min',
         ];

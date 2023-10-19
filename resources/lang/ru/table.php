@@ -26,6 +26,7 @@ return [
     'tags' => 'Теги',
     "user_logging" => "Логирование",
     "icon" => "Иконка",
+    "description" => "Описание",
     'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',
