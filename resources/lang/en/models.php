@@ -55,5 +55,6 @@ return [
     "info_blocks" => "Info blocks",
     "info_block" => "Info block",
     'text' => 'Text',
-    'big_card_article' => 'Big card article'
+    'big_card_article' => 'Big card article',
+    'everyone_talking_about' => 'Everyone talking about',
 ];

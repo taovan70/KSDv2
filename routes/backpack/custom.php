@@ -53,4 +53,5 @@ Route::group([
     Route::crud('readers-recomend-article', 'ReadersRecomendArticleCrudController');
     Route::crud('info-block', 'InfoBlockCrudController');
     Route::crud('big-card-article', 'BigCardArticleCrudController');
+    Route::crud('everyone-talking-about', 'EveryoneTalkingAboutCrudController');
 }); // this should be the absolute last line of this file

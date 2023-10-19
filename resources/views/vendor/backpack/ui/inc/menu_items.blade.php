@@ -108,6 +108,20 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item nav-dropdown text-capitalize">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon la la-filter"></i>
+                {{ __('models.categories') }}
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('everyone-talking-about') }}">
+                        <i class="nav-icon la la-comments"></i>
+                        {{ __('models.everyone_talking_about') }}
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="nav-item text-capitalize">
             <a class="nav-link" href="{{ backpack_url('info-block') }}">
                 <i class="nav-icon la la-share-alt"></i>
