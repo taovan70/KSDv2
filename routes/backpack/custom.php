@@ -54,4 +54,5 @@ Route::group([
     Route::crud('info-block', 'InfoBlockCrudController');
     Route::crud('big-card-article', 'BigCardArticleCrudController');
     Route::crud('everyone-talking-about', 'EveryoneTalkingAboutCrudController');
+    Route::get('charts/articles-info', 'Charts\ArticlesInfoChartController@response')->name('charts.articles-info.index');
 }); // this should be the absolute last line of this file
