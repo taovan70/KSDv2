@@ -126,7 +126,9 @@ class BigCardArticleCrudController extends CrudController
     protected function setupDeleteOperation()
     {
         BigCardArticle::deleting(function (BigCardArticle $bigCardArticle) {
-            BigCardArticle::disk('public')->delete($bigCardArticle->photo_path);
+            if (!empty($bigCardArticle->photo_path)) {
+                BigCardArticle::disk('public')->delete($bigCardArticle->photo_path);
+            }
         });
     }
 }

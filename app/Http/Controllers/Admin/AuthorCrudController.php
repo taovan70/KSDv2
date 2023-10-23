@@ -162,8 +162,8 @@ class AuthorCrudController extends CrudController
             'name' => 'categories',
             'type' => 'select_multiple',
             'wrapper' => [
-                'href' => function($crud, $column, $author, $related_key) {
-                        return backpack_url('category/' . $related_key. '/show');
+                'href' => function ($crud, $column, $author, $related_key) {
+                    return backpack_url('category/' . $related_key . '/show');
                 }
             ]
         ]);
@@ -172,7 +172,9 @@ class AuthorCrudController extends CrudController
     protected function setupDeleteOperation()
     {
         Author::deleting(function (Author $author) {
-            Storage::disk('public')->delete($author->photo_path);
+            if (!empty($author->photo_path)) {
+                Storage::disk('public')->delete($author->photo_path);
+            }
         });
     }
 }

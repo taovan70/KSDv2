@@ -216,8 +216,12 @@ class CategoryCrudController extends CrudController
     protected function setupDeleteOperation()
     {
         Category::deleting(function (Category $category) {
-            Storage::disk('public')->delete($category->photo_path);
-            Storage::disk('public')->delete($category->icon_path);
+            if (!empty($category->photo_path)) {
+                Storage::disk('public')->delete($category->photo_path);
+            }
+            if (!empty($category->icon_path)) {
+                Storage::disk('public')->delete($category->icon_path);
+            }
         });
     }
 }
