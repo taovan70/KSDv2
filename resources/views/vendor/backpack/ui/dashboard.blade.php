@@ -1,11 +1,10 @@
 @extends(backpack_view('blank'))
 
 @php
-    $articlesCount = \App\Models\Article::count();
+    $articlesCount = \App\Models\Article::where('published', '1')->count();
     $categoriesFirstLevelCount = \App\Models\Category::where('depth', 1)->count();
     $categoriesSecondLevelCount = \App\Models\Category::where('depth', 2)->count();
     $categoriesThirdLevelCount = \App\Models\Category::where('depth', 3)->count();
-
 
     $widgets['after_content'][] = [
         'type' => 'div',
@@ -46,15 +45,33 @@
             ],
         ],
     ];
+
     $widgets['after_content'][] = [
-        'type' => 'chart',
-        'controller' => \App\Http\Controllers\Admin\Charts\ArticlesInfoChartController::class,
-        'class' => 'card mb-2',
-        'wrapper' => ['class' => 'col-md-6'],
+        'type' => 'div',
+        'class' => 'd-flex flex-wrap',
         'content' => [
-            'header' => 'Статистика по статьям',
+            // widgets
+            [
+                'type' => 'chart',
+                'controller' => \App\Http\Controllers\Admin\Charts\ArticlesInfoLastMonthChartController::class,
+                'class' => 'card mb-2',
+                'wrapper' => ['class' => 'col-md-6'],
+                'content' => [
+                    'header' => 'Статистика по статьям за последний месяц',
+                ],
+            ],
+            [
+                'type' => 'chart',
+                'controller' => \App\Http\Controllers\Admin\Charts\ArticlesInfoCurrentMonthChartController::class,
+                'class' => 'card mb-2',
+                'wrapper' => ['class' => 'col-md-6'],
+                'content' => [
+                    'header' => 'Статистика по статьям за последние 30 дней',
+                ],
+            ],
         ],
     ];
+
 @endphp
 
 @section('content')
