@@ -27,6 +27,8 @@ class CategoryStoreRequest extends FormRequest
         return [
             'name' => 'required|unique:categories,name|string|min:2|max:255',
             'description' => 'required|string',
+            'icon_path' => 'required|image',
+            'photo_path' => 'required|image',
         ];
     }
 
@@ -38,12 +40,8 @@ class CategoryStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name.required' => __('validation.common.required'),
-            'description.required' => __('validation.common.required'),
-            'name.max' => __('validation.common.max') .' ' . ':max',
-            'name.min' => __('validation.common.min') .' ' . ':min',
-            'name.unique' => __('validation.common.unique')
-        ];
+            //
+        ]; 
     }
 
     /**
@@ -54,7 +52,13 @@ class CategoryStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('validation.common.required'),
+            'icon_path.required' => __('validation.common.required'),
+            'photo_path.required' => __('validation.common.required'),
+            'description.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') .' ' . ':max',
+            'name.min' => __('validation.common.min') .' ' . ':min',
+            'name.unique' => __('validation.common.unique')
         ];
     }
 }

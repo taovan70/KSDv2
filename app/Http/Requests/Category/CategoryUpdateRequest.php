@@ -34,6 +34,8 @@ class CategoryUpdateRequest extends FormRequest
                 Rule::unique('categories')->ignore($this->id)
             ],
             'description' => 'required|string',
+            'icon_path' => 'required|image',
+            'photo_path' => 'required|image',
         ];
     }
 
@@ -57,10 +59,12 @@ class CategoryUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('validation.common.required'),
+            'name.required' => 'Имяобязательно',
+            'icon_path.required' => __('validation.common.required'),
+            'photo_path.required' => __('validation.common.required'),
             'description.required' => __('validation.common.required'),
-            'name.max' => __('validation.common.max') .' ' . ':max',
-            'name.min' => __('validation.common.min') .' ' . ':min',
+            'name.max' => __('validation.common.max') . ' ' . ':max',
+            'name.min' => __('validation.common.min') . ' ' . ':min',
         ];
     }
 }
