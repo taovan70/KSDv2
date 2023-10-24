@@ -27,6 +27,7 @@ return [
     "user_logging" => "Logging",
     "icon" => "Icon",
     "description" => "Description",
+    "mini-pic" => "Mini picture",
     'author_fields' => [
         'full_name' => 'Full name',
         'age' => 'Age',

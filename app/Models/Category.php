@@ -23,7 +23,7 @@ class Category extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path', 'icon_path', 'description'];
+    protected $fillable = ['name', 'slug', 'parent_id', 'depth', 'lft', 'rgt', 'photo_path', 'icon_path', 'mini_pic_path', 'description'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -95,6 +95,19 @@ class Category extends Model
         $attribute_name = "photo_path";
         $disk = "public";
         $destination_path = "categories_photos";
+
+        if (is_file($value)) {
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        } else {
+            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
+        }
+    }
+
+    public function setMiniPicPathAttribute($value)
+    {
+        $attribute_name = "mini_pic_path";
+        $disk = "public";
+        $destination_path = "categories_mini_pics";
 
         if (is_file($value)) {
             $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);

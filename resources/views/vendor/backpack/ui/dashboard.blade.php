@@ -53,20 +53,20 @@
             // widgets
             [
                 'type' => 'chart',
-                'controller' => \App\Http\Controllers\Admin\Charts\ArticlesInfoLastMonthChartController::class,
-                'class' => 'card mb-2',
-                'wrapper' => ['class' => 'col-md-6'],
-                'content' => [
-                    'header' => 'Статистика по статьям за последний месяц',
-                ],
-            ],
-            [
-                'type' => 'chart',
                 'controller' => \App\Http\Controllers\Admin\Charts\ArticlesInfoCurrentMonthChartController::class,
                 'class' => 'card mb-2',
                 'wrapper' => ['class' => 'col-md-6'],
                 'content' => [
                     'header' => 'Статистика по статьям за последние 30 дней',
+                ],
+            ],
+            [
+                'type' => 'chart',
+                'controller' => \App\Http\Controllers\Admin\Charts\ArticlesInfoLastYearChartController::class,
+                'class' => 'card mb-2',
+                'wrapper' => ['class' => 'col-md-6'],
+                'content' => [
+                    'header' => 'Статистика по статьям за последний год',
                 ],
             ],
         ],

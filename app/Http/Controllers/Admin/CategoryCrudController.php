@@ -103,6 +103,13 @@ class CategoryCrudController extends CrudController
             'disk' => 'public'
         ]);
         CRUD::addField([
+            'name' => 'mini_pic_path',
+            'label' => __('table.mini-pic'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
+        CRUD::addField([
             'name' => 'icon_path',
             'label' => __('table.icon'),
             'type' => 'upload',
@@ -168,6 +175,13 @@ class CategoryCrudController extends CrudController
             'disk' => 'public'
         ]);
         CRUD::addField([
+            'name' => 'mini_pic_path',
+            'label' => __('table.mini-pic'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
+        CRUD::addField([
             'name' => 'icon_path',
             'label' => __('table.icon'),
             'type' => 'upload',
@@ -185,6 +199,14 @@ class CategoryCrudController extends CrudController
         CRUD::addColumn([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),
+            'type' => 'image',
+            'prefix' => 'storage/',
+            'width' => '100px',
+            'height' => '100px'
+        ]);
+        CRUD::addColumn([
+            'name' => 'mini_pic_path',
+            'label' => __('table.mini-pic'),
             'type' => 'image',
             'prefix' => 'storage/',
             'width' => '100px',
@@ -218,6 +240,9 @@ class CategoryCrudController extends CrudController
         Category::deleting(function (Category $category) {
             if (!empty($category->photo_path)) {
                 Storage::disk('public')->delete($category->photo_path);
+            }
+            if (!empty($category->mini_pic_path)) {
+                Storage::disk('public')->delete($category->mini_pic_path);
             }
             if (!empty($category->icon_path)) {
                 Storage::disk('public')->delete($category->icon_path);

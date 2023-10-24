@@ -29,6 +29,7 @@ class CategoryStoreRequest extends FormRequest
             'description' => 'required|string',
             'icon_path' => 'required|image',
             'photo_path' => 'required|image',
+            'mini_pic_path' => 'required|image',
         ];
     }
 
@@ -56,6 +57,7 @@ class CategoryStoreRequest extends FormRequest
             'icon_path.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
             'description.required' => __('validation.common.required'),
+            'mini_pic_path.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') .' ' . ':max',
             'name.min' => __('validation.common.min') .' ' . ':min',
             'name.unique' => __('validation.common.unique')

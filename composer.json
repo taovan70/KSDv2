@@ -15,6 +15,7 @@
         "backpack/settings": "^3.1",
         "backpack/theme-coreuiv2": "^1.1",
         "backpack/theme-tabler": "^1.0",
+        "consoletvs/charts": "6.*",
         "embed/embed": "^4.4",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.9",

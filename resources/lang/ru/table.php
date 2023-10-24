@@ -27,6 +27,7 @@ return [
     "user_logging" => "Логирование",
     "icon" => "Иконка",
     "description" => "Описание",
+    "mini-pic" => "Мини-картинка",
     'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',
