@@ -29,14 +29,6 @@ class ArticlesInfoLastMonthChartController extends ChartController
     public function setup()
     {
         $this->chart = new Chart();
-
-        // MANDATORY. Set the labels for the dataset points
-        $labels = [];
-        for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
-            if ($days_backwards == 1) {
-            }
-            $labels[] = $days_backwards . ' дней назад';
-        }
         $this->chart->labels($this->generateDatesForPreviousMonth());
         $this->chart->options([
             'scales' => [

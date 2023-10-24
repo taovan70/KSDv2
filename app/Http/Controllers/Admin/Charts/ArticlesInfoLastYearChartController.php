@@ -10,34 +10,27 @@ use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use DateTime;
 
 
-class ArticlesInfoCurrentYearChartController extends ChartController
+class ArticlesInfoLastYearChartController extends ChartController
 {
 
-    private function generateDatesForPreviousMonth()
+    function generateDatesForLast12Months()
     {
         $dates = array();
-        $firstDay = new DateTime('first day of last month');
-        $lastDay = new DateTime('last day of last month');
+        $currentDate = new DateTime();
 
-        while ($firstDay <= $lastDay) {
-            $dates[] = $firstDay->format('Y-m-d');
-            $firstDay->modify('+1 day');
+        for ($i = 0; $i < 12; $i++) {
+            $dates[] = $currentDate->format('Y-m');
+            $currentDate->modify('-1 month');
         }
 
-        return $dates;
+        return array_reverse($dates); // Reverse the array to get dates in ascending order
     }
+
     public function setup()
     {
         $this->chart = new Chart();
 
-        // MANDATORY. Set the labels for the dataset points
-        $labels = [];
-        for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
-            if ($days_backwards == 1) {
-            }
-            $labels[] = $days_backwards . ' дней назад';
-        }
-        $this->chart->labels($this->generateDatesForPreviousMonth());
+        $this->chart->labels($this->generateDatesForLast12Months());
         $this->chart->options([
             'scales' => [
                 'yAxes' => [
@@ -55,7 +48,7 @@ class ArticlesInfoCurrentYearChartController extends ChartController
         ]);
 
         // RECOMMENDED. Set URL that the ChartJS library should call, to get its data using AJAX.
-        $this->chart->load(backpack_url('charts/articles-info-last-month'));
+        $this->chart->load(backpack_url('charts/articles-info-last-year'));
 
         // OPTIONAL
         $this->chart->minimalist(false);
@@ -69,22 +62,30 @@ class ArticlesInfoCurrentYearChartController extends ChartController
      */
     public function data()
     {
+        $dates = $this->generateDatesForLast12Months();
 
-        for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
-            // Could also be an array_push if using an array rather than a collection.
-            $articles[] = Article::whereDate('created_at', today()
-                ->subDays($days_backwards))
+        foreach ($dates as $date) {
+            // get year
+            $year = substr($date, 0, 4);
+            // get month
+            $month = substr($date, 5, 2);
+
+            $articles[] = Article::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
                 ->where('published', '1')
                 ->count();
-            $categories[] = Category::whereDate('created_at', today()
-                ->subDays($days_backwards))
+
+            $categories[] = Category::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
                 ->count();
-            $subCategories[] = Category::whereDate('created_at', today()
-                ->subDays($days_backwards))
+
+            $subCategories[] = Category::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
                 ->where('depth', 2)
                 ->count();
-            $tags[] = Tag::whereDate('created_at', today()
-                ->subDays($days_backwards))
+
+            $tags[] = Tag::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
                 ->count();
         }
 
