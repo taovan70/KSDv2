@@ -54,8 +54,24 @@ class StandalonePageCrudController extends CrudController
     {
         CRUD::setValidation(StandalonePageRequest::class);
         CRUD::field('name')->label(__('table.name'));
-        CRUD::field('main_text')->label(__('models.main_text'));
-        CRUD::field('add_text')->label(__('models.add_text'));
+        CRUD::addField([
+            'name' => 'main_text',
+            'label' => __('models.main_text'),
+            'type' => 'ckeditor',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
+        CRUD::addField([
+            'name' => 'add_text',
+            'label' => __('models.add_text'),
+            'type' => 'ckeditor',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::addField([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),
