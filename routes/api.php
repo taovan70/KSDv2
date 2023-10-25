@@ -90,6 +90,6 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'standalone-page'], function () {
-        Route::get('/{slug}', [\App\Http\Controllers\Api\StandalonePageController::class, 'show'])->name('standalone-page.show');
+        Route::get('/{id}', [\App\Http\Controllers\Api\StandalonePageController::class, 'show'])->name('standalone-page.show');
     });
 });

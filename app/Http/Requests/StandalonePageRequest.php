@@ -26,7 +26,6 @@ class StandalonePageRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'required|unique:standalone_pages,slug|string|min:2|max:255',
             'main_text' => 'nullable|string',
             'add_text' => 'nullable|string',
             'photo_path' => 'nullable|image|max:2000',
@@ -54,8 +53,6 @@ class StandalonePageRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
-            'slug.required' => __('validation.common.required'),
-            'slug.unique' => __('validation.common.unique'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'photo_path.max' => __('validation.common.max') . ' ' . ':max',
         ];

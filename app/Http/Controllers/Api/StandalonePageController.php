@@ -10,9 +10,9 @@ use App\Models\StandalonePage;
 class StandalonePageController extends Controller
 {
 
-    public function show(string $slug)
+    public function show(string $id)
     {
-        $page = StandalonePage::where('slug', $slug)->first();
+        $page = StandalonePage::findOrFail($id);
         return new StandalonePageResource($page);
     }
 }
