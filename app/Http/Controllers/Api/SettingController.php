@@ -13,4 +13,13 @@ class SettingController extends Controller
         $settings['lang'] = app()->getLocale();
         return $settings;
     }
+
+    public function getAppSettings()
+    {
+        $settings = [
+            'preview_type' => 'type2',
+        ];
+       
+        return $settings;
+    }
 }

@@ -84,4 +84,8 @@ Route::group([], function () {
             Route::get('/{id}', [\App\Http\Controllers\Api\Blocks\InfoBlockController::class, 'show'])->name('infoBlock.show');
         });
     });
+
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', [\App\Http\Controllers\Api\SettingController::class, 'getAppSettings'])->name('api.settings.index');
+    });
 });
