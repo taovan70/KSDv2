@@ -88,4 +88,8 @@ Route::group([], function () {
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/', [\App\Http\Controllers\Api\SettingController::class, 'getAppSettings'])->name('api.settings.index');
     });
+
+    Route::group(['prefix' => 'standalone-page'], function () {
+        Route::get('/{slug}', [\App\Http\Controllers\Api\StandalonePageController::class, 'show'])->name('standalone-page.show');
+    });
 });

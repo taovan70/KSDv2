@@ -23,10 +23,11 @@
         </li>
     </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('adv-page') }}"><i class="nav-icon la la-pager"></i> {{ __('models.adv-pages') }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('adv-page') }}"><i class="nav-icon la la-pager"></i>
+        {{ __('models.adv-pages') }}</a></li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ backpack_url('adv-block')}}">
+    <a class="nav-link" href="{{ backpack_url('adv-block') }}">
         <i class="nav-icon la la-anchor"></i> {{ __('models.adv-blocks') }}
     </a>
 </li>
@@ -47,14 +48,18 @@
     </a>
 </li>
 
-@if(Auth::guard('backpack')->user()->role->name == 'admin')
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('log-user-event') }}"><i class="nav-icon la la-digital-tachograph"></i> {{ __('models.user_logging') }}</a></li>
+@if (Auth::guard('backpack')->user()->role->name == 'admin')
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('log-user-event') }}"><i
+                class="nav-icon la la-digital-tachograph"></i> {{ __('models.user_logging') }}</a></li>
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>{{ __('models.settings') }}</span></a></li>
+    <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i>
+            <span>{{ __('models.settings') }}</span></a></li>
 @endif
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i>{{ __('backpack::backup.backup') }}</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i
+            class='nav-icon la la-hdd-o'></i>{{ __('backpack::backup.backup') }}</a></li>
 
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('file_manager') }}"><i class="nav-icon la la-copy"></i> {{ __('models.file_manager') }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('file_manager') }}"><i class="nav-icon la la-copy"></i>
+        {{ __('models.file_manager') }}</a></li>
 
 <li class="nav-item nav-dropdown text-capitalize">
     <a class="nav-link nav-dropdown-toggle" href="#">
@@ -126,6 +131,12 @@
             <a class="nav-link" href="{{ backpack_url('info-block') }}">
                 <i class="nav-icon la la-share-alt"></i>
                 {{ __('models.info_blocks') }}
+            </a>
+        </li>
+        <li class="nav-item text-capitalize">
+            <a class="nav-link" href="{{ backpack_url('standalone-page') }}">
+                <i class="nav-icon la la-file"></i>
+                {{ __('models.standalone_pages') }}
             </a>
         </li>
     </ul>

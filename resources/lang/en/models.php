@@ -53,6 +53,7 @@ return [
     "main_text" => "Main text",
     "add_text" => "Additional text",
     "info_blocks" => "Info blocks",
+    'standalone_pages' => 'Standalone pages',
     "info_block" => "Info block",
     'text' => 'Text',
     'big_card_article' => 'Big card article',

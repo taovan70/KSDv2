@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\AdvBlock;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdvBlockStoreRequest extends FormRequest
+class StandalonePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +25,11 @@ class AdvBlockStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:255',
-            'slug' => 'required|unique:adv_blocks,slug|string|min:2|max:255',
-            'description' => 'nullable|string',
-            'content' => 'nullable|string',
-            'active' => 'required|boolean',
-            'device_type' => 'required|string|min:1|max:255',
-            'color_type' => 'required|string|min:1|max:255',
-            'adv_page_id' => 'required|integer|exists:adv_pages,id',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|unique:standalone_pages,slug|string|min:2|max:255',
+            'main_text' => 'nullable|string',
+            'add_text' => 'nullable|string',
+            'photo_path' => 'nullable|image|max:2000',
         ];
     }
 
@@ -57,13 +54,10 @@ class AdvBlockStoreRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
-            'name.max' => __('validation.common.max') .' ' . ':max',
             'slug.required' => __('validation.common.required'),
-            'slug.max' => __('validation.common.max') .' ' . ':max',
             'slug.unique' => __('validation.common.unique'),
-            'device_type.required' => __('validation.common.required'),
-            'color_type.required' => __('validation.common.required'),
-            'adv_page_id.required' => __('validation.common.required'),
+            'name.max' => __('validation.common.max') . ' ' . ':max',
+            'photo_path.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }
 }
