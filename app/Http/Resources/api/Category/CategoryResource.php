@@ -22,6 +22,8 @@ class CategoryResource extends JsonResource
             "lft" => $this->lft,
             "icon_path" => $this->icon_path,
             "photo_path" => $this->photo_path,
+            'description' => $this->description,
+            "mini_pic_path" => $this->mini_pic_path,
             "children" => CategoryResource::collection($this->children),
             "parent_id" => $this->parent_id,
             "created_at" => $this->created_at,
