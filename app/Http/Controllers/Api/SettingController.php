@@ -16,8 +16,9 @@ class SettingController extends Controller
 
     public function getAppSettings()
     {
+        $textOnArticle = Setting::where('key', 'text_on_article_image_preview')->first();
         $settings = [
-            'preview_type' => 'type2',
+            'preview_type' => $textOnArticle->value ? 'type2' : 'type1',
         ];
        
         return $settings;

@@ -85,5 +85,23 @@ class SettingsSeeder extends Seeder
             );
         }
 
+        if (!Setting::where('key', 'text_on_article_image_preview')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "text_on_article_image_preview",
+                    'name' => json_encode(
+                        ["en" => "show text on article image preview", "ru" => "Текст на картинках превью статьи"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "show text on article image preview", "ru" => "Текст на картинках превью статьи"]
+                    ),
+                    'value' => 0,
+                    'field' => json_encode(["name" => "value", "label" => "Value", "type" => "checkbox"]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }
