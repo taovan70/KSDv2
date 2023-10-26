@@ -57,4 +57,5 @@ Route::group([
     Route::get('charts/articles-info-last-year', 'Charts\ArticlesInfoLastYearChartController@response')->name('charts.articles-info-last-year.index');
     Route::get('charts/articles-info-current-month', 'Charts\ArticlesInfoCurrentMonthChartController@response')->name('charts.articles-info-current-month.index');
     Route::crud('standalone-page', 'StandalonePageCrudController');
+    Route::crud('q-a-category', 'QACategoryCrudController');
 }); // this should be the absolute last line of this file
