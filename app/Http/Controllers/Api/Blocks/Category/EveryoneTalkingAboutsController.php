@@ -19,7 +19,7 @@ class EveryoneTalkingAboutsController extends Controller
     {
         $result = EveryoneTalkingAbout::with('article')
             ->orderBy('lft', 'ASC')
-            ->take(3)
+            ->take(6)
             ->get();
 
         return EveryoneTalkingAboutResource::collection($result);
