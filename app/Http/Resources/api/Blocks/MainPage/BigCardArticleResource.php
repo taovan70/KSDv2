@@ -15,6 +15,7 @@ class BigCardArticleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $mainPic = !empty($this->article) ?  Article::where('slug', '=',  $this->article->slug)->first()->getMedia('mainPic') : '';
         return [
             'name' => $this->name,
             'photo_path' => $this->photo_path,
@@ -36,7 +37,7 @@ class BigCardArticleResource extends JsonResource
                     'icon_path' => $this->article?->category->icon_path
                 ],
                 'media' => [
-                    'mainPic' =>  !empty($this->article) ??  Article::where('slug', '=',  $this->article?->slug)->first()->getMedia('mainPic'),
+                    'mainPic' => $mainPic,
                 ]
             ],
         ];
