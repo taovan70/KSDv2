@@ -16,7 +16,9 @@ class QACategoryController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = QACategory::with('article')
+        $result = QACategory::with(['article' => function ($query) {
+            $query->where('published', 1);
+        }])
             ->orderBy('lft', 'ASC')
             ->take(6)
             ->get();

@@ -16,7 +16,9 @@ class BigCardArticlesController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = BigCardArticle::with('article')->get();
+        $result = BigCardArticle::with(['article' => function ($query) {
+            $query->where('published', 1);
+        }])->get();
 
         return BigCardArticleResource::collection($result);
     }

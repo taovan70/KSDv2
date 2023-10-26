@@ -16,7 +16,9 @@ class MostTalkedArticlesController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = MostTalkedArticle::with('article')
+        $result = MostTalkedArticle::with(['article' => function ($query) {
+            $query->where('published', 1);
+        }])
             ->orderBy('lft', 'ASC')
             ->take(3)
             ->get();

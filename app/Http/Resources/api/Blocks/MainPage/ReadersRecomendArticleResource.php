@@ -18,22 +18,22 @@ class ReadersRecomendArticleResource extends JsonResource
         return [
             'name' => $this->name,
             'article' => [
-                'name' => $this->article->name,
-                'slug' => $this->article->slug,
-                'publish_date' => $this->article->publish_date,
+                'name' => $this->article?->name,
+                'slug' => $this->article?->slug,
+                'publish_date' => $this->article?->publish_date,
                 'author' => [
-                    'id' => $this->article->author->id,
-                    'name' => $this->article->author->name,
-                    'surname' => $this->article->author->surname,
-                    'slug' => $this->article->author->slug,
+                    'id' => $this->article?->author->id,
+                    'name' => $this->article?->author->name,
+                    'surname' => $this->article?->author->surname,
+                    'slug' => $this->article?->author->slug,
                 ],
                 'category' => [
-                    'name' => $this->article->category->name,
-                    'slug' => $this->article->category->slug,
-                    'icon_path' => $this->article->category->icon_path
+                    'name' => $this->article?->category->name,
+                    'slug' => $this->article?->category->slug,
+                    'icon_path' => $this->article?->category->icon_path
                 ],
                 'media' => [
-                    'mainPic' => Article::where('slug', '=',  $this->article->slug)->first()->getMedia('mainPic'),
+                    'mainPic' =>  !empty($this->article) ??  Article::where('slug', '=',  $this->article?->slug)->first()->getMedia('mainPic'),
                 ]
             ],
         ];

@@ -17,11 +17,11 @@ class PopularCategoriesResource extends JsonResource
         return [
             'name' => $this->name,
             'category' => [
-                'name' => $this->category->name,
-                'slug' => $this->category->slug,
-                'photo_path' => $this->category->photo_path,
-                'icon_path' => $this->category->icon_path,
-                'articles_count' => $this->category->articles_count,
+                'name' => $this->category?->name,
+                'slug' => $this->category?->slug,
+                'photo_path' => $this->category?->photo_path,
+                'icon_path' => $this->category?->icon_path,
+                'articles_count' => $this->category?->articles_count,
             ],
         ];
     }

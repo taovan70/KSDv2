@@ -16,7 +16,9 @@ class ReadersRecomendArticlesController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = ReadersRecomendArticle::with('article')
+        $result = ReadersRecomendArticle::with(['article' => function ($query) {
+            $query->where('published', 1);
+        }])
             ->orderBy('lft', 'ASC')
             ->get();
 

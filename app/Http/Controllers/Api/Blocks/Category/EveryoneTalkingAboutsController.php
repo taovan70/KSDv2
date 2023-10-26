@@ -17,7 +17,9 @@ class EveryoneTalkingAboutsController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = EveryoneTalkingAbout::with('article')
+        $result = EveryoneTalkingAbout::with(['article' => function ($query) {
+            $query->where('published', 1);
+        }])
             ->orderBy('lft', 'ASC')
             ->take(6)
             ->get();
