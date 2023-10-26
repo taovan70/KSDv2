@@ -125,6 +125,12 @@
                         {{ __('models.everyone_talking_about') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('q-a-category') }}">
+                        <i class="nav-icon la la-retweet"></i>
+                        {{ __('models.q-a-category') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item text-capitalize">
