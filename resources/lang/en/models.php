@@ -59,4 +59,5 @@ return [
     'big_card_article' => 'Big card article',
     'everyone_talking_about' => 'Everyone talking about',
     'q-a-category' => 'Q&A',
+    'sub_cat_alphavite_block' => 'Block Alphavite',
 ];

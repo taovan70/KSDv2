@@ -59,4 +59,5 @@ return [
     'big_card_article' => 'Статья в большой карточке',
     'everyone_talking_about' => 'О чём все говорят',
     'q-a-category' => 'Вопрос-ответ',
+    'sub_cat_alphavite_block' => 'Блок алфавита',
 ];

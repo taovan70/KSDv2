@@ -133,6 +133,20 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item nav-dropdown text-capitalize">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon la la-filter"></i>
+                {{ __('models.sub_categories') }}
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-alphavite-block/1/edit') }}">
+                        <i class="nav-icon la la-comments"></i>
+                        {{ __('models.sub_cat_alphavite_block') }}
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="nav-item text-capitalize">
             <a class="nav-link" href="{{ backpack_url('info-block') }}">
                 <i class="nav-icon la la-share-alt"></i>
