@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Blocks\Category\SubCatAlphaviteBlockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +87,12 @@ Route::group([], function () {
 
         Route::group(['prefix' => 'info-block'], function () {
             Route::get('/{id}', [\App\Http\Controllers\Api\Blocks\InfoBlockController::class, 'show'])->name('infoBlock.show');
+        });
+
+        Route::group(['prefix' => 'sub-category'], function () {
+            Route::group(['prefix' => 'alphavite-block'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatAlphaviteBlockController::class, 'index'])->name('subCatAlphavite.index');
+            });
         });
     });
 
