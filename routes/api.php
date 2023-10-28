@@ -93,6 +93,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'alphavite-block'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatAlphaviteBlockController::class, 'index'])->name('subCatAlphavite.index');
             });
+            Route::group(['prefix' => 'interesting-block'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatInterestingBlockController::class, 'index'])->name('subCatInteresting.index');
+            });
         });
     });
 
