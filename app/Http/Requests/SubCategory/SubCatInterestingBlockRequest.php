@@ -5,7 +5,7 @@ namespace App\Http\Requests\SubCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubCatAlphaviteBlockRequest extends FormRequest
+class SubCatInterestingBlockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,9 @@ class SubCatAlphaviteBlockRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:255'
+            'name' => 'required|min:2|max:255',
+            'text' => 'required|string',
+            'photo_path' => 'nullable|image|max:2000',
         ];
     }
 
@@ -37,9 +39,7 @@ class SubCatAlphaviteBlockRequest extends FormRequest
      */
     public function attributes()
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     /**
@@ -52,6 +52,8 @@ class SubCatAlphaviteBlockRequest extends FormRequest
         return [
             'name.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
+            'text.required' => __('validation.common.required'),
+            'photo_path.required' => __('validation.common.required'),
         ];
     }
 }

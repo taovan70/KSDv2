@@ -60,4 +60,5 @@ return [
     'everyone_talking_about' => 'О чём все говорят',
     'q-a-category' => 'Вопрос-ответ',
     'sub_cat_alphavite_block' => 'Блок алфавита',
+    'sub_cat_interesting_block' => 'Это интересно',
 ];

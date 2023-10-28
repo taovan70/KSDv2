@@ -135,14 +135,20 @@
         </li>
         <li class="nav-item nav-dropdown text-capitalize">
             <a class="nav-link nav-dropdown-toggle" href="#">
-                <i class="nav-icon la la-filter"></i>
+                <i class="nav-icon la la-stream"></i>
                 {{ __('models.sub_categories') }}
             </a>
             <ul class="nav-dropdown-items">
                 <li class="nav-item">
                     <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-alphavite-block/1/edit') }}">
-                        <i class="nav-icon la la-comments"></i>
+                        <i class="nav-icon la la-poll-h"></i>
                         {{ __('models.sub_cat_alphavite_block') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-interesting-block/1/edit') }}">
+                        <i class="nav-icon la la-user-graduate"></i>
+                        {{ __('models.sub_cat_interesting_block') }}
                     </a>
                 </li>
             </ul>
