@@ -69,17 +69,25 @@ class ArticleController extends Controller
 
     public function recent(string $count, Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        if ($request->has('category_id')) {
-            $articles = Article::latest()->with('category')->with('author')->take($count)->where('category_id', $request->category_id)->where('published', true)->get();
+        if ($request->has('category_slug')) {
+            $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', '=', $request->category_slug);
+            })->with('category')->with('author')->take($count)->where('published', true)->get();
         } else {
             $articles = Article::latest()->with('category')->with('author')->take($count)->where('published', true)->get();
         }
         return ArticleForBlocksResource::collection($articles);
     }
 
-    public function recentPagination(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function recentPagination(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::latest()->with('category')->with('author')->where('published', true)->paginate(6);
+        if ($request->has('category_slug')) {
+            $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', '=', $request->category_slug);
+            })->with('category')->with('author')->where('published', true)->paginate(6);
+        } else {
+            $articles = Article::latest()->with('category')->with('author')->where('published', true)->paginate(6);
+        }
         return ArticleForBlocksResource::collection($articles);
     }
 
