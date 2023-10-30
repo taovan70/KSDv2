@@ -63,4 +63,10 @@ return [
     'sub_cat_interesting_block' => 'Это интересно',
     'sub_cat_calendar' => 'Календарь',
     'sub_cat_expert_advice' => 'Совет эксперта',
+    'sub_cat_game_one_block' => 'Игра первая',
+    'question' => 'Вопрос',
+    'answer' => 'Ответ',
+    'is_correct' => 'Это верно?',
+    'correct' => 'Верно',
+    'incorrect' => 'Неверно',
 ];

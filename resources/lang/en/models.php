@@ -63,4 +63,10 @@ return [
     'sub_cat_interesting_block'=> 'It is Interesting',
     'sub_cat_calendar' => 'Calendar',
     'sub_cat_expert_advice' => 'Expert Advice',
+    'sub_cat_game_one_block' => 'Game One',
+    'question' => 'Question',
+    'answer' => 'Answer',
+    'is_correct' => 'Is correct',
+    'correct' => 'Correct',
+    'incorrect' => 'Incorrect',
 ];
