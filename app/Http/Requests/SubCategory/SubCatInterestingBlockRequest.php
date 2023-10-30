@@ -29,6 +29,7 @@ class SubCatInterestingBlockRequest extends FormRequest
             'name' => 'required|min:2|max:255',
             'text' => 'required|string',
             'photo_path' => 'nullable|image|max:2000',
+            'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
 
@@ -54,6 +55,7 @@ class SubCatInterestingBlockRequest extends FormRequest
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'text.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
+            'category_id.required' => __('validation.common.required'),
         ];
     }
 }

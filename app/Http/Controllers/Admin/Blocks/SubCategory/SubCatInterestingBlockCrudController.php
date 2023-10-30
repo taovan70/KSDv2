@@ -43,6 +43,7 @@ class SubCatInterestingBlockCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'));
+        CRUD::column('category_id')->label(__('table.category'));
     }
 
     /**
@@ -62,6 +63,17 @@ class SubCatInterestingBlockCrudController extends CrudController
             'type' => 'upload',
             'upload' => true,
             'disk' => 'public'
+        ]);
+        CRUD::addField([
+            'name' => 'category_id',
+            'label' => __('table.category'),
+            'type' => 'select2_from_ajax',
+            'entity' => 'category',
+            'attribute' => 'name',
+            'data_source' => url('api/categories'),
+            'minimum_input_length' => 0,
+            'method' => 'POST',
+            'include_all_form_fields' => true
         ]);
     }
 
@@ -88,9 +100,5 @@ class SubCatInterestingBlockCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-        Widget::add([
-            'type'     => 'style',
-            'content'  => 'css/subcat_blocks.css',
-        ]);
     }
 }

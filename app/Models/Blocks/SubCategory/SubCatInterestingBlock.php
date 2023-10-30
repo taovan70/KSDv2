@@ -5,6 +5,7 @@ namespace App\Models\Blocks\SubCategory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SubCatInterestingBlock extends Model
 {
@@ -21,7 +22,7 @@ class SubCatInterestingBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'text', 'photo_path'];
+    protected $fillable = ['name', 'text', 'photo_path', 'category_id'];
     // protected $hidden = [];
 
     /*
@@ -35,6 +36,10 @@ class SubCatInterestingBlock extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Category::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -26,7 +26,8 @@ class SubCatAlphaviteBlockRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:255'
+            'name' => 'required|min:2|max:255',
+            'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
 
@@ -51,6 +52,7 @@ class SubCatAlphaviteBlockRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'category_id.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }

@@ -6,6 +6,7 @@ namespace App\Models\Blocks\SubCategory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SubCatAlphaviteBlock extends Model
 {
@@ -22,7 +23,7 @@ class SubCatAlphaviteBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['name', 'category_id'];
     // protected $hidden = [];
 
     /*
@@ -36,6 +37,10 @@ class SubCatAlphaviteBlock extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Category::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
