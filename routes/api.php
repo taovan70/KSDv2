@@ -102,6 +102,12 @@ Route::group([], function () {
             Route::group(['prefix' => 'expert-advice-block'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatExpertAdviceBlockController::class, 'index'])->name('subCatCalendar.index');
             });
+            Route::group(['prefix' => 'game-one-block'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatGameOneBlockController::class, 'index'])->name('subCatGameOne.index');
+            });
+            Route::group(['prefix' => 'game-two-block'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatGameTwoBlockController::class, 'index'])->name('subCatGameTwo.index');
+            });
         });
     });
 
