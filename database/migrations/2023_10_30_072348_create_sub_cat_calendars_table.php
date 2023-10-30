@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->json('month_data');
+            $table->foreignId('category_id')->constrained('categories')->onDelete("cascade");
             $table->timestamps();
         });
     }

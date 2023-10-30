@@ -49,7 +49,17 @@ class PopularCategoriesCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column('name')->label(__('table.name'));
+        CRUD::addColumn([
+            'label' => __('table.category'),
+            'type' => 'select',
+            'name' => 'category_id',
+            'attribute' => 'name',
+            'entity' => 'category',
+            'wrapper' => [
+                'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
+            ]
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -106,7 +116,7 @@ class PopularCategoriesCrudController extends CrudController
             'attribute' => 'name',
             'entity' => 'category',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
+                'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
         ]);
     }

@@ -41,7 +41,16 @@ class SubCatAlphaviteBlockCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'));
-        CRUD::column('category_id')->label(__('table.category'));
+        CRUD::addColumn([
+            'label' => __('table.category'),
+            'type' => 'select',
+            'name' => 'category_id',
+            'attribute' => 'name',
+            'entity' => 'category',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
+            ]
+        ]);
     }
 
     /**

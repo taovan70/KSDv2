@@ -24,7 +24,7 @@ class SubCatCalendar extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'month_data'];
+    protected $fillable = ['name', 'month_data', 'category_id'];
     // protected $hidden = [];
 
     /*
@@ -42,6 +42,11 @@ class SubCatCalendar extends Model
     public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Category::class);
     }
 
     /*

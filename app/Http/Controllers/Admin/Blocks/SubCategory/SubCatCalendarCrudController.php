@@ -44,6 +44,16 @@ class SubCatCalendarCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'));
+        CRUD::addColumn([
+            'label' => __('table.category'),
+            'type' => 'select',
+            'name' => 'category_id',
+            'attribute' => 'name',
+            'entity' => 'category',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
+            ]
+        ]);
     }
 
     /**
@@ -56,6 +66,17 @@ class SubCatCalendarCrudController extends CrudController
     {
         CRUD::setValidation(SubCatCalendarRequest::class);
         CRUD::field('name')->label(__('table.author_fields.name'));
+        CRUD::addField([
+            'name' => 'category_id',
+            'label' => __('table.category'),
+            'type' => 'select2_from_ajax',
+            'entity' => 'category',
+            'attribute' => 'name',
+            'data_source' => url('api/categories'),
+            'minimum_input_length' => 0,
+            'method' => 'POST',
+            'include_all_form_fields' => true
+        ]);
         CRUD::addField([
             'name'  => 'month_data',
             'label' => __('table.author_fields.social_networks'),
@@ -86,12 +107,7 @@ class SubCatCalendarCrudController extends CrudController
 
     protected function setupShowOperation()
     {
-        CRUD::column('name')->label(__('table.author_fields.name'));
-        // CRUD::addColumn([
-        //     'name' => 'month_data_array',
-        //     'label' => __('table.author_fields.social_networks'),
-        //     'type' => 'array'
-        // ]);
+        $this->setupListOperation();
     }
 
     /**
