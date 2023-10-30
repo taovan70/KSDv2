@@ -169,6 +169,12 @@
                         {{ __('models.sub_cat_game_one_block') }}
                     </a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-game-two-block') }}">
+                        <i class="nav-icon la la-dice-five"></i>
+                        {{ __('models.sub_cat_game_two_block') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item text-capitalize">

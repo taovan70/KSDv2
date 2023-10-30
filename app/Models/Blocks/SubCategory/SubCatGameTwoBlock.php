@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SubCatGameOneBlock extends Model
+class SubCatGameTwoBlock extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -19,11 +19,11 @@ class SubCatGameOneBlock extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'sub_cat_game_one_blocks';
+    protected $table = 'sub_cat_game_two_blocks';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['question', 'answer_data' ,'category_id', 'photo_path'];
+    protected $fillable = ['question', 'answer_data', 'category_id', 'photo_path_one', 'photo_path_two'];
     // protected $hidden = [];
 
     /*
@@ -68,17 +68,29 @@ class SubCatGameOneBlock extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function setPhotoPathAttribute($value)
+    public function setPhotoPathOneAttribute($value)
     {
-        $attribute_name = "photo_path";
+        $attribute_name = "photo_path_one";
         $disk = "public";
-        $destination_path = "sub_cat_game_one_photos";
+        $destination_path = "sub_cat_game_two_photos";
 
         if (is_file($value)) {
             $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
         } else {
             $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
         }
+    }
 
+    public function setPhotoPathTwoAttribute($value)
+    {
+        $attribute_name = "photo_path_two";
+        $disk = "public";
+        $destination_path = "sub_cat_game_two_photos";
+
+        if (is_file($value)) {
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        } else {
+            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Blocks\SubCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubCatGameOneBlockRequest extends FormRequest
+class SubCatGameTwoBlockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,8 @@ class SubCatGameOneBlockRequest extends FormRequest
             'answer_data' => 'nullable|array',
             'answer_data.*.answer' => 'required|string',
             'answer_data.*.is_correct' => 'required|boolean',
-            'photo_path' => 'required|image|max:2000'
+            'photo_path_one' => 'required|image|max:2000',
+            'photo_path_two' => 'required|image|max:2000',
         ];
     }
 
@@ -56,7 +57,8 @@ class SubCatGameOneBlockRequest extends FormRequest
     {
         return [
             'question.required' => __('validation.common.required'),
-            'photo_path.required' => __('validation.common.required'),
+            'photo_path_one.required' => __('validation.common.required'),
+            'photo_path_two.required' => __('validation.common.required'),
             'category_id.required' => __('validation.common.required'),
             'question.max' => __('validation.common.max') . ' ' . ':max',
             'question.min' => __('validation.common.min') . ' ' . ':min',

@@ -29,6 +29,7 @@ class BigCardArticleRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'article_id' => 'required|numeric|exists:articles,id',
+            'photo_path' => 'required|image|max:2000',
             'text' => 'string',
         ];
     }
@@ -54,6 +55,7 @@ class BigCardArticleRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'photo_path.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }

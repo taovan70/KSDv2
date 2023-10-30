@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Blocks\SubCategory;
 
 
 
-use App\Http\Requests\Blocks\SubCategory\SubCatGameOneBlockRequest;
-use App\Models\Blocks\SubCategory\SubCatGameOneBlock;
+use App\Http\Requests\Blocks\SubCategory\SubCatGameTwoBlockRequest;
+use App\Models\Blocks\SubCategory\SubCatGameTwoBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -14,7 +14,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class SubCatGameOneBlockCrudController extends CrudController
+class SubCatGameTwoBlockCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -29,9 +29,9 @@ class SubCatGameOneBlockCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(SubCatGameOneBlock::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/sub-cat-game-one-block');
-        CRUD::setEntityNameStrings(__('models.sub_cat_game_one_block'), __('models.sub_cat_game_one_block'));
+        CRUD::setModel(SubCatGameTwoBlock::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/sub-cat-game-two-block');
+        CRUD::setEntityNameStrings(__('models.sub_cat_game_two_block'), __('models.sub_cat_game_two_block'));
     }
 
     /**
@@ -63,7 +63,7 @@ class SubCatGameOneBlockCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SubCatGameOneBlockRequest::class);
+        CRUD::setValidation(SubCatGameTwoBlockRequest::class);
         CRUD::field('question')->label(__('models.question'));
         CRUD::addField([
             'name' => 'category_id',
@@ -77,7 +77,14 @@ class SubCatGameOneBlockCrudController extends CrudController
             'include_all_form_fields' => true
         ]);
         CRUD::addField([
-            'name' => 'photo_path',
+            'name' => 'photo_path_one',
+            'label' => __('table.author_fields.photo'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
+        CRUD::addField([
+            'name' => 'photo_path_two',
             'label' => __('table.author_fields.photo'),
             'type' => 'upload',
             'upload' => true,
@@ -112,7 +119,15 @@ class SubCatGameOneBlockCrudController extends CrudController
     {
         $this->setupListOperation();
         CRUD::addColumn([
-            'name' => 'photo_path',
+            'name' => 'photo_path_one',
+            'label' => __('table.author_fields.photo'),
+            'type' => 'image',
+            'prefix' => 'storage/',
+            'width' => '100px',
+            'height' => '100px'
+        ]);
+        CRUD::addColumn([
+            'name' => 'photo_path_two',
             'label' => __('table.author_fields.photo'),
             'type' => 'image',
             'prefix' => 'storage/',

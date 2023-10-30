@@ -64,6 +64,7 @@ return [
     'sub_cat_calendar' => 'Календарь',
     'sub_cat_expert_advice' => 'Совет эксперта',
     'sub_cat_game_one_block' => 'Игра первая',
+    'sub_cat_game_two_block' => 'Игра вторая',
     'question' => 'Вопрос',
     'answer' => 'Ответ',
     'is_correct' => 'Это верно?',

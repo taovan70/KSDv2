@@ -64,6 +64,7 @@ return [
     'sub_cat_calendar' => 'Calendar',
     'sub_cat_expert_advice' => 'Expert Advice',
     'sub_cat_game_one_block' => 'Game One',
+    'sub_cat_game_two_block' => 'Game Two',
     'question' => 'Question',
     'answer' => 'Answer',
     'is_correct' => 'Is correct',
