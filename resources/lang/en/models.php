@@ -62,4 +62,5 @@ return [
     'sub_cat_alphavite_block' => 'Block Alphavite',
     'sub_cat_interesting_block'=> 'It is Interesting',
     'sub_cat_calendar' => 'Calendar',
+    'sub_cat_expert_advice' => 'Expert Advice',
 ];

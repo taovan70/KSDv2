@@ -157,6 +157,12 @@
                         {{ __('models.sub_cat_calendar') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-expert-advice') }}">
+                        <i class="nav-icon la la-user-tie"></i>
+                        {{ __('models.sub_cat_expert_advice') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item text-capitalize">

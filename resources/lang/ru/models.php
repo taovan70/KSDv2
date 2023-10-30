@@ -62,4 +62,5 @@ return [
     'sub_cat_alphavite_block' => 'Блок алфавита',
     'sub_cat_interesting_block' => 'Это интересно',
     'sub_cat_calendar' => 'Календарь',
+    'sub_cat_expert_advice' => 'Совет эксперта',
 ];
