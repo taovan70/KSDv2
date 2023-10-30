@@ -60,4 +60,5 @@ Route::group([
     Route::crud('q-a-category', 'QACategoryCrudController');
     Route::crud('sub-cat-alphavite-block', 'Blocks\SubCategory\SubCatAlphaviteBlockCrudController');
     Route::crud('sub-cat-interesting-block', 'Blocks\SubCategory\SubCatInterestingBlockCrudController');
+    Route::crud('sub-cat-calendar', 'Blocks\SubCategory\SubCatCalendarCrudController');
 }); // this should be the absolute last line of this file

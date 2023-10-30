@@ -151,6 +151,12 @@
                         {{ __('models.sub_cat_interesting_block') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-calendar') }}">
+                        <i class="nav-icon la la-calendar-check"></i>
+                        {{ __('models.sub_cat_calendar') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item text-capitalize">
