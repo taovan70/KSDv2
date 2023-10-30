@@ -99,6 +99,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'calendar-block'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatCalendarBlockController::class, 'index'])->name('subCatCalendar.index');
             });
+            Route::group(['prefix' => 'expert-advice-block'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatExpertAdviceBlockController::class, 'index'])->name('subCatCalendar.index');
+            });
         });
     });
 
