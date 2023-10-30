@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Blocks\SubCategory;
 
-use App\Http\Requests\SubCategory\SubCatAlphaviteBlockRequest;
+use App\Http\Requests\Blocks\SubCategory\SubCatAlphaviteBlockRequest;
 use App\Models\Blocks\SubCategory\SubCatAlphaviteBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatAlphaviteBlockCrudController

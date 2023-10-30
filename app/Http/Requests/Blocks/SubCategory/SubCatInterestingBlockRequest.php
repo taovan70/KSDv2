@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\SubCategory;
+namespace App\Http\Requests\Blocks\SubCategory;
 
 
 use Illuminate\Foundation\Http\FormRequest;

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Blocks\SubCategory;
 
 
-use App\Http\Requests\SubCatInterestingBlockRequest;
+use App\Http\Requests\Blocks\SubCategory\SubCatInterestingBlockRequest;
 use App\Models\Blocks\SubCategory\SubCatInterestingBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatInterestingBlockCrudController
@@ -54,7 +53,7 @@ class SubCatInterestingBlockCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(\App\Http\Requests\SubCategory\SubCatInterestingBlockRequest::class);
+        CRUD::setValidation(SubCatInterestingBlockRequest::class);
         CRUD::field('name')->label(__('table.name'));
         CRUD::field('text')->label(__('models.text'));
         CRUD::addField([
