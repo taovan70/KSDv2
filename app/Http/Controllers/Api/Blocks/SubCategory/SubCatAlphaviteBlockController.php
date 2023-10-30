@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api\Blocks\SubCategory;
 
 
@@ -13,9 +14,11 @@ class SubCatAlphaviteBlockController extends Controller
     {
     }
 
-    public function index(): SubCatAlphaviteBlockResource
+    public function index(string $category_slug): SubCatAlphaviteBlockResource
     {
-        $result = SubCatAlphaviteBlock::where('id', 1)->first();
+        $result = SubCatAlphaviteBlock::whereHas('category', function ($q) use ($category_slug) {
+            $q->where('slug', '=', $category_slug);
+        })->firstOrFail();
         return new SubCatAlphaviteBlockResource($result);
     }
 }

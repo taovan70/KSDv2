@@ -13,9 +13,11 @@ class SubCatInterestingBlockController extends Controller
     {
     }
 
-    public function index(): SubCatInterestingBlockResource
+    public function index(string $category_slug): SubCatInterestingBlockResource
     {
-        $result = SubCatInterestingBlock::where('id', 1)->first();
+        $result = SubCatInterestingBlock::whereHas('category', function ($q) use ($category_slug) {
+            $q->where('slug', '=', $category_slug);
+        })->firstOrFail();
         return new SubCatInterestingBlockResource($result);
     }
 }
