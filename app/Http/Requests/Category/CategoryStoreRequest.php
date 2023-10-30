@@ -28,7 +28,7 @@ class CategoryStoreRequest extends FormRequest
             'name' => 'required|unique:categories,name|string|min:2|max:255',
             'description' => 'required|string',
             'icon_path' => 'required|image',
-            'photo_path' => 'required|image',
+            'photo_path' => 'required|image|max:2000',
             'mini_pic_path' => 'required|image',
         ];
     }

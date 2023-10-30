@@ -29,7 +29,7 @@ class BigCardArticleRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'article_id' => 'required|numeric|exists:articles,id',
-            'photo_path' => 'required|image|max:2000',
+            'photo_path' => 'nullable|image|max:2048',
             'text' => 'string',
         ];
     }
