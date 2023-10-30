@@ -96,6 +96,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'interesting-block'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatInterestingBlockController::class, 'index'])->name('subCatInteresting.index');
             });
+            Route::group(['prefix' => 'calendar-block'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatCalendarBlockController::class, 'index'])->name('subCatCalendar.index');
+            });
         });
     });
 
