@@ -12,6 +12,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 
 
+
 /**
  * Class AdvBlockCrudController
  * @package App\Http\Controllers\Admin
@@ -24,6 +25,9 @@ class AdvBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
+
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -52,6 +56,19 @@ class AdvBlockCrudController extends CrudController
         $this->data['crud'] = $this->crud;
         $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
         $pages = AdvPage::all();
+         Widget::add([
+             'type' => 'view',
+             'view'    => 'partials.advBlockModal',
+             'content'=> [
+                 'page' => 'adv-block',
+                 'secondPage'=> 'adv-page',
+             ]
+         ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
 
         // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
         return view('vendor.backpack.crud.adv-block-list', array_merge($this->data, compact('pages')));

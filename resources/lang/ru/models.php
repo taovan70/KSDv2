@@ -70,4 +70,5 @@ return [
     'is_correct' => 'Это верно?',
     'correct' => 'Верно',
     'incorrect' => 'Неверно',
+    'error_save' => 'Ошибка сохранения',
 ];
