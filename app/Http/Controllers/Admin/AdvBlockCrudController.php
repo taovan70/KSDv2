@@ -59,7 +59,7 @@ class AdvBlockCrudController extends CrudController
         $pages = AdvPage::all();
          Widget::add([
              'type' => 'view',
-             'view'    => 'partials.advBlockModal',
+             'view'    => 'partials.inlineOperationsModal',
              'content'=> [
                  'page' => 'adv-block',
                  'secondPage'=> 'adv-page',

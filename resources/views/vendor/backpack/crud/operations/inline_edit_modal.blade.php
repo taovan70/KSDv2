@@ -3,18 +3,17 @@
 
     //mark parent crud assets as loaded.
     foreach($loadedAssets as $asset) {
-        Basset::markAsLoaded($asset);
+        Assets::markAsLoaded($asset);
     }
 @endphp
-
-<div class="modal modal-blur fade" id="inline-create-dialog" tabindex="0" data-backdrop="static" data-bs-backdrop="static" role="dialog" aria-labelledby="{{$entity}}-inline-create-dialog-label" aria-hidden="true">
+<div class="modal fade" id="inline-create-dialog" tabindex="0" data-backdrop="static" role="dialog" aria-labelledby="{{$entity}}-inline-create-dialog-label" aria-hidden="true">
     <div class="{{ $modalClass }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="{{ $entity }}-inline-create-dialog-label">
-                    {!! $crud->getSubheading() ?? trans('backpack::crud.add').' '.$crud->entity_name !!}
+                    {!! $crud->getSubheading() ?? trans('backpack::crud.edit').' '.$crud->entity_name !!}
                 </h5>
-                <button type="button" class="btn-close close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -28,7 +27,6 @@
                         @endif
                 >
                     {!! csrf_field() !!}
-
                     @include('vendor/backpack/crud/operations/form_content', [ 'fields' => $fields, 'action' => $action])
 
                 </form>

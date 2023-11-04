@@ -4,13 +4,14 @@
 
 
             function triggerModal(data) {
-                let $fieldName = '<?php echo $widget['content']['page']; ?>';
+                let $fieldName = data.page;
                 let $modal = $(data.modalId);
                 let $modalSaveButton = $modal.find('#saveButton');
                 let $modalCancelButton = $modal.find('#cancelButton');
                 let $form = $(document.getElementById($fieldName + "-inline-create-form"));
-                let $inlineCreateRoute = '<?php echo backpack_url(''); ?>' + '/<?php echo $widget['content']['page']; ?>/inline/' + data.method +
-                    '/' + data.entityId;
+                const entityId = data.entityId ? data.entityId : '';
+                let $inlineCreateRoute = '<?php echo backpack_url(''); ?>' + '/'+data.page+'/inline/' + data.method +
+                    '/' + entityId;
                 $modal.modal();
 
                 $modalCancelButton.on('click', function() {
@@ -73,7 +74,7 @@
                         },
                         error: function(result) {
                           console.log("result ", result);
-                            let $errors = result.responseJSON.errors;
+                            let $errors = result?.responseJSON?.errors;
                             let message = '';
                             if($errors) {
                               console.log("$errors", $errors)
@@ -99,15 +100,12 @@
 
                 $modal.on('hidden.bs.modal', function(e) {
                     $modal.remove();
-
-                    //when modal is closed (canceled or success submited) we revert the "+ Add" loading state back to normal.
-                    //$inlineCreateButtonElement.html($inlineCreateButtonElement.data('original-text'));
                 });
 
             }
 
-            window.setupInlineCreateButtons = function setupInlineCreateButtons() {
-                let $fieldEntity = '<?php echo $widget['content']['page']; ?>';
+            window.setupInlineCreateButtons = function setupInlineCreateButtons(data) {
+                let $fieldEntity = data.page;
                 let entityId = ''
 
                 let $inlineModalClass = 'modal-dialog';
@@ -122,11 +120,15 @@
                         $clickedElement = $clickedElement.parent().parent();
                     }
 
-                    if ($clickedElement.attr('href')?.includes('/' + 'edit') && $clickedElement.attr('href')?.includes('<?php echo $widget['content']['page']; ?>')) {
+                  if ($clickedElement.is('span')) {
+                    $clickedElement = $clickedElement.parent();
+                  }
+
+                    if ($clickedElement.attr('href')?.includes('/' + 'edit') && $clickedElement.attr('href')?.includes(data.page)) {
                         // if EDIT
                         let $inlineModalRoute = '<?php
                         echo backpack_url(''); ?>' +
-                            '/<?php echo $widget['content']['page']; ?>/inline/update/modal/';
+                            '/'+data.page+'/inline/update/modal/';
 
                         const match = $clickedElement.attr('href')?.match(/\/(\d+)\//);
                         entityId = match[1];
@@ -174,6 +176,7 @@
                                 $('body').append(result);
                                 triggerModal({
                                     method: 'update',
+                                    page: data.page,
                                     entityId: entityId,
                                     modalId: '#inline-create-dialog',
                                     openButtonId: 'a',
@@ -190,11 +193,11 @@
                         });
                     }
 
-                    if ($clickedElement.attr('href')?.includes('/' + 'create')  && $clickedElement.attr('href')?.includes('<?php echo $widget['content']['page']; ?>')) {
+                    if ($clickedElement.attr('href')?.includes('/' + 'create')  && $clickedElement.attr('href')?.includes(data.page)) {
                         // if CREATE
                         let $inlineModalRoute = '<?php
                         echo backpack_url(''); ?>' +
-                            '/<?php echo $widget['content']['page']; ?>/inline/create/modal/';
+                            '/'+data.page+'/inline/create/modal/';
                         $.ajax({
                             url: $inlineModalRoute,
                             data: (function() {
@@ -219,7 +222,7 @@
                                 $('body').append(result);
                                 triggerModal({
                                     method: 'create',
-                                    entityId: entityId,
+                                    page: data.page,
                                     modalId: '#inline-create-dialog',
                                     openButtonId: 'a',
                                     dataTableId: "#crudTable"
@@ -238,7 +241,16 @@
             }
 
 
-            window.setupInlineCreateButtons()
+            window.setupInlineCreateButtons({
+              page: '<?php echo $widget['content']['page']; ?>',
+            })
+
+            const secondPage = '<?php if(!empty($widget['content']['secondPage'])) echo $widget['content']['secondPage']; ?>';
+            if(secondPage) {
+              window.setupInlineCreateButtons({
+                page: secondPage,
+              })
+            }
         });
     </script>
 @endpush
