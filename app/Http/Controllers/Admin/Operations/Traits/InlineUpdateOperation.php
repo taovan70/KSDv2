@@ -60,7 +60,7 @@ trait InlineUpdateOperation
         }
 
         return view(
-            'vendor/backpack/crud/operations/inline_create_modal',
+            'vendor/backpack/crud/operations/inline_edit_modal',
             [
                 'fields' => $this->crud->getUpdateFields($id),
                 'action' => 'update',

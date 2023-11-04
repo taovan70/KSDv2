@@ -72,18 +72,23 @@
                             window.location.reload()
                         },
                         error: function(result) {
+                          console.log("result ", result);
                             let $errors = result.responseJSON.errors;
                             let message = '';
+                            if($errors) {
+                              console.log("$errors", $errors)
 
-                            for (const [key, value] of Object.entries($errors)) {
+                              for (const [key, value] of Object.entries($errors)) {
                                 message += `<b>${key}</b>: ${value[0]} <br> `
-                            }
+                              }
 
-                            new Noty({
+                              new Noty({
                                 type: "error",
                                 text: `<strong><?php
-                                echo __('models.error_save'); ?></strong><br>  ${message}`,
-                            }).show();
+                                               echo __('models.error_save'); ?></strong><br>  ${message}`,
+                              }).show();
+                            }
+
 
                             //revert save button back to normal
                             $modalSaveButton.prop('disabled', false);

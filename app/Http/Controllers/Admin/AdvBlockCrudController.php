@@ -25,8 +25,9 @@ class AdvBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineCreateOperation;
+
 
 
     /**
