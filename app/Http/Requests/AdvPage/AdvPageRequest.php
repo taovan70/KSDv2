@@ -26,7 +26,7 @@ class AdvPageRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:255',
-            'slug' => 'required|unique:adv_pages,slug|string|min:2|max:255',
+            'slug' => 'required|string|min:2|max:255|unique:adv_pages,slug,'. $this->id,
         ];
     }
 

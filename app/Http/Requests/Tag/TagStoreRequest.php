@@ -25,7 +25,7 @@ class TagStoreRequest extends FormRequest
     public function rules()
     {
         return [
-             'name' => 'required|unique:tags,name|string|min:2|max:255'
+             'name' => 'required|string|min:2|max:255|unique:tags,name,'. $this->id
         ];
     }
 

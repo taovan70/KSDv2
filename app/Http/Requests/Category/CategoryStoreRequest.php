@@ -25,7 +25,7 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name|string|min:2|max:255',
+            'name' => 'required|string|min:2|max:255|unique:categories,name,'.$this->id,
             'description' => 'required|string',
             'icon_path' => 'required|image',
             'photo_path' => 'required|image|max:2000',
@@ -42,7 +42,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             //
-        ]; 
+        ];
     }
 
     /**
