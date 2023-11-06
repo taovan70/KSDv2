@@ -42,8 +42,8 @@ class AdvPageCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('slug');
+        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('slug')->label(__('table.slug'));
         CRUD::column('created_at');
         CRUD::column('updated_at');
         Widget::add([
@@ -76,8 +76,8 @@ class AdvPageCrudController extends CrudController
     {
         CRUD::setValidation(AdvPageRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('slug');
+        CRUD::field('name')->label(__('table.name'));
+        CRUD::field('slug')->label(__('table.slug'));
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

@@ -70,5 +70,5 @@ return [
     'is_correct' => 'Is correct',
     'correct' => 'Correct',
     'incorrect' => 'Incorrect',
-    'error_saved' => 'Error while saved',
+    'error_save' => 'Error',
 ];

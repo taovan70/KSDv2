@@ -169,14 +169,13 @@
                             window.location.reload()
                         },
                         error: function(result) {
-                          console.log("result ", result);
+
                             let $errors = result?.responseJSON?.errors;
                             let message = '';
                             if($errors) {
-                              console.log("$errors", $errors)
 
                               for (const [key, value] of Object.entries($errors)) {
-                                message += `<b>${key}</b>: ${value[0]} <br> `
+                                message += `<b>${translateErrorText(key)}</b>: ${value[0]} <br> `
                               }
 
                               new Noty({
@@ -347,6 +346,31 @@
               window.setupInlineCreateButtons({
                 page: secondPage,
               })
+            }
+
+            function translateErrorText(text) {
+              const lang = '<?php echo backpack_user()->lang ?>';
+              const translateObjectEN = {
+                name: 'Name',
+                description: 'Description',
+                icon_path: 'Icon',
+                photo_path: 'Photo',
+                mini_pic_path: 'Mini picture',
+                slug: 'Slug'
+              }
+              const translateObjectRU = {
+                name: 'Название',
+                description: 'Описание',
+                icon_path: 'Иконка',
+                photo_path: 'Фотография',
+                mini_pic_path: 'Мини-картинка',
+                slug: 'Слаг'
+              }
+
+              const translateObject = lang === 'ru' ? translateObjectRU : translateObjectEN
+
+
+              return translateObject[text] ? translateObject[text] : text
             }
         });
     </script>
