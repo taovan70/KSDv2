@@ -29,21 +29,60 @@ class ArticlesInfoLastYearChartController extends ChartController
     public function setup()
     {
         $this->chart = new Chart();
-
         $this->chart->labels($this->generateDatesForLast12Months());
         $this->chart->options([
+            'maintainAspectRatio' => false,
+            'elements' => [
+                'point' => [
+                    'radius' => 5,
+                    'z'=> 5
+                ]
+            ],
+            'legend' => [
+                'display' => false,
+                'position' => 'bottom',
+                'labels' => [
+                    'boxWidth' => 6,
+                    'display' => true,
+                    'usePointStyle' => true
+                ]
+            ],
+            'hover' => [
+                'mode' => 'index',
+                'intersect' => false
+            ],
             'scales' => [
                 'yAxes' => [
                     [
+                        'gridLines'=> [
+                            'color'=> "#e5e9f2",
+                            'borderDash'=> [3, 3],
+                            'zeroLineColor'=> "#e5e9f2",
+                            'zeroLineWidth'=> 1,
+                            'zeroLineBorderDash'=> [3, 3]
+                        ],
                         'ticks' => [
                             'stepSize' => 1
                         ],
                         'scaleLabel' => [
-                            'display' => true,
-                            'labelString' => 'Количество',
+                            'labelString' => '',
                         ],
                     ],
                 ],
+                'xAxes'=> [
+                    'stacked'=> true,
+                    'barPercentage'=> 1,
+                    'gridLines'=> [
+                        'display'=> true,
+                        'zeroLineWidth'=> 2,
+                        'zeroLineColor'=> "transparent",
+                        'color'=> "transparent",
+                        'z'=> 1
+                    ],
+                    'ticks'=> [
+                        'display'=> true
+                    ]
+                ]
             ],
         ]);
 
@@ -91,18 +130,22 @@ class ArticlesInfoLastYearChartController extends ChartController
 
         $this->chart->dataset('Статей', 'line', $articles)
             ->color('rgb(96, 92, 168)')
-            ->backgroundColor('rgba(96, 92, 168, 0.4)');
+            ->backgroundColor('rgba(96, 92, 168, 0.4)')
+            ->fill(false);
 
         $this->chart->dataset('Категорий', 'line', $categories)
             ->color('rgb(255, 193, 7)')
-            ->backgroundColor('rgba(255, 193, 7, 0.4)');
+            ->backgroundColor('rgba(255, 193, 7, 0.4)')
+            ->fill(false);
 
         $this->chart->dataset('Подкатегорий', 'line', $subCategories)
             ->color('rgb(239, 17, 105)')
-            ->backgroundColor('rgba(239, 17, 105, 0.4)');
+            ->backgroundColor('rgba(239, 17, 105, 0.4)')
+            ->fill(false);
 
         $this->chart->dataset('Тэгов', 'line', $tags)
             ->color('rgba(70, 127, 208, 1)')
-            ->backgroundColor('rgba(70, 127, 208, 0.4)');
+            ->backgroundColor('rgba(70, 127, 208, 0.4)')
+            ->fill(false);
     }
 }

@@ -56,6 +56,7 @@ Route::group([
     Route::crud('everyone-talking-about', 'EveryoneTalkingAboutCrudController');
     Route::get('charts/articles-info-last-year', 'Charts\ArticlesInfoLastYearChartController@response')->name('charts.articles-info-last-year.index');
     Route::get('charts/articles-info-current-month', 'Charts\ArticlesInfoCurrentMonthChartController@response')->name('charts.articles-info-current-month.index');
+    Route::get('charts/articles-info-last-week', 'Charts\ArticlesInfoLastWeekChartController@response')->name('charts.articles-info-last-week.index');
     Route::crud('standalone-page', 'StandalonePageCrudController');
     Route::crud('q-a-category', 'QACategoryCrudController');
     Route::crud('sub-cat-alphavite-block', 'Blocks\SubCategory\SubCatAlphaviteBlockCrudController');

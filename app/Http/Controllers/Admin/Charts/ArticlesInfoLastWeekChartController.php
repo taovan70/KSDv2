@@ -10,15 +10,15 @@ use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use DateTime;
 
 
-class ArticlesInfoCurrentMonthChartController extends ChartController
+class ArticlesInfoLastWeekChartController extends ChartController
 {
 
-    private function generateDatesForPreviousMonth(): array
+    private function generateDatesForPreviousWeek(): array
     {
         $dates = array();
         $currentDate = new DateTime();
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 7; $i++) {
             $dates[] = $currentDate->format('Y-m-d');
             $currentDate->modify('-1 day');
         }
@@ -29,7 +29,7 @@ class ArticlesInfoCurrentMonthChartController extends ChartController
     {
         $this->chart = new Chart();
 
-        $this->chart->labels($this->generateDatesForPreviousMonth());
+        $this->chart->labels($this->generateDatesForPreviousWeek());
         $this->chart->options([
             'maintainAspectRatio' => false,
             'elements' => [
@@ -87,7 +87,7 @@ class ArticlesInfoCurrentMonthChartController extends ChartController
         ]);
 
         // RECOMMENDED. Set URL that the ChartJS library should call, to get its data using AJAX.
-        $this->chart->load(backpack_url('charts/articles-info-current-month'));
+        $this->chart->load(backpack_url('charts/articles-info-last-week'));
 
         // OPTIONAL
         $this->chart->minimalist(false);
@@ -101,7 +101,7 @@ class ArticlesInfoCurrentMonthChartController extends ChartController
      */
     public function data()
     {
-        $dates = $this->generateDatesForPreviousMonth();
+        $dates = $this->generateDatesForPreviousWeek();
 
         foreach ($dates as $date) {
             $articles[] = Article::whereDate('created_at', $date)
