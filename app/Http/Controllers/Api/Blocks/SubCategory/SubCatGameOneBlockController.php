@@ -13,11 +13,11 @@ class SubCatGameOneBlockController extends Controller
     {
     }
 
-    public function index(string $category_slug): SubCatGameOneBlockResource
+    public function index(string $category_slug)
     {
         $result = SubCatGameOneBlock::whereHas('category', function ($q) use ($category_slug) {
             $q->where('slug', '=', $category_slug);
-        })->firstOrFail();
-        return new SubCatGameOneBlockResource($result);
+        })->get();
+        return SubCatGameOneBlockResource::collection($result);
     }
 }
