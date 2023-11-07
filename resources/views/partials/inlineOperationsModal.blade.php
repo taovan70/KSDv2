@@ -2,29 +2,27 @@
     <script>
         $(document).ready(function() {
 
-          const emptyModal = `
-          <div class="modal fade show" id="inline-show-dialog" tabindex="0" data-backdrop="static" role="dialog" aria-labelledby="adv-block-inline-create-dialog-label" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="adv-block-inline-create-dialog-label">
-                            Просмотр
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body bg-light">
+          function emptyModal(innerData) {
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="cancelButton">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="saveButton">Сохранить</button>
+            return `
+              <div class="modal fade show" id="inline-show-dialog" tabindex="0" data-backdrop="static" role="dialog" aria-labelledby="adv-block-inline-create-dialog-label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="adv-block-inline-create-dialog-label">
+                                Просмотр
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body bg-light">
+                            ${innerData}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-          `
+          `}
 
             function bpFieldInitUploadElement(element) {
                 var fileInput = element.find(".file_input");
@@ -150,9 +148,6 @@
                 if (data.method === 'show') {
                     let $inlineCreateRoute = '<?php echo backpack_url(''); ?>' + '/' + data.page + '/' + entityId +
                         '/' + data.method;
-                    console.log("$inlineCreateRoute", $inlineCreateRoute)
-
-
                     return
                 }
 
@@ -386,13 +381,13 @@
                       let $inlineShowRoute = '<?php echo backpack_url(''); ?>' + '/' + data.page + '/' + entityId +
                         '/show';
 
-                      console.log(3333)
                       $.ajax({
                         url: $inlineShowRoute,
                         data:[],
                         type: 'GET',
                         success: function(result) {
-                          $('body').append(emptyModal);
+                          const modal = emptyModal($(result).find('table.table')[0].outerHTML)
+                          $('body').append(modal);
                           //$('body').append($(result).find('table'));
                           triggerModal({
                             method: 'show',
@@ -455,4 +450,17 @@
             }
         });
     </script>
+    <style>
+        .modal-dialog {
+            min-width: 700px;
+            margin: 5% auto;
+        }
+
+        @media screen and (max-width: 768px) {
+            .modal-dialog {
+                min-width: 95%;
+                width: 95%;
+            }
+        }
+    </style>
 @endpush
