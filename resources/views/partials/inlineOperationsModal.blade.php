@@ -25,17 +25,17 @@
           `}
 
             function bpFieldInitUploadElement(element) {
-                var fileInput = element.find(".file_input");
-                var fileClearButton = element.find(".file_clear_button");
-                var fieldName = element.attr('data-field-name');
-                var inputWrapper = element.find(".backstrap-file");
-                var inputLabel = element.find(".backstrap-file-label");
+                let fileInput = element.find(".file_input");
+                let fileClearButton = element.find(".file_clear_button");
+                let fieldName = element.attr('data-field-name');
+                let inputWrapper = element.find(".backstrap-file");
+                let inputLabel = element.find(".backstrap-file-label");
 
                 if (fileInput.attr('data-row-number')) {
                     $('<input type="hidden" class="order_uploads" name="_order_' + fieldName + '" value="' +
                         fileInput.data('filename') + '">').insertAfter(fileInput);
 
-                    var observer = new MutationObserver(function(mutations) {
+                    let observer = new MutationObserver(function(mutations) {
 
                         mutations.forEach(function(mutation) {
                             if (mutation.attributeName == 'data-row-number') {
@@ -75,8 +75,8 @@
                 });
 
                 fileInput.change(function() {
-                    var path = $(this).val();
-                    var path = path.replace("C:\\fakepath\\", "");
+                    let path = $(this).val();
+                    path = path.replace("C:\\fakepath\\", "");
                     inputLabel.html(path);
                     // remove the hidden input
                     $(this).next("input[type=hidden]").remove();
@@ -106,15 +106,15 @@
             }
 
             function initializeFieldsWithJavascript(container) {
-                var selector;
+                let selector;
                 if (container instanceof jQuery) {
                     selector = container;
                 } else {
                     selector = $(container);
                 }
                 selector.find("[data-init-function]").not("[data-initialized=true]").each(function() {
-                    var element = $(this);
-                    var functionName = element.data('init-function');
+                    let element = $(this);
+                    let functionName = element.data('init-function');
 
                     if (typeof window[functionName] === "function") {
                         window[functionName](element);
@@ -232,9 +232,7 @@
                         }
                     });
                 });
-
-
-
+                return
             }
 
             window.setupInlineCreateButtons = function setupInlineCreateButtons(data) {
@@ -327,8 +325,7 @@
                             }
                         });
                     }
-
-                    if ($clickedElement.attr('href')?.includes('/' + 'create') && $clickedElement.attr('href')?.includes(data.page)) {
+                    else if ($clickedElement.attr('href')?.includes('/' + 'create') && $clickedElement.attr('href')?.includes(data.page)) {
                         // if CREATE
                         let $inlineModalRoute = '<?php
                         echo backpack_url(''); ?>' +
@@ -371,9 +368,7 @@
                                 // $inlineCreateButtonElement.html($inlineCreateButtonElement.data('original-text'));
                             }
                         });
-                    }
-
-                    if ($clickedElement.attr('href')?.includes('/' + 'show') && $clickedElement.attr(
+                    } else if ($clickedElement.attr('href')?.includes('/' + 'show') && $clickedElement.attr(
                             'href')?.includes(data.page)) {
                         // if SHOW
                       const match = $clickedElement.attr('href')?.match(/\/(\d+)\//);
@@ -406,6 +401,8 @@
                           }).show();
                         }
                       });
+                    } else {
+                      window.location.href = $clickedElement.attr('href')
                     }
                 });
             }
