@@ -462,5 +462,13 @@
                 width: 95%;
             }
         }
+
+        #inline-create-dialog .btn-close.close::after {
+            content: "×";
+            font-size: 20px;
+            font-weight: bold;
+            width: 12px;
+            height: 12px;
+        }
     </style>
 @endpush

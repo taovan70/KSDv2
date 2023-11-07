@@ -15,7 +15,7 @@
                     {!! $crud->getSubheading() ?? trans('backpack::crud.add').' '.$crud->entity_name !!}
                 </h5>
                 <button type="button" class="btn-close close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+
                 </button>
             </div>
             <div class="modal-body bg-light">
