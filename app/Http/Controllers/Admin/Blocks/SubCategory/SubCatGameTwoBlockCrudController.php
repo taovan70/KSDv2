@@ -24,7 +24,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -36,7 +36,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -57,7 +57,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -75,6 +75,13 @@ class SubCatGameTwoBlockCrudController extends CrudController
             'minimum_input_length' => 0,
             'method' => 'POST',
             'include_all_form_fields' => true
+        ]);
+        CRUD::addField([
+            'name' => 'article_id',
+            'label' => __('table.article'),
+            'type' => 'select2_from_ajax',
+            'method' => 'POST',
+            'data_source' => url('api/articles'),
         ]);
         CRUD::addField([
             'name' => 'photo_path_one',
@@ -119,6 +126,16 @@ class SubCatGameTwoBlockCrudController extends CrudController
     {
         $this->setupListOperation();
         CRUD::addColumn([
+            'label' => __('table.article'),
+            'type' => 'select',
+            'name' => 'article_id',
+            'attribute' => 'name',
+            'entity' => 'article',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
+            ]
+        ]);
+        CRUD::addColumn([
             'name' => 'photo_path_one',
             'label' => __('table.author_fields.photo'),
             'type' => 'image',
@@ -138,7 +155,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

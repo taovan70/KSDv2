@@ -23,7 +23,7 @@ class SubCatGameOneBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['question', 'answer_data' ,'category_id', 'photo_path'];
+    protected $fillable = ['question', 'answer_data' ,'category_id', 'photo_path', 'article_id'];
     // protected $hidden = [];
 
     /*
@@ -40,6 +40,11 @@ class SubCatGameOneBlock extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Category::class);
+    }
+
+    public function article(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Article::class);
     }
 
     /*

@@ -13,11 +13,13 @@ class SubCatGameOneBlockController extends Controller
     {
     }
 
-    public function index(string $category_slug)
+    public function index(string $category_slug): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $result = SubCatGameOneBlock::whereHas('category', function ($q) use ($category_slug) {
             $q->where('slug', '=', $category_slug);
-        })->get();
+        })->with(['article' => function ($query) {
+            $query->where('published', 1);
+        }])->get();
         return SubCatGameOneBlockResource::collection($result);
     }
 }

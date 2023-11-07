@@ -24,7 +24,7 @@ class SubCatGameOneBlockCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -36,7 +36,7 @@ class SubCatGameOneBlockCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -57,7 +57,7 @@ class SubCatGameOneBlockCrudController extends CrudController
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -75,6 +75,13 @@ class SubCatGameOneBlockCrudController extends CrudController
             'minimum_input_length' => 0,
             'method' => 'POST',
             'include_all_form_fields' => true
+        ]);
+        CRUD::addField([
+            'name' => 'article_id',
+            'label' => __('table.article'),
+            'type' => 'select2_from_ajax',
+            'method' => 'POST',
+            'data_source' => url('api/articles'),
         ]);
         CRUD::addField([
             'name' => 'photo_path',
@@ -119,11 +126,21 @@ class SubCatGameOneBlockCrudController extends CrudController
             'width' => '100px',
             'height' => '100px'
         ]);
+        CRUD::addColumn([
+            'label' => __('table.article'),
+            'type' => 'select',
+            'name' => 'article_id',
+            'attribute' => 'name',
+            'entity' => 'article',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
+            ]
+        ]);
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

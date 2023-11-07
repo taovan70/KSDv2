@@ -19,6 +19,11 @@ class SubCatGameOneBlockResource extends JsonResource
         return [
             'question' => $this->question,
             'answer_data' => json_decode($this->answer_data) ?? [],
+            'article' => [
+                'name' => $this->article?->name,
+                'slug' => $this->article?->slug,
+                'publish_date' => $this->article?->publish_date,
+            ],
             'photo_path' => $this->photo_path ?? null
         ];
     }
