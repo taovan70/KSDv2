@@ -1,475 +1,266 @@
 @push('after_scripts')
-<script>
-  function initializeFieldsWithJavascript(container) {
-    let selector;
-    if (container instanceof jQuery) {
-      selector = container;
-    } else {
-      selector = $(container);
-    }
-    // NOT_FORGET add .not('input') here
-    selector.find("[data-init-function]").not("[data-initialized=true]").each(function() {
-      let element = $(this);
-      let functionName = element.data('init-function');
-
-      if (typeof window[functionName] === "function") {
-        window[functionName](element);
-
-        // mark the element as initialized, so that its function is never called again
-        element.attr('data-initialized', 'true');
-      }
-    });
-  }
-  /**
-   * Takes all inputs in a repeatable element and makes them an object.
-   */
-  function repeatableElementToObj(element) {
-    var obj = {};
-
-    element.find('input, select, textarea').each(function () {
-      if ($(this).data('repeatable-input-name')) {
-        obj[$(this).data('repeatable-input-name')] = $(this).val();
-      }
-    });
-
-    return obj;
-  }
-
-  /**
-   * The method that initializes the javascript on this field type.
-   */
-  function bpFieldInitRepeatableElement(element) {
-
-    var field_name = element.attr('name');
-
-    var container_holder = $('[data-repeatable-holder="'+field_name+'"]');
-
-    var init_rows = Number(container_holder.attr('data-init-rows'));
-    var min_rows = Number(container_holder.attr('data-min-rows'));
-    var max_rows = Number(container_holder.attr('data-max-rows')) || Infinity;
-
-    // make a copy of the group of inputs in their default state
-    // this way we have a clean element we can clone when the user
-    // wants to add a new group of inputs
-    var container = $('[data-repeatable-identifier="'+field_name+'"]').last();
-
-    // make sure the inputs get the data-repeatable-input-name
-    // so we can know that they are inside repeatable
-    container.find('input, select, textarea')
-      .each(function(){
-        var name_attr = getCleanNameArgFromInput($(this));
-        $(this).attr('data-repeatable-input-name', name_attr)
-      });
-
-    var field_group_clone = container.clone();
-    container.remove();
-
-    element.parent().find('.add-repeatable-element-button').click(function(){
-      newRepeatableElement(container_holder, field_group_clone);
-    });
-
-    $('input[type=hidden][name='+field_name+']').first().on('CrudField:disable', function() {
-      disableRepeatableContainerFields(container_holder);
-    });
-
-    $('input[type=hidden][name='+field_name+']').first().on('CrudField:enable', function() {
-      enableRepeatableContainerFields(container_holder);
-    });
-
-    var container_rows = container_holder.children().length;
-    var add_entry_button = element.parent().find('.add-repeatable-element-button');
-    if(container_rows === 0) {
-      for(let i = 0; i < Math.min(init_rows, max_rows || init_rows); i++) {
-        container_rows++;
-        add_entry_button.trigger('click');
-      }
-    }
-
-    setupRepeatableNamesOnInputs(container_holder);
-
-    setupElementRowsNumbers(container_holder);
-
-    setupElementCustomSelectors(container_holder);
-
-    setupRepeatableDeleteRowButtons(container_holder);
-
-    setupRepeatableReorderButtons(container_holder);
-
-    updateRepeatableRowCount(container_holder);
-
-    setupFieldCallbacks(container_holder);
-
-    setupFieldCallbacksListener(container_holder);
-
-    setupRepeatableChangeEvent(container_holder);
-  }
-
-  function disableRepeatableContainerFields(container) {
-    switchRepeatableInputsDisableState(container, false);
-    container.parent().parent().find('.add-repeatable-element-button').attr('disabled', 'disabled')
-    container.children().each(function(i, row) {
-      row = $(row)
-      row.find('.delete-element').attr('disabled', 'disabled');
-      row.find('.move-element-up, .move-element-down').attr('disabled', 'disabled');
-    });
-  }
-
-  function enableRepeatableContainerFields(container) {
-    switchRepeatableInputsDisableState(container);
-    container.parent().parent().find('.add-repeatable-element-button').removeAttr('disabled');
-    container.children().each(function(i, row) {
-      row = $(row)
-      row.find('.delete-element').removeAttr('disabled');
-      row.find('.move-element-up, .move-element-down').removeAttr('disabled');
-    });
-  }
-
-  function switchRepeatableInputsDisableState(container, enable = true) {
-    let subfields = JSON.parse(container.attr('data-subfield-names'));
-    let repeatableName = container.attr('data-repeatable-holder');
-    container.children().each(function(i, el) {
-      subfields.forEach(function(name) {
-        crud.field(repeatableName).subfield(name, i+1).enable(enable);
-      });
-    });
-  }
-
-  function setupRepeatableNamesOnInputs(container) {
-    container.find('input, select, textarea')
-      .each(function() {
-        if (typeof $(this).attr('data-repeatable-input-name') === 'undefined') {
-          var nameAttr = getCleanNameArgFromInput($(this));
-          if(nameAttr) {
-            $(this).attr('data-repeatable-input-name', nameAttr)
-          }
-        }
-      });
-  }
-
-  /**
-   * Adds a new field group to the repeatable input.
-   */
-  function newRepeatableElement(container_holder, field_group) {
-
-    var new_field_group = field_group.clone();
-
-    container_holder.append(new_field_group);
-
-    // after appending to the container we reassure row numbers
-    setupElementRowsNumbers(container_holder);
-
-    // we also setup the custom selectors in the elements so we can use dependant functionality
-    setupElementCustomSelectors(container_holder);
-
-    setupRepeatableDeleteRowButtons(container_holder);
-
-    setupRepeatableReorderButtons(container_holder);
-
-    // updates the row count in repeatable and handle the buttons state
-    updateRepeatableRowCount(container_holder);
-
-    // re-index the array names for the fields
-    updateRepeatableContainerNamesIndexes(container_holder);
-
-    initializeFieldsWithJavascript(container_holder);
-
-    setupFieldCallbacks(container_holder);
-
-    setupRepeatableChangeEvent(container_holder);
-
-    triggerRepeatableInputChangeEvent(container_holder);
-
-    triggerFocusOnFirstInputField(getFirstFocusableField(new_field_group));
-  }
-
-  function setupRepeatableDeleteRowButtons(container) {
-    container.children().each(function(i, repeatable_group) {
-      setupRepeatableDeleteButtonEvent(repeatable_group);
-    });
-  }
-
-  function setupRepeatableDeleteButtonEvent(repeatable_group) {
-    let row = $(repeatable_group);
-    let delete_button = row.find('.delete-element');
-
-    // remove previous events on this button
-    delete_button.off('click');
-
-    delete_button.click(function(){
-
-      let $repeatableElement = $(this).closest('.repeatable-element');
-      let container = $('[data-repeatable-holder="'+$($repeatableElement).attr('data-repeatable-identifier')+'"]')
-
-      row.find('input, select, textarea').each(function(i, el) {
-        // we trigger this event so fields can intercept when they are beeing deleted from the page
-        // implemented because of ckeditor instances that stayed around when deleted from page
-        // introducing unwanted js errors and high memory usage.
-        $(el).trigger('CrudField:delete');
-      });
-
-      $repeatableElement.remove();
-
-      triggerRepeatableInputChangeEvent(container);
-
-      // updates the row count and handle button state
-      updateRepeatableRowCount(container);
-
-      //we reassure row numbers on delete
-      setupElementRowsNumbers(container);
-
-      updateRepeatableContainerNamesIndexes(container);
-    });
-  }
-
-  function setupRepeatableReorderButtons(container) {
-    container.children().each(function(i, repeatable_group) {
-      setupRepeatableReorderButtonEvent($(repeatable_group));
-    });
-  }
-
-  function setupRepeatableReorderButtonEvent(repeatable_group) {
-    let row = $(repeatable_group);
-    let reorder_buttons = row.find('.move-element-up, .move-element-down');
-
-    // remove previous events on this button
-    reorder_buttons.off('click');
-
-    reorder_buttons.click(function(e){
-
-      let $repeatableElement = $(e.target).closest('.repeatable-element');
-      let container = $('[data-repeatable-holder="'+$($repeatableElement).attr('data-repeatable-identifier')+'"]')
-
-      // get existing values
-      let elementIndex = positionIndex = $repeatableElement.index();
-
-      positionIndex += $(this).is('.move-element-up') ? -1 : 1;
-
-      if (positionIndex < 0) return;
-
-      if($(this).is('.move-element-up')) {
-        container.children().eq(positionIndex).before($repeatableElement)
-      }else{
-        container.children().eq(positionIndex).after($repeatableElement)
-      }
-
-      triggerRepeatableInputChangeEvent(container)
-
-      // after appending to the container we reassure row numbers
-      setupElementRowsNumbers(container);
-
-      // re-index the array names for the fields
-      updateRepeatableContainerNamesIndexes(container);
-
-    });
-  }
-
-  // this function is responsible for managing rows numbers upon creation/deletion of elements
-  function setupElementRowsNumbers(container) {
-    var number_of_rows = 0;
-    container.children().each(function(i, el) {
-      var rowNumber = i+1;
-      $(el).attr('data-row-number', rowNumber);
-      //also attach the row number to all the input elements inside
-      $(el).find('input, select, textarea').each(function(i, input) {
-        // only add the row number to inputs that have name, so they are going to be submited in form
-        if($(input).attr('name')) {
-          $(input).attr('data-row-number', rowNumber);
+    <script>
+        // In this script block only modal fields initializers
+        function initializeFieldsWithJavascript(container) {
+            let selector;
+            if (container instanceof jQuery) {
+                selector = container;
+            } else {
+                selector = $(container);
+            }
+            // NOT_FORGET add .not('input') here
+            selector.find("[data-init-function]").not("[data-initialized=true]").each(function() {
+                let element = $(this);
+                let functionName = element.data('init-function');
+
+                if (typeof window[functionName] === "function") {
+                    window[functionName](element);
+
+                    // mark the element as initialized, so that its function is never called again
+                    element.attr('data-initialized', 'true');
+                }
+            });
         }
 
-        if($(input).is('[data-reorder-input]')) {
-          $(input).val(rowNumber);
-        }
-      });
-      number_of_rows++;
-    });
+        /**
+         * Window functions that help the developer easily select one or more fields.
+         */
+        window.crud = {
+            ...window.crud,
 
-    container.attr('number-of-rows', number_of_rows);
-  }
+            // Subfields callbacks holder
+            subfieldsCallbacks: [],
 
-  // this function is responsible for adding custom selectors to repeatable inputs that are selects and could be used with
-  // dependant fields functionality
-  function setupElementCustomSelectors(container) {
-    container.children().each(function(i, el) {
-      // attach a custom selector to this elements
-      $(el).find('select').each(function(i, select) {
-        let selector = '[data-repeatable-input-name="%DEPENDENCY%"][data-row-number="%ROW%"],[data-repeatable-input-name="%DEPENDENCY%[]"][data-row-number="%ROW%"]';
-        select.setAttribute('data-custom-selector', selector);
-      });
-    });
-  }
+            // Create a field from a given name
+            field: name => new CrudField(name),
 
-  function updateRepeatableContainerNamesIndexes(container) {
-    container.children().each(function(i, repeatable) {
-      var index = $(repeatable).attr('data-row-number')-1;
-      let repeatableName = $(repeatable).attr('data-repeatable-identifier');
+            // Create all fields from a given name list
+            fields: names => names.map(window.crud.field),
+        };
 
-      // updates the indexes in the array of repeatable inputs
-      $(repeatable).find('input, select, textarea').each(function(i, el) {
-        if(typeof $(el).attr('data-row-number') !== 'undefined') {
-          let field_name = $(el).attr('data-repeatable-input-name') ?? $(el).attr('name') ?? $(el).parent().find('input[data-repeatable-input-name]').first().attr('data-repeatable-input-name');
-          let suffix = '';
-          // if there are more than one "[" character, that means we already have the repeatable name
-          // we need to parse that name to get the "actual" field name.
-          if(field_name.endsWith("[]")) {
-            suffix = "[]";
-            field_name = field_name.slice(0,-2);
-          }
+        /**
+         * A front-end representation of a Backpack field, with its main components.
+         *
+         * Makes it dead-simple for the developer to perform the most common
+         * javascript manipulations, and makes it easy to do custom stuff
+         * too, by exposing the main components (name, wrapper, input).
+         */
+        class CrudField {
+            constructor(name) {
+                this.name = name;
+                // get the current input
+                this.$input = this.activeInput;
+                // get the field wraper
+                this.wrapper = this.inputWrapper;
 
-          if($(el).prop('multiple')) {
-            suffix = "[]";
-          }
+                // in case `bp-field-main-input` is specified on a field input, use that one as input
+                this.$input = this.mainInput;
 
-          if(field_name.split('[').length - 1 > 1) {
-            let field_name_position = field_name.lastIndexOf('[');
-            // field name will contain the closing "]" that's why the last slice.
-            field_name = field_name.substring(field_name_position + 1).slice(0,-1);
-          }
+                // Validate that the wrapper has been found
+                if (this.wrapper.length === 0) {
+                    console.error(`CrudField error! Could not select WRAPPER for "${this.name}"`);
+                }
 
-          if(typeof $(el).attr('data-repeatable-input-name') === 'undefined') {
-            $(el).attr('data-repeatable-input-name', field_name);
-          }
+                // Validate that the field has been found
+                if (this.$input.length === 0) {
+                    console.error(`CrudField error! Could not select INPUT for "${this.name}"`);
+                }
 
-          $(el).attr('name', container.attr('data-repeatable-holder')+'['+index+']['+field_name+']'+suffix);
+                this.input = this.$input[0];
+                this.type = this.wrapper.attr('bp-field-type');
 
+                return this;
 
-        }
-      });
-    });
-
-  }
-
-  function triggerRepeatableInputChangeEvent(repeatable) {
-    var values = [];
-    repeatable.children().each(function(i, el) {
-      values.push(repeatableElementToObj($(el)));
-    });
-    $('input[type=hidden][name='+$(repeatable).attr('data-repeatable-holder')+']').first().trigger('change', [values]);
-  }
-
-  function setupFieldCallbacks(container) {
-    let subfields = JSON.parse(container.attr('data-subfield-names'));
-    let repeatableName = container.attr('data-repeatable-holder');
-    let fieldCallbacks = window.crud.subfieldsCallbacks[repeatableName] ?? false;
-
-    if(!fieldCallbacks) {
-      return;
-    }
-
-    container.children().each(function(i, el) {
-      subfields.forEach(function(name) {
-        let rowNumber = i + 1;
-        let subfield = crud.field(repeatableName).subfield(name, rowNumber);
-        let callbacksApplied = JSON.parse(subfield.input.dataset.callbacks ?? '[]');
-
-        fieldCallbacks
-          .filter(callback =>
-            callback.field.name === name &&
-            callback.field.parent.name === repeatableName
-          )
-          .forEach((callback, callbackID) => {
-            if(callbacksApplied.includes(callbackID)) {
-              return;
             }
 
-            let bindedClosure = callback.closure.bind(subfield);
-            let fieldChanged = (event, values) => bindedClosure(subfield, event, values);
-
-            if(['INPUT', 'TEXTAREA'].includes(subfield.input?.nodeName)) {
-              subfield.input?.addEventListener('input', fieldChanged, false);
+            get activeInput() {
+                // get the input/textarea/select that has that field name
+                this.$input = $(
+                    `input[name="${this.name}"], textarea[name="${this.name}"], select[name="${this.name}"], select[name="${this.name}[]"]`
+                    );
+                let possibleInput = this.$input.length === 1 ? this.$input : this.$input.filter(function() {
+                    return $(this).closest('[id=inline-create-dialog]').length
+                });
+                return possibleInput.length === 1 ? possibleInput : this.$input.first();
             }
 
-            subfield.$input.change(fieldChanged);
+            get mainInput() {
+                let input = this.wrapper.find('[bp-field-main-input]').first();
 
-            if(callback.triggerChange) {
-              subfield.$input.trigger('change');
+                // if a bp-field-main-input has been specified by developer, that's it, use that one
+                if (input.length !== 0) {
+                    return input;
+                }
+
+                // otherwise, try to find the input using other selectors
+                if (this.$input.length === 0) {
+                    // try searching for the field with the corresponding bp-field-name
+                    input = this.wrapper.find(
+                        `input[bp-field-name="${this.name}"], textarea[bp-field-name="${this.name}"], select[bp-field-name="${this.name}"], select[bp-field-name="${this.name}[]"]`
+                        ).first();
+
+                    // if not input found yet, just get the first input in that wrapper
+                    if (input.length === 0) {
+                        input = this.wrapper.find('input, textarea, select').first();
+                    }
+
+                    return input;
+                }
+
+                return this.$input;
+
             }
 
-            callbacksApplied.push(callbackID);
-          });
+            get value() {
+                return this.$input.val();
+            }
 
-        subfield.input.dataset.callbacks = JSON.stringify(callbacksApplied);
-      });
-    });
-  }
+            get inputWrapper() {
+                let wrapper = this.$input.closest('[bp-field-wrapper]');
+                if (wrapper.length === 0) {
+                    wrapper = $(`[bp-field-name="${this.name}"][bp-field-wrapper]`).first();
+                }
+                return wrapper;
+            }
 
-  function setupFieldCallbacksListener(container) {
-    container
-      .closest('[bp-field-wrapper]')
-      .on('CrudField:subfieldCallbacksUpdated', () => setupFieldCallbacks(container));
-  }
+            onChange(closure) {
+                const bindedClosure = closure.bind(this);
+                const fieldChanged = (event, values) => bindedClosure(this, event, values);
 
-  function setupRepeatableChangeEvent(container) {
-    let subfields = JSON.parse(container.attr('data-subfield-names'));
-    let repeatableName = container.attr('data-repeatable-holder');
-    container.children().each(function(i, el) {
-      let rowNumber = i+1;
-      subfields.forEach(function(name) {
-        let subfield = crud.field(repeatableName).subfield(name, rowNumber);
-        if(!subfield.input?.getAttribute('change-event-applied')) {
-          subfield.onChange(function(event) {
-            triggerRepeatableInputChangeEvent(container);
-          });
-          subfield.input?.setAttribute('change-event-applied', true);
+                if (this.isSubfield) {
+                    window.crud.subfieldsCallbacks[this.parent.name] ??= [];
+                    window.crud.subfieldsCallbacks[this.parent.name].push({
+                        closure,
+                        field: this
+                    });
+                    this.wrapper.trigger('CrudField:subfieldCallbacksUpdated');
+                    return this;
+                }
+
+                if (['INPUT', 'TEXTAREA'].includes(this.input?.nodeName)) {
+                    this.input?.addEventListener('input', fieldChanged, false);
+                }
+                this.$input.change(fieldChanged);
+
+                return this;
+            }
+
+            change() {
+                if (this.isSubfield) {
+                    window.crud.subfieldsCallbacks[this.parent.name]?.forEach(callback => callback.triggerChange =
+                    true);
+                } else {
+                    let event = new Event('change');
+                    this.input?.dispatchEvent(event);
+                }
+
+                return this;
+            }
+
+            show(value = true) {
+                this.wrapper.toggleClass('d-none', !value);
+                let event = new Event(`CrudField:${value ? 'show' : 'hide'}`);
+                this.input?.dispatchEvent(event);
+                return this;
+            }
+
+            hide(value = true) {
+                return this.show(!value);
+            }
+
+            enable(value = true) {
+                this.$input.attr('disabled', !value && 'disabled');
+                let event = new Event(`CrudField:${value ? 'enable' : 'disable'}`);
+                this.input?.dispatchEvent(event);
+                return this;
+            }
+
+            disable(value = true) {
+                return this.enable(!value);
+            }
+
+            require(value = true) {
+                this.wrapper.toggleClass('required', value);
+                let event = new Event(`CrudField:${value ? 'require' : 'unrequire'}`);
+                this.input?.dispatchEvent(event);
+                return this;
+            }
+
+            unrequire(value = true) {
+                return this.require(!value);
+            }
+
+            check(value = true) {
+                this.wrapper.find('input[type=checkbox]').prop('checked', value).trigger('change');
+                return this;
+            }
+
+            uncheck(value = true) {
+                return this.check(!value);
+            }
+
+            subfield(name, rowNumber = false) {
+                let subfield = new CrudField(this.name);
+                subfield.name = name;
+
+                if (!rowNumber) {
+                    subfield.isSubfield = true;
+                    subfield.subfieldHolder = this.name; // deprecated
+                    subfield.parent = this;
+                } else {
+                    subfield.rowNumber = rowNumber;
+                    subfield.wrapper = $(`[data-repeatable-identifier="${this.name}"][data-row-number="${rowNumber}"]`)
+                        .find(`[bp-field-wrapper][bp-field-name$="${name}"]`);
+                    subfield.$input = subfield.wrapper.find(
+                        `[data-repeatable-input-name$="${name}"][bp-field-main-input]`);
+                    // if no bp-field-main-input has been declared in the field itself,
+                    // assume it's the first input in that wrapper, whatever it is
+                    if (subfield.$input.length == 0) {
+                        subfield.$input = subfield.wrapper.find(
+                            `input[data-repeatable-input-name$="${name}"], textarea[data-repeatable-input-name$="${name}"], select[data-repeatable-input-name$="${name}"]`
+                            ).first();
+                    }
+
+                    subfield.input = subfield.$input[0];
+                }
+                return subfield;
+            }
         }
-      });
-    });
-  }
 
-  // return the clean name from the input
-  function getCleanNameArgFromInput(element) {
-    if (element.data('repeatable-input-name')) {
-      fieldName = element.data('repeatable-input-name');
-    }
-    if (element.data('name')) {
-      fieldName = element.data('name');
-    } else if (element.attr('name')) {
-      fieldName = element.attr('name');
-    }
 
-    if(typeof fieldName === 'undefined') {
-      return false;
-    }
+        /**
+         * Auto-discover first focusable input
+         * @param {jQuery} form
+         * @return {jQuery}
+         */
+        function getFirstFocusableField(form) {
+            return form.find('input, select, textarea, button')
+                .not('.close')
+                .not('[disabled]')
+                .filter(':visible:first');
+        }
 
-    // if there are more than one "[" character, that means we already have the repeatable name
-    // we need to parse that name to get the "actual" field name.
-    if(fieldName.endsWith("[]")) {
-      fieldName = fieldName.slice(0,-2);
-    }
-    if(fieldName.split('[').length - 1 > 1) {
-      let fieldName_position = fieldName.lastIndexOf('[');
-      // field name will contain the closing "]" that's why the last slice.
-      fieldName = fieldName.substring(fieldName_position + 1).slice(0,-1);
-    }
-    return fieldName;
-  }
+        /**
+         *
+         * @param {jQuery} firstField
+         */
+        function triggerFocusOnFirstInputField(firstField) {
+            if (firstField.hasClass('select2-hidden-accessible')) {
+                return handleFocusOnSelect2Field(firstField);
+            }
 
-  // update the container current number of rows and work out the buttons state
-  function updateRepeatableRowCount(container) {
-    let max_rows = Number(container.attr('data-max-rows')) || Infinity;
-    let min_rows = Number(container.attr('data-min-rows')) || 0;
-
-    let current_rows =  container.children().length;
-
-    // show or hide delete button
-    container.find('.delete-element').toggleClass('d-none', current_rows <= min_rows);
-
-    // show or hide move buttons
-    container.find('.move-element-up, .move-element-down').toggleClass('d-none', current_rows <= 1);
-
-    // show or hide new item button
-    container.parent().parent().find('.add-repeatable-element-button').toggleClass('d-none', current_rows >= max_rows);
-
-  }
-</script>
+            firstField.trigger('focus');
+        }
+    </script>
 @endpush
 
 @push('after_scripts')
     <script>
         $(document).ready(function() {
 
-          function emptyModal(innerData) {
+            function emptyModal(innerData) {
 
-            return `
+                return `
               <div class="modal fade show" id="inline-show-dialog" tabindex="0" data-backdrop="static" role="dialog" aria-labelledby="adv-block-inline-create-dialog-label" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -487,7 +278,8 @@
                     </div>
                 </div>
             </div>
-          `}
+          `
+            }
 
             function bpFieldInitUploadElement(element) {
                 let fileInput = element.find(".file_input");
@@ -508,7 +300,7 @@
                                 field = field.next('input[name="' + mutation.target.getAttribute(
                                     'name') + '"]');
                                 field.attr('name', '_order_' + mutation.target.getAttribute(
-                                'name'));
+                                    'name'));
                                 field.val(mutation.target.getAttribute('data-filename'));
                             }
                         });
@@ -771,8 +563,8 @@
                                 // $inlineCreateButtonElement.html($inlineCreateButtonElement.data('original-text'));
                             }
                         });
-                    }
-                    else if ($clickedElement.attr('href')?.includes('/' + 'create') && $clickedElement.attr('href')?.includes(data.page)) {
+                    } else if ($clickedElement.attr('href')?.includes('/' + 'create') && $clickedElement
+                        .attr('href')?.includes(data.page)) {
                         // if CREATE
                         let $inlineModalRoute = '<?php
                         echo backpack_url(''); ?>' +
@@ -815,45 +607,49 @@
                                 // $inlineCreateButtonElement.html($inlineCreateButtonElement.data('original-text'));
                             }
                         });
-                    } else if ($clickedElement.attr('href')?.includes('/' + 'show') && $clickedElement.attr(
+                    } else if ($clickedElement.attr('href')?.includes('/' + 'show') && $clickedElement
+                        .attr(
                             'href')?.includes(data.page)) {
                         // if SHOW
-                      const match = $clickedElement.attr('href')?.match(/\/(\d+)\//);
-                      entityId = match[1];
-                      let $inlineShowRoute = '<?php echo backpack_url(''); ?>' + '/' + data.page + '/' + entityId +
-                        '/show';
+                        const match = $clickedElement.attr('href')?.match(/\/(\d+)\//);
+                        entityId = match[1];
+                        let $inlineShowRoute = '<?php echo backpack_url(''); ?>' + '/' + data.page + '/' +
+                            entityId +
+                            '/show';
 
-                      $.ajax({
-                        url: $inlineShowRoute,
-                        data:[],
-                        type: 'GET',
-                        success: function(result) {
-                          const modal = emptyModal($(result).find('table.table')[0].outerHTML)
-                          $('body').append(modal);
-                          //$('body').append($(result).find('table'));
-                          triggerModal({
-                            method: 'show',
-                            page: data.page,
-                            entityId: entityId,
-                            modalId: '#inline-show-dialog',
-                            openButtonId: 'a',
-                            dataTableId: "#crudTable"
-                          });
+                        $.ajax({
+                            url: $inlineShowRoute,
+                            data: [],
+                            type: 'GET',
+                            success: function(result) {
+                                const modal = emptyModal($(result).find('table.table')[0]
+                                    .outerHTML)
+                                $('body').append(modal);
+                                //$('body').append($(result).find('table'));
+                                triggerModal({
+                                    method: 'show',
+                                    page: data.page,
+                                    entityId: entityId,
+                                    modalId: '#inline-show-dialog',
+                                    openButtonId: 'a',
+                                    dataTableId: "#crudTable"
+                                });
 
-                        },
-                        error: function(result) {
-                          new Noty({
-                            type: "error",
-                            text: "<strong>{{ trans('backpack::crud.ajax_error_title') }}</strong><br>{{ trans('backpack::crud.ajax_error_text') }}"
-                          }).show();
-                        }
-                      });
+                            },
+                            error: function(result) {
+                                new Noty({
+                                    type: "error",
+                                    text: "<strong>{{ trans('backpack::crud.ajax_error_title') }}</strong><br>{{ trans('backpack::crud.ajax_error_text') }}"
+                                }).show();
+                            }
+                        });
                     } else {
-                      const href = $clickedElement.attr('href')
-                      if(href?.includes('/' + 'create') || href?.includes('/' + 'edit') || href?.includes('/' + 'show')) {
-                          return
-                      }
-                      window.location.href = $clickedElement.attr('href')
+                        const href = $clickedElement.attr('href')
+                        if (href?.includes('/' + 'create') || href?.includes('/' + 'edit') || href
+                            ?.includes('/' + 'show')) {
+                            return
+                        }
+                        window.location.href = $clickedElement.attr('href')
                     }
                 });
             }
