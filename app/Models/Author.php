@@ -142,6 +142,15 @@ class Author extends Model
         );
     }
 
+    protected function socialNetworks(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value, $attributes) {
+                return json_encode($value);
+            },
+        );
+    }
+
 
 
     /*

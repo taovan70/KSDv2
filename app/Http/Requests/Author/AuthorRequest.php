@@ -33,7 +33,7 @@ class AuthorRequest extends FormRequest
             'gender' => 'required|string|in:' . implode(',', Author::GENDERS),
             'biography' => 'required|string',
             'address' => 'required|string',
-            'photo_path' => 'sometimes|required|image|max:2000',
+            'photo_path' => 'required|required|image|max:2000',
             'personal_site' => 'nullable|string|url',
             'social_networks' => 'nullable|array',
             'social_networks.*.social_network' => 'required_with:social_networks|string|in:' . implode(',', Author::SOCIAL_NETWORKS),
