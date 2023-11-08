@@ -163,7 +163,7 @@
     chartWrapper.prepend(`<div class="chart-wrapper-header">
                 <div class='card-title mb-0'>Статистика в графиках </div>
                 <div>
-                <ul class="nav justify-content-end charts_switcher">
+                <ul class="nav justify-content-end charts_switcher no-wrap">
                   <li class="nav-item">
                     <a class="nav-link active" data-chart="week" href="#">Неделя</a>
                   </li>
@@ -255,6 +255,10 @@
 
     .chart-page-second-line__col-2--card .card-body {
         padding: 31px;
+    }
+
+    .no-wrap {
+        flex-wrap: nowrap;
     }
 
     @media screen and (max-width: 768px) {
