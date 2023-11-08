@@ -1,6 +1,6 @@
 @push('after_scripts')
     <script>
-        // In this script block only modal fields initializers
+        // IN THIS SCRIPT BLOCK ONLY MODAL FIELDS INITIALIZERS!
         function initializeFieldsWithJavascript(container) {
             let selector;
             if (container instanceof jQuery) {
@@ -8,7 +8,6 @@
             } else {
                 selector = $(container);
             }
-            // NOT_FORGET add .not('input') here
             selector.find("[data-init-function]").not("[data-initialized=true]").each(function() {
                 let element = $(this);
                 let functionName = element.data('init-function');
@@ -16,52 +15,34 @@
                 if (typeof window[functionName] === "function") {
                     window[functionName](element);
 
-                    // mark the element as initialized, so that its function is never called again
                     element.attr('data-initialized', 'true');
                 }
             });
         }
 
-        /**
-         * Window functions that help the developer easily select one or more fields.
-         */
+
         window.crud = {
             ...window.crud,
 
-            // Subfields callbacks holder
             subfieldsCallbacks: [],
 
-            // Create a field from a given name
             field: name => new CrudField(name),
 
-            // Create all fields from a given name list
             fields: names => names.map(window.crud.field),
         };
 
-        /**
-         * A front-end representation of a Backpack field, with its main components.
-         *
-         * Makes it dead-simple for the developer to perform the most common
-         * javascript manipulations, and makes it easy to do custom stuff
-         * too, by exposing the main components (name, wrapper, input).
-         */
         class CrudField {
             constructor(name) {
                 this.name = name;
-                // get the current input
                 this.$input = this.activeInput;
-                // get the field wraper
                 this.wrapper = this.inputWrapper;
 
-                // in case `bp-field-main-input` is specified on a field input, use that one as input
                 this.$input = this.mainInput;
 
-                // Validate that the wrapper has been found
                 if (this.wrapper.length === 0) {
                     console.error(`CrudField error! Could not select WRAPPER for "${this.name}"`);
                 }
 
-                // Validate that the field has been found
                 if (this.$input.length === 0) {
                     console.error(`CrudField error! Could not select INPUT for "${this.name}"`);
                 }
@@ -74,7 +55,6 @@
             }
 
             get activeInput() {
-                // get the input/textarea/select that has that field name
                 this.$input = $(
                     `input[name="${this.name}"], textarea[name="${this.name}"], select[name="${this.name}"], select[name="${this.name}[]"]`
                     );
@@ -87,19 +67,15 @@
             get mainInput() {
                 let input = this.wrapper.find('[bp-field-main-input]').first();
 
-                // if a bp-field-main-input has been specified by developer, that's it, use that one
                 if (input.length !== 0) {
                     return input;
                 }
 
-                // otherwise, try to find the input using other selectors
                 if (this.$input.length === 0) {
-                    // try searching for the field with the corresponding bp-field-name
                     input = this.wrapper.find(
                         `input[bp-field-name="${this.name}"], textarea[bp-field-name="${this.name}"], select[bp-field-name="${this.name}"], select[bp-field-name="${this.name}[]"]`
                         ).first();
 
-                    // if not input found yet, just get the first input in that wrapper
                     if (input.length === 0) {
                         input = this.wrapper.find('input, textarea, select').first();
                     }
@@ -213,8 +189,6 @@
                         .find(`[bp-field-wrapper][bp-field-name$="${name}"]`);
                     subfield.$input = subfield.wrapper.find(
                         `[data-repeatable-input-name$="${name}"][bp-field-main-input]`);
-                    // if no bp-field-main-input has been declared in the field itself,
-                    // assume it's the first input in that wrapper, whatever it is
                     if (subfield.$input.length == 0) {
                         subfield.$input = subfield.wrapper.find(
                             `input[data-repeatable-input-name$="${name}"], textarea[data-repeatable-input-name$="${name}"], select[data-repeatable-input-name$="${name}"]`
@@ -228,11 +202,6 @@
         }
 
 
-        /**
-         * Auto-discover first focusable input
-         * @param {jQuery} form
-         * @return {jQuery}
-         */
         function getFirstFocusableField(form) {
             return form.find('input, select, textarea, button')
                 .not('.close')
@@ -240,10 +209,6 @@
                 .filter(':visible:first');
         }
 
-        /**
-         *
-         * @param {jQuery} firstField
-         */
         function triggerFocusOnFirstInputField(firstField) {
             if (firstField.hasClass('select2-hidden-accessible')) {
                 return handleFocusOnSelect2Field(firstField);
@@ -256,6 +221,7 @@
 
 @push('after_scripts')
     <script>
+      // IN THIS SCRIPT BLOCK MAIN LOGIC OF MODALS
         $(document).ready(function() {
 
             function emptyModal(innerData) {
