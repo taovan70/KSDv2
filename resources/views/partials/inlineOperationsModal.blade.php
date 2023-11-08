@@ -642,7 +642,11 @@
                     icon_path: 'Icon',
                     photo_path: 'Photo',
                     mini_pic_path: 'Mini picture',
-                    slug: 'Slug'
+                    slug: 'Slug',
+                    address: 'Address',
+                    age: 'Age',
+                    surname: 'Surname',
+                    biography: 'Biography',
                 }
                 const translateObjectRU = {
                     name: 'Название',
@@ -650,7 +654,11 @@
                     icon_path: 'Иконка',
                     photo_path: 'Фотография',
                     mini_pic_path: 'Мини-картинка',
-                    slug: 'Слаг'
+                    slug: 'Слаг',
+                    address: 'Адрес',
+                    age: 'Возраст',
+                    surname: 'Фамилия',
+                    biography: 'Биография',
                 }
 
                 const translateObject = lang === 'ru' ? translateObjectRU : translateObjectEN

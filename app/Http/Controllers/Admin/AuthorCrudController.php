@@ -6,6 +6,7 @@ use App\Http\Requests\Author\AuthorRequest;
 use App\Models\Author;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -20,6 +21,8 @@ class AuthorCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineCreateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -46,11 +49,18 @@ class AuthorCrudController extends CrudController
         CRUD::column('fullGender')->label(__('table.author_fields.gender'));
         CRUD::column('created_at')->label(__('table.created'));
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'author',
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
     }
 
     /**
