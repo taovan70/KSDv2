@@ -647,9 +647,11 @@
                     age: 'Age',
                     surname: 'Surname',
                     biography: 'Biography',
+                    password: 'Password',
+                    password_confirmation: 'Password confirmation',
                 }
                 const translateObjectRU = {
-                    name: 'Название',
+                    name: 'Название (Имя)',
                     description: 'Описание',
                     icon_path: 'Иконка',
                     photo_path: 'Фотография',
@@ -659,6 +661,8 @@
                     age: 'Возраст',
                     surname: 'Фамилия',
                     biography: 'Биография',
+                    password: 'Пароль',
+                    password_confirmation: 'Подтверждение пароля',
                 }
 
                 const translateObject = lang === 'ru' ? translateObjectRU : translateObjectEN
@@ -672,6 +676,10 @@
         .modal-dialog {
             min-width: 700px;
             margin: 5% auto;
+        }
+
+        .select2-search__field {
+            width: auto!important;
         }
 
         @media screen and (max-width: 768px) {

@@ -212,7 +212,7 @@ class CategoryCrudController extends CrudController
             'type' => 'image',
             'prefix' => 'storage/',
             'width' => '100px',
-            'height' => '100px'
+            'height' => 'auto'
         ]);
         CRUD::addColumn([
             'name' => 'mini_pic_path',
@@ -220,7 +220,7 @@ class CategoryCrudController extends CrudController
             'type' => 'image',
             'prefix' => 'storage/',
             'width' => '100px',
-            'height' => '100px'
+            'height' => 'auto'
         ]);
         CRUD::addColumn([
             'name' => 'icon_path',
@@ -228,7 +228,7 @@ class CategoryCrudController extends CrudController
             'type' => 'image',
             'prefix' => 'storage/',
             'width' => '100px',
-            'height' => '100px'
+            'height' => 'auto'
         ]);
         $this->setupListOperation();
     }

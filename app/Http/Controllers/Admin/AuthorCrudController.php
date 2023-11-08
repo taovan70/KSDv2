@@ -150,7 +150,7 @@ class AuthorCrudController extends CrudController
             'type' => 'image',
             'prefix' => 'storage/',
             'width' => '100px',
-            'height' => '100px'
+            'height' => 'auto'
         ]);
         CRUD::column('full_name')->label(__('table.author_fields.full_name'));
         CRUD::column('age')->label(__('table.author_fields.age'));

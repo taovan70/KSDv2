@@ -48,6 +48,13 @@ class UserCrudController extends CrudController
     {
         CRUD::column('name')->label(__('table.user_fields.name'));
         CRUD::column('email')->label(__('table.user_fields.email'));
+        CRUD::addColumn([
+            'label' => __('table.user_fields.role'),
+            'type' => 'select',
+            'name' => 'role_id',
+            'attribute' => 'name_rus',
+            'entity' => 'role',
+        ]);
 
         Widget::add([
             'type' => 'view',
@@ -73,7 +80,17 @@ class UserCrudController extends CrudController
     {
         CRUD::setValidation(UserStoreRequest::class);
 
-        $this->renderForm();
+        CRUD::field('name')->label(__('table.author_fields.name'));
+        CRUD::field('email')->label(__('table.user_fields.email'));
+        CRUD::field('password')->type('password')->label(__('table.user_fields.password'));
+        CRUD::field('password_confirmation')->type('password')->label(__('table.user_fields.password_confirmation'));
+
+        CRUD::addField([
+            'name' => 'role',
+            'label' => __('table.user_fields.role'),
+            'type' => 'select',
+            'attribute' => 'name_rus'
+        ]);
 
         User::creating(function($entry) {
             $entry->password = Hash::make($entry->password);
@@ -96,7 +113,7 @@ class UserCrudController extends CrudController
     {
         CRUD::setValidation(UserUpdateRequest::class);
 
-        $this->renderForm();
+        $this->setupCreateOperation();
 
         User::updating(function($entry) {
             if (empty($entry->password)) {

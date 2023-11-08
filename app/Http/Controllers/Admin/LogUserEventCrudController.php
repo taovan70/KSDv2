@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class LogUserEventCrudController
@@ -46,11 +47,18 @@ class LogUserEventCrudController extends CrudController
         CRUD::column('created_at');
         CRUD::column('updated_at');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'log-user-event',
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
     }
 
     /**
