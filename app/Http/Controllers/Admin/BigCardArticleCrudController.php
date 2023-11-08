@@ -7,6 +7,7 @@ use App\Models\Blocks\MainPage\BigCardArticle;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\Blocks\MainPage\BigCardArticleRequest;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class BigCardArticleCrudController
@@ -20,10 +21,12 @@ class BigCardArticleCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -35,7 +38,7 @@ class BigCardArticleCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -52,11 +55,24 @@ class BigCardArticleCrudController extends CrudController
                 'href' => fn ($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
             ]
         ]);
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'big-card-article'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -67,7 +83,7 @@ class BigCardArticleCrudController extends CrudController
         CRUD::addField([
             'name' => 'content',
             'label' => __('table.article'),
-            'type' => 'ckeditor',
+            'type' => 'textarea',
             'options'       => [
                 'autoGrow_minHeight'   => 200,
                 'autoGrow_bottomSpace' => 50
@@ -91,7 +107,7 @@ class BigCardArticleCrudController extends CrudController
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

@@ -652,6 +652,7 @@
                     biography: 'Biography',
                     password: 'Password',
                     password_confirmation: 'Password confirmation',
+                    article_id: 'Article'
                 }
                 const translateObjectRU = {
                     name: 'Название (Имя)',
@@ -666,6 +667,7 @@
                     biography: 'Биография',
                     password: 'Пароль',
                     password_confirmation: 'Подтверждение пароля',
+                    article_id: 'Статья'
                 }
 
                 const translateObject = lang === 'ru' ? translateObjectRU : translateObjectEN
