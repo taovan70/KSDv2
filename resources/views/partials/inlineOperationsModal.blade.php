@@ -463,6 +463,13 @@
                     if ($clickedElement.attr('href')?.includes('/' + 'edit') && $clickedElement.attr(
                             'href')?.includes(data.page)) {
                         // if EDIT
+
+                      // article edit not in modal
+                      if(data.page === 'article'){
+                          window.location.href = $clickedElement.attr('href')
+                          return
+                      }
+
                         let $inlineModalRoute = '<?php
                         echo backpack_url(''); ?>' +
                             '/' + data.page + '/inline/update/modal/';
@@ -573,15 +580,11 @@
                                 // $inlineCreateButtonElement.html($inlineCreateButtonElement.data('original-text'));
                             }
                         });
-                    } else if ($clickedElement.attr('href')?.includes('/' + 'show') && $clickedElement
-                        .attr(
-                            'href')?.includes(data.page)) {
+                    } else if ($clickedElement.attr('href')?.includes('/' + 'show') ) {
                         // if SHOW
                         const match = $clickedElement.attr('href')?.match(/\/(\d+)\//);
                         entityId = match[1];
-                        let $inlineShowRoute = '<?php echo backpack_url(''); ?>' + '/' + data.page + '/' +
-                            entityId +
-                            '/show';
+                        let $inlineShowRoute = $clickedElement.attr('href');
 
                         $.ajax({
                             url: $inlineShowRoute,
@@ -594,7 +597,7 @@
                                 //$('body').append($(result).find('table'));
                                 triggerModal({
                                     method: 'show',
-                                    page: data.page,
+                                    page: null,
                                     entityId: entityId,
                                     modalId: '#inline-show-dialog',
                                     openButtonId: 'a',
