@@ -45,6 +45,7 @@ return [
         'account' => 'Account',
         'photo' => 'Photo',
         'description' => 'Description',
+        'items' => 'Items',
     ],
 
     'user_fields' =>[

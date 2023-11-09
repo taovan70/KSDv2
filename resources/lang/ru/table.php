@@ -45,6 +45,7 @@ return [
         'account' => 'Аккаунт',
         'photo' => 'Фотография',
         'description' => 'Описание',
+        'items' => 'Пункты',
     ],
 
     'user_fields' =>[
