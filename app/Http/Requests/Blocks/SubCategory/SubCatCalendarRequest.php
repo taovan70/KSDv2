@@ -26,10 +26,10 @@ class SubCatCalendarRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:255',
-            'month_data' => 'nullable|array',
-            'month_data.*.name' => 'required|string',
-            'month_data.*.text' => 'required|string',
-            'month_data.*.article_id' => 'required|string',
+//            'month_data' => 'nullable|array',
+//            'month_data.*.name' => 'required|string',
+//            'month_data.*.text' => 'required|string',
+//            'month_data.*.article_id' => 'required|string',
         ];
     }
 
@@ -54,6 +54,7 @@ class SubCatCalendarRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'category_id.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'name.min' => __('validation.common.min') . ' ' . ':min',
             'month_data.*.name' => __('validation.common.required'),

@@ -28,9 +28,9 @@ class SubCatGameOneBlockRequest extends FormRequest
         return [
             'question' => 'required|string|min:2|max:255',
             'category_id' => 'required|numeric|exists:categories,id',
-            'answer_data' => 'nullable|array',
-            'answer_data.*.answer' => 'required|string',
-            'answer_data.*.is_correct' => 'required|boolean',
+//            'answer_data' => 'nullable|array',
+//            'answer_data.*.answer' => 'required|string',
+//            'answer_data.*.is_correct' => 'required|boolean',
             'photo_path' => 'nullable|image|max:2000'
         ];
     }

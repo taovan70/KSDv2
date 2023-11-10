@@ -55,6 +55,7 @@ class BigCardArticleRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'article_id.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
         ];

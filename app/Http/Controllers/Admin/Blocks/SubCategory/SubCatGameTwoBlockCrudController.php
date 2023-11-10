@@ -8,6 +8,7 @@ use App\Http\Requests\Blocks\SubCategory\SubCatGameTwoBlockRequest;
 use App\Models\Blocks\SubCategory\SubCatGameTwoBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatGameOneBlockCrudController
@@ -21,6 +22,8 @@ class SubCatGameTwoBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -52,6 +55,19 @@ class SubCatGameTwoBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
+        ]);
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'sub-cat-game-two-block'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
     }
 

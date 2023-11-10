@@ -8,6 +8,7 @@ use App\Http\Requests\Blocks\SubCategory\SubCatGameOneBlockRequest;
 use App\Models\Blocks\SubCategory\SubCatGameOneBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatGameOneBlockCrudController
@@ -21,6 +22,8 @@ class SubCatGameOneBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -32,6 +35,18 @@ class SubCatGameOneBlockCrudController extends CrudController
         CRUD::setModel(SubCatGameOneBlock::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/sub-cat-game-one-block');
         CRUD::setEntityNameStrings(__('models.sub_cat_game_one_block'), __('models.sub_cat_game_one_block'));
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'sub-cat-game-one-block'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
     }
 
     /**
