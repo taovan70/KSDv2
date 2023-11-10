@@ -78,6 +78,11 @@ class ReadersRecomendArticleCrudController extends CrudController
             'type' => 'script',
             'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => '/packages/jquery-ui-dist/jquery-ui.min.js',
+        ]);
     }
 
     /**

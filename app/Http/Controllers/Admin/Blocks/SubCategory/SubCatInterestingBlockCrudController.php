@@ -7,6 +7,7 @@ use App\Http\Requests\Blocks\SubCategory\SubCatInterestingBlockRequest;
 use App\Models\Blocks\SubCategory\SubCatInterestingBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatInterestingBlockCrudController
@@ -20,10 +21,12 @@ class SubCatInterestingBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -35,7 +38,7 @@ class SubCatInterestingBlockCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -52,11 +55,24 @@ class SubCatInterestingBlockCrudController extends CrudController
                 'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
         ]);
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'sub-cat-interesting-block'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -96,12 +112,12 @@ class SubCatInterestingBlockCrudController extends CrudController
             'height' => '100px'
         ]);
         $this->setupListOperation();
-        
+
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

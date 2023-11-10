@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Blocks\Article\DidYouKnowInArticlesRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class DidYouKnowInArticlesCrudController
@@ -18,6 +19,8 @@ class DidYouKnowInArticlesCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -51,10 +54,19 @@ class DidYouKnowInArticlesCrudController extends CrudController
         ]);
         CRUD::column('text')->label(__('models.text')); // set columns from db columns.
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'did-you-know-in-articles'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
+
     }
 
     /**

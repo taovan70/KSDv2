@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Blocks\MainPage\PopularCategoriesRequest;
+use App\Services\CategoryService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
@@ -76,6 +77,11 @@ class PopularCategoriesCrudController extends CrudController
             'type' => 'script',
             'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => '/packages/jquery-ui-dist/jquery-ui.min.js',
+        ]);
     }
 
     /**
@@ -115,6 +121,19 @@ class PopularCategoriesCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function reorder(CategoryService $service)
+    {
+        $this->crud->hasAccessOrFail('reorder');
+
+        if (!$this->crud->isReorderEnabled()) {
+            abort(403, 'Reorder is disabled.');
+        }
+
+        $this->data = $service->getSubCategoryInfo($this->data, $this->crud);
+
+        return view('vendor/backpack/crud/category-reorder', $this->data);
     }
 
     protected function setupShowOperation()

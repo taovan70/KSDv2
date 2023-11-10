@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StandalonePageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class StandalonePageCrudController
@@ -18,10 +19,12 @@ class StandalonePageCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -33,7 +36,7 @@ class StandalonePageCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -42,11 +45,29 @@ class StandalonePageCrudController extends CrudController
         CRUD::column('name')->label(__('table.name'));
         CRUD::column('main_text')->label(__('models.main_text'));
         CRUD::column('add_text')->label(__('models.add_text'));
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'standalone-page'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js',
+        ]);
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -92,12 +113,12 @@ class StandalonePageCrudController extends CrudController
             'height' => '100px'
         ]);
         $this->setupListOperation();
-        
+
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
