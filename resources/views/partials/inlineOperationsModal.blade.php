@@ -1188,7 +1188,6 @@
             function reorderInitialize(url) {
                 nestedSortableJS()
                 var isRtl = Boolean("");
-                console.log($('#toArray'))
                 if (isRtl) {
                     $(" <style> .ui-sortable ol {margin: 0;padding: 0;padding-right: 30px;}ol.sortable, ol.sortable ol {margin: 0 25px 0 0;padding: 0;list-style-type: none;}.ui-sortable dd {margin: 0;padding: 0 1.5em 0 0;}</style>")
                         .appendTo("head")
@@ -1737,6 +1736,7 @@
                     text: 'Text',
                     question: 'Question',
                     answer: 'Answer',
+                    menu_order: 'Menu order',
                 }
                 const translateObjectRU = {
                     name: 'Название (Имя)',
@@ -1756,6 +1756,7 @@
                     text: 'Текст (Контент)',
                     question: 'Вопрос',
                     answer: 'Ответ',
+                    menu_order: 'Порядок в меню',
                 }
 
                 const translateObject = lang === 'ru' ? translateObjectRU : translateObjectEN

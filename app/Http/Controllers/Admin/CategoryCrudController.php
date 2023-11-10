@@ -96,6 +96,7 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('menu_order')->type('number')->label(__('table.menu_order'));
         CRUD::addField([
             'name' => 'description',
             'label' => __('table.description'),
@@ -168,6 +169,7 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('menu_order')->type('number')->label(__('table.menu_order'));
         CRUD::addField([
             'name' => 'description',
             'label' => __('table.description'),

@@ -28,6 +28,7 @@ return [
     "icon" => "Иконка",
     "description" => "Описание",
     "mini-pic" => "Мини-картинка",
+    'menu_order' => 'Порядок в меню',
     'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',

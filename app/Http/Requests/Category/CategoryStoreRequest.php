@@ -26,6 +26,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:255|unique:categories,name,'.$this->id,
+            'menu_order' => 'required|integer',
             'description' => 'required|string',
             'icon_path' => 'required|image',
             'photo_path' => 'required|image|max:2000',
@@ -54,6 +55,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'menu_order.required' => __('validation.common.required'),
             'icon_path.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
             'description.required' => __('validation.common.required'),
