@@ -137,7 +137,7 @@ class ArticleController extends Controller
 
         $article->tags()->sync($request->tags);
 
-        return redirect()->route('article.make-article')->with('message', ['previewUrl' => env('FRONT_URL') . "/article/article-preview-" . $article->id]);
+        return redirect()->route('article.make-article')->with('message', ['previewUrl' => env('FRONT_URL') . "/article-preview-" . $article->id]);
     }
 
     public function updatePreview(ArticleStoreRequest $request, Article $article,): RedirectResponse
@@ -166,7 +166,7 @@ class ArticleController extends Controller
 
         $article->tags()->sync($request->tags);
 
-        return redirect()->route('article.make-article')->with('message', ['previewUrl' => env('FRONT_URL') . "/article/article-preview-" . $article->id]);
+        return redirect()->route('article.make-article')->with('message', ['previewUrl' => env('FRONT_URL') . "/article-preview-" . $article->id]);
     }
 
 

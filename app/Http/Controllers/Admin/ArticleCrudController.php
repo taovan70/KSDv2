@@ -24,7 +24,6 @@ class ArticleCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation {
         destroy as traitDestroy;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 

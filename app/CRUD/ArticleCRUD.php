@@ -41,6 +41,14 @@ class ArticleCRUD extends CrudPanelFacade
             'type' => 'boolean'
         ]);
         CRUD::column('slug')->label(__('table.article_fields.slug'));
+        CRUD::addColumn([
+            'label' => __('table.article_fields.show'),
+            'type' => 'custom_html',
+            'wrapper' => [
+                'href' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/{$article['slug']}")
+            ],
+            'value'    => '<span>'.__('table.article_fields.show').'</span>'
+        ]);
         CRUD::column('publish_date')->label(__('table.article_fields.publish_date'));
     }
 

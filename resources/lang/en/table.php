@@ -68,6 +68,7 @@ return [
         'publish_date' => 'Publish date',
         'published' => 'Published',
         'slug'=> 'Slug',
+        'show' => 'Show',
     ],
 
     'adv_block_fields' => [

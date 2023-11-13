@@ -68,6 +68,7 @@ return [
         'publish_date' => 'Дата публикации',
         'published' => 'Опубликована',
         'slug'=> 'Слаг',
+        'show' => 'Просмотр',
     ],
 
     'adv_block_fields' => [
