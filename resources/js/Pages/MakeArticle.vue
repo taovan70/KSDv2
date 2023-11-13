@@ -47,7 +47,7 @@ const { data: settings } = useQuery({
   },
 })
 
-const { data: categories, } = useQuery({
+const { data: categories } = useQuery({
   queryKey: ['categories'],
   queryFn: async () => {
     const res = await fetch('/api/categories', { method: 'POST' });
