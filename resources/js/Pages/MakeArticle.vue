@@ -277,8 +277,8 @@ const copyToClipboard = (val) => {
           <div v-if="endpointForm.errors.mainPic" class="form_error_text">{{ endpointForm.errors.mainPic }}</div>
         </div>
       </div>
-      <el-button v-if="props.article?.id" @click="sendForm(false)" color="#626aef">{{ $t("makeArticle.fields.save") }}</el-button>
-      <el-button @click="sendForm(true)" color="#626aef">{{ $t("makeArticle.fields.preview") }}</el-button>
+      <el-button @click="sendForm(false)" color="#626aef">{{ $t("makeArticle.fields.save") }}</el-button>
+      <el-button v-if="props.article?.id" @click="sendForm(true)" color="#626aef">{{ $t("makeArticle.fields.preview") }}</el-button>
     </form>
 
     <section class="format_instruction mt-5">

@@ -5,14 +5,14 @@
     "src": "resources/css/app.css"
   },
   "resources/js/make-article.css": {
-    "file": "assets/make-article-1939d905.css",
+    "file": "assets/make-article-45168688.css",
     "src": "resources/js/make-article.css"
   },
   "resources/js/make-article.js": {
     "css": [
-      "assets/make-article-1939d905.css"
+      "assets/make-article-45168688.css"
     ],
-    "file": "assets/make-article-a6c3c36c.js",
+    "file": "assets/make-article-26fb6c9c.js",
     "isEntry": true,
     "src": "resources/js/make-article.js"
   }
