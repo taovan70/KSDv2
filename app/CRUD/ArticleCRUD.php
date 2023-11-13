@@ -46,9 +46,13 @@ class ArticleCRUD extends CrudPanelFacade
             'label' => __('table.article_fields.show'),
             'type' => 'custom_html',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/{$article['slug']}")
+                'href' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id'])
             ],
-            'value'    => '<span>'.__('table.article_fields.show').'</span>'
+            'value'    => '<span onclick="setPreviewCookie()">'.__('table.article_fields.show').'</span>
+<script> function setPreviewCookie () {
+    document.cookie = `article-preview='.env('PREVIEW_ARTICLE_TOKEN').'; expires=Fri, 31 Dec 9999 23:59:59 GMT"; path=/`
+}</script>
+                '
         ]);
     }
 
