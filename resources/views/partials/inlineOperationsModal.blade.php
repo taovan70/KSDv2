@@ -1,4 +1,7 @@
 @push('after_scripts')
+    <script> function setPreviewCookie (e) {
+        document.cookie = 'article-preview=<?php echo  env('PREVIEW_ARTICLE_TOKEN');?>; expires=Fri, 31 Dec 9999 23:59:59 GMT"; path=/';
+      }</script>
     <script>
         // IN THIS SCRIPT BLOCK ONLY MODAL FIELDS INITIALIZERS!
         function initializeFieldsWithJavascript(container) {
