@@ -216,7 +216,7 @@ const copyToClipboard = (val) => {
           </div>
         </div>
         <div class="article_tags">
-          <label for="article_tags">{{ $t("makeArticle.fields.tags") }}2</label>
+          <label for="article_tags">{{ $t("makeArticle.fields.tags") }}</label>
           <div>
             <el-select v-model="endpointForm.tags" filterable multiple placeholder="Select" size="large"
               id="article_tags">
@@ -284,7 +284,7 @@ const copyToClipboard = (val) => {
 
     <section class="format_instruction mt-5">
       <el-collapse>
-        <el-collapse-item title="Инструкция1" name="Инструкция">
+        <el-collapse-item title="Инструкция" name="Инструкция">
           <table class="instruction_table">
             <tr class="instruction_table_row">
               <td>
