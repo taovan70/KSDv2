@@ -41,6 +41,7 @@ class ArticleCRUD extends CrudPanelFacade
             'type' => 'boolean'
         ]);
         CRUD::column('slug')->label(__('table.article_fields.slug'));
+        CRUD::column('publish_date')->label(__('table.article_fields.publish_date'));
         CRUD::addColumn([
             'label' => __('table.article_fields.show'),
             'type' => 'custom_html',
@@ -49,7 +50,6 @@ class ArticleCRUD extends CrudPanelFacade
             ],
             'value'    => '<span>'.__('table.article_fields.show').'</span>'
         ]);
-        CRUD::column('publish_date')->label(__('table.article_fields.publish_date'));
     }
 
     public static function showColumns(): void
