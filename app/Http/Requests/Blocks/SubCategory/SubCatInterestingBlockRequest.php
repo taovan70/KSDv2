@@ -28,7 +28,7 @@ class SubCatInterestingBlockRequest extends FormRequest
         return [
             'name' => 'required|min:2|max:255',
             'text' => 'required|string',
-            'photo_path' => 'nullable|image|max:2000',
+            'photo_path' => 'nullable|image|max:4096',
             'category_id' => 'required|numeric|exists:categories,id',
         ];
     }

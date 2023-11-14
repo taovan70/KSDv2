@@ -29,7 +29,7 @@ class InfoBlockRequest extends FormRequest
             'name' => 'required|max:255',
             'main_text' => 'nullable|string',
             'add_text' => 'nullable|string',
-            'photo_path' => 'image|max:2000',
+            'photo_path' => 'image|max:4096',
         ];
     }
 

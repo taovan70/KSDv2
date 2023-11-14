@@ -28,7 +28,7 @@ class StandalonePageRequest extends FormRequest
             'name' => 'required|string|max:255',
             'main_text' => 'nullable|string',
             'add_text' => 'nullable|string',
-            'photo_path' => 'nullable|image|max:2000',
+            'photo_path' => 'nullable|image|max:4096',
         ];
     }
 

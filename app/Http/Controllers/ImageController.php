@@ -9,7 +9,7 @@ class ImageController extends Controller
     public function tempStore(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
-            'upload' => 'required|image|mimes:png,jpg,jpeg,webp|max:2048'
+            'upload' => 'required|image|mimes:png,jpg,jpeg,webp|max:4096'
         ]);
 
         $dir = '/storage/temp_images';
