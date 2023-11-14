@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Article;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleStoreRequest extends FormRequest
@@ -25,7 +26,13 @@ class ArticleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:500',
+            'name' => [
+                'required',
+                'string',
+                'min:2',
+                'max:255',
+                Rule::unique('articles')->ignore($this->article->id)
+            ],
             'slug' => 'required|string|max:500',
             'title' => 'required|string|max:500',
             'description' => 'required|string|max:1000',
@@ -64,6 +71,7 @@ class ArticleStoreRequest extends FormRequest
         return [
             'name.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
+            'name.unique' => __('validation.common.unique'),
 
             'slug.required' => __('validation.common.required'),
             'slug.max' => __('validation.common.max') . ' ' . ':max',
