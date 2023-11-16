@@ -23,7 +23,7 @@ class ReadersRecomendArticle extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['name', 'article_id', 'lft', 'rgt', 'depth', 'parent_id',];
     // protected $hidden = [];
 
     /*

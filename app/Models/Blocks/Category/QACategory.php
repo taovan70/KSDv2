@@ -23,7 +23,7 @@ class QACategory extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable =  ['name', 'article_id', 'lft', 'rgt', 'depth'];
     // protected $hidden = [];
 
     /*

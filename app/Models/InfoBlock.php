@@ -21,7 +21,7 @@ class InfoBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['name', 'main_text', 'add_text', 'photo_path'];
     // protected $hidden = [];
 
     /*

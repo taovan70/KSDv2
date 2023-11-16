@@ -23,7 +23,7 @@ class MostTalkedArticle extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['name', 'lft', 'rgt', 'depth', 'parent_id', 'article_id'];
     // protected $hidden = [];
 
     /*

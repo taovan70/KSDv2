@@ -25,6 +25,10 @@ class PopularCategories extends Model
     protected $fillable = [
         'name',
         'category_id',
+        'lft',
+        'rgt',
+        'depth',
+        'parent_id',
     ];
     // protected $hidden = [];
 
