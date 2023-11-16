@@ -60,6 +60,7 @@ return [
     'everyone_talking_about' => 'О чём все говорят',
     'q-a-category' => 'Вопрос-ответ',
     'sub_cat_alphavite_block' => 'Блок алфавита',
+    'sub_cat_top_facts_block' => 'Верхний блок фактов',
     'sub_cat_interesting_block' => 'Это интересно',
     'sub_cat_calendar' => 'Календарь',
     'sub_cat_expert_advice' => 'Совет эксперта',
@@ -71,4 +72,14 @@ return [
     'correct' => 'Верно',
     'incorrect' => 'Неверно',
     'error_save' => 'Ошибка сохранения',
+    'number_one' => 'Число первое',
+    'number_two' => 'Число второе',
+    'number_three' => 'Число третье',
+    'text_one' => 'Текст первый',
+    'text_two' => 'Текст второй',
+    'text_three' => 'Текст третий',
+    'article_one' => 'Статья первая',
+    'article_two' => 'Статья вторая',
+    'content' => 'Контент',
+    'background_photo_path'=> 'Фоновое изображение'
 ];

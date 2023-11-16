@@ -1740,6 +1740,16 @@
                     question: 'Question',
                     answer: 'Answer',
                     menu_order: 'Menu order',
+                    number_one : 'Number one',
+                    number_two : 'Number two',
+                    number_three : 'Number three',
+                    text_one:'Text one',
+                    text_two:'Text two',
+                    text_three:'Text three',
+                    article_one:'Article one',
+                    article_two:'Article two',
+                    content : 'Content',
+                    background_photo_path : 'Background photo',
                 }
                 const translateObjectRU = {
                     name: 'Название (Имя)',
@@ -1760,6 +1770,16 @@
                     question: 'Вопрос',
                     answer: 'Ответ',
                     menu_order: 'Порядок в меню',
+                    number_one : 'Число первое',
+                    number_two : 'Число второе',
+                    number_three : 'Число третье',
+                    text_one : 'Текст первый',
+                    text_two : 'Текст второй',
+                    text_three : 'Текст третий',
+                    article_one : 'Статья первая',
+                    article_two : 'Статья вторая',
+                    content : 'Контент',
+                    background_photo_path:'Фоновое изображение'
                 }
 
                 const translateObject = lang === 'ru' ? translateObjectRU : translateObjectEN

@@ -82,7 +82,7 @@ class BigCardArticleCrudController extends CrudController
         CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
             'name' => 'content',
-            'label' => __('table.article'),
+            'label' => __('models.content'),
             'type' => 'textarea',
             'options'       => [
                 'autoGrow_minHeight'   => 200,

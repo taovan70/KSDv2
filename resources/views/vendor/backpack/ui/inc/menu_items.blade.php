@@ -140,6 +140,12 @@
             </a>
             <ul class="nav-dropdown-items">
                 <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-top-facts-block') }}">
+                        <i class="nav-icon lab la-readme"></i>
+                        {{ __('models.sub_cat_top_facts_block') }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-alphavite-block') }}">
                         <i class="nav-icon la la-poll-h"></i>
                         {{ __('models.sub_cat_alphavite_block') }}

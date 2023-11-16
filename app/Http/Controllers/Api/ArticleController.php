@@ -74,7 +74,7 @@ class ArticleController extends Controller
                 $q->where('slug', '=', $request->category_slug);
             })->with(['category', 'author'])->take($count)->where('published', true)->get();
         } else {
-            $articles = Article::latest()->with('category')->with('author')->take($count)->where('published', true)->get();
+            $articles = Article::latest()->with('category', 'author', 'tags')->take($count)->where('published', true)->get();
         }
         return ArticleForBlocksResource::collection($articles);
     }
@@ -86,7 +86,7 @@ class ArticleController extends Controller
                 $q->where('slug', '=', $request->category_slug);
             })->with(['category', 'author'])->where('published', true)->paginate(6);
         } else {
-            $articles = Article::latest()->with('category')->with('author')->where('published', true)->paginate(6);
+            $articles = Article::latest()->with('category', 'author', 'tags')->where('published', true)->paginate(6);
         }
         return ArticleForBlocksResource::collection($articles);
     }

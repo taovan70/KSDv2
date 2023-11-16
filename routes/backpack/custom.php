@@ -65,4 +65,5 @@ Route::group([
     Route::crud('sub-cat-expert-advice', 'Blocks\SubCategory\SubCatExpertAdviceCrudController');
     Route::crud('sub-cat-game-one-block', 'Blocks\SubCategory\SubCatGameOneBlockCrudController');
     Route::crud('sub-cat-game-two-block', 'Blocks\SubCategory\SubCatGameTwoBlockCrudController');
+    Route::crud('sub-cat-top-facts-block', 'Blocks\SubCategory\SubCatTopFactsBlockCrudController');
 }); // this should be the absolute last line of this file

@@ -29,6 +29,7 @@ class ArticleService
     {
         return Article::query()
             ->when(isset($search), fn (Builder $query) => $query->where('name', 'LIKE', "%{$search}%"))
+            ->with('tags')
             ->orderBy('name')
             ->get();
     }
@@ -173,7 +174,7 @@ class ArticleService
             $fileName = basename($eachMatch['imageURL']);
             // save description in database
             $row = DB::table('media')->where('model_id', $article->id)->where('file_name', $fileName)->first();
-            
+
             if (!empty($row)) {
                 $mediaItem = Media::find($row->id);
 
