@@ -79,7 +79,7 @@ Route::group([], function () {
             Route::group(['prefix' => 'everyone-talking-about'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\Category\EveryoneTalkingAboutsController::class, 'index'])->name('everyoneTalkingAbout.index');
             });
-            
+
             Route::group(['prefix' => 'qa-category'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\Category\QACategoryController::class, 'index'])->name('QACategory.index');
             });
@@ -90,6 +90,9 @@ Route::group([], function () {
         });
 
         Route::group(['prefix' => 'sub-category'], function () {
+            Route::group(['prefix' => 'top-facts-block'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatTopFactsBlockController::class, 'index'])->name('subCatTopFacts.index');
+            });
             Route::group(['prefix' => 'alphavite-block'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatAlphaviteBlockController::class, 'index'])->name('subCatAlphavite.index');
             });
