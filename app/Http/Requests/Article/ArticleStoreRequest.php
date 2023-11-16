@@ -31,7 +31,7 @@ class ArticleStoreRequest extends FormRequest
                 'string',
                 'min:2',
                 'max:255',
-                Rule::unique('articles')->ignore($this->article->id)->whereNull('preview_for'),
+                Rule::unique('articles')->ignore($this?->article?->id)->whereNull('preview_for'),
             ],
             'slug' => 'required|string|max:500',
             'title' => 'required|string|max:500',
