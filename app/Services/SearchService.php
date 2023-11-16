@@ -10,11 +10,12 @@ class SearchService
 {
     public function search(string $searchTerm): Collection
     {
-        $articlesContent = Article::search($searchTerm)->where('published', '1')->get();
+        $articlesContent = Article::search($searchTerm)->where('published', '1')->with('tags')->get();
 
         $articlesTitle = Article::query()
             ->where('title', 'LIKE', "%{$searchTerm}%")
             ->where('published', '1')
+            ->with('tags')
             ->get();
 
         $articles =  $articlesContent->merge($articlesTitle);

@@ -16,7 +16,7 @@ class QACategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $mainPic = !empty($this->article) ?  Article::where('slug', '=',  $this->article->slug)->first()->getMedia('mainPic') : '';
+        $mainPic = !empty($this->article) ?  Article::where('slug', '=',  $this->article->slug)->with('media')->first()->getMedia('mainPic') : '';
         return [
             'name' => $this->name,
             'article' => [

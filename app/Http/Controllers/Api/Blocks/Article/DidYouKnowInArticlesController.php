@@ -17,7 +17,7 @@ class DidYouKnowInArticlesController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return DidYouKnowInArticlesResource::collection(DidYouKnowInArticles::all());
+        return DidYouKnowInArticlesResource::collection(DidYouKnowInArticles::with('category')->get());
     }
 
     public function random(string $count, ?string $category_id = null): \Illuminate\Http\Resources\Json\AnonymousResourceCollection

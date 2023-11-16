@@ -28,7 +28,7 @@ class ArticleController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::where('published', true)->get();
+        $articles = Article::where('published', true)->with(['category', 'author', 'tags'])->get();
         return ArticleResource::collection($articles);
     }
 
@@ -46,7 +46,7 @@ class ArticleController extends Controller
 
     public function show(string $slug): ArticleResource
     {
-        $article = Article::where('slug', $slug)->where('published', true)->firstOrFail();
+        $article = Article::where('slug', $slug)->where('published', true)->with(['category', 'author', 'tags'])->firstOrFail();
         $article->load('tags');
         return new ArticleResource($article);
     }
@@ -56,14 +56,14 @@ class ArticleController extends Controller
         if (empty($key) || $key !== env('PREVIEW_ARTICLE_TOKEN')) {
             abort(404, "Sorry! Article not found");
         }
-        $article = Article::where('id', $id)->firstOrFail();
+        $article = Article::where('id', $id)->with(['category', 'author', 'tags'])->firstOrFail();
         $article->load('tags');
         return new ArticleResource($article);
     }
 
     public function random(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::inRandomOrder()->take($count)->where('published', true)->get();
+        $articles = Article::inRandomOrder()->with(['category', 'author', 'tags'])->take($count)->where('published', true)->get();
         return ArticleResource::collection($articles);
     }
 
@@ -72,7 +72,7 @@ class ArticleController extends Controller
         if ($request->has('category_slug')) {
             $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', '=', $request->category_slug);
-            })->with('category')->with('author')->take($count)->where('published', true)->get();
+            })->with(['category', 'author'])->take($count)->where('published', true)->get();
         } else {
             $articles = Article::latest()->with('category')->with('author')->take($count)->where('published', true)->get();
         }
@@ -84,7 +84,7 @@ class ArticleController extends Controller
         if ($request->has('category_slug')) {
             $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', '=', $request->category_slug);
-            })->with('category')->with('author')->where('published', true)->paginate(6);
+            })->with(['category', 'author'])->where('published', true)->paginate(6);
         } else {
             $articles = Article::latest()->with('category')->with('author')->where('published', true)->paginate(6);
         }
