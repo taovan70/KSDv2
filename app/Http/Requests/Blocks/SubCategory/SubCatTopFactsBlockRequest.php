@@ -26,15 +26,15 @@ class SubCatTopFactsBlockRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:255',
-            'number_one' => 'string|max:255',
-            'number_two' => 'string|max:255',
-            'number_three' => 'string|max:255',
-            'text_one' => 'string|max:2000',
-            'text_two' => 'string|max:2000',
-            'text_three' => 'string|max:2000',
+            'number_one' => 'nullable|max:255',
+            'number_two' => 'nullable|max:255',
+            'number_three' => 'nullable|max:255',
+            'text_one' => 'nullable|max:2000',
+            'text_two' => 'nullable|max:2000',
+            'text_three' => 'nullable|max:2000',
             'category_id' => 'required|numeric|exists:categories,id',
-            'article_one_id' => 'numeric|exists:articles,id',
-            'article_two_id' => 'numeric|exists:articles,id',
+            'article_one_id' => 'nullable|exists:articles,id',
+            'article_two_id' => 'nullable|exists:articles,id',
             'background_photo_path' => 'nullable|image|max:4096'
         ];
     }
@@ -59,6 +59,7 @@ class SubCatTopFactsBlockRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => __('validation.common.required'),
             'category_id.required' => __('validation.common.required'),
             'number_one.max' => __('validation.common.max') . ' ' . ':max',
             'number_two.max' => __('validation.common.max') . ' ' . ':max',

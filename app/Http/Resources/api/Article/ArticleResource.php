@@ -31,8 +31,8 @@ class ArticleResource extends JsonResource
                 'keywords' => $this->keywords
             ],
             'media' => [
-                'mainPic' => Article::where('slug', '=',  $this->slug)->with('media')->first()->getMedia('mainPic'),
-                'allPics' => Article::where('slug', '=',  $this->slug)->with('media')->first()->getMedia('default'),
+                'mainPic' => $this->getMedia('mainPic'),
+                'allPics' => $this->getMedia('default'),
             ]
         ];
     }

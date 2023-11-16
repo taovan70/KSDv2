@@ -31,7 +31,7 @@ class ArticleForBlocksResource extends JsonResource
                 'icon_path' => $this->category->icon_path
             ],
             'media' => [
-                'mainPic' => Article::where('slug', '=',  $this->slug)->with('media')->first()->getMedia('mainPic'),
+                'mainPic' => $this->getMedia('mainPic'),
             ]
         ];
     }
