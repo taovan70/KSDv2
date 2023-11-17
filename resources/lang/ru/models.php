@@ -81,5 +81,6 @@ return [
     'article_one' => 'Статья первая',
     'article_two' => 'Статья вторая',
     'content' => 'Контент',
-    'background_photo_path'=> 'Фоновое изображение'
+    'background_photo_path'=> 'Фоновое изображение',
+    'sub_cat_know_more_about_each_block' => 'Узнать больше о каждом разделе'
 ];

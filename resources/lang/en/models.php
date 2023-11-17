@@ -82,4 +82,5 @@ return [
     'article_two'=> 'Article two',
     'content' => 'Content',
     'background_photo_path' => 'Background photo',
+    'sub_cat_know_more_about_each_block' => 'Know more about each category',
 ];

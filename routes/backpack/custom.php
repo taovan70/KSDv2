@@ -66,4 +66,5 @@ Route::group([
     Route::crud('sub-cat-game-one-block', 'Blocks\SubCategory\SubCatGameOneBlockCrudController');
     Route::crud('sub-cat-game-two-block', 'Blocks\SubCategory\SubCatGameTwoBlockCrudController');
     Route::crud('sub-cat-top-facts-block', 'Blocks\SubCategory\SubCatTopFactsBlockCrudController');
+    Route::crud('sub-cat-know-more-about-each-block', 'Blocks\SubCategory\SubCatKnowMoreAboutEachBlockCrudController');
 }); // this should be the absolute last line of this file
