@@ -23,7 +23,14 @@ class DidYouKnowInArticlesController extends Controller
     public function random(string $count, ?string $category_id = null): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         if ($category_id) {
-            $items = DidYouKnowInArticles::where('category_id', $category_id)->inRandomOrder()->take($count)->get();
+            if(is_numeric($category_id)) {
+                $items = DidYouKnowInArticles::where('category_id', $category_id)->inRandomOrder()->take($count)->get();
+            } else {
+                $items = DidYouKnowInArticles::whereHas('category', function($q) use ($category_id) {
+                    $q->where('slug',  $category_id);
+                })->inRandomOrder()->take($count)->get();
+            }
+
         } else {
             $items = DidYouKnowInArticles::inRandomOrder()->take($count)->get();
         }
