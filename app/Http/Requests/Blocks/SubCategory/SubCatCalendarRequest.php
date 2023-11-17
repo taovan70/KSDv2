@@ -26,10 +26,10 @@ class SubCatCalendarRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:255',
-//            'month_data' => 'nullable|array',
-//            'month_data.*.name' => 'required|string',
-//            'month_data.*.text' => 'required|string',
-//            'month_data.*.article_id' => 'required|string',
+            'month_data' => 'nullable|array',
+            'month_data.*.name' => 'required|string',
+            'month_data.*.text' => 'required|string',
+            'month_data.*.article_id' => 'required|string',
         ];
     }
 
