@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Blocks\SubCategory;
 use App\Http\Requests\Blocks\SubCategory\SubCatKnowMoreAboutEachBlockRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatKnowMoreAboutEachBlockCrudController
@@ -18,6 +19,8 @@ class SubCatKnowMoreAboutEachBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -40,6 +43,23 @@ class SubCatKnowMoreAboutEachBlockCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'));
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'sub-cat-know-more-about-each-block'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js',
+        ]);
     }
 
     /**
