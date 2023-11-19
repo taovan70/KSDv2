@@ -71,28 +71,35 @@ class SubCatKnowMoreAboutEachBlock extends Model
                 $disk = "public";
                 $destination_path = "sub_cat_know_more_photos";
 
-                foreach ($value as $key => $valueItem) {
-                    $file = !empty($valueItem["photo_path"]) ? $valueItem["photo_path"] : null;
-                    if (is_file($file)) {
-                        if($file->isValid()) {
-                            // remove old file
-                            if(!empty($this->attributes["block_data"])) {
-                                $old_file_name = !empty(
-                                json_decode(
-                                    $this->attributes["block_data"]
-                                )[$key]->{$attribute_name}
-                                ) ? json_decode($this->attributes["block_data"])[$key]->{$attribute_name} : null;
-                                if (!empty($this->attributes["block_data"]) && $old_file_name) {
-
-                                    \Storage::disk($disk)->delete(
-                                        json_decode($this->attributes["block_data"])[$key]->{$attribute_name}
-                                    );
+                if ($value) {
+                    foreach ($value as $key => $valueItem) {
+                        $file = !empty($valueItem["photo_path"]) ? $valueItem["photo_path"] : null;
+                        if (!empty($this->attributes["block_data"])) {
+                            $old_file_name = !empty(
+                            json_decode(
+                                $this->attributes["block_data"]
+                            )[$key]->{$attribute_name}
+                            ) ? json_decode($this->attributes["block_data"])[$key]->{$attribute_name} : null;
+                        }
+                        if (is_file($file)) {
+                            if ($file->isValid()) {
+                                // remove old file
+                                if (!empty($this->attributes["block_data"])) {
+                                    if (!empty($this->attributes["block_data"]) && $old_file_name) {
+                                        \Storage::disk($disk)->delete(
+                                            json_decode($this->attributes["block_data"])[$key]->{$attribute_name}
+                                        );
+                                    }
                                 }
+                                // create new file
+                                $new_file_name = $fileName ?? md5(
+                                    $file->getClientOriginalName() . random_int(1, 9999) . time()
+                                ) . '.' . $file->getClientOriginalExtension();
+                                $filePath = $file->storeAs($destination_path, $new_file_name, $disk);
+                                $value[$key][$attribute_name] = $filePath;
                             }
-                            // create new file
-                            $new_file_name = $fileName ?? md5($file->getClientOriginalName().random_int(1, 9999).time()).'.'.$file->getClientOriginalExtension();
-                            $filePath = $file->storeAs($destination_path, $new_file_name, $disk);
-                            $value[$key][$attribute_name] = $filePath;
+                        } else {
+                            $value[$key][$attribute_name] = $old_file_name ?? null;
                         }
                     }
                 }
