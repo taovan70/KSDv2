@@ -24,7 +24,7 @@ class SubCatKnowMoreAboutEachBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'block_data'];
+    protected $fillable = ['name', 'block_data', 'category_id'];
     // protected $hidden = [];
 
     /*

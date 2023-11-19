@@ -111,6 +111,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'game-two-block'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatGameTwoBlockController::class, 'index'])->name('subCatGameTwo.index');
             });
+            Route::group(['prefix' => 'know_more_about_each'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatKnowMoreAboutEachBlockController::class, 'index'])->name('subCatGameTwo.index');
+            });
         });
     });
 

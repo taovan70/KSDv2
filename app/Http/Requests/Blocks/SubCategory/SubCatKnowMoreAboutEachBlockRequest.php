@@ -26,9 +26,10 @@ class SubCatKnowMoreAboutEachBlockRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:255',
+            'category_id' => 'required|numeric|exists:categories,id',
             'block_data' => 'nullable|array',
             'block_data.*.name' => 'required|string',
-            'block_data.*.photo_path' => 'required|string',
+            'block_data.*.photo_path' => 'image|max:4096',
             'block_data.*.article_one_id' => 'required|string',
             'block_data.*.article_two_id' => 'required|string',
         ];
@@ -55,6 +56,7 @@ class SubCatKnowMoreAboutEachBlockRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'category_id.required' => __('validation.common.required'),
             'block_data.*.name' => __('validation.common.required'),
             'block_data.*.photo_path' => __('validation.common.required'),
             'block_data.*.article_one_id' => __('validation.common.required'),
