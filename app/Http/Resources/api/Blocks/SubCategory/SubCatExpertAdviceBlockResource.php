@@ -17,6 +17,7 @@ class SubCatExpertAdviceBlockResource extends JsonResource
     {
 
         return [
+            'author' => $this->category->authors?->map?->only([ 'id', 'name', "articles_count","photo_path", "categories"])[0] ?? null,
             'text' => $this->text,
         ];
     }

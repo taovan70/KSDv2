@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Blocks\MainPage\PopularCategories;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
@@ -68,6 +70,11 @@ class Category extends Model
     public function popularCategories(): HasMany
     {
         return $this->hasMany(PopularCategories::class);
+    }
+
+    public function authors(): BelongsToMany
+    {
+        return $this->belongsToMany(Author::class);
     }
 
 

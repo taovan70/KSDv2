@@ -16,8 +16,8 @@ class SubCatExpertAdviceBlockController extends Controller
     public function index(string $category_slug): SubCatExpertAdviceBlockResource
     {
         $result = SubCatExpertAdvice::whereHas('category', function ($q) use ($category_slug) {
-            $q->where('slug', '=', $category_slug);
-        })->firstOrFail();
+            $q->where('slug', $category_slug);
+        })->with('category.authors')->with('category.authors.categories')->firstOrFail();
         return new SubCatExpertAdviceBlockResource($result);
     }
 }
