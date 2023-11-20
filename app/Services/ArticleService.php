@@ -25,10 +25,13 @@ class ArticleService
     {
     }
 
-    public function getArticles(?string $search): Collection
+    public function getArticles(?string $search, ?string $status): Collection
     {
+        $status = true; // $status === 'published';
         return Article::query()
             ->when(isset($search), fn (Builder $query) => $query->where('name', 'LIKE', "%{$search}%"))
+            ->where('published', $status)
+            ->where('preview_for', null)
             ->with('tags')
             ->orderBy('name')
             ->get();

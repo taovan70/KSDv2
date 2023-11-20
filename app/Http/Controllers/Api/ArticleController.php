@@ -34,7 +34,7 @@ class ArticleController extends Controller
 
     public function fetchArticles(Request $request, ArticleService $service): Collection
     {
-        return $service->getArticles($request->q);
+        return $service->getArticles($request->q, $request->status);
     }
 
 
