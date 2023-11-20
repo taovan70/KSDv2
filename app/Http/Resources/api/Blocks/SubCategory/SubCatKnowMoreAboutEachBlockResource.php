@@ -24,8 +24,8 @@ class SubCatKnowMoreAboutEachBlockResource extends JsonResource
             $data[] = [
                 'name' => $value->name ?? '',
                 'photo_path' => $value->photo_path ?? '',
-                'article_one_slug' => Article::select('slug')->where('id', $value->article_one_id)?->first()?->slug,
-                'article_two_slug' => Article::select('slug')->where('id', $value->article_two_id)?->first()?->slug,
+                'article_one' => Article::select('slug', 'name')->where('id', $value->article_one_id)?->first(),
+                'article_two_slug' => Article::select('slug', 'name')->where('id', $value->article_two_id)?->first(),
             ];
         }
 
