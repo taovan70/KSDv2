@@ -6,6 +6,7 @@ use App\Http\Requests\Blocks\SubCategory\SubCatEncyclopediaBlockRequest;
 use App\Models\Article;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatEncyclopediaBlockCrudController
@@ -19,6 +20,8 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -50,6 +53,19 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
+        ]);
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'sub-cat-encyclopedia-block'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
     }
 
