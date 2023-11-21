@@ -113,6 +113,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'behind-the-scenes-block'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatBehindTheScenesBlockController::class, 'index'])->name('subBehindTheScenes.index');
             });
+            Route::group(['prefix' => 'encyclopedia-block'], function () {
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatEncyclopediaBlockController::class, 'index'])->name('subCatEncyclopedia.index');
+            });
             Route::group(['prefix' => 'know_more_about_each'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatKnowMoreAboutEachBlockController::class, 'index'])->name('subCatGameTwo.index');
             });

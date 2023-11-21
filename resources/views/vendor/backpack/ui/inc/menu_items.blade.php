@@ -152,12 +152,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-interesting-block') }}">
-                        <i class="nav-icon la la-user-graduate"></i>
-                        {{ __('models.sub_cat_interesting_block') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-calendar') }}">
                         <i class="nav-icon la la-calendar-check"></i>
                         {{ __('models.sub_cat_calendar') }}
@@ -167,6 +161,12 @@
                     <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-expert-advice') }}">
                         <i class="nav-icon la la-user-tie"></i>
                         {{ __('models.sub_cat_expert_advice') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-interesting-block') }}">
+                        <i class="nav-icon la la-user-graduate"></i>
+                        {{ __('models.sub_cat_interesting_block') }}
                     </a>
                 </li>
                 <li class="nav-item">
