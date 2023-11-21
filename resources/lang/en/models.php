@@ -80,9 +80,12 @@ return [
     'text_three'=> 'Text three',
     'article_one'=> 'Article one',
     'article_two'=> 'Article two',
+    'article_three'=> 'Article three',
+    'article_four'=> 'Article four',
     'content' => 'Content',
     'background_photo_path' => 'Background photo',
     'sub_cat_know_more_about_each_block' => 'Know more about each category',
     'sub_cat_behind_the_scenes_block' => 'Behind the scenes',
-    'video_path_id' => 'id video from YouTube'
+    'video_path_id' => 'id video from YouTube',
+    'sub_cat_encyclopedia_block' => 'Encyclopedia',
 ];

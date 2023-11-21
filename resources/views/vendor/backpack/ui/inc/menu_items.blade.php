@@ -193,6 +193,12 @@
                         {{ __('models.sub_cat_game_two_block') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('sub-cat-encyclopedia-block') }}">
+                        <i class="nav-icon la la-book"></i>
+                        {{ __('models.sub_cat_encyclopedia_block') }}
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item text-capitalize">
