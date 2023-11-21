@@ -32,7 +32,8 @@ class ArticleForBlocksResource extends JsonResource
             ],
             'media' => [
                 'mainPic' => $this->getMedia('mainPic'),
-            ]
+            ],
+            'tags' => $this->tags?->map?->only([ 'name', 'slug']),
         ];
     }
 }

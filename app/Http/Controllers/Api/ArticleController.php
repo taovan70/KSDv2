@@ -72,7 +72,7 @@ class ArticleController extends Controller
         if ($request->has('category_slug')) {
             $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', '=', $request->category_slug);
-            })->with(['category', 'author'])->take($count)->where('published', true)->get();
+            })->with(['category', 'author', 'tags'])->take($count)->where('published', true)->get();
         } else {
             $articles = Article::latest()->with('category', 'author', 'tags')->take($count)->where('published', true)->get();
         }
