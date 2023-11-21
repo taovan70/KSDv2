@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Blocks\SubCategory;
 use App\Http\Requests\Blocks\SubCategory\SubCatBehindTheScenesBlockRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class SubCatBehindTheScenesBlockCrudController
@@ -18,6 +19,8 @@ class SubCatBehindTheScenesBlockCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -49,6 +52,19 @@ class SubCatBehindTheScenesBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
+        ]);
+
+        Widget::add([
+            'type' => 'view',
+            'view'    => 'partials.inlineOperationsModal',
+            'content'=> [
+                'page' => 'sub-cat-behind-the-scenes-block'
+            ]
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
     }
 
