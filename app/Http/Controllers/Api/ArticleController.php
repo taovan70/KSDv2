@@ -84,7 +84,7 @@ class ArticleController extends Controller
         if ($request->has('category_slug')) {
             $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', '=', $request->category_slug);
-            })->with(['category', 'author'])->where('published', true)->paginate(6);
+            })->with(['category', 'author', 'tags'])->where('published', true)->paginate(6);
         } else {
             $articles = Article::latest()->with('category', 'author', 'tags')->where('published', true)->paginate(6);
         }
