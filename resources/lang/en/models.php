@@ -83,4 +83,6 @@ return [
     'content' => 'Content',
     'background_photo_path' => 'Background photo',
     'sub_cat_know_more_about_each_block' => 'Know more about each category',
+    'sub_cat_behind_the_scenes_block' => 'Behind the scenes',
+    'video_path_id' => 'id video from YouTube'
 ];

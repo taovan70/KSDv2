@@ -82,5 +82,7 @@ return [
     'article_two' => 'Статья вторая',
     'content' => 'Контент',
     'background_photo_path'=> 'Фоновое изображение',
-    'sub_cat_know_more_about_each_block' => 'Узнать больше о каждом разделе'
+    'sub_cat_know_more_about_each_block' => 'Узнать больше о каждом разделе',
+    'sub_cat_behind_the_scenes_block' => 'Заглянем за кулисы',
+    'video_path_id' => 'id видео с Youtube',
 ];
