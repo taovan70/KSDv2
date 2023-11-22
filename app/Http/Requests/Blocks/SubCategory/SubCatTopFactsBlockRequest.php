@@ -69,6 +69,7 @@ class SubCatTopFactsBlockRequest extends FormRequest
             'text_three.max' => __('validation.common.max') . ' ' . ':max',
             'article_one_id.required' => __('validation.common.required'),
             'article_two_id.required' => __('validation.common.required'),
+            'background_photo_path.image' => __('validation.common.image'),
         ];
     }
 }

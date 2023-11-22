@@ -57,6 +57,7 @@ class SubCatGameOneBlockRequest extends FormRequest
         return [
             'question.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
+            'photo_path.image' => __('validation.common.image'),
             'category_id.required' => __('validation.common.required'),
             'question.max' => __('validation.common.max') . ' ' . ':max',
             'question.min' => __('validation.common.min') . ' ' . ':min',

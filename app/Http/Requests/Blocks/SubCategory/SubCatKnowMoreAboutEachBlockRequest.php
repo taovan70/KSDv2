@@ -61,6 +61,7 @@ class SubCatKnowMoreAboutEachBlockRequest extends FormRequest
             'block_data.*.photo_path' => __('validation.common.required'),
             'block_data.*.article_one_id' => __('validation.common.required'),
             'block_data.*.article_two_id' => __('validation.common.required'),
+            'photo_path.image' => __('validation.common.image'),
         ];
     }
 }

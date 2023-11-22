@@ -56,6 +56,7 @@ class SubCatInterestingBlockRequest extends FormRequest
             'text.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
             'category_id.required' => __('validation.common.required'),
+            'photo_path.image' => __('validation.common.image'),
         ];
     }
 }

@@ -81,6 +81,7 @@ class AuthorRequest extends FormRequest
             'biography.required' => __('validation.common.required'),
             'address.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
+            'photo_path.image' => __('validation.common.image'),
 
         ];
     }

@@ -64,6 +64,7 @@ class SubCatEncyclopediaBlockRequest extends FormRequest
             'article_two_id.required' => __('validation.common.required'),
             'article_three_id.required' => __('validation.common.required'),
             'article_four_id.required' => __('validation.common.required'),
+            'photo_path.image' => __('validation.common.image'),
         ];
     }
 }

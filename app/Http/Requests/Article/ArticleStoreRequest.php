@@ -91,6 +91,7 @@ class ArticleStoreRequest extends FormRequest
             'publish_date.required' => __('validation.common.required'),
             'content_markdown.required' => __('validation.common.required'),
             'content_markdown.max' => __('validation.common.max') . ' ' . ':max',
+            'mainPic.image' => __('validation.common.image'),
         ];
     }
 }

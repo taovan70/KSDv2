@@ -57,6 +57,7 @@ class BigCardArticleRequest extends FormRequest
             'name.required' => __('validation.common.required'),
             'article_id.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
+            'photo_path.image' => __('validation.common.image'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
         ];
     }
