@@ -95,6 +95,24 @@ class Article extends Model implements HasMedia
     |--------------------------------------------------------------------------
     */
 
+    public function scopeFilter($q)
+    {
+        if (request('category_slug')) {
+            $q->whereHas('category', function ($q) {
+                $categories = explode(',',request('category_slug'));
+                    $q->whereIn('slug', $categories);
+            });
+        }
+        if (request('tag_slug')) {
+            $q->whereHas('tags', function ($q) {
+                $categories = explode(',',request('tag_slug'));
+                $q->whereIn('slug', $categories);
+            });
+        }
+
+        return $q;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

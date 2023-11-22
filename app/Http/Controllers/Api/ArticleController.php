@@ -28,7 +28,7 @@ class ArticleController extends Controller
 
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::where('published', true)->with(['category', 'author', 'tags'])->get();
+        $articles = Article::filter()->where('published', true)->with(['category', 'author', 'tags'])->get();
         return ArticleResource::collection($articles);
     }
 
@@ -67,15 +67,11 @@ class ArticleController extends Controller
         return ArticleResource::collection($articles);
     }
 
-    public function recent(string $count, Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function recent(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        if ($request->has('category_slug')) {
-            $articles = Article::latest()->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', '=', $request->category_slug);
-            })->with(['category', 'author', 'tags'])->take($count)->where('published', true)->get();
-        } else {
-            $articles = Article::latest()->with('category', 'author', 'tags')->take($count)->where('published', true)->get();
-        }
+
+        $articles = Article::filter()->latest()->with('category', 'author', 'tags')->take($count)->where('published', true)->get();
+
         return ArticleForBlocksResource::collection($articles);
     }
 
