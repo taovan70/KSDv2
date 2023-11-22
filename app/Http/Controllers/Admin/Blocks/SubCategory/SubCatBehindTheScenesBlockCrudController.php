@@ -108,10 +108,14 @@ class SubCatBehindTheScenesBlockCrudController extends CrudController
         CRUD::column('video_path')->label(__('models.video_path_id'));
         CRUD::addColumn([
             'label' => __('table.article'),
-            'type' => 'select',
             'name' => 'article_id',
             'attribute' => 'name',
             'entity' => 'article',
+            'wrapper' => [
+                'href' => 'javascript:void(0);',
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
+            ],
         ]);
     }
 

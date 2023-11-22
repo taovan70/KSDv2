@@ -143,13 +143,14 @@ class SubCatGameTwoBlockCrudController extends CrudController
         $this->setupListOperation();
         CRUD::addColumn([
             'label' => __('table.article'),
-            'type' => 'select',
             'name' => 'article_id',
             'attribute' => 'name',
             'entity' => 'article',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $article_id) => backpack_url("article/{$article_id}/show")
-            ]
+                'href' => 'javascript:void(0);',
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
+            ],
         ]);
         CRUD::addColumn([
             'name' => 'photo_path_one',

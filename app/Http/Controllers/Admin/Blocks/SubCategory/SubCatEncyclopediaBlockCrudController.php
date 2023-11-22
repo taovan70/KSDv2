@@ -153,18 +153,46 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
         CRUD::addColumn([
             'label' => __('models.article_one'),
             'name' => 'article_one_id',
+            'attribute' => 'name',
+            'entity' => 'article_one',
+            'wrapper' => [
+                'href' => 'javascript:void(0);',
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_one_id']),
+            ],
         ]);
         CRUD::addColumn([
             'label' => __('models.article_two'),
             'name' => 'article_two_id',
+            'attribute' => 'name',
+            'entity' => 'article_two',
+            'wrapper' => [
+                'href' => 'javascript:void(0);',
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_two_id']),
+            ],
         ]);
         CRUD::addColumn([
             'label' => __('models.article_three'),
             'name' => 'article_three_id',
+            'attribute' => 'name',
+            'entity' => 'article_three',
+            'wrapper' => [
+                'href' => 'javascript:void(0);',
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_three_id']),
+            ],
         ]);
         CRUD::addColumn([
             'label' => __('models.article_four'),
             'name' => 'article_four_id',
+            'attribute' => 'name',
+            'entity' => 'article_four',
+            'wrapper' => [
+                'href' => 'javascript:void(0);',
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_four_id']),
+            ],
         ]);
 
         CRUD::addColumn([
