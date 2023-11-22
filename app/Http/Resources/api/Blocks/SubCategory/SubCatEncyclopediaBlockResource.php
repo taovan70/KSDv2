@@ -20,22 +20,24 @@ class SubCatEncyclopediaBlockResource extends JsonResource
             'name' => $this->name,
             'text' => $this->text,
             'photo_path' => $this->photo_path,
-            'article_one' => [
-                'name' => $this->article_one?->name,
-                'slug' => $this->article_one?->slug,
-            ],
-            'article_two' => [
-                'name' => $this->article_two?->name,
-                'slug' => $this->article_two?->slug,
-            ],
-            'article_three' => [
-                'name' => $this->article_three?->name,
-                'slug' => $this->article_three?->slug,
-            ],
-            'article_four' => [
-                'name' => $this->article_four?->name,
-                'slug' => $this->article_four?->slug,
-            ],
+            'articles'=> [
+                [
+                    'name' => $this->article_one?->name,
+                    'slug' => $this->article_one?->slug,
+                ],
+                [
+                    'name' => $this->article_two?->name,
+                    'slug' => $this->article_two?->slug,
+                ],
+                [
+                    'name' => $this->article_three?->name,
+                    'slug' => $this->article_three?->slug,
+                ],
+                [
+                    'name' => $this->article_four?->name,
+                    'slug' => $this->article_four?->slug,
+                ]
+            ]
         ];
     }
 }
