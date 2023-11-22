@@ -7,6 +7,7 @@ use App\Models\Blocks\SubCategory\SubCatAlphaviteBlock;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\View\View;
 
 /**
  * Class SubCatAlphaviteBlockCrudController
@@ -67,6 +68,22 @@ class SubCatAlphaviteBlockCrudController extends CrudController
             'type' => 'script',
             'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
+    }
+
+    /**
+     * Display all rows in the database for this entity.
+     *
+     * @return View
+     */
+    public function index()
+    {
+        $this->crud->hasAccessOrFail('list');
+
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
+
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view('vendor.backpack.crud.sub-cat-alphavite-block-list', $this->data);
     }
 
     /**
