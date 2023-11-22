@@ -30,9 +30,9 @@ class SubCatEncyclopediaBlockRequest extends FormRequest
             'category_id' => 'required|numeric|exists:categories,id',
             'photo_path' => 'nullable|image|max:4096',
             'article_one_id' => 'required|exists:articles,id',
-            'article_two_id' => 'required|exists:articles,id',
-            'article_three_id' => 'required|exists:articles,id',
-            'article_four_id' => 'required|exists:articles,id',
+            'article_two_id' => 'nullable|exists:articles,id',
+            'article_three_id' => 'nullable|exists:articles,id',
+            'article_four_id' => 'nullable|exists:articles,id',
         ];
     }
 
