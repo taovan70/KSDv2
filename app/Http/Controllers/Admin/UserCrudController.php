@@ -46,7 +46,7 @@ class UserCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.user_fields.name'));
+        CRUD::column('name')->label(__('table.user_fields.name'))->limit(70);
         CRUD::column('email')->label(__('table.user_fields.email'));
         CRUD::addColumn([
             'label' => __('table.user_fields.role'),

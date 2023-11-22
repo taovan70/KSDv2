@@ -13,7 +13,7 @@ class ArticleCRUD extends CrudPanelFacade
 {
     public static function listColumns(): void
     {
-        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.author'),
             'type' => 'select',
@@ -40,7 +40,7 @@ class ArticleCRUD extends CrudPanelFacade
             'label' => __('table.article_fields.published'),
             'type' => 'boolean'
         ]);
-        CRUD::column('slug')->label(__('table.article_fields.slug'));
+        CRUD::column('slug')->label(__('table.article_fields.slug'))->limit(70);
         CRUD::column('publish_date')->label(__('table.article_fields.publish_date'));
         CRUD::addColumn([
             'label' => __('table.article_fields.show'),

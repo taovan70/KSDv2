@@ -53,7 +53,8 @@ class SubCatExpertAdviceCrudController extends CrudController
             'entity' => 'category',
             'wrapper' => [
                 'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
-            ]
+            ],
+            'limit'=> 70,
         ]);
         CRUD::column('text')->label(__('models.text'));
         Widget::add([

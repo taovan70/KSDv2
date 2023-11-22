@@ -42,7 +42,7 @@ class SubCatBehindTheScenesBlockCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',
@@ -51,7 +51,8 @@ class SubCatBehindTheScenesBlockCrudController extends CrudController
             'entity' => 'category',
             'wrapper' => [
                 'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
-            ]
+            ],
+            'limit'=> 70,
         ]);
 
         Widget::add([
@@ -116,6 +117,7 @@ class SubCatBehindTheScenesBlockCrudController extends CrudController
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
                 'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
             ],
+            'limit'=> 100,
         ]);
     }
 

@@ -44,7 +44,7 @@ class BigCardArticleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.article'),
             'name' => 'article_id',

@@ -102,7 +102,7 @@ class AdvBlockCrudController extends CrudController
     {
         AdvBlockCRUD::advFilter($this->crud);
 
-        CRUD::column('name')->limit(255)->label(__('table.name'));
+        CRUD::column('name')->limit(255)->label(__('table.name'))->limit(70);
         CRUD::column('created')
             ->value(function ($entry) {
                 return date('d.m.Y', strtotime($entry->created_at));
@@ -209,8 +209,8 @@ class AdvBlockCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-        CRUD::column('slug')->limit(255)->label(__('table.slug'));
-        CRUD::column('name')->type("textarea")->label(__('table.name'));
+        CRUD::column('slug')->limit(255)->label(__('table.slug'))->limit(70);
+        CRUD::column('name')->type("textarea")->label(__('table.name'))->limit(70);
         CRUD::column('number_of_elements_from_beginning')->label(__('table.adv_block_fields.number_of_elements_from_beginning'));
         CRUD::column('after_element')->label(__('table.adv_block_fields.after_element'));
         CRUD::column('content')->type("textarea")->label(__('table.adv_block_fields.content'));

@@ -59,7 +59,7 @@ class CategoryCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::column('created_at')->label(__('table.created'));
         CRUD::column('slug')->label(__('table.category_fields.slug'));
         CRUD::addColumn([

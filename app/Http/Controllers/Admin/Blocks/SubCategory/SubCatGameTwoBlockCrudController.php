@@ -45,7 +45,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('question')->label(__('models.question'));
+        CRUD::column('question')->label(__('models.question'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',
@@ -54,7 +54,8 @@ class SubCatGameTwoBlockCrudController extends CrudController
             'entity' => 'category',
             'wrapper' => [
                 'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
-            ]
+            ],
+            'limit'=> 70,
         ]);
 
         Widget::add([
@@ -151,6 +152,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
                 'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
             ],
+            'limit'=> 100,
         ]);
         CRUD::addColumn([
             'name' => 'photo_path_one',

@@ -66,7 +66,8 @@ class SubCatGameOneBlockCrudController extends CrudController
             'entity' => 'category',
             'wrapper' => [
                 'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
-            ]
+            ],
+            'limit'=> 70,
         ]);
     }
 
@@ -151,6 +152,7 @@ class SubCatGameOneBlockCrudController extends CrudController
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
                 'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
             ],
+            'limit'=> 100,
         ]);
     }
 

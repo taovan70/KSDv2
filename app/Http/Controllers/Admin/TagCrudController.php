@@ -45,8 +45,8 @@ class TagCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
-        CRUD::column('slug')->label(__('table.slug'));
+        CRUD::column('name')->label(__('table.name'))->limit(70);
+        CRUD::column('slug')->label(__('table.slug'))->limit(70);
         CRUD::column('created_at')->label(__('table.created'));
         CRUD::addColumn([
             'name' => 'articlesCount',

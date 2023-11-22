@@ -46,7 +46,7 @@ class SubCatCalendarCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
+        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',
@@ -55,7 +55,8 @@ class SubCatCalendarCrudController extends CrudController
             'entity' => 'category',
             'wrapper' => [
                 'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
-            ]
+            ],
+            'limit'=> 70,
         ]);
 
         Widget::add([
