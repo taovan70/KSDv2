@@ -123,18 +123,6 @@ class PopularCategoriesCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function reorder(CategoryService $service)
-    {
-        $this->crud->hasAccessOrFail('reorder');
-
-        if (!$this->crud->isReorderEnabled()) {
-            abort(403, 'Reorder is disabled.');
-        }
-
-        $this->data = $service->getSubCategoryInfo($this->data, $this->crud);
-
-        return view('vendor/backpack/crud/category-reorder', $this->data);
-    }
 
     protected function setupShowOperation()
     {
