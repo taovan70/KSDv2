@@ -23,7 +23,7 @@ class SubCatGameOneBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['question', 'answer_data' ,'category_id', 'photo_path', 'article_id'];
+    protected $fillable = ['question', 'answer_data' ,'category_id', 'photo_path', 'article_id', 'description'];
     // protected $hidden = [];
 
     /*

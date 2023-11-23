@@ -82,6 +82,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
     {
         CRUD::setValidation(SubCatGameTwoBlockRequest::class);
         CRUD::field('question')->label(__('models.question'));
+        CRUD::field('description')->label(__('table.description'));
         CRUD::addField([
             'name' => 'category_id',
             'label' => __('table.category'),
@@ -142,6 +143,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+        CRUD::column('description')->label(__('table.description'));
         CRUD::addColumn([
             'label' => __('table.article'),
             'name' => 'article_id',
