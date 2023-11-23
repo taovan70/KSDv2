@@ -23,7 +23,7 @@ class SubCatGameTwoBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['question', 'answer_data', 'category_id', 'photo_path_one', 'photo_path_two', 'article_id', 'description'];
+    protected $fillable = ['question', 'answer_data', 'category_id', 'photo_path_one', 'photo_path_two', 'article_id', 'description', 'title'];
     // protected $hidden = [];
 
     /*

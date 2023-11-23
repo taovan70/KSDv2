@@ -27,6 +27,7 @@ return [
     "user_logging" => "Логирование",
     "icon" => "Иконка",
     "description" => "Описание",
+    "title" => "Заголовок",
     "mini-pic" => "Мини-картинка",
     'menu_order' => 'Порядок в меню',
     'author_fields' => [

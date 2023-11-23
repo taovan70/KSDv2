@@ -27,6 +27,7 @@ return [
     "user_logging" => "Logging",
     "icon" => "Icon",
     "description" => "Description",
+    "title" => "Title",
     "mini-pic" => "Mini picture",
     'menu_order' => 'Menu order',
     'author_fields' => [
