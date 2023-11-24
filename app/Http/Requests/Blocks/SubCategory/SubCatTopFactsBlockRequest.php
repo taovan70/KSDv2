@@ -26,12 +26,12 @@ class SubCatTopFactsBlockRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:255',
-            'number_one' => 'nullable|max:255',
-            'number_two' => 'nullable|max:255',
-            'number_three' => 'nullable|max:255',
-            'text_one' => 'nullable|max:2000',
-            'text_two' => 'nullable|max:2000',
-            'text_three' => 'nullable|max:2000',
+            'number_one' => 'required|max:255',
+            'number_two' => 'required|max:255',
+            'number_three' => 'required|max:255',
+            'text_one' => 'required|max:2000',
+            'text_two' => 'required|max:2000',
+            'text_three' => 'required|max:2000',
             'category_id' => 'required|numeric|exists:categories,id',
             'article_one_id' => 'nullable|exists:articles,id',
             'article_two_id' => 'nullable|exists:articles,id',
