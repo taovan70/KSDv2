@@ -33,7 +33,7 @@ class SubCatTopFactsBlockResource extends JsonResource
             'article_two' => [
                 'name' => $this->article_two?->name,
                 'slug' => $this->article_two?->slug,
-                'image' => $this->article_one?->getMedia('mainPic')
+                'image' => $this->article_two?->getMedia('mainPic')
             ],
             'background_photo_path' => $this->background_photo_path,
         ];
