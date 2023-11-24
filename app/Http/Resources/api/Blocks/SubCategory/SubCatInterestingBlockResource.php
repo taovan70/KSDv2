@@ -17,7 +17,6 @@ class SubCatInterestingBlockResource extends JsonResource
     {
 
         return [
-            'name' => $this->name,
             'text' => $this->text,
             "photo_path" => $this->photo_path,
         ];

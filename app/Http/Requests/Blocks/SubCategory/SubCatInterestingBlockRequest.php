@@ -26,7 +26,6 @@ class SubCatInterestingBlockRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:255',
             'text' => 'required|string',
             'photo_path' => 'nullable|image|max:4096',
             'category_id' => 'required|numeric|exists:categories,id',

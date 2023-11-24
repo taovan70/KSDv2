@@ -44,7 +44,6 @@ class SubCatInterestingBlockCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',
@@ -80,7 +79,6 @@ class SubCatInterestingBlockCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(SubCatInterestingBlockRequest::class);
-        CRUD::field('name')->label(__('table.name'));
         CRUD::field('text')->label(__('models.text'));
         CRUD::addField([
             'name' => 'photo_path',
