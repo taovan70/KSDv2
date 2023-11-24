@@ -53,6 +53,20 @@ class Tag extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function scopeFilter($q)
+    {
+        if (request('category_slug')) {
+            $q->whereHas('articles', function ($q) {
+                $q->whereHas('category', function ($q) {
+                    $categories = explode(',',request('category_slug'));
+                    $q->whereIn('slug', $categories);
+                });
+            });
+        }
+
+        return $q;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

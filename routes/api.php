@@ -18,6 +18,7 @@ Route::group([], function () {
 
     Route::group(['prefix' => 'tags'], function () {
         Route::post('/', [\App\Http\Controllers\Api\TagController::class, 'fetchTags']);
+        Route::get('/', [\App\Http\Controllers\Api\TagController::class, 'index'])->name('tags.index');
     });
 
     Route::group(['prefix' => 'search'], function () {
