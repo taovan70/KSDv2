@@ -81,7 +81,6 @@ class SubCatGameTwoBlockCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(SubCatGameTwoBlockRequest::class);
-        CRUD::field('question')->label(__('models.question'));
         CRUD::field('title')->label(__('table.title'));
         CRUD::field('description')->label(__('table.description'));
         CRUD::addField([
@@ -102,6 +101,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
             'method' => 'POST',
             'data_source' => url('api/articles'),
         ]);
+        CRUD::field('question')->label(__('models.question'));
         CRUD::addField([
             'name' => 'photo_path_one',
             'label' => __('table.author_fields.photo'),
