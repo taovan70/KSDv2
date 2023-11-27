@@ -34,7 +34,7 @@ class SubCatGameTwoBlockCrudController extends CrudController
     {
         CRUD::setModel(SubCatGameTwoBlock::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/sub-cat-game-two-block');
-        CRUD::setEntityNameStrings(__('models.sub_cat_game_two_block'), __('models.sub_cat_game_two_block'));
+        CRUD::setEntityNameStrings("Pregunta", "Preguntas");
     }
 
     /**
