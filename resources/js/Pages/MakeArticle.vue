@@ -741,6 +741,30 @@ const copyToClipboard = (val) => {
 +ArticleGalleryWrapper+`)" />
               </td>
             </tr>
+            <tr class="instruction_table_row">
+              <td>Список перимуществ с зелёной галочкой</td>
+              <td>
+                <code>
+                  +ProsListGreenMark+
+                  (+) преимущество 1
+
+                  (+) преимущество 2
+                  +ProsListGreenMark+
+                </code>
+              </td>
+              <td>
+                <img loading='lazy' src="/images/article/components/comp17.png" class="instruction_compoment_image">
+              </td>
+              <td>
+                <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsListGreenMark+
+
+(+) преимущество 1
+
+(+) преимущество 2
+
++ProsListGreenMark+`)" />
+              </td>
+            </tr>
           </table>
         </el-collapse-item>
       </el-collapse>
