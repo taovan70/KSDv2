@@ -24,11 +24,11 @@ class DidYouKnowInArticlesController extends Controller
     {
         if ($category_id) {
             if(is_numeric($category_id)) {
-                $items = DidYouKnowInArticles::where('category_id', $category_id)->inRandomOrder()->take($count)->get();
+                $items = DidYouKnowInArticles::where('category_id', $category_id)->with('category')->inRandomOrder()->take($count)->get();
             } else {
                 $items = DidYouKnowInArticles::whereHas('category', function($q) use ($category_id) {
                     $q->where('slug',  $category_id);
-                })->inRandomOrder()->take($count)->get();
+                })->with('category')->inRandomOrder()->take($count)->get();
             }
 
         } else {
