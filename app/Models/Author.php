@@ -143,6 +143,7 @@ class Author extends Model
                     FROM authors
                     LEFT JOIN articles ON authors.id = articles.author_id
                     WHERE authors.id = :author_id
+                    AND articles.published = 1
                 ", ['author_id' => $this->id]);
 
                 // Extract the articleCount value from the result
