@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Author extends Model
 {
@@ -137,7 +138,15 @@ class Author extends Model
     {
         return Attribute::make(
             get: function() {
-                return self::articles()->count();
+                $result = DB::select("
+                    SELECT COUNT(articles.id) AS articleCount
+                    FROM authors
+                    LEFT JOIN articles ON authors.id = articles.author_id
+                    WHERE authors.id = :author_id
+                ", ['author_id' => $this->id]);
+
+                // Extract the articleCount value from the result
+                return isset($result[0]->articleCount) ? $result[0]->articleCount : 0;
             }
         );
     }
