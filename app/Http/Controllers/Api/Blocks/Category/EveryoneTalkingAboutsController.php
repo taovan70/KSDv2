@@ -19,6 +19,8 @@ class EveryoneTalkingAboutsController extends Controller
     {
         $result = EveryoneTalkingAbout::with(['article' => function ($query) {
             $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
         }])
             ->orderBy('lft', 'ASC')
             ->take(6)
