@@ -18,6 +18,8 @@ class BigCardArticlesController extends Controller
     {
         $result = BigCardArticle::with(['article' => function ($query) {
             $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
         }])->get();
 
         return BigCardArticleResource::collection($result);
