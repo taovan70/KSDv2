@@ -34,6 +34,7 @@ class BigCardArticleResource extends JsonResource
                 'category' => [
                     'name' => $this->article?->category->name,
                     'slug' => $this->article?->category->slug,
+                    'depth' => $this->article?->category->depth,
                     'icon_path' => $this->article?->category->icon_path
                 ],
                 'media' => [
