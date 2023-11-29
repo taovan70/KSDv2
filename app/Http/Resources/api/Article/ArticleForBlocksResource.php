@@ -28,6 +28,7 @@ class ArticleForBlocksResource extends JsonResource
             'category' => [
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,
+                'depth' => $this->category->depth,
                 'icon_path' => $this->category->icon_path
             ],
             'media' => [
