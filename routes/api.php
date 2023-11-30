@@ -47,7 +47,8 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'authors'], function () {
-        Route::post('/', [\App\Http\Controllers\Api\AuthorController::class, 'fetchAuthors'])->name('authors.index');
+        Route::post('/', [\App\Http\Controllers\Api\AuthorController::class, 'fetchAuthors'])->name('authorsPost.index');
+        Route::get('/', [\App\Http\Controllers\Api\AuthorController::class, 'index'])->name('authorsGet.index');
         Route::get('/{id}', [\App\Http\Controllers\Api\AuthorController::class, 'show'])->name('authors.show');
     });
 

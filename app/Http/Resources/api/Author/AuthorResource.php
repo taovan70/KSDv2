@@ -26,7 +26,8 @@ class AuthorResource extends JsonResource
             'photo_path' => $this->photo_path,
             'personal_site' => $this->personal_site,
             'social_networks' => $this->social_networks,
-            'article_count' => $this->article_count
+            'articles_count' => $this->articles_count,
+            'categories' => $this->categories->map?->only(['name', 'slug'])
         ];
     }
 }
