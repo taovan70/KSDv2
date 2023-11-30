@@ -111,6 +111,9 @@ class CategoryCrudController extends CrudController
                 'autoGrow_bottomSpace' => 50
             ]
         ]);
+        CRUD::field('meta_description')->label(__('table.meta_description'));
+        CRUD::field('meta_title')->label(__('table.meta_title'));
+        CRUD::field('meta_keywords')->label(__('table.meta_keywords'));
         CRUD::addField([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),
@@ -184,6 +187,9 @@ class CategoryCrudController extends CrudController
                 'autoGrow_bottomSpace' => 50
             ]
         ]);
+        CRUD::field('meta_description')->label(__('table.meta_description'));
+        CRUD::field('meta_title')->label(__('table.meta_title'));
+        CRUD::field('meta_keywords')->label(__('table.meta_keywords'));
         CRUD::addField([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),
@@ -238,6 +244,9 @@ class CategoryCrudController extends CrudController
             'height' => 'auto'
         ]);
         $this->setupListOperation();
+        CRUD::column('meta_description')->label(__('table.meta_description'));
+        CRUD::column('meta_title')->label(__('table.meta_title'));
+        CRUD::column('meta_keywords')->label(__('table.meta_keywords'));
     }
 
     public function destroy($id, CategoryService $categoryService)

@@ -30,6 +30,9 @@ return [
     "title" => "Заголовок",
     "mini-pic" => "Мини-картинка",
     'menu_order' => 'Порядок в меню',
+    'meta_keywords' => 'Мета-данные keywords',
+    'meta_title' => 'Мета-данные title',
+    'meta_description' => 'Мета-данные description',
     'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',

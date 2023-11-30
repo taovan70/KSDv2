@@ -30,6 +30,9 @@ return [
     "title" => "Title",
     "mini-pic" => "Mini picture",
     'menu_order' => 'Menu order',
+    'meta_keywords' => 'Meta keywords',
+    'meta_title' => 'Meta title',
+    'meta_description' => 'Meta description',
     'author_fields' => [
         'full_name' => 'Full name',
         'age' => 'Age',
