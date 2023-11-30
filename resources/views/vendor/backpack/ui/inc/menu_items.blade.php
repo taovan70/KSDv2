@@ -4,7 +4,11 @@
         <i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link text-capitalize" href="{{ backpack_url('article') }}">
+        <i class="nav-icon la la-copy"></i> {{ __('models.articles') }}
+    </a>
+</li>
 <li class="nav-item">
     <a class="nav-link text-capitalize" href="{{ backpack_url('tag') }}">
         <i class="nav-icon la la-tags"></i>{{ __('models.tags') }}
@@ -35,11 +39,6 @@
 <li class="nav-item">
     <a class="nav-link text-capitalize" href="{{ backpack_url('author') }}">
         <i class="nav-icon la la-users"></i> {{ __('models.authors') }}
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link text-capitalize" href="{{ backpack_url('article') }}">
-        <i class="nav-icon la la-copy"></i> {{ __('models.articles') }}
     </a>
 </li>
 <li class="nav-item">
