@@ -82,6 +82,8 @@ return [
     'article_two' => 'Статья вторая',
     'article_three'=> 'Статья третья',
     'article_four'=> 'Статья четвёртая',
+    'article_five'=> 'Статья пятая',
+    'article_six'=> 'Статья шестая',
     'content' => 'Контент',
     'background_photo_path'=> 'Фоновое изображение',
     'sub_cat_know_more_about_each_block' => 'Узнать больше о каждом разделе',

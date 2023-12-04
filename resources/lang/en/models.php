@@ -82,6 +82,8 @@ return [
     'article_two'=> 'Article two',
     'article_three'=> 'Article three',
     'article_four'=> 'Article four',
+    'article_five'=> 'Article five',
+    'article_six'=> 'Article six',
     'content' => 'Content',
     'background_photo_path' => 'Background photo',
     'sub_cat_know_more_about_each_block' => 'Know more about each category',

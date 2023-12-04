@@ -27,7 +27,13 @@ class QACategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'article_id' => 'required|numeric|exists:articles,id',
+            'category_id' => 'required|numeric|exists:categories,id',
+            'article_one_id' => 'required|numeric|exists:articles,id',
+            'article_two_id' => 'required|numeric|exists:articles,id',
+            'article_three_id' => 'required|numeric|exists:articles,id',
+            'article_four_id' => 'required|numeric|exists:articles,id',
+            'article_five_id' => 'required|numeric|exists:articles,id',
+            'article_six_id' => 'required|numeric|exists:articles,id',
         ];
     }
 
@@ -52,8 +58,14 @@ class QACategoryRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
-            'article_id.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
+            'category_id.required' => __('validation.common.required'),
+            'article_one_id.required' => __('validation.common.required'),
+            'article_two_id.required' => __('validation.common.required'),
+            'article_three_id.required' => __('validation.common.required'),
+            'article_four_id.required' => __('validation.common.required'),
+            'article_five_id.required' => __('validation.common.required'),
+            'article_six_id.required' => __('validation.common.required'),
         ];
     }
 }
