@@ -9,23 +9,16 @@
         <i class="nav-icon la la-copy"></i> {{ __('models.articles') }}
     </a>
 </li>
+<li class="nav-item nav-dropdown text-capitalize">
+    <a class="nav-link nav-dropdown-toggle" href="{{ backpack_url('category') }}">
+        <i class="nav-icon la la-sitemap"></i>
+        {{ __('models.categories') }}
+    </a>
+</li>
 <li class="nav-item">
     <a class="nav-link text-capitalize" href="{{ backpack_url('tag') }}">
         <i class="nav-icon la la-tags"></i>{{ __('models.tags') }}
     </a>
-</li>
-<li class="nav-item nav-dropdown text-capitalize">
-    <a class="nav-link nav-dropdown-toggle" href="#">
-        <i class="nav-icon la la-sitemap"></i>
-        {{ __('models.structure') }}
-    </a>
-    <ul class="nav-dropdown-items">
-        <li class="nav-item">
-            <a class="nav-link text-capitalize" href="{{ backpack_url('category') }}">
-                {{ __('models.categories') }}
-            </a>
-        </li>
-    </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('adv-page') }}"><i class="nav-icon la la-pager"></i>
         {{ __('models.adv-pages') }}</a></li>
