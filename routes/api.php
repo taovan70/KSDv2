@@ -78,11 +78,11 @@ Route::group([], function () {
 
         Route::group(['prefix' => 'category'], function () {
             Route::group(['prefix' => 'everyone-talking-about'], function () {
-                Route::get('/', [\App\Http\Controllers\Api\Blocks\Category\EveryoneTalkingAboutsController::class, 'index'])->name('everyoneTalkingAbout.index');
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\Category\EveryoneTalkingAboutsController::class, 'index'])->name('everyoneTalkingAbout.index');
             });
 
             Route::group(['prefix' => 'qa-category'], function () {
-                Route::get('/', [\App\Http\Controllers\Api\Blocks\Category\QACategoryController::class, 'index'])->name('QACategory.index');
+                Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\Category\QACategoryController::class, 'index'])->name('QACategory.index');
             });
         });
 

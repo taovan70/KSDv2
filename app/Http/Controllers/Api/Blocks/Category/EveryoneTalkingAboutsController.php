@@ -15,16 +15,35 @@ class EveryoneTalkingAboutsController extends Controller
     {
     }
 
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index(string $category_slug): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = EveryoneTalkingAbout::with(['article' => function ($query) {
+        $result = EveryoneTalkingAbout::whereHas('category', function ($q) use ($category_slug) {
+            $q->where('slug', '=', $category_slug);
+        })->with(['article_one' => function ($query) {
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
-        }])
-            ->orderBy('lft', 'ASC')
-            ->take(6)
-            ->get();
+        }])->with(['article_two' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+        }])->with(['article_three' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+        }])->with(['article_four' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+        }])->with(['article_five' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+        }])->with(['article_six' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+        }])->get();
 
         return EveryoneTalkingAboutResource::collection($result);
     }

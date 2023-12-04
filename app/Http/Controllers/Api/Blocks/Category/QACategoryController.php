@@ -14,16 +14,42 @@ class QACategoryController extends Controller
     {
     }
 
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index(string $category_slug): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $result = QACategory::with(['article' => function ($query) {
+        $result = QACategory::whereHas('category', function ($q) use ($category_slug) {
+            $q->where('slug', '=', $category_slug);
+        })->with(['article_one' => function ($query) {
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
-        }])
-            ->orderBy('lft', 'ASC')
-            ->take(6)
-            ->get();
+            $query->with('media');
+        }])->with(['article_two' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+            $query->with('media');
+        }])->with(['article_three' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+            $query->with('media');
+        }])->with(['article_four' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+            $query->with('media');
+        }])->with(['article_five' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+            $query->with('media');
+        }])->with(['article_six' => function ($query) {
+            $query->where('published', 1);
+            $query->with('author');
+            $query->with('category');
+            $query->with('media');
+        }])->get();
+
 
         return QACategoryResource::collection($result);
     }
