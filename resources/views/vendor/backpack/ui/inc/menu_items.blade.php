@@ -9,8 +9,8 @@
         <i class="nav-icon la la-copy"></i> {{ __('models.articles') }}
     </a>
 </li>
-<li class="nav-item text-capitalize">
-    <a class="nav-link nav-dropdown-toggle" href="{{ backpack_url('category') }}">
+<li class="nav-item ">
+    <a class="nav-link text-capitalize" href="{{ backpack_url('category') }}">
         <i class="nav-icon la la-sitemap"></i>
         {{ __('models.categories') }}
     </a>
