@@ -19,7 +19,8 @@ class QACategoryResource extends JsonResource
         $mainPic = !empty($this->article) ?  Article::where('slug', '=',  $this->article->slug)->with('media')->first()->getMedia('mainPic') : '';
         return [
             'name' => $this->name,
-            'article_one' => [
+            'articles' => [
+                [
                 'name' => $this->article_one?->name,
                 'slug' => $this->article_one?->slug,
                 'publish_date' => $this->article_one?->publish_date,
@@ -38,8 +39,7 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_one?->getMedia('mainPic')
                 ]
-            ],
-            'article_two' => [
+            ], [
                 'name' => $this->article_two?->name,
                 'slug' => $this->article_two?->slug,
                 'publish_date' => $this->article_two?->publish_date,
@@ -58,8 +58,7 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_two?->getMedia('mainPic')
                 ]
-            ],
-            'article_three' => [
+            ], [
                 'name' => $this->article_three?->name,
                 'slug' => $this->article_three?->slug,
                 'publish_date' => $this->article_three?->publish_date,
@@ -78,8 +77,7 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_three?->getMedia('mainPic')
                 ]
-            ],
-            'article_four' => [
+            ], [
                 'name' => $this->article_four?->name,
                 'slug' => $this->article_four?->slug,
                 'publish_date' => $this->article_four?->publish_date,
@@ -98,8 +96,7 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_four?->getMedia('mainPic')
                 ]
-            ],
-            'article_five' => [
+            ], [
                 'name' => $this->article_five?->name,
                 'slug' => $this->article_five?->slug,
                 'publish_date' => $this->article_five?->publish_date,
@@ -118,8 +115,7 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_five?->getMedia('mainPic')
                 ]
-            ],
-            'article_six' => [
+            ],  [
                 'name' => $this->article_six?->name,
                 'slug' => $this->article_six?->slug,
                 'publish_date' => $this->article_six?->publish_date,
@@ -138,7 +134,9 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_six?->getMedia('mainPic')
                 ]
+            ]
             ],
+
         ];
     }
 }
