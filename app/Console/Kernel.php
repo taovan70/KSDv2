@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:publish-articles-command')->daily();
         $schedule->command('app:clear-temp-images-folder-command')->dailyAt('04:00');
+	$schedule->command('process:invoices')->daily()->at('02:00')->timezone('America/Chicago');
+	$schedule->command('process:latefees')->daily()->at('04:00')->timezone('America/Chicago');
     }
 
     /**
