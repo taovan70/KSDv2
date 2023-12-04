@@ -19,31 +19,37 @@ class QACategoryController extends Controller
         $result = QACategory::whereHas('category', function ($q) use ($category_slug) {
             $q->where('slug', '=', $category_slug);
         })->with(['article_one' => function ($query) {
+            $query->exclude(['content_html', 'content_markdown']);
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
             $query->with('media');
         }])->with(['article_two' => function ($query) {
+            $query->exclude(['content_html', 'content_markdown']);
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
             $query->with('media');
         }])->with(['article_three' => function ($query) {
+            $query->exclude(['content_html', 'content_markdown']);
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
             $query->with('media');
         }])->with(['article_four' => function ($query) {
+            $query->exclude(['content_html', 'content_markdown']);
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
             $query->with('media');
         }])->with(['article_five' => function ($query) {
+            $query->exclude(['content_html', 'content_markdown']);
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
             $query->with('media');
         }])->with(['article_six' => function ($query) {
+            $query->exclude(['content_html', 'content_markdown']);
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');

@@ -33,7 +33,6 @@ class Article extends Model implements HasMedia
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
-        'structure',
         'author_id',
         'category_id',
         'published',
@@ -45,6 +44,25 @@ class Article extends Model implements HasMedia
         'slug',
         'preview_for',
         'preview_text'
+    ];
+
+    protected $columns = [
+        'id',
+        'name',
+        'author_id',
+        'category_id',
+        'published',
+        'publish_date',
+        'content_markdown',
+        'content_html',
+        'keywords',
+        'description',
+        'title',
+        'slug',
+        'preview_for',
+        'preview_text',
+        'created_at',
+        'updated_at'
     ];
     protected $searchable = [
         'content_html'
@@ -111,6 +129,11 @@ class Article extends Model implements HasMedia
         }
 
         return $q;
+    }
+
+    public function scopeExclude($query, $value = [])
+    {
+        return $query->select(array_diff($this->columns, (array) $value));
     }
 
     /*
