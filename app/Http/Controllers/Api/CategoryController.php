@@ -30,7 +30,13 @@ class CategoryController extends Controller
 
     public function show(string $slug)
     {
-        $article = Category::where('slug', $slug)->with('children')->firstOrFail();
+        $article = Category::where('slug', $slug)->with('children', function ($query) {
+            $query->with('children', function ($query) {
+                $query->with('children', function ($query) {
+                    $query->with('children');
+                });
+            });
+        })->firstOrFail();
         return new CategoryResource($article);
     }
 }
