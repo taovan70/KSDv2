@@ -26,14 +26,13 @@ class EveryoneTalkingAboutRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
             'category_id' => 'required|numeric|exists:categories,id',
             'article_one_id' => 'required|numeric|exists:articles,id',
             'article_two_id' => 'required|numeric|exists:articles,id',
-            'article_three_id' => 'required|numeric|exists:articles,id',
-            'article_four_id' => 'required|numeric|exists:articles,id',
-            'article_five_id' => 'required|numeric|exists:articles,id',
-            'article_six_id' => 'required|numeric|exists:articles,id',
+            'article_three_id' => 'nullable|numeric|exists:articles,id',
+            'article_four_id' => 'nullable|numeric|exists:articles,id',
+            'article_five_id' => 'nullable|numeric|exists:articles,id',
+            'article_six_id' => 'nullable|numeric|exists:articles,id',
         ];
     }
 
@@ -59,7 +58,7 @@ class EveryoneTalkingAboutRequest extends FormRequest
         return [
             'name.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
-            'name.category_id' => __('validation.common.required'),
+            'category_id.required' => __('validation.common.required'),
             'article_one_id.required' => __('validation.common.required'),
             'article_two_id.required' => __('validation.common.required'),
             'article_three_id.required' => __('validation.common.required'),

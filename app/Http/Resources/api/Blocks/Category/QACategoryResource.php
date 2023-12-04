@@ -16,30 +16,28 @@ class QACategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $mainPic = !empty($this->article) ?  Article::where('slug', '=',  $this->article->slug)->with('media')->first()->getMedia('mainPic') : '';
-        return [
-            'name' => $this->name,
-            'articles' => [
-                [
-                'name' => $this->article_one?->name,
-                'slug' => $this->article_one?->slug,
-                'publish_date' => $this->article_one?->publish_date,
-                'preview_text' => $this->article_one?->preview_text,
-                'author' => [
-                    'id' => $this->article_one?->author->id,
-                    'name' => $this->article_one?->author->name,
-                    'surname' => $this->article_one?->author->surname,
-                    'slug' => $this->article_one?->author->slug,
-                ],
-                'category' => [
-                    'name' => $this->article_one?->category->name,
-                    'slug' => $this->article_one?->category->slug,
-                    'icon_path' => $this->article_one?->category->icon_path
-                ],
-                'media' => [
-                    'mainPic' => $this->article_one?->getMedia('mainPic')
-                ]
-            ], [
+        $articles = [
+            [
+            'name' => $this->article_one?->name,
+            'slug' => $this->article_one?->slug,
+            'publish_date' => $this->article_one?->publish_date,
+            'preview_text' => $this->article_one?->preview_text,
+            'author' => [
+                'id' => $this->article_one?->author->id,
+                'name' => $this->article_one?->author->name,
+                'surname' => $this->article_one?->author->surname,
+                'slug' => $this->article_one?->author->slug,
+            ],
+            'category' => [
+                'name' => $this->article_one?->category->name,
+                'slug' => $this->article_one?->category->slug,
+                'icon_path' => $this->article_one?->category->icon_path
+            ],
+            'media' => [
+                'mainPic' => $this->article_one?->getMedia('mainPic')
+            ]
+        ],
+            [
                 'name' => $this->article_two?->name,
                 'slug' => $this->article_two?->slug,
                 'publish_date' => $this->article_two?->publish_date,
@@ -58,7 +56,11 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_two?->getMedia('mainPic')
                 ]
-            ], [
+            ]
+        ];
+
+        if(!empty($this->article_three?->slug)) {
+            $articles[] =  [
                 'name' => $this->article_three?->name,
                 'slug' => $this->article_three?->slug,
                 'publish_date' => $this->article_three?->publish_date,
@@ -77,7 +79,11 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_three?->getMedia('mainPic')
                 ]
-            ], [
+            ];
+        }
+
+        if(!empty($this->article_four?->slug)) {
+            $articles[] = [
                 'name' => $this->article_four?->name,
                 'slug' => $this->article_four?->slug,
                 'publish_date' => $this->article_four?->publish_date,
@@ -96,7 +102,11 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_four?->getMedia('mainPic')
                 ]
-            ], [
+            ];
+        }
+
+        if(!empty($this->article_five?->slug)) {
+            $articles[] = [
                 'name' => $this->article_five?->name,
                 'slug' => $this->article_five?->slug,
                 'publish_date' => $this->article_five?->publish_date,
@@ -115,7 +125,11 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_five?->getMedia('mainPic')
                 ]
-            ],  [
+            ];
+        }
+
+        if(!empty($this->article_six?->slug)) {
+            $articles[] = [
                 'name' => $this->article_six?->name,
                 'slug' => $this->article_six?->slug,
                 'publish_date' => $this->article_six?->publish_date,
@@ -134,9 +148,11 @@ class QACategoryResource extends JsonResource
                 'media' => [
                     'mainPic' => $this->article_six?->getMedia('mainPic')
                 ]
-            ]
-            ],
+            ];
+        }
 
+        return [
+            'articles' => $articles
         ];
     }
 }

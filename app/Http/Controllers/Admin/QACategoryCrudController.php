@@ -43,7 +43,6 @@ class QACategoryCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',
@@ -79,7 +78,6 @@ class QACategoryCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(QACategoryRequest::class);
-        CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
             'name' => 'category_id',
             'label' => __('table.category'),
