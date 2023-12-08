@@ -10,6 +10,7 @@ services:
     container_name: app
     restart: unless-stopped
     tty: true
+    command: ["su", "webuser", "-c", "php artisan schedule:work"]
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
