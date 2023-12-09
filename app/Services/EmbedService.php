@@ -116,15 +116,19 @@ class EmbedService
         $content = '';
         $contentChildren = '';
         $contentProps = '';
-        preg_match($pattern, $inputString, $matches);
+        $result = $inputString;
+        preg_match_all($pattern, $inputString, $matches, PREG_SET_ORDER);
 
-        if (!empty($matches[2])) {
-            $content = strip_tags($matches[2]);
-            $contentChildren = str_replace(["\r\n", "\r", "\n"], "<br />", $content);
-            $contentProps = str_replace(["\r\n", "\r", "\n"], "", $content);
+        foreach ($matches as $match) {
+            if (!empty($match[2])) {
+                $content = strip_tags($match[2]);
+                $contentChildren = str_replace(["\r\n", "\r", "\n"], "<br />", $content);
+                $contentProps = str_replace(["\r\n", "\r", "\n"], "", $content);
+                $result = preg_replace($pattern, str_replace("elcontent", "$contentProps", $openingTag) . "$contentChildren" . $closingTag, str_replace([" ", "", ""], [" ", "", ""], $result), 1);
+            }
+
         }
-        // Replace the symbols with HTML tags
-        // Return the modified string
-        return preg_replace($pattern, str_replace("elcontent", "$contentProps", $openingTag) . "$contentChildren" . $closingTag, str_replace([" ", "", ""], [" ", "", ""], $inputString));
+
+        return $result;
     }
 }
