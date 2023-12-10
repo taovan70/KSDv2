@@ -63,7 +63,7 @@ class ArticleController extends Controller
 
     public function random(string $count): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $articles = Article::inRandomOrder()->with(['category', 'author', 'tags'])->take($count)->where('published', true)->get();
+        $articles = Article::inRandomOrder()->with(['category', 'author', 'tags', 'media'])->take($count)->where('published', true)->get();
         return ArticleResource::collection($articles);
     }
 

@@ -93,7 +93,7 @@ class EmbedService
         $text = $this->replaceCustomSymbols($text, '+ProsConsGreenPlus+', '<ProsConsGreenPlus data="elcontent">', '</ProsConsGreenPlus>');
         $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMark+', '<ProsConsGreenMark data="elcontent">', '</ProsConsGreenMark>');
         $text = $this->replaceCustomSymbols($text, '+ProsConsGreenMarkDashed+', '<ProsConsGreenMarkDashed data="elcontent">', '</ProsConsGreenMarkDashed>');
-        $text = $this->replaceCustomSymbols($text, '+ProsListGreenMark+', '<ProsListGreenMark data="elcontent">', '</ProsListGreenMark>');
+        $text = $this->replaceCustomSymbols($text, '+MarkList+', '<MarkList data="elcontent">', '</MarkList>');
         $text = $this->replaceCustomSymbols($text, '+TextBlockFirst+', '<TextBlockFirst data="elcontent">', '</TextBlockFirst>');
         $text = $this->replaceCustomSymbols($text, '+YouTubeComponent+', '<YouTubeComponent data="elcontent">', '</YouTubeComponent>');
         $text = $this->replaceCustomSymbols($text, '+ArticleGalleryWrapper+', '<ArticleGalleryWrapper data="elcontent">', '</ArticleGalleryWrapper>');

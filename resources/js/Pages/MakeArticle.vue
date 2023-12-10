@@ -1,7 +1,7 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 import CKeditor from '../components/CKeditor.vue';
-import { computed, ref, watch, onMounted } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 import { useQuery } from '@tanstack/vue-query'
 import ModalAlert from '../components/UI/ModalAlert.vue'
@@ -745,24 +745,24 @@ const copyToClipboard = (val) => {
               <td>Список перимуществ с зелёной галочкой</td>
               <td>
                 <code>
-                  +ProsListGreenMark+
+                  +MarkList+
                   (+) преимущество 1
 
                   (+) преимущество 2
-                  +ProsListGreenMark+
+                  +MarkList+
                 </code>
               </td>
               <td>
                 <img loading='lazy' src="/images/article/components/comp17.png" class="instruction_compoment_image">
               </td>
               <td>
-                <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+ProsListGreenMark+
+                <font-awesome-icon icon="fa-solid fa-copy" class="icon copy_to_clipboard_icon" @click="copyToClipboard(`+MarkList+
 
 (+) преимущество 1
 
 (+) преимущество 2
 
-+ProsListGreenMark+`)" />
++MarkList+`)" />
               </td>
             </tr>
           </table>
