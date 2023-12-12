@@ -53,6 +53,11 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'blocks'], function () {
+        Route::group(['prefix' => 'authors'], function () {
+            Route::group(['prefix' => 'popular-expert-articles'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\Authors\PopularExpertArticlesController::class, 'index'])->name('didTouKnowInArticle.index');
+            });
+        });
         Route::group(['prefix' => 'article'], function () {
             Route::group(['prefix' => 'did_you_know_in_articles'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\Article\DidYouKnowInArticlesController::class, 'index'])->name('didTouKnowInArticle.index');

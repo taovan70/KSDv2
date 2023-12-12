@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Pages\Experts;
+namespace App\Models\Blocks\Authors;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

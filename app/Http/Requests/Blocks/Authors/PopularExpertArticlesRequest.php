@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Author;
+namespace App\Http\Requests\Blocks\Authors;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Pages\Experts;
 
-use App\Http\Requests\Author\PopularExpertArticlesRequest;
+use App\Http\Requests\Blocks\Authors\PopularExpertArticlesRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
@@ -29,7 +29,7 @@ class PopularExpertArticlesCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Pages\Experts\PopularExpertArticles::class);
+        CRUD::setModel(\App\Models\Blocks\Authors\PopularExpertArticles::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/popular-expert-articles');
         CRUD::setEntityNameStrings(__('models.popular_experts_articles'), __('models.popular_experts_articles'));
     }
