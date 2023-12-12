@@ -58,6 +58,8 @@ return [
     'text' => 'Text',
     'big_card_article' => 'Big card article',
     'everyone_talking_about' => 'Everyone talking about',
+    'experts_page' => 'Experts page',
+    'popular_experts_articles' => 'Popular experts articles',
     'q-a-category' => 'Q&A',
     'sub_cat_alphavite_block' => 'Block Alphavite',
     'sub_cat_top_facts_block' => 'Top facts block',

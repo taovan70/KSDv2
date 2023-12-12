@@ -205,6 +205,20 @@
                 {{ __('models.standalone_pages') }}
             </a>
         </li>
+        <li class="nav-item nav-dropdown text-capitalize">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon la la-people-carry"></i>
+                {{ __('models.experts_page') }}
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('popular-expert-articles') }}">
+                        <i class="nav-icon la la-tape"></i>
+                        {{ __('models.popular_experts_articles') }}
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 
 </li>
