@@ -55,7 +55,7 @@ Route::group([], function () {
     Route::group(['prefix' => 'blocks'], function () {
         Route::group(['prefix' => 'authors'], function () {
             Route::group(['prefix' => 'popular-expert-articles'], function () {
-                Route::get('/', [\App\Http\Controllers\Api\Blocks\Authors\PopularExpertArticlesController::class, 'index'])->name('didTouKnowInArticle.index');
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\Authors\PopularExpertArticlesController::class, 'index'])->name('popularExpertArticle.index');
             });
         });
         Route::group(['prefix' => 'article'], function () {
@@ -125,6 +125,12 @@ Route::group([], function () {
             });
             Route::group(['prefix' => 'know_more_about_each'], function () {
                 Route::get('/{category_slug}', [\App\Http\Controllers\Api\Blocks\SubCategory\SubCatKnowMoreAboutEachBlockController::class, 'index'])->name('subCatGameTwo.index');
+            });
+        });
+
+        Route::group(['prefix' => 'not-found'], function () {
+            Route::group(['prefix' => 'popular-not-found-articles'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\NotFound\PopularNotFoundArticlesController::class, 'index'])->name('popularNotFoundArticles.index');
             });
         });
     });
