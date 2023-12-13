@@ -123,8 +123,14 @@ class Article extends Model implements HasMedia
         }
         if (request('tag_slug')) {
             $q->whereHas('tags', function ($q) {
-                $categories = explode(',',request('tag_slug'));
-                $q->whereIn('slug', $categories);
+                $tags = explode(',',request('tag_slug'));
+                $q->whereIn('slug', $tags);
+            });
+        }
+        if (request('author_id')) {
+            $q->whereHas('author', function ($q) {
+                $authors = explode(',',request('author_id'));
+                $q->whereIn('id', $authors);
             });
         }
 

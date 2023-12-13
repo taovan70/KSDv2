@@ -77,13 +77,9 @@ class ArticleController extends Controller
 
     public function recentPagination(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        if ($request->has('category_slug')) {
-            $articles = Article::filter()->latest()->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', '=', $request->category_slug);
-            })->with(['category', 'author', 'tags'])->where('published', true)->paginate(6);
-        } else {
-            $articles = Article::filter()->latest()->with('category', 'author', 'tags')->where('published', true)->paginate(6);
-        }
+
+        $articles = Article::filter()->latest()->with('category', 'author', 'tags')->where('published', true)->paginate($request->items_per_page ?? 6);
+
         return ArticleForBlocksResource::collection($articles);
     }
 
