@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Pages\Experts;
+namespace App\Http\Controllers\Admin\Blocks\Experts;
 
 use App\Http\Requests\Blocks\Authors\PopularExpertArticlesRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
