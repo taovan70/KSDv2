@@ -44,7 +44,8 @@ trait FullTextSearch
             return $this->qualifyColumn($column);
         })->implode(',');
 
-        $query->whereRaw("MATCH ({$columns}) AGAINST (? IN BOOLEAN MODE)", $this->fullTextWildcards($term));
+        $query->whereRaw("MATCH ({$columns}) AGAINST (? IN BOOLEAN MODE)", $this->fullTextWildcards($term))
+        ->orWhere('title', 'LIKE', "%{$term}%");
 
         return $query;
     }

@@ -16,7 +16,7 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $result = $this->searchService->search($request->q);
+        $result = $this->searchService->search($request);
 
         return $result;
     }

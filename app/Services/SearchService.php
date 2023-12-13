@@ -3,32 +3,51 @@
 namespace App\Services;
 
 use App\Models\Article;
-use App\Models\Category;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class SearchService
 {
-    public function search(string $searchTerm): Collection
+    public function search(Request $request): array
     {
-        $articlesContent = Article::search($searchTerm)->where('published', '1')->with('tags')->get();
+        $itemsPerPage = $request->items_per_page ?? 5;
 
-        $articlesTitle = Article::query()
-            ->where('title', 'LIKE', "%{$searchTerm}%")
-            ->where('published', '1')
-            ->with('tags')
-            ->get();
+        if (request('category_slug')) {
+            $articlesPaginate = Article::search($request->q)
+                ->where('published', '1')
+                ->with('category:id,slug', 'tags:id', 'author:id,name,surname,middle_name')
+                ->whereHas('category', function ($q) use ($request) {
+                    $categories = explode(',', $request->category_slug);
+                    $q->whereIn('slug', $categories);
+                })
+                ->paginate($itemsPerPage);
 
-        $articles =  $articlesContent->merge($articlesTitle);
-        $groupedByCategory = $articles->groupBy('category_id');
-        $result = $groupedByCategory->map(function (Collection $item, int $key) {
-            $category = Category::find($key);
             return [
-                'category' => $category,
-                'articles' => $item,
-                'articles_count' => $item->count()
+                'articles' => $articlesPaginate,
             ];
-        });
+        } else {
+            $articlesAll = Article::search($request->q)
+                ->where('published', '1')
+                ->with('category:id,slug,name')
+                ->get();
 
-        return $result->values();
+            $articlesPaginate = Article::search($request->q)
+                ->where('published', '1')
+                ->with('category:id,slug,name', 'tags:id', 'author:id,name,surname,middle_name')
+                ->paginate($itemsPerPage);
+
+            $groupedByCategory = $articlesAll->groupBy('category');
+
+            return [
+                'categories' => array_values($groupedByCategory->map(function (Collection $item, string $key) {
+                    return [
+                        'category' => json_decode($key)->name,
+                        'category_slug' => json_decode($key)->slug,
+                        'articles_count' => $item->count()
+                    ];
+                })->toArray()),
+                'articles' => $articlesPaginate,
+            ];
+        }
     }
 }
