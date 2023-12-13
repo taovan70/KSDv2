@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Blocks\Authors;
+namespace App\Http\Requests\Blocks\NotFound;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PopularExpertArticlesRequest extends FormRequest
+class PopularNotFoundArticlesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
