@@ -21,7 +21,7 @@ class ArticleController extends Controller
 
     public function edit(Article $article): Response
     {
-        $article->append('tags_ids');
+        $article->append('tags_ids')->makeVisible(['content_markdown']);
         $article->load('category');
         $mainPic = $article->getMedia('mainPic');
         $article['mainPic'] = $mainPic;

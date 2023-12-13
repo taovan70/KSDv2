@@ -67,7 +67,7 @@ class Article extends Model implements HasMedia
     protected $searchable = [
         'content_html'
     ];
-    // protected $hidden = [];
+    protected $hidden = ["content_markdown"];
     // protected $dates = [];
     protected $casts = [
         'published' => 'boolean',
