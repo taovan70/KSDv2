@@ -20,7 +20,7 @@ class PopularNotFoundArticlesController extends Controller
             $query->where('published', 1);
             $query->with('author');
             $query->with('category');
-        }])->paginate(6);
+        }])->get();
 
         return PopularNotFoundArticlesResource::collection($result);
     }
