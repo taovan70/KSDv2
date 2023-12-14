@@ -231,6 +231,12 @@
                         {{ __('models.popular_articles') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('popular-not-found-categories') }}">
+                        <i class="nav-icon la la-feather"></i>
+                        {{ __('models.more_read_categories') }}
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

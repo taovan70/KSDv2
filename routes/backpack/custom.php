@@ -71,4 +71,5 @@ Route::group([
     Route::crud('sub-cat-encyclopedia-block', 'Blocks\SubCategory\SubCatEncyclopediaBlockCrudController');
     Route::crud('popular-expert-articles', 'Blocks\Experts\PopularExpertArticlesCrudController');
     Route::crud('popular-not-found-articles', 'Blocks\NotFound\PopularNotFoundArticlesCrudController');
+    Route::crud('popular-not-found-categories', 'Blocks\NotFound\PopularNotFoundCategoriesCrudController');
 }); // this should be the absolute last line of this file
