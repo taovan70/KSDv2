@@ -17,6 +17,7 @@ class ArticleForBlocksResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'preview_text' => $this->preview_text,
             'slug' => $this->slug,
             'publish_date' => $this->publish_date,
             'author' => [
