@@ -21,12 +21,15 @@ class AuthorController extends Controller
         return $service->getAuthors($request->q);
     }
 
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $authors = Author::query()
-           ->with('categories:id,name,slug')
-           ->withCount('articles')
-           ->get();
+            ->with('categories:id,name,slug')
+            ->when(!empty($request->count), function ($query) use ($request) {
+                $query->limit($request->count);
+            })
+            ->withCount('articles')
+            ->get();
         return AuthorResource::collection($authors);
     }
 
@@ -34,7 +37,6 @@ class AuthorController extends Controller
     {
         $author = Author::with('categories:id,name,slug')->findOrFail($id);
         return new AuthorResource($author);
-
     }
 
 }
