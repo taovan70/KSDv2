@@ -132,6 +132,9 @@ Route::group([], function () {
             Route::group(['prefix' => 'popular-not-found-articles'], function () {
                 Route::get('/', [\App\Http\Controllers\Api\Blocks\NotFound\PopularNotFoundArticlesController::class, 'index'])->name('popularNotFoundArticles.index');
             });
+            Route::group(['prefix' => 'popular-not-found-categories'], function () {
+                Route::get('/', [\App\Http\Controllers\Api\Blocks\NotFound\PopularNotFoundCategoriesController::class, 'index'])->name('popularNotFoundCategories.index');
+            });
         });
     });
 
