@@ -61,6 +61,7 @@ return [
     'experts_page' => 'Страница Экспертов',
     'popular_experts_articles' => 'Популярные статьи экспертов',
     'popular_articles' => 'Самые популярные статьи',
+    'popular_two_weeks_articles' => 'Лучшее за две недели',
     'more_read_categories' => 'Часто читаемые рубрики',
     'q-a-category' => 'Вопрос-ответ',
     'sub_cat_alphavite_block' => 'Блок алфавита',

@@ -61,6 +61,7 @@ return [
     'experts_page' => 'Experts page',
     'popular_experts_articles' => 'Popular experts articles',
     'popular_articles' => 'Popular articles',
+    'popular_two_weeks_articles' => 'Popular two weeks articles',
     'more_read_categories' => 'More read categories',
     'q-a-category' => 'Q&A',
     'sub_cat_alphavite_block' => 'Block Alphavite',
