@@ -148,4 +148,8 @@ Route::group([], function () {
     Route::group(['prefix' => 'standalone-page'], function () {
         Route::get('/{id}', [\App\Http\Controllers\Api\StandalonePageController::class, 'show'])->name('standalone-page.show');
     });
+
+    Route::group(['prefix' => 'stories'], function () {
+        Route::get('/{category_slug}', [\App\Http\Controllers\Api\StoriesController::class, 'index'])->name('stories.show');
+    });
 });
