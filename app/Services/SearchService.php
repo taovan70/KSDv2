@@ -15,7 +15,7 @@ class SearchService
         if (request('category_slug')) {
             $articlesPaginate = Article::search($request->q)
                 ->where('published', '1')
-                ->with('category:id,slug', 'tags:id', 'author:id,name,surname,middle_name')
+                ->with('category:id,slug,mini_pic_path', 'tags:id', 'author:id,name,surname,middle_name','media')
                 ->whereHas('category', function ($q) use ($request) {
                     $categories = explode(',', $request->category_slug);
                     $q->whereIn('slug', $categories);
@@ -28,12 +28,12 @@ class SearchService
         } else {
             $articlesAll = Article::search($request->q)
                 ->where('published', '1')
-                ->with('category:id,slug,name')
+                ->with('category:id,slug,name,mini_pic_path')
                 ->get();
 
             $articlesPaginate = Article::search($request->q)
                 ->where('published', '1')
-                ->with('category:id,slug,name', 'tags:id', 'author:id,name,surname,middle_name')
+                ->with('category:id,slug,name,mini_pic_path', 'tags:id', 'author:id,name,surname,middle_name','media')
                 ->paginate($itemsPerPage);
 
             $groupedByCategory = $articlesAll->groupBy('category');
