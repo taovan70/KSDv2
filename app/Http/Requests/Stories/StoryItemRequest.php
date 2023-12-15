@@ -54,6 +54,7 @@ class StoryItemRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'text.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'photo_path.max' => __('validation.common.max') . ' ' . ':max',
             'photo_path.image' => __('validation.common.image'),
