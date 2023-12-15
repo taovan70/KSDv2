@@ -74,4 +74,5 @@ Route::group([
     Route::crud('popular-not-found-categories', 'Blocks\NotFound\PopularNotFoundCategoriesCrudController');
     Route::crud('popular-not-found-two-weeks-articles', 'Blocks\NotFound\PopularNotFoundTwoWeeksArticlesCrudController');
     Route::crud('stories', 'StoriesCrudController');
+    Route::crud('story-item', 'StoryItemCrudController');
 }); // this should be the absolute last line of this file

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Stories\StoriesRequest;
+use App\Http\Requests\Stories\StoryItemRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
@@ -12,7 +12,7 @@ use Backpack\CRUD\app\Library\Widget;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class StoriesCrudController extends CrudController
+class StoryItemCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -24,24 +24,22 @@ class StoriesCrudController extends CrudController
 
     public function setup()
     {
-        CRUD::setModel(\App\Models\Stories::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/stories');
-        CRUD::setEntityNameStrings(__('models.stories'), __('models.stories'));
+        CRUD::setModel(\App\Models\StoryItem::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/story-item');
+        CRUD::setEntityNameStrings(__('models.story_item'), __('models.story_item'));
     }
 
 
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'))->limit(70);
-        CRUD::column('slug')->label(__('table.slug'))->limit(70);
         CRUD::addColumn([
-            'label' => __('table.category'),
-            'type' => 'select',
-            'name' => 'category_id',
+            'label' => __('models.stories'),
+            'name' => 'story_id',
             'attribute' => 'name',
-            'entity' => 'category',
+            'entity' => 'stories',
             'wrapper' => [
-                'href' => fn($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
+                'href' => fn($crud, $column, $article, $story_id) => backpack_url("stories/{$story_id}/show")
             ]
         ]);
 
@@ -49,7 +47,7 @@ class StoriesCrudController extends CrudController
             'type' => 'view',
             'view'    => 'partials.inlineOperationsModal',
             'content'=> [
-                'page' => 'stories'
+                'page' => 'story-item'
             ]
         ]);
 
@@ -62,18 +60,17 @@ class StoriesCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StoriesRequest::class);
+        CRUD::setValidation(StoryItemRequest::class);
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('text')->label(__('models.text'));
         CRUD::addField([
-            'name' => 'category_id',
-            'label' => __('table.category'),
+            'name' => 'story_id',
+            'label' => __('models.stories'),
             'type' => 'select2_from_ajax',
-            'entity' => 'category',
-            'attribute' => 'name',
-            'data_source' => url('api/categories'),
-            'minimum_input_length' => 0,
             'method' => 'POST',
-            'include_all_form_fields' => true
+            'entity' => 'stories',
+            'attribute' => 'name',
+            'data_source' => url('api/stories'),
         ]);
         CRUD::addField([
             'name' => 'photo_path',
@@ -81,6 +78,13 @@ class StoriesCrudController extends CrudController
             'type' => 'upload',
             'upload' => true,
             'disk' => 'public'
+        ]);
+        CRUD::addField([
+            'name' => 'article_id',
+            'label' => __('table.article'),
+            'type' => 'select2_from_ajax',
+            'method' => 'POST',
+            'data_source' => url('api/articles'),
         ]);
     }
 

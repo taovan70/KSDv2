@@ -6,9 +6,8 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 
-class Stories extends Model
+class StoryItem extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -19,28 +18,13 @@ class Stories extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'stories';
+    protected $table = 'story_items';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['category_id', 'name', 'photo_path', 'slug'];
+    protected $fillable = ['story_id', 'name', 'photo_path', 'text', 'article_id'];
 
     // protected $hidden = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($story) {
-            $slug = Str::slug($story->name);
-
-            // check to see if any other slugs exist that are the same & count them
-            $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-
-            // if other slugs exist that are the same, append the count to the slug
-            $story->slug = $count ? "{$slug}-{$count}" : $slug;
-        });
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -54,14 +38,14 @@ class Stories extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function category(): BelongsTo
+    public function stories(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Category::class);
+        return $this->belongsTo(\App\Models\Stories::class, 'story_id', 'id');
     }
 
-    public function storyItems(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function article(): BelongsTo
     {
-        return $this->hasMany(\App\Models\StoryItem::class);
+        return $this->belongsTo(\App\Models\Article::class);
     }
 
     /*
@@ -86,7 +70,7 @@ class Stories extends Model
     {
         $attribute_name = "photo_path";
         $disk = "public";
-        $destination_path = "stories_main_photos";
+        $destination_path = "story_item_photos";
 
         if (is_file($value)) {
             $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);

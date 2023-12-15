@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\api\Blocks\NotFound\PopularNotFoundTwoWeeksArticlesResource;
 use App\Http\Resources\api\Stories\StoriesResource;
 use App\Models\Stories;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use App\Services\StoriesService;
 
 
 class StoriesController extends Controller
@@ -23,5 +25,10 @@ class StoriesController extends Controller
             ->get();
 
         return StoriesResource::collection($result);
+    }
+
+    public function fetchStories(Request $request, StoriesService $service): Collection
+    {
+        return $service->getStories($request->q);
     }
 }

@@ -150,6 +150,7 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'stories'], function () {
+        Route::post('/', [\App\Http\Controllers\Api\StoriesController::class, 'fetchStories'])->name('storiesPost.index');
         Route::get('/{category_slug}', [\App\Http\Controllers\Api\StoriesController::class, 'index'])->name('stories.show');
     });
 });

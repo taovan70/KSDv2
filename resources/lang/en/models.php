@@ -55,6 +55,7 @@ return [
     "info_blocks" => "Info blocks",
     'standalone_pages' => 'Standalone pages',
     'stories' => 'stories',
+    'story_item' => 'Story item',
     "info_block" => "Info block",
     'text' => 'Text',
     'big_card_article' => 'Big card article',

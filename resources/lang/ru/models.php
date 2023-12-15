@@ -55,6 +55,7 @@ return [
     "info_blocks" => "Информационные блоки",
     'standalone_pages' => 'Отдельные страницы',
     'stories' => 'Сторис',
+    'story_item' => 'Одна стори',
     "info_block" => "Информационный блок",
     'text' => 'Текст',
     'big_card_article' => 'Статья в большой карточке',

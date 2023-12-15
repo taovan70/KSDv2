@@ -257,6 +257,12 @@
                         {{ __('models.stories') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('story-item') }}">
+                        <i class="nav-icon la la-film"></i>
+                        {{ __('models.story_item') }}
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>
