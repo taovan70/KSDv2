@@ -54,6 +54,7 @@ return [
     "add_text" => "Additional text",
     "info_blocks" => "Info blocks",
     'standalone_pages' => 'Standalone pages',
+    'stories' => 'stories',
     "info_block" => "Info block",
     'text' => 'Text',
     'big_card_article' => 'Big card article',

@@ -245,6 +245,20 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item nav-dropdown text-capitalize">
+            <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon la la-photo-video"></i>
+                {{ __('models.stories') }}
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link text-capitalize" href="{{ backpack_url('stories') }}">
+                        <i class="nav-icon la la-film"></i>
+                        {{ __('models.stories') }}
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 
 </li>
