@@ -22,7 +22,7 @@ class AdvBlockCRUD extends CrudPanelFacade
                 $page = $crud->getRequest()->query('page');
                 $colorType = $crud->getRequest()->query('color_type');
                 $deviceType = $crud->getRequest()->query('device_type');
-                $pageId = AdvPage::where('slug', $page)->first()->id;
+                $pageId = AdvPage::where('slug', $page)?->first()?->id;
                 if (!empty($pageId)) {
                     $crud->addClause(function (Builder $query) use ($pageId, $colorType, $deviceType) {
                         return $query->whereHas(
