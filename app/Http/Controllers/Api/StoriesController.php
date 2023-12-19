@@ -22,6 +22,7 @@ class StoriesController extends Controller
         $result = Stories::whereHas('category', function ($q) use ($category_slug) {
                 $q->where('slug', '=', $category_slug);
             })
+            ->with('storyItems', fn ($q) => $q->with('article'))
             ->get();
 
         return StoriesResource::collection($result);

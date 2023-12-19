@@ -5,7 +5,7 @@ namespace App\Http\Resources\api\Stories;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StoriesResource extends JsonResource
+class StoryItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,14 @@ class StoriesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'slug' => $this->slug,
+            'text' => $this->text,
             'name' => $this->name,
             'photo_path' => $this->photo_path,
-            'story_item' => StoryItemsResource::collection($this->storyItems),
+            'article' => [
+                'name' => $this->article->name,
+                'slug' => $this->article->slug,
+                'preview_text' => $this->article->preview_text
+            ]
         ];
     }
 }
