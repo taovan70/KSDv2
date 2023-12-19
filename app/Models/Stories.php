@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Stories extends Model
@@ -40,6 +41,10 @@ class Stories extends Model
             // if other slugs exist that are the same, append the count to the slug
             $story->slug = $count ? "{$slug}-{$count}" : $slug;
         });
+
+        static::deleting(function($obj) {
+            if (isset($obj->photo_path)) Storage::disk('public')->delete($obj->photo_path);
+        });
     }
 
     /*
@@ -61,7 +66,7 @@ class Stories extends Model
 
     public function storyItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\StoryItem::class);
+        return $this->hasMany(\App\Models\StoryItem::class, 'story_id');
     }
 
     /*

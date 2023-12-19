@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class StoryItem extends Model
 {
@@ -31,6 +32,14 @@ class StoryItem extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            if (isset($obj->photo_path)) Storage::disk('public')->delete($obj->photo_path);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

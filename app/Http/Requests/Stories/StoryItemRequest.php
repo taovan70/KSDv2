@@ -28,7 +28,7 @@ class StoryItemRequest extends FormRequest
             'name' => 'required|string|max:255',
             'text' => 'required|string',
             'story_id' => 'required|numeric|exists:categories,id',
-            'photo_path' => 'required|image|max:4096',
+            'photo_path' => 'nullable|image|max:4096',
             'article_id' => 'required|numeric|exists:articles,id',
         ];
     }

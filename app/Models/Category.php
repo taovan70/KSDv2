@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Category extends Model
 {
@@ -50,6 +51,16 @@ class Category extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            if (isset($obj->photo_path)) Storage::disk('public')->delete($obj->photo_path);
+            if (isset($obj->mini_pic_path)) Storage::disk('public')->delete($obj->mini_pic_path);
+            if (isset($obj->icon_path)) Storage::disk('public')->delete($obj->icon_path);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
