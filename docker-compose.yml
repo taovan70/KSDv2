@@ -10,7 +10,7 @@ services:
     container_name: app
     restart: unless-stopped
     tty: true
-    command: ["su", "webuser", "-c", "php artisan schedule:work"]
+#    command: ["su", "webuser", "-c", "php artisan schedule:work"]
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
@@ -34,6 +34,7 @@ services:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
     networks:
       - app-network
 
