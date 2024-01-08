@@ -31,6 +31,8 @@ class Author extends Model
     public const INSTAGRAM = 'instagram';
     public const TELEGRAM = 'telegram';
     public const VK = 'vk';
+    public const Odnoklassniki = 'OK';
+    public const DZEN = 'dzen';
     public const TWITTER = 'twitter';
     public const REDDIT = 'reddit';
     public const FACEBOOK = 'facebook';
@@ -40,7 +42,9 @@ class Author extends Model
         self::FACEBOOK => self::FACEBOOK,
         self::TELEGRAM => self::TELEGRAM,
         self::TWITTER => self::TWITTER,
-        self::REDDIT => self::REDDIT
+        self::REDDIT => self::REDDIT,
+        self::DZEN => self::DZEN,
+        self::Odnoklassniki => self::Odnoklassniki
     ];
 
     protected $table = 'authors';
