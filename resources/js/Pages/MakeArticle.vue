@@ -864,3 +864,10 @@ label {
   }
 }
 </style>
+
+<style>
+button[data-cke-tooltip-text="Toggle caption on"] {
+  display: none!important;
+  visibility: hidden!important;
+}
+</style>
