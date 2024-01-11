@@ -103,5 +103,43 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'subscribe_telegram_channel')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "subscribe_telegram_channel",
+                    'name' => json_encode(
+                        ["en" => "telegram channel for subscription", "ru" => "Telegram канал для подписки"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => json_encode(["name"=>"value","label"=>"","type"=>"text"]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
+
+        if (!Setting::where('key', 'subscribe_vk_channel')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "subscribe_vk_channel",
+                    'name' => json_encode(
+                        ["en" => "VK channel for subscription", "ru" => "ВК канал для подписки"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => json_encode(["name"=>"value","label"=>"","type"=>"text"]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }

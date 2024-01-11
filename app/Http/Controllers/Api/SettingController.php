@@ -17,10 +17,14 @@ class SettingController extends Controller
     public function getAppSettings()
     {
         $textOnArticle = Setting::where('key', 'text_on_article_image_preview')->first();
+        $subscribeTelegramChannel = Setting::where('key', 'subscribe_telegram_channel')->first();
+        $subscribeVKChannel = Setting::where('key', 'subscribe_vk_channel')->first();
         $settings = [
             'preview_type' => $textOnArticle->value ? 'type2' : 'type1',
+            'subscribe_telegram_channel' => $subscribeTelegramChannel->value,
+            'subscribe_vk_channel' => $subscribeVKChannel->value,
         ];
-       
+
         return $settings;
     }
 }
