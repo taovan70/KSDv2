@@ -141,5 +141,24 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'hide_theme_change_button')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "hide_theme_change_button",
+                    'name' => json_encode(
+                        ["en" => "Hide theme change button", "ru" => "Скрыть кнопку смены темы на сайте"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => json_encode(["name" => "value", "label" => "Value", "type" => "checkbox"]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }
