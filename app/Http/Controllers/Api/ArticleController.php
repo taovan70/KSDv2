@@ -44,9 +44,12 @@ class ArticleController extends Controller
     }
 
 
-    public function show(string $slug): ArticleResource
+    public function show(string $slug)
     {
-        $article = Article::where('slug', $slug)->where('published', true)->with(['category', 'author', 'tags'])->firstOrFail();
+        $article = Article::where('slug', $slug)->where('published', true)->with(['category', 'author', 'tags'])->first();
+        if (!$article) {
+            return [];
+        }
         $article->load('tags');
         return new ArticleResource($article);
     }
