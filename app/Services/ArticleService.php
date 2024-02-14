@@ -201,4 +201,18 @@ class ArticleService
         $converter = new CommonMarkConverter();
         return $converter->convert($text);
     }
+
+    public function updatePostsDate(int $days): void
+    {
+        $articles = Article::all();
+        foreach ($articles as $article) {
+            $newCreatedAt = $article->created_at->addDays($days);
+            // Check if the new date is in the future
+            if (!$newCreatedAt->isFuture()) {
+                $article->created_at = $newCreatedAt;
+                $article->save();
+            }
+        }
+
+    }
 }

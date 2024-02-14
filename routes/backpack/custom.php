@@ -30,6 +30,7 @@ Route::group([
     Route::get('article/{article}/edit', [App\Http\Controllers\Admin\Inertia\ArticleController::class, 'edit']);
     Route::post('article/store', [ArticleController::class, 'store']);
     Route::post('article/preview', [ArticleController::class, 'preview']);
+    Route::post('article/update-posts-date', [ArticleController::class, 'updatePostsDate']);
     Route::post('article/{article}/update', [ArticleController::class, 'update']);
     Route::post('article/{article}/update-preview', [ArticleController::class, 'updatePreview']);
     Route::get('settings-info', [SettingController::class, 'index']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\ArticleStoreRequest;
+use App\Http\Requests\Article\UpdatePostsDateRequest;
 use App\Http\Resources\api\Article\ArticleForBlocksResource;
 use App\Http\Resources\api\Article\ArticleResource;
 use App\Models\Article;
@@ -192,5 +193,11 @@ class ArticleController extends Controller
         return Redirect::back()->with([
             'data' => 'Some data',
         ]);
+    }
+
+    public function updatePostsDate(UpdatePostsDateRequest $request)
+    {
+        $this->articleService->updatePostsDate($request->days);
+        return response()->json(['status' => 'success']);
     }
 }

@@ -145,7 +145,7 @@
           @endif
 
     </div>
-
+      <x-update-posts-date> </x-update-posts-date>
   </div>
 
 @endsection
