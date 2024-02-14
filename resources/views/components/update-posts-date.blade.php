@@ -12,6 +12,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     const days = $(".update-post-date-block_days_input");
     $(".update-post-date-block__button").on('click', function () {
+      $(".update-post-date-block__button").prop('disabled', true);
       if (days.val() > 0) {
         $.ajax({
           url: "/admin/article/update-posts-date",
@@ -22,6 +23,7 @@
             days: days.val(),
           }),
           success: function (data) {
+            $(".update-post-date-block__button").prop('disabled', false);
             if (data.status === 'success') {
               swal({
                 title: "Дата статей была обновлена",
@@ -36,7 +38,8 @@
               $(".update-post-date-block__error").text('');
             }
           },
-          error: function (data) {
+          error: function () {
+            $(".update-post-date-block__button").prop('disabled', false);
             swal({
               title: "Не удалось обновить дату",
               icon: "error",
