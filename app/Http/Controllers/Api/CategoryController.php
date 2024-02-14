@@ -36,7 +36,10 @@ class CategoryController extends Controller
                     $query->with('children');
                 });
             });
-        })->firstOrFail();
+        })->first();
+        if (!$article) {
+            return [];
+        }
         return new CategoryResource($article);
     }
 }
