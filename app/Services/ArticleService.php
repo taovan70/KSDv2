@@ -204,12 +204,12 @@ class ArticleService
 
     public function updatePostsDate(int $days): void
     {
-        $articles = Article::all();
+        $articles = Article::where('published', true)->get();
         foreach ($articles as $article) {
-            $newCreatedAt = $article->created_at->addDays($days);
+            $newCreatedAt = $article->publish_date->addDays($days);
             // Check if the new date is in the future
             if (!$newCreatedAt->isFuture()) {
-                $article->created_at = $newCreatedAt;
+                $article->publish_date = $newCreatedAt;
                 $article->save();
             }
         }
