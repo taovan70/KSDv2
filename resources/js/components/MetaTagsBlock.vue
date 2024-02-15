@@ -1,6 +1,5 @@
 <script setup>
 import {watch, ref, computed} from "vue";
-import translit from "../utils/translit";
 import {useI18n} from 'vue-i18n'
 
 const props = defineProps({
@@ -25,8 +24,6 @@ function truncate(source, size) {
 const truncateDescription = computed(() => truncate(props.description, descriptionLength.value))
 const truncateTitle = computed(() => truncate(props.title, titleLength.value))
 
-
-const slugTranslit = computed(() => translit(props.slug))
 
 const titleRemainSymbols = computed(() => {
   if (!props.title) return titleLength
@@ -127,20 +124,20 @@ const setMetaViewSearchEngine = (searchEngine) => {
 
         <div class="search_item_yandex" v-if="metaViewDevice === 'phone' && metaViewSearchEngine === 'yandex'">
           <div class="search_item__title">{{ truncateTitle }}</div>
-          <div class="search_item__url">{{ settings?.site_url }} > {{ slugTranslit }}</div>
+          <div class="search_item__url">{{ settings?.site_url }} > {{ slug }}</div>
           <div class="search_item__description"> {{ truncateDescription }}</div>
         </div>
 
         <div class="search_item_yandex" v-if="metaViewDevice === 'desktop' && metaViewSearchEngine === 'yandex'">
           <div class="search_item__title">{{ truncateTitle }}</div>
-          <div class="search_item__url">{{ settings?.site_url }} > {{ slugTranslit }}</div>
+          <div class="search_item__url">{{ settings?.site_url }} > {{ slug }}</div>
           <div class="search_item__description"> {{ truncateDescription }}</div>
         </div>
 
         <div class="search_item_google" v-if="metaViewDevice === 'phone' && metaViewSearchEngine === 'google'">
           <div class="search_item__url">
             <i class="la la-globe"></i>
-            <span class="search_item__url_link">{{ settings?.site_url }} > {{ slugTranslit }}</span>
+            <span class="search_item__url_link">{{ settings?.site_url }} > {{ slug }}</span>
           </div>
           <div class="search_item__title">{{ truncateTitle }}</div>
           <div class="search_item__description"> {{ truncateDescription }}</div>
@@ -153,7 +150,7 @@ const setMetaViewSearchEngine = (searchEngine) => {
             </div>
             <div class="search_item__url_link">
               <div class="search_item__url_host">{{ settings?.site_url }}</div>
-              <span class="search_item__url_full_path">{{ settings?.site_url }} > {{ slugTranslit }}</span>
+              <span class="search_item__url_full_path">{{ settings?.site_url }} > {{ slug }}</span>
             </div>
           </div>
           <div class="search_item__title">{{ truncateTitle }}</div>

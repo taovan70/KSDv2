@@ -75,6 +75,7 @@ const showSuccessModal = ref(false)
 
 const endpointForm = useForm({
   name: props.article?.name,
+  slug: props.article?.slug,
   category_id: props.article?.category_id,
   tags: props.article?.tags_ids,
   content_markdown: props.article?.content_markdown,
@@ -85,7 +86,6 @@ const endpointForm = useForm({
   description: props.article?.description,
   preview_text: props.article?.preview_text,
   keywords: props.article?.keywords,
-  slug: translit(props.article?.name),
   mainPic: null,
 })
 
@@ -138,6 +138,10 @@ watch(settings, () => {
   locale.value = settings.value.lang
 })
 
+watch(() => endpointForm.title, () => {
+  endpointForm.slug = translit(endpointForm.title)
+})
+
 const createUrl = (blob) => {
   const res = window.URL.createObjectURL(blob)
   console.log("res", res)
@@ -186,7 +190,7 @@ const copyToClipboard = (val) => {
     </nav>
 
     <MetaTagsBlock v-model:title="endpointForm.title" v-model:description="endpointForm.description"
-      v-model:keywords="endpointForm.keywords" :endpointForm="endpointForm" :slug="endpointForm.name"
+      v-model:keywords="endpointForm.keywords" :endpointForm="endpointForm" :slug="endpointForm.slug"
       :settings="settings" />
     <ModalAlert :visible="showSuccessModal" title="Успешно" @close="modalClose">
       <span v-if="linkPreview">
@@ -195,10 +199,17 @@ const copyToClipboard = (val) => {
       <span v-else>Запись успешно сохранена </span>
     </ModalAlert>
     <form>
-      <div class="article_name">
-        <label for="article_name">{{ $t("makeArticle.fields.title") }}</label>
-        <el-input v-model="endpointForm.name" size="large" placeholder="Название статьи" id="article_name" />
-        <div v-if="endpointForm.errors.name" class="form_error_text">{{ endpointForm.errors.name }}</div>
+      <div class="mb-3">
+        <div class="article_name">
+          <label for="article_name">{{ $t("makeArticle.fields.title") }}</label>
+          <el-input v-model="endpointForm.name" size="large" placeholder="Название статьи" id="article_name" />
+          <div v-if="endpointForm.errors.name" class="form_error_text">{{ endpointForm.errors.name }}</div>
+        </div>
+        <div class="article_slug">
+          <label for="article_slug">{{ $t("makeArticle.fields.slug") }}</label>
+          <el-input v-model="endpointForm.slug" size="large" placeholder="Слаг" id="article_slug" />
+          <div v-if="endpointForm.errors.slug" class="form_error_text">{{ endpointForm.errors.slug }}</div>
+        </div>
       </div>
       <div class="form_small_fields_block">
         <div class="article_category">
@@ -265,7 +276,7 @@ const copyToClipboard = (val) => {
       </div>
       <div class="mb-3">
         <label v-if="props.article?.mainPic[0]?.original_url" for="article_publish_date">
-          {{ $t("makeArticle.fields.preview") }}
+          {{ $t("makeArticle.fields.preview_pic") }}
         </label>
         <div class="mb-3">
           <img v-if="endpointForm.mainPic || props.article?.mainPic[0]?.original_url"
