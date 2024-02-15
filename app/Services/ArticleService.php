@@ -215,4 +215,101 @@ class ArticleService
         }
 
     }
+
+    public function checkIfArticleExistsInBlocks(int $id)
+    {
+        $message = '';
+        $messageBlocks = '';
+        $bitCardArticleExists = DB::table('big_card_articles')->where('article_id', $id)->exists();
+        if ($bitCardArticleExists) {
+            $messageBlocks .= '<br> "Статья в большой карточке(главная)"';
+        }
+
+        $everyoneTalkingAboutsOne = DB::table('everyone_talking_abouts')->where('article_one_id', $id)->exists();
+        $everyoneTalkingAboutsTwo = DB::table('everyone_talking_abouts')->where('article_two_id', $id)->exists();
+        $everyoneTalkingAboutsThree = DB::table('everyone_talking_abouts')->where('article_three_id', $id)->exists();
+        $everyoneTalkingAboutsFour = DB::table('everyone_talking_abouts')->where('article_four_id', $id)->exists();
+        $everyoneTalkingAboutsFive = DB::table('everyone_talking_abouts')->where('article_five_id', $id)->exists();
+        $everyoneTalkingAboutsSix = DB::table('everyone_talking_abouts')->where('article_six_id', $id)->exists();
+        if ($everyoneTalkingAboutsOne || $everyoneTalkingAboutsTwo || $everyoneTalkingAboutsThree || $everyoneTalkingAboutsFour || $everyoneTalkingAboutsFive || $everyoneTalkingAboutsSix) {
+            $messageBlocks .= '<br> "О чём все говорят(категория)"';
+        }
+
+        $mostTalkedArticle = DB::table('most_talked_articles')->where('article_id', $id)->exists();
+        if ($mostTalkedArticle) {
+            $messageBlocks .= '<br> "Самые обсуждаемые статьи(главная)"';
+        }
+
+        $popularExpertArticles = DB::table('popular_expert_articles')->where('article_id', $id)->exists();
+        if ($popularExpertArticles) {
+            $messageBlocks .= '<br> "Популярные статьи экспертов(эксперт)"';
+        }
+
+        $popularNotFoundArticles = DB::table('popular_not_found_articles')->where('article_id', $id)->exists();
+        if ($popularNotFoundArticles) {
+            $messageBlocks .= '<br> "Самые популярные статьи(404)"';
+        }
+
+        $popularNotFoundTwoWeeksArticles = DB::table('popular_not_found_two_weeks_articles')->where('article_id', $id)->exists();
+        if ($popularNotFoundTwoWeeksArticles) {
+            $messageBlocks .= '<br> "Лучшее за две недели(404)"';
+        }
+
+        $QACategoriesOne = DB::table('q_a_categories')->where('article_one_id', $id)->exists();
+        $QACategoriesTwo = DB::table('q_a_categories')->where('article_two_id', $id)->exists();
+        $QACategoriesThree = DB::table('q_a_categories')->where('article_three_id', $id)->exists();
+        $QACategoriesFour = DB::table('q_a_categories')->where('article_four_id', $id)->exists();
+        $QACategoriesFive = DB::table('q_a_categories')->where('article_five_id', $id)->exists();
+        $QACategoriesSix = DB::table('q_a_categories')->where('article_six_id', $id)->exists();
+
+        if ($QACategoriesOne || $QACategoriesTwo || $QACategoriesThree || $QACategoriesFour || $QACategoriesFive || $QACategoriesSix) {
+            $messageBlocks .= '<br>"Вопрос-Ответ(категория)"';
+        }
+
+        $readersRecomendArticles = DB::table('readers_recomend_articles')->where('article_id', $id)->exists();
+        if ($readersRecomendArticles) {
+            $messageBlocks .= '<br> "Читатели рекомендуют(главная)"';
+        }
+
+        $storyItems = DB::table('story_items')->where('article_id', $id)->exists();
+        if ($storyItems) {
+            $messageBlocks .= '<br> "Истории"';
+        }
+
+        $subCatBehindTheScenesBlocks = DB::table('sub_cat_behind_the_scenes_blocks')->where('article_id', $id)->exists();
+        if ($subCatBehindTheScenesBlocks) {
+            $messageBlocks .= '<br> "Заглянем за кулисы(подкатегория)"';
+        }
+
+        $subCatEncyclopediaBlocksOne = DB::table('sub_cat_encyclopedia_blocks')->where('article_one_id', $id)->exists();
+        $subCatEncyclopediaBlocksTwo = DB::table('sub_cat_encyclopedia_blocks')->where('article_two_id', $id)->exists();
+        $subCatEncyclopediaBlocksThree = DB::table('sub_cat_encyclopedia_blocks')->where('article_three_id', $id)->exists();
+        $subCatEncyclopediaBlocksFour = DB::table('sub_cat_encyclopedia_blocks')->where('article_four_id', $id)->exists();
+        if ($subCatEncyclopediaBlocksOne || $subCatEncyclopediaBlocksTwo || $subCatEncyclopediaBlocksThree || $subCatEncyclopediaBlocksFour) {
+            $messageBlocks .= '<br> "Энциклопедия блок(подкатегория)"';
+        }
+
+        $subCatGameOneBlocks = DB::table('sub_cat_game_one_blocks')->where('article_id', $id)->exists();
+        if ($subCatGameOneBlocks) {
+            $messageBlocks .= '<br> "Игра первая(подкатегория)"';
+        }
+
+        $subCatGameTwoBlocks = DB::table('sub_cat_game_two_blocks')->where('article_id', $id)->exists();
+        if ($subCatGameTwoBlocks) {
+            $messageBlocks .= '<br> "Игра вторая(подкатегория)"';
+        }
+
+        $subCatTopFactsBlocksOne = DB::table('sub_cat_top_facts_blocks')->where('article_one_id', $id)->exists();
+        $subCatTopFactsBlocksTwo = DB::table('sub_cat_top_facts_blocks')->where('article_two_id', $id)->exists();
+        if ($subCatTopFactsBlocksOne || $subCatTopFactsBlocksTwo) {
+            $messageBlocks .= '<br> "Верхний блок фактов(подкатегория)"';
+        }
+
+        if (!empty($messageBlocks)) {
+            $message = 'Невозможно удалить стаью. Статью используют следующие блоки: ' . $messageBlocks;
+        }
+
+        return $message;
+
+    }
 }

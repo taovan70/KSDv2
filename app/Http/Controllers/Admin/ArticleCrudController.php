@@ -9,6 +9,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\View\View;
+use Prologue\Alerts\Facades\Alert;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\MediaCannotBeDeleted;
 
 /**
@@ -106,8 +107,12 @@ class ArticleCrudController extends CrudController
     /**
      * @throws MediaCannotBeDeleted
      */
-    public function destroy($id, ArticleService $articleService): bool|string
+    public function destroy($id, ArticleService $articleService)
     {
+        $message = $articleService->checkIfArticleExistsInBlocks($id);
+        if (!empty($message)) {
+            return Alert::add('error', $message);
+        }
 
         $this->crud->hasAccessOrFail('delete');
 
