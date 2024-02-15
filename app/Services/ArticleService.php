@@ -220,6 +220,7 @@ class ArticleService
     {
         $message = '';
         $messageBlocks = '';
+
         $bitCardArticleExists = DB::table('big_card_articles')->where('article_id', $id)->exists();
         if ($bitCardArticleExists) {
             $messageBlocks .= '<br> "Статья в большой карточке(главная)"';
@@ -306,7 +307,7 @@ class ArticleService
         }
 
         if (!empty($messageBlocks)) {
-            $message = 'Невозможно удалить стаью. Статью используют следующие блоки: ' . $messageBlocks;
+            $message = '<b>Невозможно удалить статью</b>. <br> Статью используют следующие блоки: ' . $messageBlocks;
         }
 
         return $message;

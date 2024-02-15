@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CategoryService
 {
@@ -76,5 +77,97 @@ class CategoryService
         }
 
         return $data;
+    }
+
+    public function checkIfCategoryExistsInBlocks(int $id)
+    {
+        $message = '';
+        $messageBlocks = '';
+
+        $didYouKnowInArticles = DB::table('did_you_know_in_articles')->where('category_id', $id)->exists();
+        if ($didYouKnowInArticles) {
+            $messageBlocks .= '<br> " Знали ли вы(статья)"';
+        }
+
+        $everyoneTalkingAbouts = DB::table('everyone_talking_abouts')->where('category_id', $id)->exists();
+        if ($everyoneTalkingAbouts) {
+            $messageBlocks .= '<br> "О чём все говорят(категория)"';
+        }
+
+        $popularCategories = DB::table('popular_categories')->where('category_id', $id)->exists();
+        if ($popularCategories) {
+            $messageBlocks .= '<br> "Популярные рубрики(главная)"';
+        }
+
+        $popularNotFoundCategories = DB::table('popular_not_found_categories')->where('category_id', $id)->exists();
+        if ($popularNotFoundCategories) {
+            $messageBlocks .= '<br> "Часто читаемые рубрики(404)"';
+        }
+
+        $QACategories = DB::table('q_a_categories')->where('category_id', $id)->exists();
+        if ($QACategories) {
+            $messageBlocks .= '<br>"Вопрос-Ответ(категория)"';
+        }
+
+        $stories = DB::table('stories')->where('category_id', $id)->exists();
+        if ($stories) {
+            $messageBlocks .= '<br>"Истории"';
+        }
+
+        $subCatAlphaviteBlocks = DB::table('sub_cat_alphavite_blocks')->where('category_id', $id)->exists();
+        if ($subCatAlphaviteBlocks) {
+            $messageBlocks .= '<br>"Блок алфавита(подкатегория)"';
+        }
+
+        $subCatBehindTheScenesBlocks = DB::table('sub_cat_behind_the_scenes_blocks')->where('category_id', $id)->exists();
+        if ($subCatBehindTheScenesBlocks) {
+            $messageBlocks .= '<br> "Заглянем за кулисы(подкатегория)"';
+        }
+
+        $subCatCalendars = DB::table('sub_cat_calendars')->where('category_id', $id)->exists();
+        if ($subCatCalendars) {
+            $messageBlocks .= '<br> "Календарь(подкатегория)"';
+        }
+
+        $subCatEncyclopediaBlocks = DB::table('sub_cat_encyclopedia_blocks')->where('category_id', $id)->exists();
+        if ($subCatEncyclopediaBlocks) {
+            $messageBlocks .= '<br> "Энциклопедия блок(подкатегория)"';
+        }
+
+        $subcatExpertAdviceBlocks = DB::table('sub_cat_expert_advice_blocks')->where('category_id', $id)->exists();
+        if ($subcatExpertAdviceBlocks) {
+            $messageBlocks .= '<br> "Совет эксперта(подкатегория)"';
+        }
+
+        $subCatGameOneBlocks = DB::table('sub_cat_game_one_blocks')->where('category_id', $id)->exists();
+        if ($subCatGameOneBlocks) {
+            $messageBlocks .= '<br> "Игра первая(подкатегория)"';
+        }
+
+        $subCatGameTwoBlocks = DB::table('sub_cat_game_two_blocks')->where('category_id', $id)->exists();
+        if ($subCatGameTwoBlocks) {
+            $messageBlocks .= '<br> "Игра вторая(подкатегория)"';
+        }
+
+        $subCatInterestingBlocks = DB::table('sub_cat_interesting_blocks')->where('category_id', $id)->exists();
+        if ($subCatInterestingBlocks) {
+            $messageBlocks .= '<br> "Это интересно(подкатегория)"';
+        }
+
+        $subCatKnowMoreAboutEachBlocks = DB::table('sub_cat_know_more_about_each_blocks')->where('category_id', $id)->exists();
+        if ($subCatKnowMoreAboutEachBlocks) {
+            $messageBlocks .= '<br> " Узнать больше о каждом разделе(подкатегория)"';
+        }
+
+        $subCatTopFactsBlocks = DB::table('sub_cat_top_facts_blocks')->where('category_id', $id)->exists();
+        if ($subCatTopFactsBlocks) {
+            $messageBlocks .= '<br> "Верхний блок фактов(подкатегория)"';
+        }
+
+        if (!empty($messageBlocks)) {
+            $message = '<b>Невозможно удалить категорию</b>. <br> Категорию используют следующие блоки: ' . $messageBlocks;
+        }
+
+        return $message;
     }
 }

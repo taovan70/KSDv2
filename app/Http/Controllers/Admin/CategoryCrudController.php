@@ -251,6 +251,11 @@ class CategoryCrudController extends CrudController
 
     public function destroy($id, CategoryService $categoryService)
     {
+        $message = $categoryService->checkIfCategoryExistsInBlocks($id);
+        if (!empty($message)) {
+            return Alert::add('error', $message);
+        }
+
         $categories = $categoryService->getCategoriesIds(Category::with('subcategories')->where('id', $id)->first());
         $articles = Article::whereIn('category_id', $categories)->get()->count();
         if ($articles > 0) {
