@@ -54,7 +54,15 @@ class CategoryService
         $data['title'] = $crud->getTitle() ?? trans(
             'backpack::crud.reorder'
         ) . ' ' . $crud->entity_name;
-        $data['relations']['articles'] = Category::withCount('articles')->get();
+        $data['relations']['articles'] = Category::withCount('articles')->with(['children' => function ($query) {
+            $query->withCount('articles');
+        }])->get('name');
+        foreach ( $data['relations']['articles'] as $key => $article) {
+            $childrenArticlesCount = array_reduce($article['children']->toArray(), function ($count, $child) {
+                return $count + $child['articles_count'];
+            });
+            $data['relations']['articles'][$key]['articles_count'] = (int)$article['articles_count'] + (int) $childrenArticlesCount;
+        }
         $data['relations']['categories'] = [];
         $allCategories = Category::all();
         foreach ($allCategories as $category) {
