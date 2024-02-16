@@ -14,14 +14,27 @@ class PopularCategoriesController extends Controller
     {
     }
 
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function index()
     {
         $result = PopularCategories::with(['category' => function ($query) {
-            $query->withCount('articles');
+            $query->withCount('articles')->with(['children' => function ($query) {
+                $query->withCount('articles');
+            }]);
         }])
             ->orderBy('lft', 'ASC')
             ->get();
-            
+
+
+        foreach ($result as  $item) {
+            $categoryCount = $item['category']['articles_count'];
+            $categoryChildren = $item['category']['children'];
+            foreach ($categoryChildren as $child) {
+                $childCount = $child['articles_count'];
+                $categoryCount += $childCount;
+            }
+            $item['category']['articles_count'] = $categoryCount;
+        }
+        
         return PopularCategoriesResource::collection($result);
     }
 }
