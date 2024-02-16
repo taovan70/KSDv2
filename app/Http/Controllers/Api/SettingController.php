@@ -11,6 +11,7 @@ class SettingController extends Controller
     {
         $settings = Setting::all()->pluck('value', 'key');
         $settings['lang'] = app()->getLocale();
+        $settings['site_url'] = env('FRONT_URL') ?? 'https://example.com';
         return $settings;
     }
 
