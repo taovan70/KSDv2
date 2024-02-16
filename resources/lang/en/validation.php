@@ -8,6 +8,7 @@ return [
         'unique' => 'This value must be unique.',
         'email' => 'Please provide a valid email address.',
         'image' => 'The field must be an image.',
+        'invalid' => 'Invalid value.',
     ],
     'articles' => [
         'image' => 'Please provide a link to the image, you cannot embed an image in the editor.'

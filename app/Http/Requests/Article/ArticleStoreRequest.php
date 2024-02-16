@@ -29,7 +29,15 @@ class ArticleStoreRequest extends FormRequest
                 'max:255',
                 Rule::unique('articles')->ignore($this?->article?->id)->whereNull('preview_for'),
             ],
-            'slug' => 'required|string|max:500',
+            'slug' => [
+                'required',
+                'string',
+                'min:2',
+                'max:255',
+                'regex:/^\S*$/u',
+                Rule::unique('articles', 'slug')->ignore($this?->article?->id)->whereNull('preview_for'),
+            ],
+
             'title' => 'required|string|max:500',
             'description' => 'required|string|max:1000',
             'preview_text' => 'nullable|string',
@@ -67,6 +75,8 @@ class ArticleStoreRequest extends FormRequest
 
             'slug.required' => __('validation.common.required'),
             'slug.max' => __('validation.common.max') . ' ' . ':max',
+            'slug.unique' => __('validation.common.unique'),
+            'slug.regex' => __('validation.common.invalid'),
 
             'title.required' => __('validation.common.required'),
             'title.max' => __('validation.common.max') . ' ' . ':max',

@@ -139,7 +139,7 @@ watch(settings, () => {
 })
 
 watch(() => endpointForm.title, () => {
-  endpointForm.slug = translit(endpointForm.title)
+  endpointForm.slug = translit(endpointForm.name)
 })
 
 const createUrl = (blob) => {
