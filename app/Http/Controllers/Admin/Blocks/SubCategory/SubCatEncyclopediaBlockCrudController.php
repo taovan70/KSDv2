@@ -159,7 +159,7 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_one_id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_one']['slug']),
             ],
         ]);
         CRUD::addColumn([
@@ -170,7 +170,7 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_two_id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_two']['slug']),
             ],
         ]);
         CRUD::addColumn([
@@ -181,7 +181,7 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_three_id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_three']['slug']),
             ],
         ]);
         CRUD::addColumn([
@@ -192,7 +192,7 @@ class SubCatEncyclopediaBlockCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_four_id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_four']['slug']),
             ],
         ]);
 

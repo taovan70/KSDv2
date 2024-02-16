@@ -61,7 +61,7 @@ class MostTalkedArticleCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article']['slug']),
             ],
             'limit'=> 100,
         ]);
@@ -129,7 +129,7 @@ class MostTalkedArticleCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article']['slug']),
             ],
         ]);
     }

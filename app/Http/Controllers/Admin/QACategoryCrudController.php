@@ -144,7 +144,7 @@ class QACategoryCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_one']['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_one']['slug']),
             ],
             'limit'=> 100,
         ]);
@@ -156,7 +156,7 @@ class QACategoryCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_two']['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_two']['slug']),
             ],
             'limit'=> 100,
         ]);
@@ -168,7 +168,7 @@ class QACategoryCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_three']['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_three']['slug']),
             ],
             'limit'=> 100,
         ]);
@@ -180,7 +180,7 @@ class QACategoryCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_four']['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_four']['slug']),
             ],
             'limit'=> 100,
         ]);
@@ -192,7 +192,7 @@ class QACategoryCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_five']['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_five']['slug']),
             ],
             'limit'=> 100,
         ]);
@@ -204,7 +204,7 @@ class QACategoryCrudController extends CrudController
             'wrapper' => [
                 'href' => 'javascript:void(0);',
                 'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
-                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/article-preview-".$article['article_six']['id']),
+                'data-url' => fn($crud, $column, $article, $category_id) => (env('FRONT_URL')."/".$article['article_six']['slug']),
             ],
             'limit'=> 100,
         ]);
