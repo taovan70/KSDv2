@@ -26,7 +26,6 @@ class MostTalkedArticlesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
             'article_id' => 'required|numeric|exists:articles,id',
         ];
     }

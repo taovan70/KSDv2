@@ -26,6 +26,17 @@ class MostTalkedArticle extends Model
     protected $fillable = ['name', 'lft', 'rgt', 'depth', 'parent_id', 'article_id'];
     // protected $hidden = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($item) {
+            if (empty($item->name)) {
+                $item->name = $item->article->name ?? 'У статьи нет названия';
+            }
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

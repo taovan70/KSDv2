@@ -53,7 +53,6 @@ class PopularCategoriesCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',
@@ -102,7 +101,6 @@ class PopularCategoriesCrudController extends CrudController
         //     'attribute' => 'name'
         // ]);
 
-        CRUD::field('name')->label(__('table.name'));
         CRUD::field('category_id')
             ->label(__('table.category'))
             ->type('select2');
@@ -127,7 +125,6 @@ class PopularCategoriesCrudController extends CrudController
 
     protected function setupShowOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
         CRUD::addColumn([
             'label' => __('table.category'),
             'type' => 'select',

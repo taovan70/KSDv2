@@ -32,6 +32,17 @@ class PopularCategories extends Model
     ];
     // protected $hidden = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($item) {
+            if (empty($item->name)) {
+                $item->name = $item->category->name ?? 'У категории нет названия';
+            }
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

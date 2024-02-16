@@ -54,7 +54,6 @@ class ReadersRecomendArticleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::addColumn([
             'label' => __('table.article'),
             'name' => 'article_id',
@@ -96,7 +95,6 @@ class ReadersRecomendArticleCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ReadersRecomendArticleRequest::class);
-        CRUD::field('name')->label(__('table.name'));
         CRUD::addField([
             'name' => 'article_id',
             'label' => __('table.article'),
@@ -124,7 +122,6 @@ class ReadersRecomendArticleCrudController extends CrudController
 
     protected function setupShowOperation()
     {
-        CRUD::column('name')->label(__('table.name'));
         CRUD::addColumn([
             'label' => __('table.article'),
             'name' => 'article_id',

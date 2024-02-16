@@ -26,6 +26,17 @@ class ReadersRecomendArticle extends Model
     protected $fillable = ['name', 'article_id', 'lft', 'rgt', 'depth', 'parent_id',];
     // protected $hidden = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($item) {
+            if (empty($item->name)) {
+                $item->name = $item->article->name ?? 'У статьи нет названия';
+            }
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

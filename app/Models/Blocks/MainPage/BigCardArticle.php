@@ -27,6 +27,17 @@ class BigCardArticle extends Model
     protected $fillable = ['name', 'content', 'photo_path', 'article_id'];
     // protected $hidden = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($item) {
+            if (empty($item->name)) {
+                $item->name = $item->article->name ?? 'У статьи нет названия';
+            }
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

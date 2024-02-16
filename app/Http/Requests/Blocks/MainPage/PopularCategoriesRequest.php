@@ -26,7 +26,6 @@ class PopularCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
             'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
