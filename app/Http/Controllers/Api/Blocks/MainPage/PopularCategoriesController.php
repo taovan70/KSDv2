@@ -17,8 +17,12 @@ class PopularCategoriesController extends Controller
     public function index()
     {
         $result = PopularCategories::with(['category' => function ($query) {
-            $query->withCount('articles')->with(['children' => function ($query) {
-                $query->withCount('articles');
+            $query->withCount(['articles' => function ($query) {
+                $query->where('published', 1);
+            }])->with(['children' => function ($query) {
+                $query->withCount(['articles' => function ($query) {
+                    $query->where('published', 1);
+                }]);
             }]);
         }])
             ->orderBy('lft', 'ASC')
@@ -34,7 +38,7 @@ class PopularCategoriesController extends Controller
             }
             $item['category']['articles_count'] = $categoryCount;
         }
-        
+
         return PopularCategoriesResource::collection($result);
     }
 }
