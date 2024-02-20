@@ -16,6 +16,7 @@ class PopularCategoriesResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'photo_path' => $this->photo_path,
             'category' => [
                 'name' => $this->category?->name,
                 'slug' => $this->category?->slug,

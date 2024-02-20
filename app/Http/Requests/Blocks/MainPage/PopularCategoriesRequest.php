@@ -27,6 +27,7 @@ class PopularCategoriesRequest extends FormRequest
     {
         return [
             'category_id' => 'required|numeric|exists:categories,id',
+            'photo_path' => 'image|max:4096',
         ];
     }
 

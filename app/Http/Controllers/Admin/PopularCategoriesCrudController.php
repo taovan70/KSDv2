@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Blocks\MainPage\PopularCategoriesRequest;
-use App\Services\CategoryService;
+use App\Models\Blocks\MainPage\PopularCategories;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class PopularCategoriesCrudController
@@ -31,7 +32,7 @@ class PopularCategoriesCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Blocks\MainPage\PopularCategories::class);
+        CRUD::setModel(PopularCategories::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/popular-categories');
         CRUD::setEntityNameStrings(__('models.popular_categories'), __('models.popular_categories'));
     }
@@ -105,6 +106,14 @@ class PopularCategoriesCrudController extends CrudController
             ->label(__('table.category'))
             ->type('select2');
 
+        CRUD::addField([
+            'name' => 'photo_path',
+            'label' => __('table.author_fields.photo'),
+            'type' => 'upload',
+            'upload' => true,
+            'disk' => 'public'
+        ]);
+
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
@@ -135,5 +144,23 @@ class PopularCategoriesCrudController extends CrudController
                 'href' => fn ($crud, $column, $article, $category_id) => backpack_url("category/{$category_id}/show")
             ]
         ]);
+
+        CRUD::addColumn([
+            'name' => 'photo_path',
+            'label' => __('table.photo_in_block'),
+            'type' => 'image',
+            'prefix' => 'storage/',
+            'width' => '100px',
+            'height' => 'auto'
+        ]);
+    }
+
+    protected function setupDeleteOperation()
+    {
+        PopularCategories::deleting(function (PopularCategories $popularCategories) {
+            if (!empty($popularCategories->photo_path)) {
+                Storage::disk('public')->delete($popularCategories->photo_path);
+            }
+        });
     }
 }

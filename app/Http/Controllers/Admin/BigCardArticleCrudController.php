@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\Blocks\MainPage\BigCardArticleRequest;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class BigCardArticleCrudController
@@ -142,7 +143,7 @@ class BigCardArticleCrudController extends CrudController
     {
         BigCardArticle::deleting(function (BigCardArticle $bigCardArticle) {
             if (!empty($bigCardArticle->photo_path)) {
-                BigCardArticle::disk('public')->delete($bigCardArticle->photo_path);
+                Storage::disk('public')->delete($bigCardArticle->photo_path);
             }
         });
     }

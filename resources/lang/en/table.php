@@ -33,6 +33,7 @@ return [
     'meta_keywords' => 'Meta keywords',
     'meta_title' => 'Meta title',
     'meta_description' => 'Meta description',
+    'photo_in_block' => 'Photo in block',
     'author_fields' => [
         'full_name' => 'Full name',
         'age' => 'Age',

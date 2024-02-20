@@ -33,6 +33,7 @@ return [
     'meta_keywords' => 'Мета-данные keywords',
     'meta_title' => 'Мета-данные title',
     'meta_description' => 'Мета-данные description',
+    'photo_in_block' => 'Фото в блоке',
     'author_fields' => [
         'full_name' => 'ФИО',
         'age' => 'Возраст',

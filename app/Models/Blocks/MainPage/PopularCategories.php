@@ -29,6 +29,7 @@ class PopularCategories extends Model
         'rgt',
         'depth',
         'parent_id',
+        'photo_path',
     ];
     // protected $hidden = [];
 
@@ -77,4 +78,18 @@ class PopularCategories extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function setPhotoPathAttribute($value)
+    {
+        $attribute_name = "photo_path";
+        $disk = "public";
+        $destination_path = "popular_articles_main_page_photos";
+
+        if (is_file($value)) {
+            $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+        } else {
+            $this->attributes[$attribute_name] = $value; // uncomment if this is a translatable field
+        }
+
+    }
 }
