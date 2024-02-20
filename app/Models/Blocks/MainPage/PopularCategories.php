@@ -83,7 +83,7 @@ class PopularCategories extends Model
     {
         $attribute_name = "photo_path";
         $disk = "public";
-        $destination_path = "popular_articles_main_page_photos";
+        $destination_path = "popular_categories_main_page_photos";
 
         if (is_file($value)) {
             $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
