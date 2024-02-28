@@ -9,6 +9,15 @@
 
     // if breadcrumbs aren't defined in the CrudController, use the default breadcrumbs
     $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
+    $locale = app()->getLocale();
+    $settingsNameMap = [
+        "newBehaviour" => ["ru" => "Новое поведение", "en" => "new behaviour"],
+        "initial" => ["ru" => "По умолчанию", "en" => "initial"],
+        "yes" => ["ru" => "Да", "en" => "Yes"],
+        "no" => ["ru" => "Нет", "en" => "No"],
+        "viewSettings" => ["ru"=> "Настройки отображения", "en" => "View Settings"],
+        "commonSettings" => ["ru"=> "Общие настройки", "en" => "Common Settings"]
+    ];
 @endphp
 
 @section('header')
@@ -33,7 +42,7 @@
                 </div>
             </div>
             <div class="{{ backpack_theme_config('classes.tableWrapper') }}">
-                <h4 class="table-settings-name">Общие настройки</h4>
+                <h4 class="table-settings-name">{{$settingsNameMap['commonSettings'][$locale]}}</h4>
                 <table
                         id="crudTable1"
                         class="{{ backpack_theme_config('classes.table') ?? 'table table-striped table-hover nowrap rounded card-table table-vcenter card d-table shadow-xs border-xs' }}"
@@ -68,10 +77,10 @@
                     @foreach ($settingCommon as $setting)
                         @php
                             if ($setting["value"] === '1') {
-                                $settingValue = "Да";
+                                $settingValue = $settingsNameMap['yes'][$locale];
                             } else {
                                 if ($setting["value"] === '0') {
-                                    $settingValue = "Нет";
+                                    $settingValue = $settingsNameMap['no'][$locale];
                                 } else {
                                     $settingValue = $setting["value"];
                                 }
@@ -79,11 +88,11 @@
                         @endphp
                         <tr class="odd">
                             <td class="dtr-control">
-                                <span>{{json_decode($setting["name"])->ru}}</span>
+                                <span>{{json_decode($setting["name"])->$locale}}</span>
                             </td>
                             <td><span>{{$settingValue}}</span>
                             </td>
-                            <td><span>{{json_decode($setting["description"])->ru}}</span>
+                            <td><span>{{json_decode($setting["description"])->$locale}}</span>
                             </td>
                             <td>
                                 <a href="/admin/setting/{{$setting["id"]}}/edit" class="btn btn-sm btn-link">
@@ -115,7 +124,7 @@
             </div>
 
             <div class="{{ backpack_theme_config('classes.tableWrapper') }}">
-                <h4 class="table-settings-name">Настройки отображения</h4>
+                <h4 class="table-settings-name">{{$settingsNameMap['viewSettings'][$locale]}}</h4>
                 <table
                         id="crudTable1"
                         class="{{ backpack_theme_config('classes.table') ?? 'table table-striped table-hover nowrap rounded card-table table-vcenter card d-table shadow-xs border-xs' }}"
@@ -150,13 +159,13 @@
                     @foreach ($settingView as $setting)
                         @php
                             if ($setting["value"] === '1') {
-                                $settingValue = "Да";
+                                $settingValue = $settingsNameMap['yes'][$locale];
                             } else {
                                 if ($setting["value"] === '0') {
-                                    $settingValue = "Нет";
+                                    $settingValue = $settingsNameMap['no'][$locale];
                                 } else {
-                                    if($setting["value"] === 'initial') {
-                                        $settingValue = "По умолчанию";
+                                    if($settingsNameMap[$setting["value"]]) {
+                                        $settingValue = $settingsNameMap[$setting["value"]][$locale];
                                     } else {
                                         $settingValue = $setting["value"];
                                     }
@@ -165,11 +174,11 @@
                         @endphp
                         <tr class="odd">
                             <td class="dtr-control">
-                                <span>{{json_decode($setting["name"])->ru}}</span>
+                                <span>{{json_decode($setting["name"])->$locale}}</span>
                             </td>
                             <td><span>{{$settingValue}}</span>
                             </td>
-                            <td><span>{{json_decode($setting["description"])->ru}}</span>
+                            <td><span>{{json_decode($setting["description"])->$locale}}</span>
                             </td>
                             <td>
                                 <a href="/admin/setting/{{$setting["id"]}}/edit" class="btn btn-sm btn-link">

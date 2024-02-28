@@ -45,7 +45,7 @@ class CustomSettingCrudController extends SettingCrudController
     public function index()
     {
         $commonSettingsKeys = ["user_logging_all", "user_logging_auth", "user_logging_on_model", "subscribe_telegram_channel", "subscribe_vk_channel"];
-        $viewSettingsKeys = ["text_on_article_image_preview", "hide_theme_change_button", "buttons_type_on_site"];
+        $viewSettingsKeys = ["text_on_article_image_preview", "hide_theme_change_button", "buttons_type_on_site", "article_content_button_behavior"];
         $this->crud->hasAccessOrFail('list');
         $this->crud->setDefaultPageLength(100);
 

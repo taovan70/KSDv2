@@ -22,12 +22,14 @@ class SettingController extends Controller
         $subscribeVKChannel = Setting::where('key', 'subscribe_vk_channel')->first();
         $hideThemeChangeButton = Setting::where('key', 'hide_theme_change_button')->first();
         $buttonTypeOnSite = Setting::where('key', 'buttons_type_on_site')->first();
+        $articleContentButtonBehavior = Setting::where('key', 'article_content_button_behavior')->first();
         $settings = [
             'preview_type' => $textOnArticle->value ? 'type2' : 'type1',
             'subscribe_telegram_channel' => $subscribeTelegramChannel->value,
             'subscribe_vk_channel' => $subscribeVKChannel->value,
             'hide_theme_change_button' => (bool) $hideThemeChangeButton->value,
-            'buttons_type_on_site' => $buttonTypeOnSite->value
+            'buttons_type_on_site' => $buttonTypeOnSite->value,
+            'article_content_button_behavior' => $articleContentButtonBehavior->value,
         ];
 
         return $settings;

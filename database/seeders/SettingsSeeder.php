@@ -160,5 +160,24 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'article_content_button_behavior')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "article_content_button_behavior",
+                    'name' => json_encode(
+                        ["en" => "Article content button behavior", "ru" => "Поведение кнопки содержания в статье"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => '{"name":"value","label":"","type":"select_from_array","options":{"initial":"По умолчанию (initial)","newBehaviour":"Новое поведение"},"allows_null":false,"default":"initial"}',
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }
