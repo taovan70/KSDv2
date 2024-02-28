@@ -141,5 +141,24 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'buttons_type_on_site')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "buttons_type_on_site",
+                    'name' => json_encode(
+                        ["en" => "Buttons type on site", "ru" => "Стили кнопок на сайте"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => '{"name":"value","label":"","type":"select_from_array","options":{"initial":"По умолчанию (initial)","3DButtonGlare":"3D Button Glare"},"allows_null":false,"default":"initial"}',
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }
