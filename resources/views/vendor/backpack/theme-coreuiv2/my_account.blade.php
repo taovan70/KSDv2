@@ -26,7 +26,6 @@
 
 @section('content')
     <div class="row">
-
         @if (session('success'))
             <div class="col-lg-8">
                 <div class="alert alert-success">
@@ -143,42 +142,42 @@
             </form>
         </div>
 
-       <div class="col-lg-8">
+        <div class="col-lg-8">
 
-           <form class="form" action="{{ route('user.set_language') }}" method="post">
+            <form class="form" action="{{ route('user.set_language') }}" method="post">
 
-                    {!! csrf_field() !!}
+                {!! csrf_field() !!}
 
-                    <div class="card padding-10">
+                <div class="card padding-10">
 
-                        <div class="card-header">
-                            {{ __('table.user_fields.change_lang') }}
-                        </div>
+                    <div class="card-header">
+                        {{ __('table.user_fields.change_lang') }}
+                    </div>
 
-                        <div class="card-body backpack-profile-form bold-labels">
+                    <div class="card-body backpack-profile-form bold-labels">
 
-                            <div class="row">
-                                <div class="col-md-3 form-group">
-                                    @php
-                                        $field = 'lang';
-                                    @endphp
-                                    <label class="required">{{ __('table.user_fields.lang') }}</label>
-                                    <select name="{{ $field }}" id="{{ $field }}" class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="en" @if($user->lang === 'en') selected @endif>EN</option>
-                                        <option value="ru" @if($user->lang === 'ru') selected @endif>RU</option>
-                                    </select>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                @php
+                                    $field = 'lang';
+                                @endphp
+                                <label class="required">{{ __('table.user_fields.lang') }}</label>
+                                <select name="{{ $field }}" id="{{ $field }}" class="custom-select custom-select-sm form-control form-control-sm">
+                                    <option value="en" @if($user->lang === 'en') selected @endif>EN</option>
+                                    <option value="ru" @if($user->lang === 'ru') selected @endif>RU</option>
+                                </select>
                             </div>
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-success"><i class="la la-save"></i> {{ trans('backpack::base.save') }}</button>
-                            <a href="{{ backpack_url() }}" class="btn">{{ trans('backpack::base.cancel') }}</a>
                         </div>
                     </div>
 
-                </form>
-       </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success"><i class="la la-save"></i> {{ trans('backpack::base.save') }}</button>
+                        <a href="{{ backpack_url() }}" class="btn">{{ trans('backpack::base.cancel') }}</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
 
     </div>
 @endsection
