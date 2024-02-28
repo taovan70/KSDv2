@@ -82,7 +82,11 @@
                                 if ($setting["value"] === '0') {
                                     $settingValue = $settingsNameMap['no'][$locale];
                                 } else {
-                                    $settingValue = $setting["value"];
+                                    if(isset($settingsNameMap[$setting["value"]])) {
+                                        $settingValue = $settingsNameMap[$setting["value"]][$locale];
+                                    } else {
+                                        $settingValue = $setting["value"];
+                                    }
                                 }
                             }
                         @endphp
@@ -164,7 +168,7 @@
                                 if ($setting["value"] === '0') {
                                     $settingValue = $settingsNameMap['no'][$locale];
                                 } else {
-                                    if($settingsNameMap[$setting["value"]]) {
+                                    if(isset($settingsNameMap[$setting["value"]])) {
                                         $settingValue = $settingsNameMap[$setting["value"]][$locale];
                                     } else {
                                         $settingValue = $setting["value"];
