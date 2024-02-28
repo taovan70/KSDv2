@@ -27,6 +27,7 @@ class InfoBlockRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'slug' => 'required|max:255',
             'main_text' => 'nullable|string',
             'add_text' => 'nullable|string',
             'photo_path' => 'image|max:4096',
@@ -54,6 +55,7 @@ class InfoBlockRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.common.required'),
+            'slug.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'photo_path.max' => __('validation.common.max') . ' ' . ':max',
             'photo_path.image' => __('validation.common.image'),

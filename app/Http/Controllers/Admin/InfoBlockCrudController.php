@@ -44,6 +44,7 @@ class InfoBlockCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label(__('table.name'))->limit(70);
+        CRUD::column('slug')->label(__('table.slug'));
         CRUD::column('main_text')->label(__('models.main_text'));
         CRUD::column('add_text')->label(__('models.add_text'));
 
@@ -71,6 +72,7 @@ class InfoBlockCrudController extends CrudController
     {
         CRUD::setValidation(InfoBlockRequest::class);
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('slug')->label(__('table.slug'));
         CRUD::field('main_text')->label(__('models.main_text'));
         CRUD::field('add_text')->label(__('models.add_text'));
         CRUD::addField([
