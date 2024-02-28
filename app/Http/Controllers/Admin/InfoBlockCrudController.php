@@ -45,8 +45,6 @@ class InfoBlockCrudController extends CrudController
     {
         CRUD::column('name')->label(__('table.name'))->limit(70);
         CRUD::column('slug')->label(__('table.slug'));
-        CRUD::column('main_text')->label(__('models.main_text'));
-        CRUD::column('add_text')->label(__('models.add_text'));
 
         Widget::add([
             'type' => 'view',
@@ -59,6 +57,11 @@ class InfoBlockCrudController extends CrudController
         Widget::add([
             'type' => 'script',
             'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
+        ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js',
         ]);
     }
 
@@ -73,7 +76,15 @@ class InfoBlockCrudController extends CrudController
         CRUD::setValidation(InfoBlockRequest::class);
         CRUD::field('name')->label(__('table.name'));
         CRUD::field('slug')->label(__('table.slug'));
-        CRUD::field('main_text')->label(__('models.main_text'));
+        CRUD::addField([
+            'name' => 'main_text',
+            'label' => __('models.main_text'),
+            'type' => 'ckeditor',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::field('add_text')->label(__('models.add_text'));
         CRUD::addField([
             'name' => 'photo_path',
