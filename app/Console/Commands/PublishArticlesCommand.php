@@ -29,6 +29,7 @@ class PublishArticlesCommand extends Command
     {
         Article::query()
             ->whereDate('publish_date', '<=', Carbon::today())
+            ->whereNull('preview_for')
             ->update([
                 'published' => true
             ]);
