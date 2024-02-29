@@ -85,7 +85,15 @@ class InfoBlockCrudController extends CrudController
                 'autoGrow_bottomSpace' => 50
             ]
         ]);
-        CRUD::field('add_text')->label(__('models.add_text'));
+        CRUD::addField([
+            'name' => 'add_text',
+            'label' => __('models.add_text'),
+            'type' => 'ckeditor',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::addField([
             'name' => 'photo_path',
             'label' => __('table.author_fields.photo'),
