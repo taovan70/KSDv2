@@ -27,7 +27,7 @@ class CategoryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \App\Http\Controllers\Admin\Operations\Traits\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Operations\Traits\InlineUpdateOperation;
 
     /**
@@ -101,6 +101,7 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('slug')->label(__('table.slug'));
         CRUD::field('menu_order')->type('number')->label(__('table.menu_order'));
         CRUD::addField([
             'name' => 'description',
@@ -136,9 +137,6 @@ class CategoryCrudController extends CrudController
             'disk' => 'public'
         ]);
 
-        Category::creating(function (Category $category) {
-            $category->slug = Str::slug($category->name, '_');
-        });
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -177,6 +175,7 @@ class CategoryCrudController extends CrudController
         CRUD::setValidation(CategoryUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('slug')->label(__('table.slug'));
         CRUD::field('menu_order')->type('number')->label(__('table.menu_order'));
         CRUD::addField([
             'name' => 'description',
@@ -212,9 +211,6 @@ class CategoryCrudController extends CrudController
             'disk' => 'public'
         ]);
 
-        Category::updating(function (Category $category) {
-            $category->slug = Str::slug($category->name, '_');
-        });
     }
 
     protected function setupShowOperation()

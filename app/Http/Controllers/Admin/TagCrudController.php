@@ -83,10 +83,7 @@ class TagCrudController extends CrudController
         CRUD::setValidation(TagStoreRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
-
-        Tag::creating(function (Tag $tag) {
-            $tag->slug = Str::slug($tag->name, '_');
-        });
+        CRUD::field('slug')->label(__('table.slug'));
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -106,10 +103,8 @@ class TagCrudController extends CrudController
         CRUD::setValidation(TagUpdateRequest::class);
 
         CRUD::field('name')->label(__('table.name'));
+        CRUD::field('slug')->label(__('table.slug'));
 
-        Tag::updating(function (Tag $tag) {
-            $tag->slug = Str::slug($tag->name, '_');
-        });
     }
 
     protected function setupShowOperation()

@@ -25,7 +25,7 @@ class Tag extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'slug'];
     // protected $hidden = [];
     // protected $dates = [];
 

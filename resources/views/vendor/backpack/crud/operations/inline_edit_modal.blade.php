@@ -56,5 +56,70 @@ this is the only available when rendering the modal html. --}}
 @stack('crud_fields_styles')
 
 @stack('after_scripts')
+<script>
+
+  function translit(word) {
+    if (!word) return ''
+    let answer = '';
+    let converter = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+      'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i',
+      'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n',
+      'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+      'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch',
+      'ш': 'sh', 'щ': 'sch', 'ь': '', 'ы': 'y', 'ъ': '',
+      'э': 'e', 'ю': 'yu', 'я': 'ya', '.': '-', ',': '-', '!': '', '?': '', ' ': '-', ':': '-',  ';': '-',
+
+      'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D',
+      'Е': 'E', 'Ё': 'E', 'Ж': 'Zh', 'З': 'Z', 'И': 'I',
+      'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N',
+      'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T',
+      'У': 'U', 'Ф': 'F', 'Х': 'H', 'Ц': 'C', 'Ч': 'Ch',
+      'Ш': 'Sh', 'Щ': 'Sch', 'Ь': '', 'Ы': 'Y', 'Ъ': '',
+      'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya'
+    };
+
+    for (let i = 0; i < word.length; ++i) {
+      if (converter[word[i]] === undefined) {
+        answer += word[i];
+      } else {
+        answer += converter[word[i]];
+      }
+    }
+
+    return answer.replace(/\s+/g, '-').toLowerCase();
+  }
+
+  function hasWhiteSpace(s) {
+    return (/\s/).test(s);
+  }
+
+  $('#inline-create-dialog').on('shown.bs.modal', function () {
+   const $nameInput = $('input[name="name"]');
+   const $slugInput = $('input[name="slug"]');
+   const $saveButton = $('#saveButton');
+
+    if ($nameInput.length > 0 && $slugInput.length > 0) {
+
+      $nameInput.on("input", function() {
+        $slugInput.val(translit($(this).val()));
+      })
+
+      $slugInput.on("input", function() {
+          if (hasWhiteSpace($(this).val())) {
+            if ($('#error_slug').length === 0) {
+              $('<span id="error_slug" style="color: red;">Недопустимые символы</span>').insertAfter($(this));
+            }
+            $saveButton.prop('disabled', true);
+          } else {
+            $('#error_slug').remove();
+            $saveButton.prop('disabled', false);
+          }
+      })
+    }
+
+  });
+
+</script>
 
 @stack('after_styles')
