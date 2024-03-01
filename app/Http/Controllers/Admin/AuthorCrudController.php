@@ -61,6 +61,11 @@ class AuthorCrudController extends CrudController
             'type' => 'script',
             'content'  => 'https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js',
         ]);
+
+        Widget::add([
+            'type' => 'script',
+            'content'  => 'https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js',
+        ]);
     }
 
     /**
@@ -86,7 +91,15 @@ class AuthorCrudController extends CrudController
             ]
         ]);
         CRUD::field('age')->label(__('table.author_fields.age'))->type('number');
-        CRUD::field('biography')->label(__('table.author_fields.biography'))->type('textarea');
+        CRUD::addField([
+            'name' => 'biography',
+            'label' => __('table.author_fields.biography'),
+            'type' => 'ckeditor',
+            'options'       => [
+                'autoGrow_minHeight'   => 200,
+                'autoGrow_bottomSpace' => 50
+            ]
+        ]);
         CRUD::field('description')->label(__('table.author_fields.description'))->type('textarea');
         CRUD::field('address')->label(__('table.author_fields.address'));
         CRUD::addField([
@@ -155,11 +168,6 @@ class AuthorCrudController extends CrudController
         CRUD::column('full_name')->label(__('table.author_fields.full_name'));
         CRUD::column('age')->label(__('table.author_fields.age'));
         CRUD::column('fullGender')->label(__('table.author_fields.gender'));
-        CRUD::addColumn([
-            'name' => 'biography',
-            'label' => __('table.author_fields.biography'),
-            'limit' => 1000
-        ]);
         CRUD::column('address')->label(__('table.author_fields.address'));
         CRUD::column('personal_site')->label(__('table.author_fields.personal_site'));
         CRUD::addColumn([
