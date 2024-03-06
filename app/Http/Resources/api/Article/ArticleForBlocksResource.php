@@ -21,16 +21,16 @@ class ArticleForBlocksResource extends JsonResource
             'slug' => $this->slug,
             'publish_date' => $this->publish_date,
             'author' => [
-                'id' => $this->author->id,
-                'name' => $this->author->name,
-                'surname' => $this->author->surname,
-                'slug' => $this->author->slug,
+                'id' => $this->author?->id,
+                'name' => $this->author?->name,
+                'surname' => $this->author?->surname,
+                'slug' => $this->author?->slug,
             ],
             'category' => [
-                'name' => $this->category->name,
-                'slug' => $this->category->slug,
-                'depth' => $this->category->depth,
-                'icon_path' => $this->category->icon_path
+                'name' => $this->category?->name,
+                'slug' => $this->category?->slug,
+                'depth' => $this->category?->depth,
+                'icon_path' => $this->category?->icon_path
             ],
             'media' => [
                 'mainPic' => $this->getMedia('mainPic'),
