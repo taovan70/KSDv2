@@ -162,6 +162,20 @@
 
 @section('after_scripts')
   @include('crud::inc.datatables_logic')
+  <script>
+    function copyUrlToClipboard(id, text) {
+      const dataUrl = document.getElementById(id).getAttribute('data-url');
+
+      // Copy the value to the clipboard
+      navigator.clipboard.writeText(dataUrl)
+        .then(function() {
+          alert(text + ': ' + dataUrl);
+        })
+        .catch(function(error) {
+          console.error('Unable to copy URL: ', error);
+        });
+    }
+  </script>
 
   {{-- CRUD LIST CONTENT - crud_list_scripts stack --}}
   @stack('crud_list_scripts')

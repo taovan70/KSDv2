@@ -13,7 +13,26 @@ class ArticleCRUD extends CrudPanelFacade
 {
     public static function listColumns(): void
     {
-        CRUD::column('name')->label(__('table.name'))->limit(70);
+
+        CRUD::addColumn([
+            'label' => __('table.name'),
+            'type' => 'text',
+            'name' => 'name',
+            'wrapper' => [
+                'href' => 'javascript:void(0);',
+                'id' => function ($crud, $column, $article, $category_id)  {
+                    return ('articles-list-link-href-'.$article['slug']);
+                },
+                'onclick' => 'setPreviewCookie();window.open(this.dataset.url,`_blank`);return false;',
+                'oncontextmenu' => function ($crud, $column, $article, $category_id)  {
+                    return ('copyUrlToClipboard("articles-list-link-href-'.$article['slug'].'","'.__('table.link_copied').'");return false;');
+                },
+                'data-url' => function ($crud, $column, $article, $category_id)  {
+                    return (env('FRONT_URL')."/".$article['slug']);
+                },
+            ],
+        ]);
+
         CRUD::addColumn([
             'label' => __('table.author'),
             'type' => 'select',
