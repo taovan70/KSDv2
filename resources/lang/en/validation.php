@@ -15,5 +15,8 @@ return [
     ],
     'category' => [
         'not_empty' => 'You cannot delete a category if it or its subcategories contain entries.'
-    ]
+    ],
+    'author' => [
+        'not_empty' => 'You cannot delete an author if it has articles.'
+    ],
 ];

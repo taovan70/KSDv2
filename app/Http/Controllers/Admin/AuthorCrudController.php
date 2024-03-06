@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Author\AuthorRequest;
+use App\Models\Article;
 use App\Models\Author;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Storage;
+use Prologue\Alerts\Facades\Alert;
 
 /**
  * Class AuthorCrudController
@@ -187,12 +189,17 @@ class AuthorCrudController extends CrudController
         ]);
     }
 
-    protected function setupDeleteOperation()
+    public function destroy($id)
     {
-        Author::deleting(function (Author $author) {
+        $articles = Article::where('author_id', $id)->get()->count();
+        if ($articles > 0) {
+            return Alert::add('error', __('validation.author.not_empty'));
+        } else {
+            $author = Author::find($id);
             if (!empty($author->photo_path)) {
                 Storage::disk('public')->delete($author->photo_path);
             }
-        });
+            return $this->crud->delete($id);
+        }
     }
 }
