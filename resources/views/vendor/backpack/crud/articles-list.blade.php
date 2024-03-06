@@ -163,11 +163,37 @@
 @section('after_scripts')
   @include('crud::inc.datatables_logic')
   <script>
+    async function copyToClipboard(textToCopy) {
+      // Navigator clipboard api needs a secure context (https)
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(textToCopy);
+      } else {
+        // Use the 'out of viewport hidden text area' trick
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+
+        // Move textarea out of the viewport so it's not visible
+        textArea.style.position = "absolute";
+        textArea.style.left = "-999999px";
+
+        document.body.prepend(textArea);
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+        } catch (error) {
+          console.error(error);
+        } finally {
+          textArea.remove();
+        }
+      }
+    }
+
     function copyUrlToClipboard(id, text) {
       const dataUrl = document.getElementById(id).getAttribute('data-url');
 
       // Copy the value to the clipboard
-      navigator.clipboard.writeText(dataUrl)
+      copyToClipboard(dataUrl)
         .then(function() {
           alert(text + ': ' + dataUrl);
         })
