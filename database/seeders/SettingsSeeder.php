@@ -198,5 +198,43 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'site_logo_day')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "site_logo_day",
+                    'name' => json_encode(
+                        ["en" => "site logo day", "ru" => "Логотип на сайте (день)"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => json_encode(["name"=>"value","label"=>"","type"=>"upload", "withFiles"=>["disk" => "public", "path" => "logo"]]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
+
+        if (!Setting::where('key', 'site_logo_night')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "site_logo_night",
+                    'name' => json_encode(
+                        ["en" => "site logo night", "ru" => "Логотип на сайте (ночь)"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => json_encode(["name"=>"value","label"=>"","type"=>"upload", "withFiles"=>["disk" => "public", "path" => "logo"]]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }

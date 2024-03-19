@@ -24,6 +24,8 @@ class SettingController extends Controller
         $buttonTypeOnSite = Setting::where('key', 'buttons_type_on_site')->first();
         $articleContentButtonBehavior = Setting::where('key', 'article_content_button_behavior')->first();
         $footerBottomCopyrightText = Setting::where('key', 'footer_bottom_copyright_text')->first();
+        $siteLogoDay = Setting::where('key', 'site_logo_day')->first();
+        $siteLogNight = Setting::where('key', 'site_logo_night')->first();
         $settings = [
             'preview_type' => $textOnArticle->value ? 'type2' : 'type1',
             'subscribe_telegram_channel' => $subscribeTelegramChannel?->value,
@@ -32,6 +34,10 @@ class SettingController extends Controller
             'buttons_type_on_site' => $buttonTypeOnSite?->value,
             'article_content_button_behavior' => $articleContentButtonBehavior?->value,
             'footer_bottom_copyright_text' => $footerBottomCopyrightText?->value,
+            'site_logo' => [
+                'day' => $siteLogoDay?->value,
+                'night' => $siteLogNight?->value
+            ]
         ];
 
         return $settings;

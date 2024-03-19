@@ -50,7 +50,9 @@ class CustomSettingCrudController extends SettingCrudController
             "hide_theme_change_button",
             "buttons_type_on_site",
             "article_content_button_behavior",
-            "footer_bottom_copyright_text"
+            "footer_bottom_copyright_text",
+            "site_logo_day",
+            "site_logo_night",
         ];
         $this->crud->hasAccessOrFail('list');
         $this->crud->setDefaultPageLength(100);
