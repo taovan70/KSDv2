@@ -35,6 +35,7 @@ class CategoryUpdateRequest extends FormRequest
             ],
             'description' => 'required|string',
             'menu_order' => 'required|integer',
+            'slug' => 'required|string|min:2|max:255|regex:/^\S*$/u|unique:categories,slug,'. $this->id,
         ];
     }
 
@@ -58,7 +59,6 @@ class CategoryUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Имяобязательно',
             'name.required' => __('validation.common.required'),
             'icon_path.required' => __('validation.common.required'),
             'photo_path.required' => __('validation.common.required'),
@@ -66,6 +66,8 @@ class CategoryUpdateRequest extends FormRequest
             'description.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'name.min' => __('validation.common.min') . ' ' . ':min',
+            'slug.required' => __('validation.common.required'),
+            'slug.unique' => __('validation.common.unique'),
         ];
     }
 }

@@ -25,7 +25,8 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:255|unique:categories,name,' . $this->id,
+            'name' => 'required|string|min:2|max:255|unique:categories,name',
+            'slug' => 'required|string|min:2|max:255|regex:/^\S*$/u|unique:categories,slug',
             'menu_order' => 'required|integer',
             'description' => 'required|string',
             'icon_path' => 'required|image',
@@ -65,7 +66,9 @@ class CategoryStoreRequest extends FormRequest
             'mini_pic_path.required' => __('validation.common.required'),
             'name.max' => __('validation.common.max') . ' ' . ':max',
             'name.min' => __('validation.common.min') . ' ' . ':min',
-            'name.unique' => __('validation.common.unique')
+            'name.unique' => __('validation.common.unique'),
+            'slug.required' => __('validation.common.required'),
+            'slug.unique' => __('validation.common.unique'),
         ];
     }
 }

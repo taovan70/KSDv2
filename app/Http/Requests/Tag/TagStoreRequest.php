@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Tag;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TagStoreRequest extends FormRequest
@@ -25,7 +26,8 @@ class TagStoreRequest extends FormRequest
     public function rules()
     {
         return [
-             'name' => 'required|string|min:2|max:255|unique:tags,name,'. $this->id
+            'name' => 'required|string|min:2|max:255|unique:tags,name',
+            'slug' => 'required|string|min:2|max:255|regex:/^\S*$/u|unique:tags,slug'
         ];
     }
 
@@ -53,6 +55,9 @@ class TagStoreRequest extends FormRequest
             'name.min' => __('validation.common.min') .' ' . ':min',
             'name.max' => __('validation.common.max') .' ' . ':max',
             'name.unique' => __('validation.common.unique'),
+            'slug.required' => __('validation.common.required'),
+            'slug.unique' => __('validation.common.unique'),
+
         ];
     }
 }

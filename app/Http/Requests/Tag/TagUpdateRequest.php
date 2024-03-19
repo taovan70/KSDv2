@@ -32,7 +32,8 @@ class TagUpdateRequest extends FormRequest
                  'min:2',
                  'max:255',
                  Rule::unique('tags')->ignore($this->id)
-             ]
+             ],
+            'slug' => 'required|string|min:2|max:255|regex:/^\S*$/u|unique:tags,slug,'. $this->id,
         ];
     }
 
@@ -59,6 +60,8 @@ class TagUpdateRequest extends FormRequest
             'name.required' => __('validation.common.required'),
             'name.min' => __('validation.common.min') .' ' . ':min',
             'name.max' => __('validation.common.max') .' ' . ':max',
+            'slug.required' => __('validation.common.required'),
+            'slug.unique' => __('validation.common.unique'),
         ];
     }
 }
