@@ -179,5 +179,24 @@ class SettingsSeeder extends Seeder
                 ]
             );
         }
+
+        if (!Setting::where('key', 'footer_bottom_copyright_text')->first()) {
+            Setting::firstOrCreate(
+                [
+                    'key' => "footer_bottom_copyright_text",
+                    'name' => json_encode(
+                        ["en" => "footer copyright text", "ru" => "Текст копирайта в футере"]
+                    ),
+                    'Description' => json_encode(
+                        ["en" => "", "ru" => ""]
+                    ),
+                    'value' => "",
+                    'field' => json_encode(["name"=>"value","label"=>"","type"=>"text"]),
+                    'active' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]
+            );
+        }
     }
 }

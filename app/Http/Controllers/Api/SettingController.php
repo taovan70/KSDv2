@@ -23,6 +23,7 @@ class SettingController extends Controller
         $hideThemeChangeButton = Setting::where('key', 'hide_theme_change_button')->first();
         $buttonTypeOnSite = Setting::where('key', 'buttons_type_on_site')->first();
         $articleContentButtonBehavior = Setting::where('key', 'article_content_button_behavior')->first();
+        $footerBottomCopyrightText = Setting::where('key', 'footer_bottom_copyright_text')->first();
         $settings = [
             'preview_type' => $textOnArticle->value ? 'type2' : 'type1',
             'subscribe_telegram_channel' => $subscribeTelegramChannel?->value,
@@ -30,6 +31,7 @@ class SettingController extends Controller
             'hide_theme_change_button' => (bool) $hideThemeChangeButton?->value,
             'buttons_type_on_site' => $buttonTypeOnSite?->value,
             'article_content_button_behavior' => $articleContentButtonBehavior?->value,
+            'footer_bottom_copyright_text' => $footerBottomCopyrightText?->value,
         ];
 
         return $settings;
