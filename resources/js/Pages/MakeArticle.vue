@@ -801,6 +801,11 @@ const copyToClipboard = (val) => {
   padding: 8px;
 }
 
+
+.instruction_compoment_image {
+  max-width: 450px;
+}
+
 .form_error_text {
   color: red;
   font-size: 12px;
@@ -881,4 +886,5 @@ button[data-cke-tooltip-text="Toggle caption on"] {
   display: none!important;
   visibility: hidden!important;
 }
+
 </style>
